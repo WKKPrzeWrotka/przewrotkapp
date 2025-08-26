@@ -1,0 +1,10 @@
+class: GearDataClothing
+table: gear_data_clothes
+fields:
+  gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
+  type: ClothingType
+  typeDescription: String?
+indexes:
+  clothes_gear_unique_idx:
+    fields: gearId
+    unique: true

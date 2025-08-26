@@ -1,0 +1,8 @@
+class: Gear
+table: gear
+fields:
+  clubId: String
+  manufacturer: String?
+  model: String?
+  friendlyName: String?
+  photoUrls: List<Uri>?

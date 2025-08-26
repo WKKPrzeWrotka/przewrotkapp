@@ -1,0 +1,12 @@
+class: GearDataPaddle
+table: gear_data_paddles
+fields:
+  gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
+  type: PaddleType
+  length: double
+  ### Negative values represents variable - "up to abs(rotation)"
+  rotation: int
+indexes:
+  paddles_gear_unique_idx:
+    fields: gearId
+    unique: true

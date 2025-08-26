@@ -1,2 +1,7 @@
+allKayaks:
+  - getAllKayaks:
+  - addNewKayak:
+  - addKayakPhoto:
+  - getKayakPhoto:
 greeting:
   - hello:

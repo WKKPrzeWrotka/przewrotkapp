@@ -1,0 +1,10 @@
+class: GearDataSpraydeck
+table: gear_data_spraydecks
+fields:
+  gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
+  deckSize: SpraydeckDeckSize
+  waistSize: GenericGearSize
+indexes:
+  spraydecks_gear_unique_idx:
+    fields: gearId
+    unique: true

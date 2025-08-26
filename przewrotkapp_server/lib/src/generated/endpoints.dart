@@ -10,19 +10,97 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
-import '../greeting_endpoint.dart' as _i2;
+import '../all_kayaks_endpoint.dart' as _i2;
+import '../greeting_endpoint.dart' as _i3;
+import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i4;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
   void initializeEndpoints(_i1.Server server) {
     var endpoints = <String, _i1.Endpoint>{
-      'greeting': _i2.GreetingEndpoint()
+      'allKayaks': _i2.AllKayaksEndpoint()
+        ..initialize(
+          server,
+          'allKayaks',
+          null,
+        ),
+      'greeting': _i3.GreetingEndpoint()
         ..initialize(
           server,
           'greeting',
           null,
-        )
+        ),
     };
+    connectors['allKayaks'] = _i1.EndpointConnector(
+      name: 'allKayaks',
+      endpoint: endpoints['allKayaks']!,
+      methodConnectors: {
+        'getAllKayaks': _i1.MethodConnector(
+          name: 'getAllKayaks',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['allKayaks'] as _i2.AllKayaksEndpoint)
+                  .getAllKayaks(session),
+        ),
+        'addNewKayak': _i1.MethodConnector(
+          name: 'addNewKayak',
+          params: {
+            'newKayak': _i1.ParameterDescription(
+              name: 'newKayak',
+              type: _i1.getType<_i4.Gear>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['allKayaks'] as _i2.AllKayaksEndpoint).addNewKayak(
+            session,
+            params['newKayak'],
+          ),
+        ),
+        'addKayakPhoto': _i1.MethodConnector(
+          name: 'addKayakPhoto',
+          params: {
+            'clubId': _i1.ParameterDescription(
+              name: 'clubId',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['allKayaks'] as _i2.AllKayaksEndpoint).addKayakPhoto(
+            session,
+            params['clubId'],
+          ),
+        ),
+        'getKayakPhoto': _i1.MethodConnector(
+          name: 'getKayakPhoto',
+          params: {
+            'clubId': _i1.ParameterDescription(
+              name: 'clubId',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['allKayaks'] as _i2.AllKayaksEndpoint).getKayakPhoto(
+            session,
+            params['clubId'],
+          ),
+        ),
+      },
+    );
     connectors['greeting'] = _i1.EndpointConnector(
       name: 'greeting',
       endpoint: endpoints['greeting']!,
@@ -40,7 +118,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['greeting'] as _i2.GreetingEndpoint).hello(
+              (endpoints['greeting'] as _i3.GreetingEndpoint).hello(
             session,
             params['name'],
           ),

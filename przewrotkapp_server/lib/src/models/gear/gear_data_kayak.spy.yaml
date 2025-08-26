@@ -1,0 +1,12 @@
+class: GearDataKayak
+table: gear_data_kayaks
+fields:
+  gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
+  type: KayakType
+  minWeight: int
+  maxWeight: int
+  length: int
+indexes:
+  kayaks_gear_unique_idx:
+    fields: gearId
+    unique: true

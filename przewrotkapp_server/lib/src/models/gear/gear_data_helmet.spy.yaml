@@ -1,0 +1,9 @@
+class: GearDataHelmet
+table: gear_data_helmets
+fields:
+  gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
+  size: GenericGearSize
+indexes:
+  helmets_gear_unique_idx:
+    fields: gearId
+    unique: true

@@ -9,7 +9,7 @@
 # Configuration for the main API server.
 apiServer:
   port: 8080
-  publicHost: localhost
+  publicHost: 0.0.0.0
   publicPort: 8080
   publicScheme: http
 
@@ -23,7 +23,7 @@ insightsServer:
 # Configuration for the web server.
 webServer:
   port: 8082
-  publicHost: localhost
+  publicHost: 0.0.0.0
   publicPort: 8082
   publicScheme: http
 
@@ -32,7 +32,7 @@ database:
   host: localhost
   port: 5432
   name: przewrotkapp
-  user: matiii
+  user: postgres
   #requireSsl: true # defaults to false
   #isUnixSocket: true # defaults to false
 
