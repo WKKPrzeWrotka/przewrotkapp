@@ -13,38 +13,45 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../gear/gear.dart' as _i2;
+import '../gear/spraydeck_deck_size.dart' as _i3;
+import '../gear/generic_gear_size.dart' as _i4;
 
-abstract class GearDataThrowbag
+abstract class GearSpraydeck
     implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
-  GearDataThrowbag._({
+  GearSpraydeck._({
     this.id,
     required this.gearId,
     this.gear,
-    required this.length,
+    required this.deckSize,
+    required this.waistSize,
   });
 
-  factory GearDataThrowbag({
+  factory GearSpraydeck({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required int length,
-  }) = _GearDataThrowbagImpl;
+    required _i3.SpraydeckDeckSize deckSize,
+    required _i4.GenericGearSize waistSize,
+  }) = _GearSpraydeckImpl;
 
-  factory GearDataThrowbag.fromJson(Map<String, dynamic> jsonSerialization) {
-    return GearDataThrowbag(
+  factory GearSpraydeck.fromJson(Map<String, dynamic> jsonSerialization) {
+    return GearSpraydeck(
       id: jsonSerialization['id'] as int?,
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
           : _i2.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      length: jsonSerialization['length'] as int,
+      deckSize: _i3.SpraydeckDeckSize.fromJson(
+          (jsonSerialization['deckSize'] as String)),
+      waistSize: _i4.GenericGearSize.fromJson(
+          (jsonSerialization['waistSize'] as String)),
     );
   }
 
-  static final t = GearDataThrowbagTable();
+  static final t = GearSpraydeckTable();
 
-  static const db = GearDataThrowbagRepository._();
+  static const db = GearSpraydeckRepository._();
 
   @override
   int? id;
@@ -53,19 +60,22 @@ abstract class GearDataThrowbag
 
   _i2.Gear? gear;
 
-  int length;
+  _i3.SpraydeckDeckSize deckSize;
+
+  _i4.GenericGearSize waistSize;
 
   @override
   _i1.Table<int?> get table => t;
 
-  /// Returns a shallow copy of this [GearDataThrowbag]
+  /// Returns a shallow copy of this [GearSpraydeck]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  GearDataThrowbag copyWith({
+  GearSpraydeck copyWith({
     int? id,
     int? gearId,
     _i2.Gear? gear,
-    int? length,
+    _i3.SpraydeckDeckSize? deckSize,
+    _i4.GenericGearSize? waistSize,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -73,7 +83,8 @@ abstract class GearDataThrowbag
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
-      'length': length,
+      'deckSize': deckSize.toJson(),
+      'waistSize': waistSize.toJson(),
     };
   }
 
@@ -83,30 +94,31 @@ abstract class GearDataThrowbag
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJsonForProtocol(),
-      'length': length,
+      'deckSize': deckSize.toJson(),
+      'waistSize': waistSize.toJson(),
     };
   }
 
-  static GearDataThrowbagInclude include({_i2.GearInclude? gear}) {
-    return GearDataThrowbagInclude._(gear: gear);
+  static GearSpraydeckInclude include({_i2.GearInclude? gear}) {
+    return GearSpraydeckInclude._(gear: gear);
   }
 
-  static GearDataThrowbagIncludeList includeList({
-    _i1.WhereExpressionBuilder<GearDataThrowbagTable>? where,
+  static GearSpraydeckIncludeList includeList({
+    _i1.WhereExpressionBuilder<GearSpraydeckTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearDataThrowbagTable>? orderBy,
+    _i1.OrderByBuilder<GearSpraydeckTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataThrowbagTable>? orderByList,
-    GearDataThrowbagInclude? include,
+    _i1.OrderByListBuilder<GearSpraydeckTable>? orderByList,
+    GearSpraydeckInclude? include,
   }) {
-    return GearDataThrowbagIncludeList._(
+    return GearSpraydeckIncludeList._(
       where: where,
       limit: limit,
       offset: offset,
-      orderBy: orderBy?.call(GearDataThrowbag.t),
+      orderBy: orderBy?.call(GearSpraydeck.t),
       orderDescending: orderDescending,
-      orderByList: orderByList?.call(GearDataThrowbag.t),
+      orderByList: orderByList?.call(GearSpraydeck.t),
       include: include,
     );
   }
@@ -119,48 +131,58 @@ abstract class GearDataThrowbag
 
 class _Undefined {}
 
-class _GearDataThrowbagImpl extends GearDataThrowbag {
-  _GearDataThrowbagImpl({
+class _GearSpraydeckImpl extends GearSpraydeck {
+  _GearSpraydeckImpl({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required int length,
+    required _i3.SpraydeckDeckSize deckSize,
+    required _i4.GenericGearSize waistSize,
   }) : super._(
           id: id,
           gearId: gearId,
           gear: gear,
-          length: length,
+          deckSize: deckSize,
+          waistSize: waistSize,
         );
 
-  /// Returns a shallow copy of this [GearDataThrowbag]
+  /// Returns a shallow copy of this [GearSpraydeck]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  GearDataThrowbag copyWith({
+  GearSpraydeck copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    int? length,
+    _i3.SpraydeckDeckSize? deckSize,
+    _i4.GenericGearSize? waistSize,
   }) {
-    return GearDataThrowbag(
+    return GearSpraydeck(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
-      length: length ?? this.length,
+      deckSize: deckSize ?? this.deckSize,
+      waistSize: waistSize ?? this.waistSize,
     );
   }
 }
 
-class GearDataThrowbagTable extends _i1.Table<int?> {
-  GearDataThrowbagTable({super.tableRelation})
-      : super(tableName: 'gear_data_throwbags') {
+class GearSpraydeckTable extends _i1.Table<int?> {
+  GearSpraydeckTable({super.tableRelation})
+      : super(tableName: 'gear_spraydecks') {
     gearId = _i1.ColumnInt(
       'gearId',
       this,
     );
-    length = _i1.ColumnInt(
-      'length',
+    deckSize = _i1.ColumnEnum(
+      'deckSize',
       this,
+      _i1.EnumSerialization.byName,
+    );
+    waistSize = _i1.ColumnEnum(
+      'waistSize',
+      this,
+      _i1.EnumSerialization.byName,
     );
   }
 
@@ -168,13 +190,15 @@ class GearDataThrowbagTable extends _i1.Table<int?> {
 
   _i2.GearTable? _gear;
 
-  late final _i1.ColumnInt length;
+  late final _i1.ColumnEnum<_i3.SpraydeckDeckSize> deckSize;
+
+  late final _i1.ColumnEnum<_i4.GenericGearSize> waistSize;
 
   _i2.GearTable get gear {
     if (_gear != null) return _gear!;
     _gear = _i1.createRelationTable(
       relationFieldName: 'gear',
-      field: GearDataThrowbag.t.gearId,
+      field: GearSpraydeck.t.gearId,
       foreignField: _i2.Gear.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
@@ -187,7 +211,8 @@ class GearDataThrowbagTable extends _i1.Table<int?> {
   List<_i1.Column> get columns => [
         id,
         gearId,
-        length,
+        deckSize,
+        waistSize,
       ];
 
   @override
@@ -199,8 +224,8 @@ class GearDataThrowbagTable extends _i1.Table<int?> {
   }
 }
 
-class GearDataThrowbagInclude extends _i1.IncludeObject {
-  GearDataThrowbagInclude._({_i2.GearInclude? gear}) {
+class GearSpraydeckInclude extends _i1.IncludeObject {
+  GearSpraydeckInclude._({_i2.GearInclude? gear}) {
     _gear = gear;
   }
 
@@ -210,12 +235,12 @@ class GearDataThrowbagInclude extends _i1.IncludeObject {
   Map<String, _i1.Include?> get includes => {'gear': _gear};
 
   @override
-  _i1.Table<int?> get table => GearDataThrowbag.t;
+  _i1.Table<int?> get table => GearSpraydeck.t;
 }
 
-class GearDataThrowbagIncludeList extends _i1.IncludeList {
-  GearDataThrowbagIncludeList._({
-    _i1.WhereExpressionBuilder<GearDataThrowbagTable>? where,
+class GearSpraydeckIncludeList extends _i1.IncludeList {
+  GearSpraydeckIncludeList._({
+    _i1.WhereExpressionBuilder<GearSpraydeckTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -223,22 +248,22 @@ class GearDataThrowbagIncludeList extends _i1.IncludeList {
     super.orderByList,
     super.include,
   }) {
-    super.where = where?.call(GearDataThrowbag.t);
+    super.where = where?.call(GearSpraydeck.t);
   }
 
   @override
   Map<String, _i1.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table<int?> get table => GearDataThrowbag.t;
+  _i1.Table<int?> get table => GearSpraydeck.t;
 }
 
-class GearDataThrowbagRepository {
-  const GearDataThrowbagRepository._();
+class GearSpraydeckRepository {
+  const GearSpraydeckRepository._();
 
-  final attachRow = const GearDataThrowbagAttachRowRepository._();
+  final attachRow = const GearSpraydeckAttachRowRepository._();
 
-  /// Returns a list of [GearDataThrowbag]s matching the given query parameters.
+  /// Returns a list of [GearSpraydeck]s matching the given query parameters.
   ///
   /// Use [where] to specify which items to include in the return value.
   /// If none is specified, all items will be returned.
@@ -260,21 +285,21 @@ class GearDataThrowbagRepository {
   ///   limit: 100,
   /// );
   /// ```
-  Future<List<GearDataThrowbag>> find(
+  Future<List<GearSpraydeck>> find(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataThrowbagTable>? where,
+    _i1.WhereExpressionBuilder<GearSpraydeckTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearDataThrowbagTable>? orderBy,
+    _i1.OrderByBuilder<GearSpraydeckTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataThrowbagTable>? orderByList,
+    _i1.OrderByListBuilder<GearSpraydeckTable>? orderByList,
     _i1.Transaction? transaction,
-    GearDataThrowbagInclude? include,
+    GearSpraydeckInclude? include,
   }) async {
-    return session.db.find<GearDataThrowbag>(
-      where: where?.call(GearDataThrowbag.t),
-      orderBy: orderBy?.call(GearDataThrowbag.t),
-      orderByList: orderByList?.call(GearDataThrowbag.t),
+    return session.db.find<GearSpraydeck>(
+      where: where?.call(GearSpraydeck.t),
+      orderBy: orderBy?.call(GearSpraydeck.t),
+      orderByList: orderByList?.call(GearSpraydeck.t),
       orderDescending: orderDescending,
       limit: limit,
       offset: offset,
@@ -283,7 +308,7 @@ class GearDataThrowbagRepository {
     );
   }
 
-  /// Returns the first matching [GearDataThrowbag] matching the given query parameters.
+  /// Returns the first matching [GearSpraydeck] matching the given query parameters.
   ///
   /// Use [where] to specify which items to include in the return value.
   /// If none is specified, all items will be returned.
@@ -300,20 +325,20 @@ class GearDataThrowbagRepository {
   ///   orderBy: (t) => t.age,
   /// );
   /// ```
-  Future<GearDataThrowbag?> findFirstRow(
+  Future<GearSpraydeck?> findFirstRow(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataThrowbagTable>? where,
+    _i1.WhereExpressionBuilder<GearSpraydeckTable>? where,
     int? offset,
-    _i1.OrderByBuilder<GearDataThrowbagTable>? orderBy,
+    _i1.OrderByBuilder<GearSpraydeckTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataThrowbagTable>? orderByList,
+    _i1.OrderByListBuilder<GearSpraydeckTable>? orderByList,
     _i1.Transaction? transaction,
-    GearDataThrowbagInclude? include,
+    GearSpraydeckInclude? include,
   }) async {
-    return session.db.findFirstRow<GearDataThrowbag>(
-      where: where?.call(GearDataThrowbag.t),
-      orderBy: orderBy?.call(GearDataThrowbag.t),
-      orderByList: orderByList?.call(GearDataThrowbag.t),
+    return session.db.findFirstRow<GearSpraydeck>(
+      where: where?.call(GearSpraydeck.t),
+      orderBy: orderBy?.call(GearSpraydeck.t),
+      orderByList: orderByList?.call(GearSpraydeck.t),
       orderDescending: orderDescending,
       offset: offset,
       transaction: transaction,
@@ -321,119 +346,119 @@ class GearDataThrowbagRepository {
     );
   }
 
-  /// Finds a single [GearDataThrowbag] by its [id] or null if no such row exists.
-  Future<GearDataThrowbag?> findById(
+  /// Finds a single [GearSpraydeck] by its [id] or null if no such row exists.
+  Future<GearSpraydeck?> findById(
     _i1.Session session,
     int id, {
     _i1.Transaction? transaction,
-    GearDataThrowbagInclude? include,
+    GearSpraydeckInclude? include,
   }) async {
-    return session.db.findById<GearDataThrowbag>(
+    return session.db.findById<GearSpraydeck>(
       id,
       transaction: transaction,
       include: include,
     );
   }
 
-  /// Inserts all [GearDataThrowbag]s in the list and returns the inserted rows.
+  /// Inserts all [GearSpraydeck]s in the list and returns the inserted rows.
   ///
-  /// The returned [GearDataThrowbag]s will have their `id` fields set.
+  /// The returned [GearSpraydeck]s will have their `id` fields set.
   ///
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// insert, none of the rows will be inserted.
-  Future<List<GearDataThrowbag>> insert(
+  Future<List<GearSpraydeck>> insert(
     _i1.Session session,
-    List<GearDataThrowbag> rows, {
+    List<GearSpraydeck> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.insert<GearDataThrowbag>(
+    return session.db.insert<GearSpraydeck>(
       rows,
       transaction: transaction,
     );
   }
 
-  /// Inserts a single [GearDataThrowbag] and returns the inserted row.
+  /// Inserts a single [GearSpraydeck] and returns the inserted row.
   ///
-  /// The returned [GearDataThrowbag] will have its `id` field set.
-  Future<GearDataThrowbag> insertRow(
+  /// The returned [GearSpraydeck] will have its `id` field set.
+  Future<GearSpraydeck> insertRow(
     _i1.Session session,
-    GearDataThrowbag row, {
+    GearSpraydeck row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.insertRow<GearDataThrowbag>(
+    return session.db.insertRow<GearSpraydeck>(
       row,
       transaction: transaction,
     );
   }
 
-  /// Updates all [GearDataThrowbag]s in the list and returns the updated rows. If
+  /// Updates all [GearSpraydeck]s in the list and returns the updated rows. If
   /// [columns] is provided, only those columns will be updated. Defaults to
   /// all columns.
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// update, none of the rows will be updated.
-  Future<List<GearDataThrowbag>> update(
+  Future<List<GearSpraydeck>> update(
     _i1.Session session,
-    List<GearDataThrowbag> rows, {
-    _i1.ColumnSelections<GearDataThrowbagTable>? columns,
+    List<GearSpraydeck> rows, {
+    _i1.ColumnSelections<GearSpraydeckTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.update<GearDataThrowbag>(
+    return session.db.update<GearSpraydeck>(
       rows,
-      columns: columns?.call(GearDataThrowbag.t),
+      columns: columns?.call(GearSpraydeck.t),
       transaction: transaction,
     );
   }
 
-  /// Updates a single [GearDataThrowbag]. The row needs to have its id set.
+  /// Updates a single [GearSpraydeck]. The row needs to have its id set.
   /// Optionally, a list of [columns] can be provided to only update those
   /// columns. Defaults to all columns.
-  Future<GearDataThrowbag> updateRow(
+  Future<GearSpraydeck> updateRow(
     _i1.Session session,
-    GearDataThrowbag row, {
-    _i1.ColumnSelections<GearDataThrowbagTable>? columns,
+    GearSpraydeck row, {
+    _i1.ColumnSelections<GearSpraydeckTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.updateRow<GearDataThrowbag>(
+    return session.db.updateRow<GearSpraydeck>(
       row,
-      columns: columns?.call(GearDataThrowbag.t),
+      columns: columns?.call(GearSpraydeck.t),
       transaction: transaction,
     );
   }
 
-  /// Deletes all [GearDataThrowbag]s in the list and returns the deleted rows.
+  /// Deletes all [GearSpraydeck]s in the list and returns the deleted rows.
   /// This is an atomic operation, meaning that if one of the rows fail to
   /// be deleted, none of the rows will be deleted.
-  Future<List<GearDataThrowbag>> delete(
+  Future<List<GearSpraydeck>> delete(
     _i1.Session session,
-    List<GearDataThrowbag> rows, {
+    List<GearSpraydeck> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.delete<GearDataThrowbag>(
+    return session.db.delete<GearSpraydeck>(
       rows,
       transaction: transaction,
     );
   }
 
-  /// Deletes a single [GearDataThrowbag].
-  Future<GearDataThrowbag> deleteRow(
+  /// Deletes a single [GearSpraydeck].
+  Future<GearSpraydeck> deleteRow(
     _i1.Session session,
-    GearDataThrowbag row, {
+    GearSpraydeck row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.deleteRow<GearDataThrowbag>(
+    return session.db.deleteRow<GearSpraydeck>(
       row,
       transaction: transaction,
     );
   }
 
   /// Deletes all rows matching the [where] expression.
-  Future<List<GearDataThrowbag>> deleteWhere(
+  Future<List<GearSpraydeck>> deleteWhere(
     _i1.Session session, {
-    required _i1.WhereExpressionBuilder<GearDataThrowbagTable> where,
+    required _i1.WhereExpressionBuilder<GearSpraydeckTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.deleteWhere<GearDataThrowbag>(
-      where: where(GearDataThrowbag.t),
+    return session.db.deleteWhere<GearSpraydeck>(
+      where: where(GearSpraydeck.t),
       transaction: transaction,
     );
   }
@@ -442,40 +467,40 @@ class GearDataThrowbagRepository {
   /// will return the count of all rows in the table.
   Future<int> count(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataThrowbagTable>? where,
+    _i1.WhereExpressionBuilder<GearSpraydeckTable>? where,
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.count<GearDataThrowbag>(
-      where: where?.call(GearDataThrowbag.t),
+    return session.db.count<GearSpraydeck>(
+      where: where?.call(GearSpraydeck.t),
       limit: limit,
       transaction: transaction,
     );
   }
 }
 
-class GearDataThrowbagAttachRowRepository {
-  const GearDataThrowbagAttachRowRepository._();
+class GearSpraydeckAttachRowRepository {
+  const GearSpraydeckAttachRowRepository._();
 
-  /// Creates a relation between the given [GearDataThrowbag] and [Gear]
-  /// by setting the [GearDataThrowbag]'s foreign key `gearId` to refer to the [Gear].
+  /// Creates a relation between the given [GearSpraydeck] and [Gear]
+  /// by setting the [GearSpraydeck]'s foreign key `gearId` to refer to the [Gear].
   Future<void> gear(
     _i1.Session session,
-    GearDataThrowbag gearDataThrowbag,
+    GearSpraydeck gearSpraydeck,
     _i2.Gear gear, {
     _i1.Transaction? transaction,
   }) async {
-    if (gearDataThrowbag.id == null) {
-      throw ArgumentError.notNull('gearDataThrowbag.id');
+    if (gearSpraydeck.id == null) {
+      throw ArgumentError.notNull('gearSpraydeck.id');
     }
     if (gear.id == null) {
       throw ArgumentError.notNull('gear.id');
     }
 
-    var $gearDataThrowbag = gearDataThrowbag.copyWith(gearId: gear.id);
-    await session.db.updateRow<GearDataThrowbag>(
-      $gearDataThrowbag,
-      columns: [GearDataThrowbag.t.gearId],
+    var $gearSpraydeck = gearSpraydeck.copyWith(gearId: gear.id);
+    await session.db.updateRow<GearSpraydeck>(
+      $gearSpraydeck,
+      columns: [GearSpraydeck.t.gearId],
       transaction: transaction,
     );
   }

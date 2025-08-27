@@ -11,41 +11,38 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import '../gear/gear.dart' as _i2;
-import '../gear/kayak_type.dart' as _i3;
+import '../gear/spraydeck_deck_size.dart' as _i3;
+import '../gear/generic_gear_size.dart' as _i4;
 
-abstract class GearDataKayak implements _i1.SerializableModel {
-  GearDataKayak._({
+abstract class GearSpraydeck implements _i1.SerializableModel {
+  GearSpraydeck._({
     this.id,
     required this.gearId,
     this.gear,
-    required this.type,
-    required this.minWeight,
-    required this.maxWeight,
-    required this.length,
+    required this.deckSize,
+    required this.waistSize,
   });
 
-  factory GearDataKayak({
+  factory GearSpraydeck({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.KayakType type,
-    required int minWeight,
-    required int maxWeight,
-    required int length,
-  }) = _GearDataKayakImpl;
+    required _i3.SpraydeckDeckSize deckSize,
+    required _i4.GenericGearSize waistSize,
+  }) = _GearSpraydeckImpl;
 
-  factory GearDataKayak.fromJson(Map<String, dynamic> jsonSerialization) {
-    return GearDataKayak(
+  factory GearSpraydeck.fromJson(Map<String, dynamic> jsonSerialization) {
+    return GearSpraydeck(
       id: jsonSerialization['id'] as int?,
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
           : _i2.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      type: _i3.KayakType.fromJson((jsonSerialization['type'] as String)),
-      minWeight: jsonSerialization['minWeight'] as int,
-      maxWeight: jsonSerialization['maxWeight'] as int,
-      length: jsonSerialization['length'] as int,
+      deckSize: _i3.SpraydeckDeckSize.fromJson(
+          (jsonSerialization['deckSize'] as String)),
+      waistSize: _i4.GenericGearSize.fromJson(
+          (jsonSerialization['waistSize'] as String)),
     );
   }
 
@@ -58,25 +55,19 @@ abstract class GearDataKayak implements _i1.SerializableModel {
 
   _i2.Gear? gear;
 
-  _i3.KayakType type;
+  _i3.SpraydeckDeckSize deckSize;
 
-  int minWeight;
+  _i4.GenericGearSize waistSize;
 
-  int maxWeight;
-
-  int length;
-
-  /// Returns a shallow copy of this [GearDataKayak]
+  /// Returns a shallow copy of this [GearSpraydeck]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  GearDataKayak copyWith({
+  GearSpraydeck copyWith({
     int? id,
     int? gearId,
     _i2.Gear? gear,
-    _i3.KayakType? type,
-    int? minWeight,
-    int? maxWeight,
-    int? length,
+    _i3.SpraydeckDeckSize? deckSize,
+    _i4.GenericGearSize? waistSize,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -84,10 +75,8 @@ abstract class GearDataKayak implements _i1.SerializableModel {
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
-      'type': type.toJson(),
-      'minWeight': minWeight,
-      'maxWeight': maxWeight,
-      'length': length,
+      'deckSize': deckSize.toJson(),
+      'waistSize': waistSize.toJson(),
     };
   }
 
@@ -99,46 +88,38 @@ abstract class GearDataKayak implements _i1.SerializableModel {
 
 class _Undefined {}
 
-class _GearDataKayakImpl extends GearDataKayak {
-  _GearDataKayakImpl({
+class _GearSpraydeckImpl extends GearSpraydeck {
+  _GearSpraydeckImpl({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.KayakType type,
-    required int minWeight,
-    required int maxWeight,
-    required int length,
+    required _i3.SpraydeckDeckSize deckSize,
+    required _i4.GenericGearSize waistSize,
   }) : super._(
           id: id,
           gearId: gearId,
           gear: gear,
-          type: type,
-          minWeight: minWeight,
-          maxWeight: maxWeight,
-          length: length,
+          deckSize: deckSize,
+          waistSize: waistSize,
         );
 
-  /// Returns a shallow copy of this [GearDataKayak]
+  /// Returns a shallow copy of this [GearSpraydeck]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  GearDataKayak copyWith({
+  GearSpraydeck copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.KayakType? type,
-    int? minWeight,
-    int? maxWeight,
-    int? length,
+    _i3.SpraydeckDeckSize? deckSize,
+    _i4.GenericGearSize? waistSize,
   }) {
-    return GearDataKayak(
+    return GearSpraydeck(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
-      type: type ?? this.type,
-      minWeight: minWeight ?? this.minWeight,
-      maxWeight: maxWeight ?? this.maxWeight,
-      length: length ?? this.length,
+      deckSize: deckSize ?? this.deckSize,
+      waistSize: waistSize ?? this.waistSize,
     );
   }
 }

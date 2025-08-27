@@ -11,31 +11,38 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import '../gear/gear.dart' as _i2;
+import '../gear/paddle_type.dart' as _i3;
 
-abstract class GearDataBelt implements _i1.SerializableModel {
-  GearDataBelt._({
+abstract class GearPaddle implements _i1.SerializableModel {
+  GearPaddle._({
     this.id,
     required this.gearId,
     this.gear,
+    required this.type,
     required this.length,
+    required this.rotation,
   });
 
-  factory GearDataBelt({
+  factory GearPaddle({
     int? id,
     required int gearId,
     _i2.Gear? gear,
+    required _i3.PaddleType type,
     required double length,
-  }) = _GearDataBeltImpl;
+    required int rotation,
+  }) = _GearPaddleImpl;
 
-  factory GearDataBelt.fromJson(Map<String, dynamic> jsonSerialization) {
-    return GearDataBelt(
+  factory GearPaddle.fromJson(Map<String, dynamic> jsonSerialization) {
+    return GearPaddle(
       id: jsonSerialization['id'] as int?,
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
           : _i2.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
+      type: _i3.PaddleType.fromJson((jsonSerialization['type'] as String)),
       length: (jsonSerialization['length'] as num).toDouble(),
+      rotation: jsonSerialization['rotation'] as int,
     );
   }
 
@@ -48,16 +55,23 @@ abstract class GearDataBelt implements _i1.SerializableModel {
 
   _i2.Gear? gear;
 
+  _i3.PaddleType type;
+
   double length;
 
-  /// Returns a shallow copy of this [GearDataBelt]
+  /// Negative values represents variable - "up to abs(rotation)"
+  int rotation;
+
+  /// Returns a shallow copy of this [GearPaddle]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  GearDataBelt copyWith({
+  GearPaddle copyWith({
     int? id,
     int? gearId,
     _i2.Gear? gear,
+    _i3.PaddleType? type,
     double? length,
+    int? rotation,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -65,7 +79,9 @@ abstract class GearDataBelt implements _i1.SerializableModel {
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
+      'type': type.toJson(),
       'length': length,
+      'rotation': rotation,
     };
   }
 
@@ -77,34 +93,42 @@ abstract class GearDataBelt implements _i1.SerializableModel {
 
 class _Undefined {}
 
-class _GearDataBeltImpl extends GearDataBelt {
-  _GearDataBeltImpl({
+class _GearPaddleImpl extends GearPaddle {
+  _GearPaddleImpl({
     int? id,
     required int gearId,
     _i2.Gear? gear,
+    required _i3.PaddleType type,
     required double length,
+    required int rotation,
   }) : super._(
           id: id,
           gearId: gearId,
           gear: gear,
+          type: type,
           length: length,
+          rotation: rotation,
         );
 
-  /// Returns a shallow copy of this [GearDataBelt]
+  /// Returns a shallow copy of this [GearPaddle]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  GearDataBelt copyWith({
+  GearPaddle copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
+    _i3.PaddleType? type,
     double? length,
+    int? rotation,
   }) {
-    return GearDataBelt(
+    return GearPaddle(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
+      type: type ?? this.type,
       length: length ?? this.length,
+      rotation: rotation ?? this.rotation,
     );
   }
 }

@@ -1,5 +1,5 @@
-class: GearDataHelmet
-table: gear_data_helmets
+class: GearHelmet
+table: gear_helmets
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
   size: GenericGearSize

@@ -1,5 +1,5 @@
-class: GearDataClothing
-table: gear_data_clothes
+class: GearClothing
+table: gear_clothes
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
   type: ClothingType

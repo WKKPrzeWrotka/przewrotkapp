@@ -15,8 +15,7 @@ import 'package:serverpod_test/serverpod_test.dart' as _i1;
 import 'package:serverpod/serverpod.dart' as _i2;
 import 'dart:async' as _i3;
 import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i4;
-import 'package:przewrotkapp_server/src/generated/gear/gear_data_kayak.dart'
-    as _i5;
+import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i5;
 import 'package:przewrotkapp_server/src/generated/greeting.dart' as _i6;
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
 import 'package:przewrotkapp_server/src/generated/endpoints.dart';
@@ -167,7 +166,7 @@ class _AllKayaksEndpoint {
   _i3.Future<void> addNewKayak(
     _i1.TestSessionBuilder sessionBuilder,
     _i4.Gear gear,
-    _i5.GearDataKayak kayak,
+    _i5.GearKayak kayak,
   ) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
       var _localUniqueSession =

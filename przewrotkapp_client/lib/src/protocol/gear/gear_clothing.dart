@@ -11,38 +11,35 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import '../gear/gear.dart' as _i2;
-import '../gear/paddle_type.dart' as _i3;
+import '../gear/clothing_type.dart' as _i3;
 
-abstract class GearDataPaddle implements _i1.SerializableModel {
-  GearDataPaddle._({
+abstract class GearClothing implements _i1.SerializableModel {
+  GearClothing._({
     this.id,
     required this.gearId,
     this.gear,
     required this.type,
-    required this.length,
-    required this.rotation,
+    this.typeDescription,
   });
 
-  factory GearDataPaddle({
+  factory GearClothing({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.PaddleType type,
-    required double length,
-    required int rotation,
-  }) = _GearDataPaddleImpl;
+    required _i3.ClothingType type,
+    String? typeDescription,
+  }) = _GearClothingImpl;
 
-  factory GearDataPaddle.fromJson(Map<String, dynamic> jsonSerialization) {
-    return GearDataPaddle(
+  factory GearClothing.fromJson(Map<String, dynamic> jsonSerialization) {
+    return GearClothing(
       id: jsonSerialization['id'] as int?,
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
           : _i2.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      type: _i3.PaddleType.fromJson((jsonSerialization['type'] as String)),
-      length: (jsonSerialization['length'] as num).toDouble(),
-      rotation: jsonSerialization['rotation'] as int,
+      type: _i3.ClothingType.fromJson((jsonSerialization['type'] as String)),
+      typeDescription: jsonSerialization['typeDescription'] as String?,
     );
   }
 
@@ -55,23 +52,19 @@ abstract class GearDataPaddle implements _i1.SerializableModel {
 
   _i2.Gear? gear;
 
-  _i3.PaddleType type;
+  _i3.ClothingType type;
 
-  double length;
+  String? typeDescription;
 
-  /// Negative values represents variable - "up to abs(rotation)"
-  int rotation;
-
-  /// Returns a shallow copy of this [GearDataPaddle]
+  /// Returns a shallow copy of this [GearClothing]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  GearDataPaddle copyWith({
+  GearClothing copyWith({
     int? id,
     int? gearId,
     _i2.Gear? gear,
-    _i3.PaddleType? type,
-    double? length,
-    int? rotation,
+    _i3.ClothingType? type,
+    String? typeDescription,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -80,8 +73,7 @@ abstract class GearDataPaddle implements _i1.SerializableModel {
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
       'type': type.toJson(),
-      'length': length,
-      'rotation': rotation,
+      if (typeDescription != null) 'typeDescription': typeDescription,
     };
   }
 
@@ -93,42 +85,39 @@ abstract class GearDataPaddle implements _i1.SerializableModel {
 
 class _Undefined {}
 
-class _GearDataPaddleImpl extends GearDataPaddle {
-  _GearDataPaddleImpl({
+class _GearClothingImpl extends GearClothing {
+  _GearClothingImpl({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.PaddleType type,
-    required double length,
-    required int rotation,
+    required _i3.ClothingType type,
+    String? typeDescription,
   }) : super._(
           id: id,
           gearId: gearId,
           gear: gear,
           type: type,
-          length: length,
-          rotation: rotation,
+          typeDescription: typeDescription,
         );
 
-  /// Returns a shallow copy of this [GearDataPaddle]
+  /// Returns a shallow copy of this [GearClothing]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  GearDataPaddle copyWith({
+  GearClothing copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.PaddleType? type,
-    double? length,
-    int? rotation,
+    _i3.ClothingType? type,
+    Object? typeDescription = _Undefined,
   }) {
-    return GearDataPaddle(
+    return GearClothing(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
       type: type ?? this.type,
-      length: length ?? this.length,
-      rotation: rotation ?? this.rotation,
+      typeDescription:
+          typeDescription is String? ? typeDescription : this.typeDescription,
     );
   }
 }

@@ -12,8 +12,7 @@
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i3;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_data_kayak.dart'
-    as _i4;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_kayak.dart' as _i4;
 import 'package:przewrotkapp_client/src/protocol/greeting.dart' as _i5;
 import 'protocol.dart' as _i6;
 
@@ -33,7 +32,7 @@ class EndpointAllKayaks extends _i1.EndpointRef {
 
   _i2.Future<void> addNewKayak(
     _i3.Gear gear,
-    _i4.GearDataKayak kayak,
+    _i4.GearKayak kayak,
   ) =>
       caller.callServerEndpoint<void>(
         'allKayaks',

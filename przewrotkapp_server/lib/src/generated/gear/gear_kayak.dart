@@ -15,9 +15,9 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import '../gear/gear.dart' as _i2;
 import '../gear/kayak_type.dart' as _i3;
 
-abstract class GearDataKayak
+abstract class GearKayak
     implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
-  GearDataKayak._({
+  GearKayak._({
     this.id,
     required this.gearId,
     this.gear,
@@ -27,7 +27,7 @@ abstract class GearDataKayak
     required this.length,
   });
 
-  factory GearDataKayak({
+  factory GearKayak({
     int? id,
     required int gearId,
     _i2.Gear? gear,
@@ -35,10 +35,10 @@ abstract class GearDataKayak
     required int minWeight,
     required int maxWeight,
     required int length,
-  }) = _GearDataKayakImpl;
+  }) = _GearKayakImpl;
 
-  factory GearDataKayak.fromJson(Map<String, dynamic> jsonSerialization) {
-    return GearDataKayak(
+  factory GearKayak.fromJson(Map<String, dynamic> jsonSerialization) {
+    return GearKayak(
       id: jsonSerialization['id'] as int?,
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
@@ -52,9 +52,9 @@ abstract class GearDataKayak
     );
   }
 
-  static final t = GearDataKayakTable();
+  static final t = GearKayakTable();
 
-  static const db = GearDataKayakRepository._();
+  static const db = GearKayakRepository._();
 
   @override
   int? id;
@@ -74,10 +74,10 @@ abstract class GearDataKayak
   @override
   _i1.Table<int?> get table => t;
 
-  /// Returns a shallow copy of this [GearDataKayak]
+  /// Returns a shallow copy of this [GearKayak]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  GearDataKayak copyWith({
+  GearKayak copyWith({
     int? id,
     int? gearId,
     _i2.Gear? gear,
@@ -112,26 +112,26 @@ abstract class GearDataKayak
     };
   }
 
-  static GearDataKayakInclude include({_i2.GearInclude? gear}) {
-    return GearDataKayakInclude._(gear: gear);
+  static GearKayakInclude include({_i2.GearInclude? gear}) {
+    return GearKayakInclude._(gear: gear);
   }
 
-  static GearDataKayakIncludeList includeList({
-    _i1.WhereExpressionBuilder<GearDataKayakTable>? where,
+  static GearKayakIncludeList includeList({
+    _i1.WhereExpressionBuilder<GearKayakTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearDataKayakTable>? orderBy,
+    _i1.OrderByBuilder<GearKayakTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataKayakTable>? orderByList,
-    GearDataKayakInclude? include,
+    _i1.OrderByListBuilder<GearKayakTable>? orderByList,
+    GearKayakInclude? include,
   }) {
-    return GearDataKayakIncludeList._(
+    return GearKayakIncludeList._(
       where: where,
       limit: limit,
       offset: offset,
-      orderBy: orderBy?.call(GearDataKayak.t),
+      orderBy: orderBy?.call(GearKayak.t),
       orderDescending: orderDescending,
-      orderByList: orderByList?.call(GearDataKayak.t),
+      orderByList: orderByList?.call(GearKayak.t),
       include: include,
     );
   }
@@ -144,8 +144,8 @@ abstract class GearDataKayak
 
 class _Undefined {}
 
-class _GearDataKayakImpl extends GearDataKayak {
-  _GearDataKayakImpl({
+class _GearKayakImpl extends GearKayak {
+  _GearKayakImpl({
     int? id,
     required int gearId,
     _i2.Gear? gear,
@@ -163,11 +163,11 @@ class _GearDataKayakImpl extends GearDataKayak {
           length: length,
         );
 
-  /// Returns a shallow copy of this [GearDataKayak]
+  /// Returns a shallow copy of this [GearKayak]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  GearDataKayak copyWith({
+  GearKayak copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
@@ -176,7 +176,7 @@ class _GearDataKayakImpl extends GearDataKayak {
     int? maxWeight,
     int? length,
   }) {
-    return GearDataKayak(
+    return GearKayak(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
@@ -188,9 +188,8 @@ class _GearDataKayakImpl extends GearDataKayak {
   }
 }
 
-class GearDataKayakTable extends _i1.Table<int?> {
-  GearDataKayakTable({super.tableRelation})
-      : super(tableName: 'gear_data_kayaks') {
+class GearKayakTable extends _i1.Table<int?> {
+  GearKayakTable({super.tableRelation}) : super(tableName: 'gear_kayaks') {
     gearId = _i1.ColumnInt(
       'gearId',
       this,
@@ -230,7 +229,7 @@ class GearDataKayakTable extends _i1.Table<int?> {
     if (_gear != null) return _gear!;
     _gear = _i1.createRelationTable(
       relationFieldName: 'gear',
-      field: GearDataKayak.t.gearId,
+      field: GearKayak.t.gearId,
       foreignField: _i2.Gear.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
@@ -258,8 +257,8 @@ class GearDataKayakTable extends _i1.Table<int?> {
   }
 }
 
-class GearDataKayakInclude extends _i1.IncludeObject {
-  GearDataKayakInclude._({_i2.GearInclude? gear}) {
+class GearKayakInclude extends _i1.IncludeObject {
+  GearKayakInclude._({_i2.GearInclude? gear}) {
     _gear = gear;
   }
 
@@ -269,12 +268,12 @@ class GearDataKayakInclude extends _i1.IncludeObject {
   Map<String, _i1.Include?> get includes => {'gear': _gear};
 
   @override
-  _i1.Table<int?> get table => GearDataKayak.t;
+  _i1.Table<int?> get table => GearKayak.t;
 }
 
-class GearDataKayakIncludeList extends _i1.IncludeList {
-  GearDataKayakIncludeList._({
-    _i1.WhereExpressionBuilder<GearDataKayakTable>? where,
+class GearKayakIncludeList extends _i1.IncludeList {
+  GearKayakIncludeList._({
+    _i1.WhereExpressionBuilder<GearKayakTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -282,22 +281,22 @@ class GearDataKayakIncludeList extends _i1.IncludeList {
     super.orderByList,
     super.include,
   }) {
-    super.where = where?.call(GearDataKayak.t);
+    super.where = where?.call(GearKayak.t);
   }
 
   @override
   Map<String, _i1.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table<int?> get table => GearDataKayak.t;
+  _i1.Table<int?> get table => GearKayak.t;
 }
 
-class GearDataKayakRepository {
-  const GearDataKayakRepository._();
+class GearKayakRepository {
+  const GearKayakRepository._();
 
-  final attachRow = const GearDataKayakAttachRowRepository._();
+  final attachRow = const GearKayakAttachRowRepository._();
 
-  /// Returns a list of [GearDataKayak]s matching the given query parameters.
+  /// Returns a list of [GearKayak]s matching the given query parameters.
   ///
   /// Use [where] to specify which items to include in the return value.
   /// If none is specified, all items will be returned.
@@ -319,21 +318,21 @@ class GearDataKayakRepository {
   ///   limit: 100,
   /// );
   /// ```
-  Future<List<GearDataKayak>> find(
+  Future<List<GearKayak>> find(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataKayakTable>? where,
+    _i1.WhereExpressionBuilder<GearKayakTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearDataKayakTable>? orderBy,
+    _i1.OrderByBuilder<GearKayakTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataKayakTable>? orderByList,
+    _i1.OrderByListBuilder<GearKayakTable>? orderByList,
     _i1.Transaction? transaction,
-    GearDataKayakInclude? include,
+    GearKayakInclude? include,
   }) async {
-    return session.db.find<GearDataKayak>(
-      where: where?.call(GearDataKayak.t),
-      orderBy: orderBy?.call(GearDataKayak.t),
-      orderByList: orderByList?.call(GearDataKayak.t),
+    return session.db.find<GearKayak>(
+      where: where?.call(GearKayak.t),
+      orderBy: orderBy?.call(GearKayak.t),
+      orderByList: orderByList?.call(GearKayak.t),
       orderDescending: orderDescending,
       limit: limit,
       offset: offset,
@@ -342,7 +341,7 @@ class GearDataKayakRepository {
     );
   }
 
-  /// Returns the first matching [GearDataKayak] matching the given query parameters.
+  /// Returns the first matching [GearKayak] matching the given query parameters.
   ///
   /// Use [where] to specify which items to include in the return value.
   /// If none is specified, all items will be returned.
@@ -359,20 +358,20 @@ class GearDataKayakRepository {
   ///   orderBy: (t) => t.age,
   /// );
   /// ```
-  Future<GearDataKayak?> findFirstRow(
+  Future<GearKayak?> findFirstRow(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataKayakTable>? where,
+    _i1.WhereExpressionBuilder<GearKayakTable>? where,
     int? offset,
-    _i1.OrderByBuilder<GearDataKayakTable>? orderBy,
+    _i1.OrderByBuilder<GearKayakTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataKayakTable>? orderByList,
+    _i1.OrderByListBuilder<GearKayakTable>? orderByList,
     _i1.Transaction? transaction,
-    GearDataKayakInclude? include,
+    GearKayakInclude? include,
   }) async {
-    return session.db.findFirstRow<GearDataKayak>(
-      where: where?.call(GearDataKayak.t),
-      orderBy: orderBy?.call(GearDataKayak.t),
-      orderByList: orderByList?.call(GearDataKayak.t),
+    return session.db.findFirstRow<GearKayak>(
+      where: where?.call(GearKayak.t),
+      orderBy: orderBy?.call(GearKayak.t),
+      orderByList: orderByList?.call(GearKayak.t),
       orderDescending: orderDescending,
       offset: offset,
       transaction: transaction,
@@ -380,119 +379,119 @@ class GearDataKayakRepository {
     );
   }
 
-  /// Finds a single [GearDataKayak] by its [id] or null if no such row exists.
-  Future<GearDataKayak?> findById(
+  /// Finds a single [GearKayak] by its [id] or null if no such row exists.
+  Future<GearKayak?> findById(
     _i1.Session session,
     int id, {
     _i1.Transaction? transaction,
-    GearDataKayakInclude? include,
+    GearKayakInclude? include,
   }) async {
-    return session.db.findById<GearDataKayak>(
+    return session.db.findById<GearKayak>(
       id,
       transaction: transaction,
       include: include,
     );
   }
 
-  /// Inserts all [GearDataKayak]s in the list and returns the inserted rows.
+  /// Inserts all [GearKayak]s in the list and returns the inserted rows.
   ///
-  /// The returned [GearDataKayak]s will have their `id` fields set.
+  /// The returned [GearKayak]s will have their `id` fields set.
   ///
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// insert, none of the rows will be inserted.
-  Future<List<GearDataKayak>> insert(
+  Future<List<GearKayak>> insert(
     _i1.Session session,
-    List<GearDataKayak> rows, {
+    List<GearKayak> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.insert<GearDataKayak>(
+    return session.db.insert<GearKayak>(
       rows,
       transaction: transaction,
     );
   }
 
-  /// Inserts a single [GearDataKayak] and returns the inserted row.
+  /// Inserts a single [GearKayak] and returns the inserted row.
   ///
-  /// The returned [GearDataKayak] will have its `id` field set.
-  Future<GearDataKayak> insertRow(
+  /// The returned [GearKayak] will have its `id` field set.
+  Future<GearKayak> insertRow(
     _i1.Session session,
-    GearDataKayak row, {
+    GearKayak row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.insertRow<GearDataKayak>(
+    return session.db.insertRow<GearKayak>(
       row,
       transaction: transaction,
     );
   }
 
-  /// Updates all [GearDataKayak]s in the list and returns the updated rows. If
+  /// Updates all [GearKayak]s in the list and returns the updated rows. If
   /// [columns] is provided, only those columns will be updated. Defaults to
   /// all columns.
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// update, none of the rows will be updated.
-  Future<List<GearDataKayak>> update(
+  Future<List<GearKayak>> update(
     _i1.Session session,
-    List<GearDataKayak> rows, {
-    _i1.ColumnSelections<GearDataKayakTable>? columns,
+    List<GearKayak> rows, {
+    _i1.ColumnSelections<GearKayakTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.update<GearDataKayak>(
+    return session.db.update<GearKayak>(
       rows,
-      columns: columns?.call(GearDataKayak.t),
+      columns: columns?.call(GearKayak.t),
       transaction: transaction,
     );
   }
 
-  /// Updates a single [GearDataKayak]. The row needs to have its id set.
+  /// Updates a single [GearKayak]. The row needs to have its id set.
   /// Optionally, a list of [columns] can be provided to only update those
   /// columns. Defaults to all columns.
-  Future<GearDataKayak> updateRow(
+  Future<GearKayak> updateRow(
     _i1.Session session,
-    GearDataKayak row, {
-    _i1.ColumnSelections<GearDataKayakTable>? columns,
+    GearKayak row, {
+    _i1.ColumnSelections<GearKayakTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.updateRow<GearDataKayak>(
+    return session.db.updateRow<GearKayak>(
       row,
-      columns: columns?.call(GearDataKayak.t),
+      columns: columns?.call(GearKayak.t),
       transaction: transaction,
     );
   }
 
-  /// Deletes all [GearDataKayak]s in the list and returns the deleted rows.
+  /// Deletes all [GearKayak]s in the list and returns the deleted rows.
   /// This is an atomic operation, meaning that if one of the rows fail to
   /// be deleted, none of the rows will be deleted.
-  Future<List<GearDataKayak>> delete(
+  Future<List<GearKayak>> delete(
     _i1.Session session,
-    List<GearDataKayak> rows, {
+    List<GearKayak> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.delete<GearDataKayak>(
+    return session.db.delete<GearKayak>(
       rows,
       transaction: transaction,
     );
   }
 
-  /// Deletes a single [GearDataKayak].
-  Future<GearDataKayak> deleteRow(
+  /// Deletes a single [GearKayak].
+  Future<GearKayak> deleteRow(
     _i1.Session session,
-    GearDataKayak row, {
+    GearKayak row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.deleteRow<GearDataKayak>(
+    return session.db.deleteRow<GearKayak>(
       row,
       transaction: transaction,
     );
   }
 
   /// Deletes all rows matching the [where] expression.
-  Future<List<GearDataKayak>> deleteWhere(
+  Future<List<GearKayak>> deleteWhere(
     _i1.Session session, {
-    required _i1.WhereExpressionBuilder<GearDataKayakTable> where,
+    required _i1.WhereExpressionBuilder<GearKayakTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.deleteWhere<GearDataKayak>(
-      where: where(GearDataKayak.t),
+    return session.db.deleteWhere<GearKayak>(
+      where: where(GearKayak.t),
       transaction: transaction,
     );
   }
@@ -501,40 +500,40 @@ class GearDataKayakRepository {
   /// will return the count of all rows in the table.
   Future<int> count(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataKayakTable>? where,
+    _i1.WhereExpressionBuilder<GearKayakTable>? where,
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.count<GearDataKayak>(
-      where: where?.call(GearDataKayak.t),
+    return session.db.count<GearKayak>(
+      where: where?.call(GearKayak.t),
       limit: limit,
       transaction: transaction,
     );
   }
 }
 
-class GearDataKayakAttachRowRepository {
-  const GearDataKayakAttachRowRepository._();
+class GearKayakAttachRowRepository {
+  const GearKayakAttachRowRepository._();
 
-  /// Creates a relation between the given [GearDataKayak] and [Gear]
-  /// by setting the [GearDataKayak]'s foreign key `gearId` to refer to the [Gear].
+  /// Creates a relation between the given [GearKayak] and [Gear]
+  /// by setting the [GearKayak]'s foreign key `gearId` to refer to the [Gear].
   Future<void> gear(
     _i1.Session session,
-    GearDataKayak gearDataKayak,
+    GearKayak gearKayak,
     _i2.Gear gear, {
     _i1.Transaction? transaction,
   }) async {
-    if (gearDataKayak.id == null) {
-      throw ArgumentError.notNull('gearDataKayak.id');
+    if (gearKayak.id == null) {
+      throw ArgumentError.notNull('gearKayak.id');
     }
     if (gear.id == null) {
       throw ArgumentError.notNull('gear.id');
     }
 
-    var $gearDataKayak = gearDataKayak.copyWith(gearId: gear.id);
-    await session.db.updateRow<GearDataKayak>(
-      $gearDataKayak,
-      columns: [GearDataKayak.t.gearId],
+    var $gearKayak = gearKayak.copyWith(gearId: gear.id);
+    await session.db.updateRow<GearKayak>(
+      $gearKayak,
+      columns: [GearKayak.t.gearId],
       transaction: transaction,
     );
   }

@@ -1,5 +1,5 @@
-class: GearDataSpraydeck
-table: gear_data_spraydecks
+class: GearSpraydeck
+table: gear_spraydecks
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
   deckSize: SpraydeckDeckSize

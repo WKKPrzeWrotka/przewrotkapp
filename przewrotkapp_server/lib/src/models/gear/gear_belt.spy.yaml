@@ -1,10 +1,9 @@
-class: GearDataPfd
-table: gear_data_pfds
+class: GearBelt
+table: gear_belts
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
-  size: GenericGearSize
-  type: PfdType
+  length: double
 indexes:
-  pfds_gear_unique_idx:
+  belts_gear_unique_idx:
     fields: gearId
     unique: true

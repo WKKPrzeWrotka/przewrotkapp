@@ -11,35 +11,31 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import '../gear/gear.dart' as _i2;
-import '../gear/clothing_type.dart' as _i3;
 
-abstract class GearDataClothing implements _i1.SerializableModel {
-  GearDataClothing._({
+abstract class GearBelt implements _i1.SerializableModel {
+  GearBelt._({
     this.id,
     required this.gearId,
     this.gear,
-    required this.type,
-    this.typeDescription,
+    required this.length,
   });
 
-  factory GearDataClothing({
+  factory GearBelt({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.ClothingType type,
-    String? typeDescription,
-  }) = _GearDataClothingImpl;
+    required double length,
+  }) = _GearBeltImpl;
 
-  factory GearDataClothing.fromJson(Map<String, dynamic> jsonSerialization) {
-    return GearDataClothing(
+  factory GearBelt.fromJson(Map<String, dynamic> jsonSerialization) {
+    return GearBelt(
       id: jsonSerialization['id'] as int?,
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
           : _i2.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      type: _i3.ClothingType.fromJson((jsonSerialization['type'] as String)),
-      typeDescription: jsonSerialization['typeDescription'] as String?,
+      length: (jsonSerialization['length'] as num).toDouble(),
     );
   }
 
@@ -52,19 +48,16 @@ abstract class GearDataClothing implements _i1.SerializableModel {
 
   _i2.Gear? gear;
 
-  _i3.ClothingType type;
+  double length;
 
-  String? typeDescription;
-
-  /// Returns a shallow copy of this [GearDataClothing]
+  /// Returns a shallow copy of this [GearBelt]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  GearDataClothing copyWith({
+  GearBelt copyWith({
     int? id,
     int? gearId,
     _i2.Gear? gear,
-    _i3.ClothingType? type,
-    String? typeDescription,
+    double? length,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -72,8 +65,7 @@ abstract class GearDataClothing implements _i1.SerializableModel {
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
-      'type': type.toJson(),
-      if (typeDescription != null) 'typeDescription': typeDescription,
+      'length': length,
     };
   }
 
@@ -85,39 +77,34 @@ abstract class GearDataClothing implements _i1.SerializableModel {
 
 class _Undefined {}
 
-class _GearDataClothingImpl extends GearDataClothing {
-  _GearDataClothingImpl({
+class _GearBeltImpl extends GearBelt {
+  _GearBeltImpl({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.ClothingType type,
-    String? typeDescription,
+    required double length,
   }) : super._(
           id: id,
           gearId: gearId,
           gear: gear,
-          type: type,
-          typeDescription: typeDescription,
+          length: length,
         );
 
-  /// Returns a shallow copy of this [GearDataClothing]
+  /// Returns a shallow copy of this [GearBelt]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  GearDataClothing copyWith({
+  GearBelt copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.ClothingType? type,
-    Object? typeDescription = _Undefined,
+    double? length,
   }) {
-    return GearDataClothing(
+    return GearBelt(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
-      type: type ?? this.type,
-      typeDescription:
-          typeDescription is String? ? typeDescription : this.typeDescription,
+      length: length ?? this.length,
     );
   }
 }

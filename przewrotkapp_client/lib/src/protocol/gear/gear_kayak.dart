@@ -11,32 +11,41 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import '../gear/gear.dart' as _i2;
-import '../gear/generic_gear_size.dart' as _i3;
+import '../gear/kayak_type.dart' as _i3;
 
-abstract class GearDataHelmet implements _i1.SerializableModel {
-  GearDataHelmet._({
+abstract class GearKayak implements _i1.SerializableModel {
+  GearKayak._({
     this.id,
     required this.gearId,
     this.gear,
-    required this.size,
+    required this.type,
+    required this.minWeight,
+    required this.maxWeight,
+    required this.length,
   });
 
-  factory GearDataHelmet({
+  factory GearKayak({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.GenericGearSize size,
-  }) = _GearDataHelmetImpl;
+    required _i3.KayakType type,
+    required int minWeight,
+    required int maxWeight,
+    required int length,
+  }) = _GearKayakImpl;
 
-  factory GearDataHelmet.fromJson(Map<String, dynamic> jsonSerialization) {
-    return GearDataHelmet(
+  factory GearKayak.fromJson(Map<String, dynamic> jsonSerialization) {
+    return GearKayak(
       id: jsonSerialization['id'] as int?,
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
           : _i2.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      size: _i3.GenericGearSize.fromJson((jsonSerialization['size'] as String)),
+      type: _i3.KayakType.fromJson((jsonSerialization['type'] as String)),
+      minWeight: jsonSerialization['minWeight'] as int,
+      maxWeight: jsonSerialization['maxWeight'] as int,
+      length: jsonSerialization['length'] as int,
     );
   }
 
@@ -49,16 +58,25 @@ abstract class GearDataHelmet implements _i1.SerializableModel {
 
   _i2.Gear? gear;
 
-  _i3.GenericGearSize size;
+  _i3.KayakType type;
 
-  /// Returns a shallow copy of this [GearDataHelmet]
+  int minWeight;
+
+  int maxWeight;
+
+  int length;
+
+  /// Returns a shallow copy of this [GearKayak]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  GearDataHelmet copyWith({
+  GearKayak copyWith({
     int? id,
     int? gearId,
     _i2.Gear? gear,
-    _i3.GenericGearSize? size,
+    _i3.KayakType? type,
+    int? minWeight,
+    int? maxWeight,
+    int? length,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -66,7 +84,10 @@ abstract class GearDataHelmet implements _i1.SerializableModel {
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
-      'size': size.toJson(),
+      'type': type.toJson(),
+      'minWeight': minWeight,
+      'maxWeight': maxWeight,
+      'length': length,
     };
   }
 
@@ -78,34 +99,46 @@ abstract class GearDataHelmet implements _i1.SerializableModel {
 
 class _Undefined {}
 
-class _GearDataHelmetImpl extends GearDataHelmet {
-  _GearDataHelmetImpl({
+class _GearKayakImpl extends GearKayak {
+  _GearKayakImpl({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.GenericGearSize size,
+    required _i3.KayakType type,
+    required int minWeight,
+    required int maxWeight,
+    required int length,
   }) : super._(
           id: id,
           gearId: gearId,
           gear: gear,
-          size: size,
+          type: type,
+          minWeight: minWeight,
+          maxWeight: maxWeight,
+          length: length,
         );
 
-  /// Returns a shallow copy of this [GearDataHelmet]
+  /// Returns a shallow copy of this [GearKayak]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  GearDataHelmet copyWith({
+  GearKayak copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.GenericGearSize? size,
+    _i3.KayakType? type,
+    int? minWeight,
+    int? maxWeight,
+    int? length,
   }) {
-    return GearDataHelmet(
+    return GearKayak(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
-      size: size ?? this.size,
+      type: type ?? this.type,
+      minWeight: minWeight ?? this.minWeight,
+      maxWeight: maxWeight ?? this.maxWeight,
+      length: length ?? this.length,
     );
   }
 }

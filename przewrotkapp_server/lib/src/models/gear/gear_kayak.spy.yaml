@@ -1,5 +1,5 @@
-class: GearDataKayak
-table: gear_data_kayaks
+class: GearKayak
+table: gear_kayaks
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
   type: KayakType

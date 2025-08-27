@@ -13,45 +13,38 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../gear/gear.dart' as _i2;
-import '../gear/paddle_type.dart' as _i3;
 
-abstract class GearDataPaddle
+abstract class GearThrowbag
     implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
-  GearDataPaddle._({
+  GearThrowbag._({
     this.id,
     required this.gearId,
     this.gear,
-    required this.type,
     required this.length,
-    required this.rotation,
   });
 
-  factory GearDataPaddle({
+  factory GearThrowbag({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.PaddleType type,
-    required double length,
-    required int rotation,
-  }) = _GearDataPaddleImpl;
+    required int length,
+  }) = _GearThrowbagImpl;
 
-  factory GearDataPaddle.fromJson(Map<String, dynamic> jsonSerialization) {
-    return GearDataPaddle(
+  factory GearThrowbag.fromJson(Map<String, dynamic> jsonSerialization) {
+    return GearThrowbag(
       id: jsonSerialization['id'] as int?,
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
           : _i2.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      type: _i3.PaddleType.fromJson((jsonSerialization['type'] as String)),
-      length: (jsonSerialization['length'] as num).toDouble(),
-      rotation: jsonSerialization['rotation'] as int,
+      length: jsonSerialization['length'] as int,
     );
   }
 
-  static final t = GearDataPaddleTable();
+  static final t = GearThrowbagTable();
 
-  static const db = GearDataPaddleRepository._();
+  static const db = GearThrowbagRepository._();
 
   @override
   int? id;
@@ -60,26 +53,19 @@ abstract class GearDataPaddle
 
   _i2.Gear? gear;
 
-  _i3.PaddleType type;
-
-  double length;
-
-  /// Negative values represents variable - "up to abs(rotation)"
-  int rotation;
+  int length;
 
   @override
   _i1.Table<int?> get table => t;
 
-  /// Returns a shallow copy of this [GearDataPaddle]
+  /// Returns a shallow copy of this [GearThrowbag]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  GearDataPaddle copyWith({
+  GearThrowbag copyWith({
     int? id,
     int? gearId,
     _i2.Gear? gear,
-    _i3.PaddleType? type,
-    double? length,
-    int? rotation,
+    int? length,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -87,9 +73,7 @@ abstract class GearDataPaddle
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
-      'type': type.toJson(),
       'length': length,
-      'rotation': rotation,
     };
   }
 
@@ -99,32 +83,30 @@ abstract class GearDataPaddle
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJsonForProtocol(),
-      'type': type.toJson(),
       'length': length,
-      'rotation': rotation,
     };
   }
 
-  static GearDataPaddleInclude include({_i2.GearInclude? gear}) {
-    return GearDataPaddleInclude._(gear: gear);
+  static GearThrowbagInclude include({_i2.GearInclude? gear}) {
+    return GearThrowbagInclude._(gear: gear);
   }
 
-  static GearDataPaddleIncludeList includeList({
-    _i1.WhereExpressionBuilder<GearDataPaddleTable>? where,
+  static GearThrowbagIncludeList includeList({
+    _i1.WhereExpressionBuilder<GearThrowbagTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearDataPaddleTable>? orderBy,
+    _i1.OrderByBuilder<GearThrowbagTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataPaddleTable>? orderByList,
-    GearDataPaddleInclude? include,
+    _i1.OrderByListBuilder<GearThrowbagTable>? orderByList,
+    GearThrowbagInclude? include,
   }) {
-    return GearDataPaddleIncludeList._(
+    return GearThrowbagIncludeList._(
       where: where,
       limit: limit,
       offset: offset,
-      orderBy: orderBy?.call(GearDataPaddle.t),
+      orderBy: orderBy?.call(GearThrowbag.t),
       orderDescending: orderDescending,
-      orderByList: orderByList?.call(GearDataPaddle.t),
+      orderByList: orderByList?.call(GearThrowbag.t),
       include: include,
     );
   }
@@ -137,64 +119,47 @@ abstract class GearDataPaddle
 
 class _Undefined {}
 
-class _GearDataPaddleImpl extends GearDataPaddle {
-  _GearDataPaddleImpl({
+class _GearThrowbagImpl extends GearThrowbag {
+  _GearThrowbagImpl({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.PaddleType type,
-    required double length,
-    required int rotation,
+    required int length,
   }) : super._(
           id: id,
           gearId: gearId,
           gear: gear,
-          type: type,
           length: length,
-          rotation: rotation,
         );
 
-  /// Returns a shallow copy of this [GearDataPaddle]
+  /// Returns a shallow copy of this [GearThrowbag]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  GearDataPaddle copyWith({
+  GearThrowbag copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.PaddleType? type,
-    double? length,
-    int? rotation,
+    int? length,
   }) {
-    return GearDataPaddle(
+    return GearThrowbag(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
-      type: type ?? this.type,
       length: length ?? this.length,
-      rotation: rotation ?? this.rotation,
     );
   }
 }
 
-class GearDataPaddleTable extends _i1.Table<int?> {
-  GearDataPaddleTable({super.tableRelation})
-      : super(tableName: 'gear_data_paddles') {
+class GearThrowbagTable extends _i1.Table<int?> {
+  GearThrowbagTable({super.tableRelation})
+      : super(tableName: 'gear_throwbags') {
     gearId = _i1.ColumnInt(
       'gearId',
       this,
     );
-    type = _i1.ColumnEnum(
-      'type',
-      this,
-      _i1.EnumSerialization.byName,
-    );
-    length = _i1.ColumnDouble(
+    length = _i1.ColumnInt(
       'length',
-      this,
-    );
-    rotation = _i1.ColumnInt(
-      'rotation',
       this,
     );
   }
@@ -203,18 +168,13 @@ class GearDataPaddleTable extends _i1.Table<int?> {
 
   _i2.GearTable? _gear;
 
-  late final _i1.ColumnEnum<_i3.PaddleType> type;
-
-  late final _i1.ColumnDouble length;
-
-  /// Negative values represents variable - "up to abs(rotation)"
-  late final _i1.ColumnInt rotation;
+  late final _i1.ColumnInt length;
 
   _i2.GearTable get gear {
     if (_gear != null) return _gear!;
     _gear = _i1.createRelationTable(
       relationFieldName: 'gear',
-      field: GearDataPaddle.t.gearId,
+      field: GearThrowbag.t.gearId,
       foreignField: _i2.Gear.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
@@ -227,9 +187,7 @@ class GearDataPaddleTable extends _i1.Table<int?> {
   List<_i1.Column> get columns => [
         id,
         gearId,
-        type,
         length,
-        rotation,
       ];
 
   @override
@@ -241,8 +199,8 @@ class GearDataPaddleTable extends _i1.Table<int?> {
   }
 }
 
-class GearDataPaddleInclude extends _i1.IncludeObject {
-  GearDataPaddleInclude._({_i2.GearInclude? gear}) {
+class GearThrowbagInclude extends _i1.IncludeObject {
+  GearThrowbagInclude._({_i2.GearInclude? gear}) {
     _gear = gear;
   }
 
@@ -252,12 +210,12 @@ class GearDataPaddleInclude extends _i1.IncludeObject {
   Map<String, _i1.Include?> get includes => {'gear': _gear};
 
   @override
-  _i1.Table<int?> get table => GearDataPaddle.t;
+  _i1.Table<int?> get table => GearThrowbag.t;
 }
 
-class GearDataPaddleIncludeList extends _i1.IncludeList {
-  GearDataPaddleIncludeList._({
-    _i1.WhereExpressionBuilder<GearDataPaddleTable>? where,
+class GearThrowbagIncludeList extends _i1.IncludeList {
+  GearThrowbagIncludeList._({
+    _i1.WhereExpressionBuilder<GearThrowbagTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -265,22 +223,22 @@ class GearDataPaddleIncludeList extends _i1.IncludeList {
     super.orderByList,
     super.include,
   }) {
-    super.where = where?.call(GearDataPaddle.t);
+    super.where = where?.call(GearThrowbag.t);
   }
 
   @override
   Map<String, _i1.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table<int?> get table => GearDataPaddle.t;
+  _i1.Table<int?> get table => GearThrowbag.t;
 }
 
-class GearDataPaddleRepository {
-  const GearDataPaddleRepository._();
+class GearThrowbagRepository {
+  const GearThrowbagRepository._();
 
-  final attachRow = const GearDataPaddleAttachRowRepository._();
+  final attachRow = const GearThrowbagAttachRowRepository._();
 
-  /// Returns a list of [GearDataPaddle]s matching the given query parameters.
+  /// Returns a list of [GearThrowbag]s matching the given query parameters.
   ///
   /// Use [where] to specify which items to include in the return value.
   /// If none is specified, all items will be returned.
@@ -302,21 +260,21 @@ class GearDataPaddleRepository {
   ///   limit: 100,
   /// );
   /// ```
-  Future<List<GearDataPaddle>> find(
+  Future<List<GearThrowbag>> find(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataPaddleTable>? where,
+    _i1.WhereExpressionBuilder<GearThrowbagTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearDataPaddleTable>? orderBy,
+    _i1.OrderByBuilder<GearThrowbagTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataPaddleTable>? orderByList,
+    _i1.OrderByListBuilder<GearThrowbagTable>? orderByList,
     _i1.Transaction? transaction,
-    GearDataPaddleInclude? include,
+    GearThrowbagInclude? include,
   }) async {
-    return session.db.find<GearDataPaddle>(
-      where: where?.call(GearDataPaddle.t),
-      orderBy: orderBy?.call(GearDataPaddle.t),
-      orderByList: orderByList?.call(GearDataPaddle.t),
+    return session.db.find<GearThrowbag>(
+      where: where?.call(GearThrowbag.t),
+      orderBy: orderBy?.call(GearThrowbag.t),
+      orderByList: orderByList?.call(GearThrowbag.t),
       orderDescending: orderDescending,
       limit: limit,
       offset: offset,
@@ -325,7 +283,7 @@ class GearDataPaddleRepository {
     );
   }
 
-  /// Returns the first matching [GearDataPaddle] matching the given query parameters.
+  /// Returns the first matching [GearThrowbag] matching the given query parameters.
   ///
   /// Use [where] to specify which items to include in the return value.
   /// If none is specified, all items will be returned.
@@ -342,20 +300,20 @@ class GearDataPaddleRepository {
   ///   orderBy: (t) => t.age,
   /// );
   /// ```
-  Future<GearDataPaddle?> findFirstRow(
+  Future<GearThrowbag?> findFirstRow(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataPaddleTable>? where,
+    _i1.WhereExpressionBuilder<GearThrowbagTable>? where,
     int? offset,
-    _i1.OrderByBuilder<GearDataPaddleTable>? orderBy,
+    _i1.OrderByBuilder<GearThrowbagTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataPaddleTable>? orderByList,
+    _i1.OrderByListBuilder<GearThrowbagTable>? orderByList,
     _i1.Transaction? transaction,
-    GearDataPaddleInclude? include,
+    GearThrowbagInclude? include,
   }) async {
-    return session.db.findFirstRow<GearDataPaddle>(
-      where: where?.call(GearDataPaddle.t),
-      orderBy: orderBy?.call(GearDataPaddle.t),
-      orderByList: orderByList?.call(GearDataPaddle.t),
+    return session.db.findFirstRow<GearThrowbag>(
+      where: where?.call(GearThrowbag.t),
+      orderBy: orderBy?.call(GearThrowbag.t),
+      orderByList: orderByList?.call(GearThrowbag.t),
       orderDescending: orderDescending,
       offset: offset,
       transaction: transaction,
@@ -363,119 +321,119 @@ class GearDataPaddleRepository {
     );
   }
 
-  /// Finds a single [GearDataPaddle] by its [id] or null if no such row exists.
-  Future<GearDataPaddle?> findById(
+  /// Finds a single [GearThrowbag] by its [id] or null if no such row exists.
+  Future<GearThrowbag?> findById(
     _i1.Session session,
     int id, {
     _i1.Transaction? transaction,
-    GearDataPaddleInclude? include,
+    GearThrowbagInclude? include,
   }) async {
-    return session.db.findById<GearDataPaddle>(
+    return session.db.findById<GearThrowbag>(
       id,
       transaction: transaction,
       include: include,
     );
   }
 
-  /// Inserts all [GearDataPaddle]s in the list and returns the inserted rows.
+  /// Inserts all [GearThrowbag]s in the list and returns the inserted rows.
   ///
-  /// The returned [GearDataPaddle]s will have their `id` fields set.
+  /// The returned [GearThrowbag]s will have their `id` fields set.
   ///
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// insert, none of the rows will be inserted.
-  Future<List<GearDataPaddle>> insert(
+  Future<List<GearThrowbag>> insert(
     _i1.Session session,
-    List<GearDataPaddle> rows, {
+    List<GearThrowbag> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.insert<GearDataPaddle>(
+    return session.db.insert<GearThrowbag>(
       rows,
       transaction: transaction,
     );
   }
 
-  /// Inserts a single [GearDataPaddle] and returns the inserted row.
+  /// Inserts a single [GearThrowbag] and returns the inserted row.
   ///
-  /// The returned [GearDataPaddle] will have its `id` field set.
-  Future<GearDataPaddle> insertRow(
+  /// The returned [GearThrowbag] will have its `id` field set.
+  Future<GearThrowbag> insertRow(
     _i1.Session session,
-    GearDataPaddle row, {
+    GearThrowbag row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.insertRow<GearDataPaddle>(
+    return session.db.insertRow<GearThrowbag>(
       row,
       transaction: transaction,
     );
   }
 
-  /// Updates all [GearDataPaddle]s in the list and returns the updated rows. If
+  /// Updates all [GearThrowbag]s in the list and returns the updated rows. If
   /// [columns] is provided, only those columns will be updated. Defaults to
   /// all columns.
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// update, none of the rows will be updated.
-  Future<List<GearDataPaddle>> update(
+  Future<List<GearThrowbag>> update(
     _i1.Session session,
-    List<GearDataPaddle> rows, {
-    _i1.ColumnSelections<GearDataPaddleTable>? columns,
+    List<GearThrowbag> rows, {
+    _i1.ColumnSelections<GearThrowbagTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.update<GearDataPaddle>(
+    return session.db.update<GearThrowbag>(
       rows,
-      columns: columns?.call(GearDataPaddle.t),
+      columns: columns?.call(GearThrowbag.t),
       transaction: transaction,
     );
   }
 
-  /// Updates a single [GearDataPaddle]. The row needs to have its id set.
+  /// Updates a single [GearThrowbag]. The row needs to have its id set.
   /// Optionally, a list of [columns] can be provided to only update those
   /// columns. Defaults to all columns.
-  Future<GearDataPaddle> updateRow(
+  Future<GearThrowbag> updateRow(
     _i1.Session session,
-    GearDataPaddle row, {
-    _i1.ColumnSelections<GearDataPaddleTable>? columns,
+    GearThrowbag row, {
+    _i1.ColumnSelections<GearThrowbagTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.updateRow<GearDataPaddle>(
+    return session.db.updateRow<GearThrowbag>(
       row,
-      columns: columns?.call(GearDataPaddle.t),
+      columns: columns?.call(GearThrowbag.t),
       transaction: transaction,
     );
   }
 
-  /// Deletes all [GearDataPaddle]s in the list and returns the deleted rows.
+  /// Deletes all [GearThrowbag]s in the list and returns the deleted rows.
   /// This is an atomic operation, meaning that if one of the rows fail to
   /// be deleted, none of the rows will be deleted.
-  Future<List<GearDataPaddle>> delete(
+  Future<List<GearThrowbag>> delete(
     _i1.Session session,
-    List<GearDataPaddle> rows, {
+    List<GearThrowbag> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.delete<GearDataPaddle>(
+    return session.db.delete<GearThrowbag>(
       rows,
       transaction: transaction,
     );
   }
 
-  /// Deletes a single [GearDataPaddle].
-  Future<GearDataPaddle> deleteRow(
+  /// Deletes a single [GearThrowbag].
+  Future<GearThrowbag> deleteRow(
     _i1.Session session,
-    GearDataPaddle row, {
+    GearThrowbag row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.deleteRow<GearDataPaddle>(
+    return session.db.deleteRow<GearThrowbag>(
       row,
       transaction: transaction,
     );
   }
 
   /// Deletes all rows matching the [where] expression.
-  Future<List<GearDataPaddle>> deleteWhere(
+  Future<List<GearThrowbag>> deleteWhere(
     _i1.Session session, {
-    required _i1.WhereExpressionBuilder<GearDataPaddleTable> where,
+    required _i1.WhereExpressionBuilder<GearThrowbagTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.deleteWhere<GearDataPaddle>(
-      where: where(GearDataPaddle.t),
+    return session.db.deleteWhere<GearThrowbag>(
+      where: where(GearThrowbag.t),
       transaction: transaction,
     );
   }
@@ -484,40 +442,40 @@ class GearDataPaddleRepository {
   /// will return the count of all rows in the table.
   Future<int> count(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataPaddleTable>? where,
+    _i1.WhereExpressionBuilder<GearThrowbagTable>? where,
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.count<GearDataPaddle>(
-      where: where?.call(GearDataPaddle.t),
+    return session.db.count<GearThrowbag>(
+      where: where?.call(GearThrowbag.t),
       limit: limit,
       transaction: transaction,
     );
   }
 }
 
-class GearDataPaddleAttachRowRepository {
-  const GearDataPaddleAttachRowRepository._();
+class GearThrowbagAttachRowRepository {
+  const GearThrowbagAttachRowRepository._();
 
-  /// Creates a relation between the given [GearDataPaddle] and [Gear]
-  /// by setting the [GearDataPaddle]'s foreign key `gearId` to refer to the [Gear].
+  /// Creates a relation between the given [GearThrowbag] and [Gear]
+  /// by setting the [GearThrowbag]'s foreign key `gearId` to refer to the [Gear].
   Future<void> gear(
     _i1.Session session,
-    GearDataPaddle gearDataPaddle,
+    GearThrowbag gearThrowbag,
     _i2.Gear gear, {
     _i1.Transaction? transaction,
   }) async {
-    if (gearDataPaddle.id == null) {
-      throw ArgumentError.notNull('gearDataPaddle.id');
+    if (gearThrowbag.id == null) {
+      throw ArgumentError.notNull('gearThrowbag.id');
     }
     if (gear.id == null) {
       throw ArgumentError.notNull('gear.id');
     }
 
-    var $gearDataPaddle = gearDataPaddle.copyWith(gearId: gear.id);
-    await session.db.updateRow<GearDataPaddle>(
-      $gearDataPaddle,
-      columns: [GearDataPaddle.t.gearId],
+    var $gearThrowbag = gearThrowbag.copyWith(gearId: gear.id);
+    await session.db.updateRow<GearThrowbag>(
+      $gearThrowbag,
+      columns: [GearThrowbag.t.gearId],
       transaction: transaction,
     );
   }

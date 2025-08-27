@@ -13,8 +13,7 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import '../all_kayaks_endpoint.dart' as _i2;
 import '../greeting_endpoint.dart' as _i3;
 import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i4;
-import 'package:przewrotkapp_server/src/generated/gear/gear_data_kayak.dart'
-    as _i5;
+import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i5;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -57,7 +56,7 @@ class Endpoints extends _i1.EndpointDispatch {
             ),
             'kayak': _i1.ParameterDescription(
               name: 'kayak',
-              type: _i1.getType<_i5.GearDataKayak>(),
+              type: _i1.getType<_i5.GearKayak>(),
               nullable: false,
             ),
           },

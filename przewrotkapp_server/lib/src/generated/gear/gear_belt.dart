@@ -13,42 +13,38 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../gear/gear.dart' as _i2;
-import '../gear/clothing_type.dart' as _i3;
 
-abstract class GearDataClothing
+abstract class GearBelt
     implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
-  GearDataClothing._({
+  GearBelt._({
     this.id,
     required this.gearId,
     this.gear,
-    required this.type,
-    this.typeDescription,
+    required this.length,
   });
 
-  factory GearDataClothing({
+  factory GearBelt({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.ClothingType type,
-    String? typeDescription,
-  }) = _GearDataClothingImpl;
+    required double length,
+  }) = _GearBeltImpl;
 
-  factory GearDataClothing.fromJson(Map<String, dynamic> jsonSerialization) {
-    return GearDataClothing(
+  factory GearBelt.fromJson(Map<String, dynamic> jsonSerialization) {
+    return GearBelt(
       id: jsonSerialization['id'] as int?,
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
           : _i2.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      type: _i3.ClothingType.fromJson((jsonSerialization['type'] as String)),
-      typeDescription: jsonSerialization['typeDescription'] as String?,
+      length: (jsonSerialization['length'] as num).toDouble(),
     );
   }
 
-  static final t = GearDataClothingTable();
+  static final t = GearBeltTable();
 
-  static const db = GearDataClothingRepository._();
+  static const db = GearBeltRepository._();
 
   @override
   int? id;
@@ -57,22 +53,19 @@ abstract class GearDataClothing
 
   _i2.Gear? gear;
 
-  _i3.ClothingType type;
-
-  String? typeDescription;
+  double length;
 
   @override
   _i1.Table<int?> get table => t;
 
-  /// Returns a shallow copy of this [GearDataClothing]
+  /// Returns a shallow copy of this [GearBelt]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  GearDataClothing copyWith({
+  GearBelt copyWith({
     int? id,
     int? gearId,
     _i2.Gear? gear,
-    _i3.ClothingType? type,
-    String? typeDescription,
+    double? length,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -80,8 +73,7 @@ abstract class GearDataClothing
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
-      'type': type.toJson(),
-      if (typeDescription != null) 'typeDescription': typeDescription,
+      'length': length,
     };
   }
 
@@ -91,31 +83,30 @@ abstract class GearDataClothing
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJsonForProtocol(),
-      'type': type.toJson(),
-      if (typeDescription != null) 'typeDescription': typeDescription,
+      'length': length,
     };
   }
 
-  static GearDataClothingInclude include({_i2.GearInclude? gear}) {
-    return GearDataClothingInclude._(gear: gear);
+  static GearBeltInclude include({_i2.GearInclude? gear}) {
+    return GearBeltInclude._(gear: gear);
   }
 
-  static GearDataClothingIncludeList includeList({
-    _i1.WhereExpressionBuilder<GearDataClothingTable>? where,
+  static GearBeltIncludeList includeList({
+    _i1.WhereExpressionBuilder<GearBeltTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearDataClothingTable>? orderBy,
+    _i1.OrderByBuilder<GearBeltTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataClothingTable>? orderByList,
-    GearDataClothingInclude? include,
+    _i1.OrderByListBuilder<GearBeltTable>? orderByList,
+    GearBeltInclude? include,
   }) {
-    return GearDataClothingIncludeList._(
+    return GearBeltIncludeList._(
       where: where,
       limit: limit,
       offset: offset,
-      orderBy: orderBy?.call(GearDataClothing.t),
+      orderBy: orderBy?.call(GearBelt.t),
       orderDescending: orderDescending,
-      orderByList: orderByList?.call(GearDataClothing.t),
+      orderByList: orderByList?.call(GearBelt.t),
       include: include,
     );
   }
@@ -128,57 +119,46 @@ abstract class GearDataClothing
 
 class _Undefined {}
 
-class _GearDataClothingImpl extends GearDataClothing {
-  _GearDataClothingImpl({
+class _GearBeltImpl extends GearBelt {
+  _GearBeltImpl({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.ClothingType type,
-    String? typeDescription,
+    required double length,
   }) : super._(
           id: id,
           gearId: gearId,
           gear: gear,
-          type: type,
-          typeDescription: typeDescription,
+          length: length,
         );
 
-  /// Returns a shallow copy of this [GearDataClothing]
+  /// Returns a shallow copy of this [GearBelt]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  GearDataClothing copyWith({
+  GearBelt copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.ClothingType? type,
-    Object? typeDescription = _Undefined,
+    double? length,
   }) {
-    return GearDataClothing(
+    return GearBelt(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
-      type: type ?? this.type,
-      typeDescription:
-          typeDescription is String? ? typeDescription : this.typeDescription,
+      length: length ?? this.length,
     );
   }
 }
 
-class GearDataClothingTable extends _i1.Table<int?> {
-  GearDataClothingTable({super.tableRelation})
-      : super(tableName: 'gear_data_clothes') {
+class GearBeltTable extends _i1.Table<int?> {
+  GearBeltTable({super.tableRelation}) : super(tableName: 'gear_belts') {
     gearId = _i1.ColumnInt(
       'gearId',
       this,
     );
-    type = _i1.ColumnEnum(
-      'type',
-      this,
-      _i1.EnumSerialization.byName,
-    );
-    typeDescription = _i1.ColumnString(
-      'typeDescription',
+    length = _i1.ColumnDouble(
+      'length',
       this,
     );
   }
@@ -187,15 +167,13 @@ class GearDataClothingTable extends _i1.Table<int?> {
 
   _i2.GearTable? _gear;
 
-  late final _i1.ColumnEnum<_i3.ClothingType> type;
-
-  late final _i1.ColumnString typeDescription;
+  late final _i1.ColumnDouble length;
 
   _i2.GearTable get gear {
     if (_gear != null) return _gear!;
     _gear = _i1.createRelationTable(
       relationFieldName: 'gear',
-      field: GearDataClothing.t.gearId,
+      field: GearBelt.t.gearId,
       foreignField: _i2.Gear.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
@@ -208,8 +186,7 @@ class GearDataClothingTable extends _i1.Table<int?> {
   List<_i1.Column> get columns => [
         id,
         gearId,
-        type,
-        typeDescription,
+        length,
       ];
 
   @override
@@ -221,8 +198,8 @@ class GearDataClothingTable extends _i1.Table<int?> {
   }
 }
 
-class GearDataClothingInclude extends _i1.IncludeObject {
-  GearDataClothingInclude._({_i2.GearInclude? gear}) {
+class GearBeltInclude extends _i1.IncludeObject {
+  GearBeltInclude._({_i2.GearInclude? gear}) {
     _gear = gear;
   }
 
@@ -232,12 +209,12 @@ class GearDataClothingInclude extends _i1.IncludeObject {
   Map<String, _i1.Include?> get includes => {'gear': _gear};
 
   @override
-  _i1.Table<int?> get table => GearDataClothing.t;
+  _i1.Table<int?> get table => GearBelt.t;
 }
 
-class GearDataClothingIncludeList extends _i1.IncludeList {
-  GearDataClothingIncludeList._({
-    _i1.WhereExpressionBuilder<GearDataClothingTable>? where,
+class GearBeltIncludeList extends _i1.IncludeList {
+  GearBeltIncludeList._({
+    _i1.WhereExpressionBuilder<GearBeltTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -245,22 +222,22 @@ class GearDataClothingIncludeList extends _i1.IncludeList {
     super.orderByList,
     super.include,
   }) {
-    super.where = where?.call(GearDataClothing.t);
+    super.where = where?.call(GearBelt.t);
   }
 
   @override
   Map<String, _i1.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table<int?> get table => GearDataClothing.t;
+  _i1.Table<int?> get table => GearBelt.t;
 }
 
-class GearDataClothingRepository {
-  const GearDataClothingRepository._();
+class GearBeltRepository {
+  const GearBeltRepository._();
 
-  final attachRow = const GearDataClothingAttachRowRepository._();
+  final attachRow = const GearBeltAttachRowRepository._();
 
-  /// Returns a list of [GearDataClothing]s matching the given query parameters.
+  /// Returns a list of [GearBelt]s matching the given query parameters.
   ///
   /// Use [where] to specify which items to include in the return value.
   /// If none is specified, all items will be returned.
@@ -282,21 +259,21 @@ class GearDataClothingRepository {
   ///   limit: 100,
   /// );
   /// ```
-  Future<List<GearDataClothing>> find(
+  Future<List<GearBelt>> find(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataClothingTable>? where,
+    _i1.WhereExpressionBuilder<GearBeltTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearDataClothingTable>? orderBy,
+    _i1.OrderByBuilder<GearBeltTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataClothingTable>? orderByList,
+    _i1.OrderByListBuilder<GearBeltTable>? orderByList,
     _i1.Transaction? transaction,
-    GearDataClothingInclude? include,
+    GearBeltInclude? include,
   }) async {
-    return session.db.find<GearDataClothing>(
-      where: where?.call(GearDataClothing.t),
-      orderBy: orderBy?.call(GearDataClothing.t),
-      orderByList: orderByList?.call(GearDataClothing.t),
+    return session.db.find<GearBelt>(
+      where: where?.call(GearBelt.t),
+      orderBy: orderBy?.call(GearBelt.t),
+      orderByList: orderByList?.call(GearBelt.t),
       orderDescending: orderDescending,
       limit: limit,
       offset: offset,
@@ -305,7 +282,7 @@ class GearDataClothingRepository {
     );
   }
 
-  /// Returns the first matching [GearDataClothing] matching the given query parameters.
+  /// Returns the first matching [GearBelt] matching the given query parameters.
   ///
   /// Use [where] to specify which items to include in the return value.
   /// If none is specified, all items will be returned.
@@ -322,20 +299,20 @@ class GearDataClothingRepository {
   ///   orderBy: (t) => t.age,
   /// );
   /// ```
-  Future<GearDataClothing?> findFirstRow(
+  Future<GearBelt?> findFirstRow(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataClothingTable>? where,
+    _i1.WhereExpressionBuilder<GearBeltTable>? where,
     int? offset,
-    _i1.OrderByBuilder<GearDataClothingTable>? orderBy,
+    _i1.OrderByBuilder<GearBeltTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataClothingTable>? orderByList,
+    _i1.OrderByListBuilder<GearBeltTable>? orderByList,
     _i1.Transaction? transaction,
-    GearDataClothingInclude? include,
+    GearBeltInclude? include,
   }) async {
-    return session.db.findFirstRow<GearDataClothing>(
-      where: where?.call(GearDataClothing.t),
-      orderBy: orderBy?.call(GearDataClothing.t),
-      orderByList: orderByList?.call(GearDataClothing.t),
+    return session.db.findFirstRow<GearBelt>(
+      where: where?.call(GearBelt.t),
+      orderBy: orderBy?.call(GearBelt.t),
+      orderByList: orderByList?.call(GearBelt.t),
       orderDescending: orderDescending,
       offset: offset,
       transaction: transaction,
@@ -343,119 +320,119 @@ class GearDataClothingRepository {
     );
   }
 
-  /// Finds a single [GearDataClothing] by its [id] or null if no such row exists.
-  Future<GearDataClothing?> findById(
+  /// Finds a single [GearBelt] by its [id] or null if no such row exists.
+  Future<GearBelt?> findById(
     _i1.Session session,
     int id, {
     _i1.Transaction? transaction,
-    GearDataClothingInclude? include,
+    GearBeltInclude? include,
   }) async {
-    return session.db.findById<GearDataClothing>(
+    return session.db.findById<GearBelt>(
       id,
       transaction: transaction,
       include: include,
     );
   }
 
-  /// Inserts all [GearDataClothing]s in the list and returns the inserted rows.
+  /// Inserts all [GearBelt]s in the list and returns the inserted rows.
   ///
-  /// The returned [GearDataClothing]s will have their `id` fields set.
+  /// The returned [GearBelt]s will have their `id` fields set.
   ///
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// insert, none of the rows will be inserted.
-  Future<List<GearDataClothing>> insert(
+  Future<List<GearBelt>> insert(
     _i1.Session session,
-    List<GearDataClothing> rows, {
+    List<GearBelt> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.insert<GearDataClothing>(
+    return session.db.insert<GearBelt>(
       rows,
       transaction: transaction,
     );
   }
 
-  /// Inserts a single [GearDataClothing] and returns the inserted row.
+  /// Inserts a single [GearBelt] and returns the inserted row.
   ///
-  /// The returned [GearDataClothing] will have its `id` field set.
-  Future<GearDataClothing> insertRow(
+  /// The returned [GearBelt] will have its `id` field set.
+  Future<GearBelt> insertRow(
     _i1.Session session,
-    GearDataClothing row, {
+    GearBelt row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.insertRow<GearDataClothing>(
+    return session.db.insertRow<GearBelt>(
       row,
       transaction: transaction,
     );
   }
 
-  /// Updates all [GearDataClothing]s in the list and returns the updated rows. If
+  /// Updates all [GearBelt]s in the list and returns the updated rows. If
   /// [columns] is provided, only those columns will be updated. Defaults to
   /// all columns.
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// update, none of the rows will be updated.
-  Future<List<GearDataClothing>> update(
+  Future<List<GearBelt>> update(
     _i1.Session session,
-    List<GearDataClothing> rows, {
-    _i1.ColumnSelections<GearDataClothingTable>? columns,
+    List<GearBelt> rows, {
+    _i1.ColumnSelections<GearBeltTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.update<GearDataClothing>(
+    return session.db.update<GearBelt>(
       rows,
-      columns: columns?.call(GearDataClothing.t),
+      columns: columns?.call(GearBelt.t),
       transaction: transaction,
     );
   }
 
-  /// Updates a single [GearDataClothing]. The row needs to have its id set.
+  /// Updates a single [GearBelt]. The row needs to have its id set.
   /// Optionally, a list of [columns] can be provided to only update those
   /// columns. Defaults to all columns.
-  Future<GearDataClothing> updateRow(
+  Future<GearBelt> updateRow(
     _i1.Session session,
-    GearDataClothing row, {
-    _i1.ColumnSelections<GearDataClothingTable>? columns,
+    GearBelt row, {
+    _i1.ColumnSelections<GearBeltTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.updateRow<GearDataClothing>(
+    return session.db.updateRow<GearBelt>(
       row,
-      columns: columns?.call(GearDataClothing.t),
+      columns: columns?.call(GearBelt.t),
       transaction: transaction,
     );
   }
 
-  /// Deletes all [GearDataClothing]s in the list and returns the deleted rows.
+  /// Deletes all [GearBelt]s in the list and returns the deleted rows.
   /// This is an atomic operation, meaning that if one of the rows fail to
   /// be deleted, none of the rows will be deleted.
-  Future<List<GearDataClothing>> delete(
+  Future<List<GearBelt>> delete(
     _i1.Session session,
-    List<GearDataClothing> rows, {
+    List<GearBelt> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.delete<GearDataClothing>(
+    return session.db.delete<GearBelt>(
       rows,
       transaction: transaction,
     );
   }
 
-  /// Deletes a single [GearDataClothing].
-  Future<GearDataClothing> deleteRow(
+  /// Deletes a single [GearBelt].
+  Future<GearBelt> deleteRow(
     _i1.Session session,
-    GearDataClothing row, {
+    GearBelt row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.deleteRow<GearDataClothing>(
+    return session.db.deleteRow<GearBelt>(
       row,
       transaction: transaction,
     );
   }
 
   /// Deletes all rows matching the [where] expression.
-  Future<List<GearDataClothing>> deleteWhere(
+  Future<List<GearBelt>> deleteWhere(
     _i1.Session session, {
-    required _i1.WhereExpressionBuilder<GearDataClothingTable> where,
+    required _i1.WhereExpressionBuilder<GearBeltTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.deleteWhere<GearDataClothing>(
-      where: where(GearDataClothing.t),
+    return session.db.deleteWhere<GearBelt>(
+      where: where(GearBelt.t),
       transaction: transaction,
     );
   }
@@ -464,40 +441,40 @@ class GearDataClothingRepository {
   /// will return the count of all rows in the table.
   Future<int> count(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataClothingTable>? where,
+    _i1.WhereExpressionBuilder<GearBeltTable>? where,
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.count<GearDataClothing>(
-      where: where?.call(GearDataClothing.t),
+    return session.db.count<GearBelt>(
+      where: where?.call(GearBelt.t),
       limit: limit,
       transaction: transaction,
     );
   }
 }
 
-class GearDataClothingAttachRowRepository {
-  const GearDataClothingAttachRowRepository._();
+class GearBeltAttachRowRepository {
+  const GearBeltAttachRowRepository._();
 
-  /// Creates a relation between the given [GearDataClothing] and [Gear]
-  /// by setting the [GearDataClothing]'s foreign key `gearId` to refer to the [Gear].
+  /// Creates a relation between the given [GearBelt] and [Gear]
+  /// by setting the [GearBelt]'s foreign key `gearId` to refer to the [Gear].
   Future<void> gear(
     _i1.Session session,
-    GearDataClothing gearDataClothing,
+    GearBelt gearBelt,
     _i2.Gear gear, {
     _i1.Transaction? transaction,
   }) async {
-    if (gearDataClothing.id == null) {
-      throw ArgumentError.notNull('gearDataClothing.id');
+    if (gearBelt.id == null) {
+      throw ArgumentError.notNull('gearBelt.id');
     }
     if (gear.id == null) {
       throw ArgumentError.notNull('gear.id');
     }
 
-    var $gearDataClothing = gearDataClothing.copyWith(gearId: gear.id);
-    await session.db.updateRow<GearDataClothing>(
-      $gearDataClothing,
-      columns: [GearDataClothing.t.gearId],
+    var $gearBelt = gearBelt.copyWith(gearId: gear.id);
+    await session.db.updateRow<GearBelt>(
+      $gearBelt,
+      columns: [GearBelt.t.gearId],
       transaction: transaction,
     );
   }

@@ -1,9 +1,9 @@
-class: GearDataBelt
-table: gear_data_belts
+class: GearThrowbag
+table: gear_throwbags
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
-  length: double
+  length: int
 indexes:
-  belts_gear_unique_idx:
+  throwbags_gear_unique_idx:
     fields: gearId
     unique: true

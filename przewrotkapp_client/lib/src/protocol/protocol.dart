@@ -14,14 +14,14 @@ import 'greeting.dart' as _i2;
 import 'exceptions/kayak_exception.dart' as _i3;
 import 'gear/clothing_type.dart' as _i4;
 import 'gear/gear.dart' as _i5;
-import 'gear/gear_data_belt.dart' as _i6;
-import 'gear/gear_data_clothing.dart' as _i7;
-import 'gear/gear_data_helmet.dart' as _i8;
-import 'gear/gear_data_kayak.dart' as _i9;
-import 'gear/gear_data_paddle.dart' as _i10;
-import 'gear/gear_data_pfd.dart' as _i11;
-import 'gear/gear_data_spraydeck.dart' as _i12;
-import 'gear/gear_data_throwbag.dart' as _i13;
+import 'gear/gear_belt.dart' as _i6;
+import 'gear/gear_clothing.dart' as _i7;
+import 'gear/gear_helmet.dart' as _i8;
+import 'gear/gear_kayak.dart' as _i9;
+import 'gear/gear_paddle.dart' as _i10;
+import 'gear/gear_pfd.dart' as _i11;
+import 'gear/gear_spraydeck.dart' as _i12;
+import 'gear/gear_throwbag.dart' as _i13;
 import 'gear/generic_gear_size.dart' as _i14;
 import 'gear/kayak_type.dart' as _i15;
 import 'gear/paddle_type.dart' as _i16;
@@ -32,14 +32,14 @@ export 'greeting.dart';
 export 'exceptions/kayak_exception.dart';
 export 'gear/clothing_type.dart';
 export 'gear/gear.dart';
-export 'gear/gear_data_belt.dart';
-export 'gear/gear_data_clothing.dart';
-export 'gear/gear_data_helmet.dart';
-export 'gear/gear_data_kayak.dart';
-export 'gear/gear_data_paddle.dart';
-export 'gear/gear_data_pfd.dart';
-export 'gear/gear_data_spraydeck.dart';
-export 'gear/gear_data_throwbag.dart';
+export 'gear/gear_belt.dart';
+export 'gear/gear_clothing.dart';
+export 'gear/gear_helmet.dart';
+export 'gear/gear_kayak.dart';
+export 'gear/gear_paddle.dart';
+export 'gear/gear_pfd.dart';
+export 'gear/gear_spraydeck.dart';
+export 'gear/gear_throwbag.dart';
 export 'gear/generic_gear_size.dart';
 export 'gear/kayak_type.dart';
 export 'gear/paddle_type.dart';
@@ -72,29 +72,29 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i5.Gear) {
       return _i5.Gear.fromJson(data) as T;
     }
-    if (t == _i6.GearDataBelt) {
-      return _i6.GearDataBelt.fromJson(data) as T;
+    if (t == _i6.GearBelt) {
+      return _i6.GearBelt.fromJson(data) as T;
     }
-    if (t == _i7.GearDataClothing) {
-      return _i7.GearDataClothing.fromJson(data) as T;
+    if (t == _i7.GearClothing) {
+      return _i7.GearClothing.fromJson(data) as T;
     }
-    if (t == _i8.GearDataHelmet) {
-      return _i8.GearDataHelmet.fromJson(data) as T;
+    if (t == _i8.GearHelmet) {
+      return _i8.GearHelmet.fromJson(data) as T;
     }
-    if (t == _i9.GearDataKayak) {
-      return _i9.GearDataKayak.fromJson(data) as T;
+    if (t == _i9.GearKayak) {
+      return _i9.GearKayak.fromJson(data) as T;
     }
-    if (t == _i10.GearDataPaddle) {
-      return _i10.GearDataPaddle.fromJson(data) as T;
+    if (t == _i10.GearPaddle) {
+      return _i10.GearPaddle.fromJson(data) as T;
     }
-    if (t == _i11.GearDataPfd) {
-      return _i11.GearDataPfd.fromJson(data) as T;
+    if (t == _i11.GearPfd) {
+      return _i11.GearPfd.fromJson(data) as T;
     }
-    if (t == _i12.GearDataSpraydeck) {
-      return _i12.GearDataSpraydeck.fromJson(data) as T;
+    if (t == _i12.GearSpraydeck) {
+      return _i12.GearSpraydeck.fromJson(data) as T;
     }
-    if (t == _i13.GearDataThrowbag) {
-      return _i13.GearDataThrowbag.fromJson(data) as T;
+    if (t == _i13.GearThrowbag) {
+      return _i13.GearThrowbag.fromJson(data) as T;
     }
     if (t == _i14.GenericGearSize) {
       return _i14.GenericGearSize.fromJson(data) as T;
@@ -123,29 +123,29 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i5.Gear?>()) {
       return (data != null ? _i5.Gear.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i6.GearDataBelt?>()) {
-      return (data != null ? _i6.GearDataBelt.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i6.GearBelt?>()) {
+      return (data != null ? _i6.GearBelt.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i7.GearDataClothing?>()) {
-      return (data != null ? _i7.GearDataClothing.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i7.GearClothing?>()) {
+      return (data != null ? _i7.GearClothing.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i8.GearDataHelmet?>()) {
-      return (data != null ? _i8.GearDataHelmet.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i8.GearHelmet?>()) {
+      return (data != null ? _i8.GearHelmet.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i9.GearDataKayak?>()) {
-      return (data != null ? _i9.GearDataKayak.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i9.GearKayak?>()) {
+      return (data != null ? _i9.GearKayak.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i10.GearDataPaddle?>()) {
-      return (data != null ? _i10.GearDataPaddle.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i10.GearPaddle?>()) {
+      return (data != null ? _i10.GearPaddle.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i11.GearDataPfd?>()) {
-      return (data != null ? _i11.GearDataPfd.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i11.GearPfd?>()) {
+      return (data != null ? _i11.GearPfd.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i12.GearDataSpraydeck?>()) {
-      return (data != null ? _i12.GearDataSpraydeck.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i12.GearSpraydeck?>()) {
+      return (data != null ? _i12.GearSpraydeck.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i13.GearDataThrowbag?>()) {
-      return (data != null ? _i13.GearDataThrowbag.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i13.GearThrowbag?>()) {
+      return (data != null ? _i13.GearThrowbag.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i14.GenericGearSize?>()) {
       return (data != null ? _i14.GenericGearSize.fromJson(data) : null) as T;
@@ -189,29 +189,29 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i5.Gear) {
       return 'Gear';
     }
-    if (data is _i6.GearDataBelt) {
-      return 'GearDataBelt';
+    if (data is _i6.GearBelt) {
+      return 'GearBelt';
     }
-    if (data is _i7.GearDataClothing) {
-      return 'GearDataClothing';
+    if (data is _i7.GearClothing) {
+      return 'GearClothing';
     }
-    if (data is _i8.GearDataHelmet) {
-      return 'GearDataHelmet';
+    if (data is _i8.GearHelmet) {
+      return 'GearHelmet';
     }
-    if (data is _i9.GearDataKayak) {
-      return 'GearDataKayak';
+    if (data is _i9.GearKayak) {
+      return 'GearKayak';
     }
-    if (data is _i10.GearDataPaddle) {
-      return 'GearDataPaddle';
+    if (data is _i10.GearPaddle) {
+      return 'GearPaddle';
     }
-    if (data is _i11.GearDataPfd) {
-      return 'GearDataPfd';
+    if (data is _i11.GearPfd) {
+      return 'GearPfd';
     }
-    if (data is _i12.GearDataSpraydeck) {
-      return 'GearDataSpraydeck';
+    if (data is _i12.GearSpraydeck) {
+      return 'GearSpraydeck';
     }
-    if (data is _i13.GearDataThrowbag) {
-      return 'GearDataThrowbag';
+    if (data is _i13.GearThrowbag) {
+      return 'GearThrowbag';
     }
     if (data is _i14.GenericGearSize) {
       return 'GenericGearSize';
@@ -249,29 +249,29 @@ class Protocol extends _i1.SerializationManager {
     if (dataClassName == 'Gear') {
       return deserialize<_i5.Gear>(data['data']);
     }
-    if (dataClassName == 'GearDataBelt') {
-      return deserialize<_i6.GearDataBelt>(data['data']);
+    if (dataClassName == 'GearBelt') {
+      return deserialize<_i6.GearBelt>(data['data']);
     }
-    if (dataClassName == 'GearDataClothing') {
-      return deserialize<_i7.GearDataClothing>(data['data']);
+    if (dataClassName == 'GearClothing') {
+      return deserialize<_i7.GearClothing>(data['data']);
     }
-    if (dataClassName == 'GearDataHelmet') {
-      return deserialize<_i8.GearDataHelmet>(data['data']);
+    if (dataClassName == 'GearHelmet') {
+      return deserialize<_i8.GearHelmet>(data['data']);
     }
-    if (dataClassName == 'GearDataKayak') {
-      return deserialize<_i9.GearDataKayak>(data['data']);
+    if (dataClassName == 'GearKayak') {
+      return deserialize<_i9.GearKayak>(data['data']);
     }
-    if (dataClassName == 'GearDataPaddle') {
-      return deserialize<_i10.GearDataPaddle>(data['data']);
+    if (dataClassName == 'GearPaddle') {
+      return deserialize<_i10.GearPaddle>(data['data']);
     }
-    if (dataClassName == 'GearDataPfd') {
-      return deserialize<_i11.GearDataPfd>(data['data']);
+    if (dataClassName == 'GearPfd') {
+      return deserialize<_i11.GearPfd>(data['data']);
     }
-    if (dataClassName == 'GearDataSpraydeck') {
-      return deserialize<_i12.GearDataSpraydeck>(data['data']);
+    if (dataClassName == 'GearSpraydeck') {
+      return deserialize<_i12.GearSpraydeck>(data['data']);
     }
-    if (dataClassName == 'GearDataThrowbag') {
-      return deserialize<_i13.GearDataThrowbag>(data['data']);
+    if (dataClassName == 'GearThrowbag') {
+      return deserialize<_i13.GearThrowbag>(data['data']);
     }
     if (dataClassName == 'GenericGearSize') {
       return deserialize<_i14.GenericGearSize>(data['data']);

@@ -5,10 +5,10 @@ import 'generated/protocol.dart';
 class AllKayaksEndpoint extends Endpoint {
   Future<List<Gear>> getAllKayaks(Session session) async {
     return [
-      (await GearDataKayak.db.findById(
+      (await GearKayak.db.findFirstRow(
         session,
-        5,
-        include: GearDataKayak.include(
+        where: (kayakTable) => kayakTable.gear.clubId.equals('KK-32'),
+        include: GearKayak.include(
           gear: Gear.include(),
         ),
       ))!
@@ -17,12 +17,12 @@ class AllKayaksEndpoint extends Endpoint {
   }
 
   Future<void> addNewKayak(
-      Session session, Gear gear, GearDataKayak kayak) async {
+      Session session, Gear gear, GearKayak kayak) async {
     final result = await session.db.transaction((trans) async {
       final insertedGear =
           await Gear.db.insertRow(session, gear, transaction: trans);
       session.log('new gear: $insertedGear');
-      final insertedKayak = await GearDataKayak.db.insertRow(
+      final insertedKayak = await GearKayak.db.insertRow(
           session, kayak.copyWith(gearId: insertedGear.id),
           transaction: trans);
       session.log('new kayak: $insertedKayak');

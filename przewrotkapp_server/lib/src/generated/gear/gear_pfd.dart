@@ -16,9 +16,9 @@ import '../gear/gear.dart' as _i2;
 import '../gear/generic_gear_size.dart' as _i3;
 import '../gear/pfd_type.dart' as _i4;
 
-abstract class GearDataPfd
+abstract class GearPfd
     implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
-  GearDataPfd._({
+  GearPfd._({
     this.id,
     required this.gearId,
     this.gear,
@@ -26,16 +26,16 @@ abstract class GearDataPfd
     required this.type,
   });
 
-  factory GearDataPfd({
+  factory GearPfd({
     int? id,
     required int gearId,
     _i2.Gear? gear,
     required _i3.GenericGearSize size,
     required _i4.PfdType type,
-  }) = _GearDataPfdImpl;
+  }) = _GearPfdImpl;
 
-  factory GearDataPfd.fromJson(Map<String, dynamic> jsonSerialization) {
-    return GearDataPfd(
+  factory GearPfd.fromJson(Map<String, dynamic> jsonSerialization) {
+    return GearPfd(
       id: jsonSerialization['id'] as int?,
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
@@ -47,9 +47,9 @@ abstract class GearDataPfd
     );
   }
 
-  static final t = GearDataPfdTable();
+  static final t = GearPfdTable();
 
-  static const db = GearDataPfdRepository._();
+  static const db = GearPfdRepository._();
 
   @override
   int? id;
@@ -65,10 +65,10 @@ abstract class GearDataPfd
   @override
   _i1.Table<int?> get table => t;
 
-  /// Returns a shallow copy of this [GearDataPfd]
+  /// Returns a shallow copy of this [GearPfd]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  GearDataPfd copyWith({
+  GearPfd copyWith({
     int? id,
     int? gearId,
     _i2.Gear? gear,
@@ -97,26 +97,26 @@ abstract class GearDataPfd
     };
   }
 
-  static GearDataPfdInclude include({_i2.GearInclude? gear}) {
-    return GearDataPfdInclude._(gear: gear);
+  static GearPfdInclude include({_i2.GearInclude? gear}) {
+    return GearPfdInclude._(gear: gear);
   }
 
-  static GearDataPfdIncludeList includeList({
-    _i1.WhereExpressionBuilder<GearDataPfdTable>? where,
+  static GearPfdIncludeList includeList({
+    _i1.WhereExpressionBuilder<GearPfdTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearDataPfdTable>? orderBy,
+    _i1.OrderByBuilder<GearPfdTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataPfdTable>? orderByList,
-    GearDataPfdInclude? include,
+    _i1.OrderByListBuilder<GearPfdTable>? orderByList,
+    GearPfdInclude? include,
   }) {
-    return GearDataPfdIncludeList._(
+    return GearPfdIncludeList._(
       where: where,
       limit: limit,
       offset: offset,
-      orderBy: orderBy?.call(GearDataPfd.t),
+      orderBy: orderBy?.call(GearPfd.t),
       orderDescending: orderDescending,
-      orderByList: orderByList?.call(GearDataPfd.t),
+      orderByList: orderByList?.call(GearPfd.t),
       include: include,
     );
   }
@@ -129,8 +129,8 @@ abstract class GearDataPfd
 
 class _Undefined {}
 
-class _GearDataPfdImpl extends GearDataPfd {
-  _GearDataPfdImpl({
+class _GearPfdImpl extends GearPfd {
+  _GearPfdImpl({
     int? id,
     required int gearId,
     _i2.Gear? gear,
@@ -144,18 +144,18 @@ class _GearDataPfdImpl extends GearDataPfd {
           type: type,
         );
 
-  /// Returns a shallow copy of this [GearDataPfd]
+  /// Returns a shallow copy of this [GearPfd]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  GearDataPfd copyWith({
+  GearPfd copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
     _i3.GenericGearSize? size,
     _i4.PfdType? type,
   }) {
-    return GearDataPfd(
+    return GearPfd(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
@@ -165,8 +165,8 @@ class _GearDataPfdImpl extends GearDataPfd {
   }
 }
 
-class GearDataPfdTable extends _i1.Table<int?> {
-  GearDataPfdTable({super.tableRelation}) : super(tableName: 'gear_data_pfds') {
+class GearPfdTable extends _i1.Table<int?> {
+  GearPfdTable({super.tableRelation}) : super(tableName: 'gear_pfds') {
     gearId = _i1.ColumnInt(
       'gearId',
       this,
@@ -195,7 +195,7 @@ class GearDataPfdTable extends _i1.Table<int?> {
     if (_gear != null) return _gear!;
     _gear = _i1.createRelationTable(
       relationFieldName: 'gear',
-      field: GearDataPfd.t.gearId,
+      field: GearPfd.t.gearId,
       foreignField: _i2.Gear.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
@@ -221,8 +221,8 @@ class GearDataPfdTable extends _i1.Table<int?> {
   }
 }
 
-class GearDataPfdInclude extends _i1.IncludeObject {
-  GearDataPfdInclude._({_i2.GearInclude? gear}) {
+class GearPfdInclude extends _i1.IncludeObject {
+  GearPfdInclude._({_i2.GearInclude? gear}) {
     _gear = gear;
   }
 
@@ -232,12 +232,12 @@ class GearDataPfdInclude extends _i1.IncludeObject {
   Map<String, _i1.Include?> get includes => {'gear': _gear};
 
   @override
-  _i1.Table<int?> get table => GearDataPfd.t;
+  _i1.Table<int?> get table => GearPfd.t;
 }
 
-class GearDataPfdIncludeList extends _i1.IncludeList {
-  GearDataPfdIncludeList._({
-    _i1.WhereExpressionBuilder<GearDataPfdTable>? where,
+class GearPfdIncludeList extends _i1.IncludeList {
+  GearPfdIncludeList._({
+    _i1.WhereExpressionBuilder<GearPfdTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -245,22 +245,22 @@ class GearDataPfdIncludeList extends _i1.IncludeList {
     super.orderByList,
     super.include,
   }) {
-    super.where = where?.call(GearDataPfd.t);
+    super.where = where?.call(GearPfd.t);
   }
 
   @override
   Map<String, _i1.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table<int?> get table => GearDataPfd.t;
+  _i1.Table<int?> get table => GearPfd.t;
 }
 
-class GearDataPfdRepository {
-  const GearDataPfdRepository._();
+class GearPfdRepository {
+  const GearPfdRepository._();
 
-  final attachRow = const GearDataPfdAttachRowRepository._();
+  final attachRow = const GearPfdAttachRowRepository._();
 
-  /// Returns a list of [GearDataPfd]s matching the given query parameters.
+  /// Returns a list of [GearPfd]s matching the given query parameters.
   ///
   /// Use [where] to specify which items to include in the return value.
   /// If none is specified, all items will be returned.
@@ -282,21 +282,21 @@ class GearDataPfdRepository {
   ///   limit: 100,
   /// );
   /// ```
-  Future<List<GearDataPfd>> find(
+  Future<List<GearPfd>> find(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataPfdTable>? where,
+    _i1.WhereExpressionBuilder<GearPfdTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearDataPfdTable>? orderBy,
+    _i1.OrderByBuilder<GearPfdTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataPfdTable>? orderByList,
+    _i1.OrderByListBuilder<GearPfdTable>? orderByList,
     _i1.Transaction? transaction,
-    GearDataPfdInclude? include,
+    GearPfdInclude? include,
   }) async {
-    return session.db.find<GearDataPfd>(
-      where: where?.call(GearDataPfd.t),
-      orderBy: orderBy?.call(GearDataPfd.t),
-      orderByList: orderByList?.call(GearDataPfd.t),
+    return session.db.find<GearPfd>(
+      where: where?.call(GearPfd.t),
+      orderBy: orderBy?.call(GearPfd.t),
+      orderByList: orderByList?.call(GearPfd.t),
       orderDescending: orderDescending,
       limit: limit,
       offset: offset,
@@ -305,7 +305,7 @@ class GearDataPfdRepository {
     );
   }
 
-  /// Returns the first matching [GearDataPfd] matching the given query parameters.
+  /// Returns the first matching [GearPfd] matching the given query parameters.
   ///
   /// Use [where] to specify which items to include in the return value.
   /// If none is specified, all items will be returned.
@@ -322,20 +322,20 @@ class GearDataPfdRepository {
   ///   orderBy: (t) => t.age,
   /// );
   /// ```
-  Future<GearDataPfd?> findFirstRow(
+  Future<GearPfd?> findFirstRow(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataPfdTable>? where,
+    _i1.WhereExpressionBuilder<GearPfdTable>? where,
     int? offset,
-    _i1.OrderByBuilder<GearDataPfdTable>? orderBy,
+    _i1.OrderByBuilder<GearPfdTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearDataPfdTable>? orderByList,
+    _i1.OrderByListBuilder<GearPfdTable>? orderByList,
     _i1.Transaction? transaction,
-    GearDataPfdInclude? include,
+    GearPfdInclude? include,
   }) async {
-    return session.db.findFirstRow<GearDataPfd>(
-      where: where?.call(GearDataPfd.t),
-      orderBy: orderBy?.call(GearDataPfd.t),
-      orderByList: orderByList?.call(GearDataPfd.t),
+    return session.db.findFirstRow<GearPfd>(
+      where: where?.call(GearPfd.t),
+      orderBy: orderBy?.call(GearPfd.t),
+      orderByList: orderByList?.call(GearPfd.t),
       orderDescending: orderDescending,
       offset: offset,
       transaction: transaction,
@@ -343,119 +343,119 @@ class GearDataPfdRepository {
     );
   }
 
-  /// Finds a single [GearDataPfd] by its [id] or null if no such row exists.
-  Future<GearDataPfd?> findById(
+  /// Finds a single [GearPfd] by its [id] or null if no such row exists.
+  Future<GearPfd?> findById(
     _i1.Session session,
     int id, {
     _i1.Transaction? transaction,
-    GearDataPfdInclude? include,
+    GearPfdInclude? include,
   }) async {
-    return session.db.findById<GearDataPfd>(
+    return session.db.findById<GearPfd>(
       id,
       transaction: transaction,
       include: include,
     );
   }
 
-  /// Inserts all [GearDataPfd]s in the list and returns the inserted rows.
+  /// Inserts all [GearPfd]s in the list and returns the inserted rows.
   ///
-  /// The returned [GearDataPfd]s will have their `id` fields set.
+  /// The returned [GearPfd]s will have their `id` fields set.
   ///
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// insert, none of the rows will be inserted.
-  Future<List<GearDataPfd>> insert(
+  Future<List<GearPfd>> insert(
     _i1.Session session,
-    List<GearDataPfd> rows, {
+    List<GearPfd> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.insert<GearDataPfd>(
+    return session.db.insert<GearPfd>(
       rows,
       transaction: transaction,
     );
   }
 
-  /// Inserts a single [GearDataPfd] and returns the inserted row.
+  /// Inserts a single [GearPfd] and returns the inserted row.
   ///
-  /// The returned [GearDataPfd] will have its `id` field set.
-  Future<GearDataPfd> insertRow(
+  /// The returned [GearPfd] will have its `id` field set.
+  Future<GearPfd> insertRow(
     _i1.Session session,
-    GearDataPfd row, {
+    GearPfd row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.insertRow<GearDataPfd>(
+    return session.db.insertRow<GearPfd>(
       row,
       transaction: transaction,
     );
   }
 
-  /// Updates all [GearDataPfd]s in the list and returns the updated rows. If
+  /// Updates all [GearPfd]s in the list and returns the updated rows. If
   /// [columns] is provided, only those columns will be updated. Defaults to
   /// all columns.
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// update, none of the rows will be updated.
-  Future<List<GearDataPfd>> update(
+  Future<List<GearPfd>> update(
     _i1.Session session,
-    List<GearDataPfd> rows, {
-    _i1.ColumnSelections<GearDataPfdTable>? columns,
+    List<GearPfd> rows, {
+    _i1.ColumnSelections<GearPfdTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.update<GearDataPfd>(
+    return session.db.update<GearPfd>(
       rows,
-      columns: columns?.call(GearDataPfd.t),
+      columns: columns?.call(GearPfd.t),
       transaction: transaction,
     );
   }
 
-  /// Updates a single [GearDataPfd]. The row needs to have its id set.
+  /// Updates a single [GearPfd]. The row needs to have its id set.
   /// Optionally, a list of [columns] can be provided to only update those
   /// columns. Defaults to all columns.
-  Future<GearDataPfd> updateRow(
+  Future<GearPfd> updateRow(
     _i1.Session session,
-    GearDataPfd row, {
-    _i1.ColumnSelections<GearDataPfdTable>? columns,
+    GearPfd row, {
+    _i1.ColumnSelections<GearPfdTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.updateRow<GearDataPfd>(
+    return session.db.updateRow<GearPfd>(
       row,
-      columns: columns?.call(GearDataPfd.t),
+      columns: columns?.call(GearPfd.t),
       transaction: transaction,
     );
   }
 
-  /// Deletes all [GearDataPfd]s in the list and returns the deleted rows.
+  /// Deletes all [GearPfd]s in the list and returns the deleted rows.
   /// This is an atomic operation, meaning that if one of the rows fail to
   /// be deleted, none of the rows will be deleted.
-  Future<List<GearDataPfd>> delete(
+  Future<List<GearPfd>> delete(
     _i1.Session session,
-    List<GearDataPfd> rows, {
+    List<GearPfd> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.delete<GearDataPfd>(
+    return session.db.delete<GearPfd>(
       rows,
       transaction: transaction,
     );
   }
 
-  /// Deletes a single [GearDataPfd].
-  Future<GearDataPfd> deleteRow(
+  /// Deletes a single [GearPfd].
+  Future<GearPfd> deleteRow(
     _i1.Session session,
-    GearDataPfd row, {
+    GearPfd row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.deleteRow<GearDataPfd>(
+    return session.db.deleteRow<GearPfd>(
       row,
       transaction: transaction,
     );
   }
 
   /// Deletes all rows matching the [where] expression.
-  Future<List<GearDataPfd>> deleteWhere(
+  Future<List<GearPfd>> deleteWhere(
     _i1.Session session, {
-    required _i1.WhereExpressionBuilder<GearDataPfdTable> where,
+    required _i1.WhereExpressionBuilder<GearPfdTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.deleteWhere<GearDataPfd>(
-      where: where(GearDataPfd.t),
+    return session.db.deleteWhere<GearPfd>(
+      where: where(GearPfd.t),
       transaction: transaction,
     );
   }
@@ -464,40 +464,40 @@ class GearDataPfdRepository {
   /// will return the count of all rows in the table.
   Future<int> count(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearDataPfdTable>? where,
+    _i1.WhereExpressionBuilder<GearPfdTable>? where,
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.count<GearDataPfd>(
-      where: where?.call(GearDataPfd.t),
+    return session.db.count<GearPfd>(
+      where: where?.call(GearPfd.t),
       limit: limit,
       transaction: transaction,
     );
   }
 }
 
-class GearDataPfdAttachRowRepository {
-  const GearDataPfdAttachRowRepository._();
+class GearPfdAttachRowRepository {
+  const GearPfdAttachRowRepository._();
 
-  /// Creates a relation between the given [GearDataPfd] and [Gear]
-  /// by setting the [GearDataPfd]'s foreign key `gearId` to refer to the [Gear].
+  /// Creates a relation between the given [GearPfd] and [Gear]
+  /// by setting the [GearPfd]'s foreign key `gearId` to refer to the [Gear].
   Future<void> gear(
     _i1.Session session,
-    GearDataPfd gearDataPfd,
+    GearPfd gearPfd,
     _i2.Gear gear, {
     _i1.Transaction? transaction,
   }) async {
-    if (gearDataPfd.id == null) {
-      throw ArgumentError.notNull('gearDataPfd.id');
+    if (gearPfd.id == null) {
+      throw ArgumentError.notNull('gearPfd.id');
     }
     if (gear.id == null) {
       throw ArgumentError.notNull('gear.id');
     }
 
-    var $gearDataPfd = gearDataPfd.copyWith(gearId: gear.id);
-    await session.db.updateRow<GearDataPfd>(
-      $gearDataPfd,
-      columns: [GearDataPfd.t.gearId],
+    var $gearPfd = gearPfd.copyWith(gearId: gear.id);
+    await session.db.updateRow<GearPfd>(
+      $gearPfd,
+      columns: [GearPfd.t.gearId],
       transaction: transaction,
     );
   }

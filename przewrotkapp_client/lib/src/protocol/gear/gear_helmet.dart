@@ -11,31 +11,32 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import '../gear/gear.dart' as _i2;
+import '../gear/generic_gear_size.dart' as _i3;
 
-abstract class GearDataThrowbag implements _i1.SerializableModel {
-  GearDataThrowbag._({
+abstract class GearHelmet implements _i1.SerializableModel {
+  GearHelmet._({
     this.id,
     required this.gearId,
     this.gear,
-    required this.length,
+    required this.size,
   });
 
-  factory GearDataThrowbag({
+  factory GearHelmet({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required int length,
-  }) = _GearDataThrowbagImpl;
+    required _i3.GenericGearSize size,
+  }) = _GearHelmetImpl;
 
-  factory GearDataThrowbag.fromJson(Map<String, dynamic> jsonSerialization) {
-    return GearDataThrowbag(
+  factory GearHelmet.fromJson(Map<String, dynamic> jsonSerialization) {
+    return GearHelmet(
       id: jsonSerialization['id'] as int?,
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
           : _i2.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      length: jsonSerialization['length'] as int,
+      size: _i3.GenericGearSize.fromJson((jsonSerialization['size'] as String)),
     );
   }
 
@@ -48,16 +49,16 @@ abstract class GearDataThrowbag implements _i1.SerializableModel {
 
   _i2.Gear? gear;
 
-  int length;
+  _i3.GenericGearSize size;
 
-  /// Returns a shallow copy of this [GearDataThrowbag]
+  /// Returns a shallow copy of this [GearHelmet]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  GearDataThrowbag copyWith({
+  GearHelmet copyWith({
     int? id,
     int? gearId,
     _i2.Gear? gear,
-    int? length,
+    _i3.GenericGearSize? size,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -65,7 +66,7 @@ abstract class GearDataThrowbag implements _i1.SerializableModel {
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
-      'length': length,
+      'size': size.toJson(),
     };
   }
 
@@ -77,34 +78,34 @@ abstract class GearDataThrowbag implements _i1.SerializableModel {
 
 class _Undefined {}
 
-class _GearDataThrowbagImpl extends GearDataThrowbag {
-  _GearDataThrowbagImpl({
+class _GearHelmetImpl extends GearHelmet {
+  _GearHelmetImpl({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required int length,
+    required _i3.GenericGearSize size,
   }) : super._(
           id: id,
           gearId: gearId,
           gear: gear,
-          length: length,
+          size: size,
         );
 
-  /// Returns a shallow copy of this [GearDataThrowbag]
+  /// Returns a shallow copy of this [GearHelmet]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  GearDataThrowbag copyWith({
+  GearHelmet copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    int? length,
+    _i3.GenericGearSize? size,
   }) {
-    return GearDataThrowbag(
+    return GearHelmet(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
-      length: length ?? this.length,
+      size: size ?? this.size,
     );
   }
 }

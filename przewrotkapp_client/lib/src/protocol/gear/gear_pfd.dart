@@ -11,38 +11,36 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import '../gear/gear.dart' as _i2;
-import '../gear/spraydeck_deck_size.dart' as _i3;
-import '../gear/generic_gear_size.dart' as _i4;
+import '../gear/generic_gear_size.dart' as _i3;
+import '../gear/pfd_type.dart' as _i4;
 
-abstract class GearDataSpraydeck implements _i1.SerializableModel {
-  GearDataSpraydeck._({
+abstract class GearPfd implements _i1.SerializableModel {
+  GearPfd._({
     this.id,
     required this.gearId,
     this.gear,
-    required this.deckSize,
-    required this.waistSize,
+    required this.size,
+    required this.type,
   });
 
-  factory GearDataSpraydeck({
+  factory GearPfd({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.SpraydeckDeckSize deckSize,
-    required _i4.GenericGearSize waistSize,
-  }) = _GearDataSpraydeckImpl;
+    required _i3.GenericGearSize size,
+    required _i4.PfdType type,
+  }) = _GearPfdImpl;
 
-  factory GearDataSpraydeck.fromJson(Map<String, dynamic> jsonSerialization) {
-    return GearDataSpraydeck(
+  factory GearPfd.fromJson(Map<String, dynamic> jsonSerialization) {
+    return GearPfd(
       id: jsonSerialization['id'] as int?,
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
           : _i2.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      deckSize: _i3.SpraydeckDeckSize.fromJson(
-          (jsonSerialization['deckSize'] as String)),
-      waistSize: _i4.GenericGearSize.fromJson(
-          (jsonSerialization['waistSize'] as String)),
+      size: _i3.GenericGearSize.fromJson((jsonSerialization['size'] as String)),
+      type: _i4.PfdType.fromJson((jsonSerialization['type'] as String)),
     );
   }
 
@@ -55,19 +53,19 @@ abstract class GearDataSpraydeck implements _i1.SerializableModel {
 
   _i2.Gear? gear;
 
-  _i3.SpraydeckDeckSize deckSize;
+  _i3.GenericGearSize size;
 
-  _i4.GenericGearSize waistSize;
+  _i4.PfdType type;
 
-  /// Returns a shallow copy of this [GearDataSpraydeck]
+  /// Returns a shallow copy of this [GearPfd]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  GearDataSpraydeck copyWith({
+  GearPfd copyWith({
     int? id,
     int? gearId,
     _i2.Gear? gear,
-    _i3.SpraydeckDeckSize? deckSize,
-    _i4.GenericGearSize? waistSize,
+    _i3.GenericGearSize? size,
+    _i4.PfdType? type,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -75,8 +73,8 @@ abstract class GearDataSpraydeck implements _i1.SerializableModel {
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
-      'deckSize': deckSize.toJson(),
-      'waistSize': waistSize.toJson(),
+      'size': size.toJson(),
+      'type': type.toJson(),
     };
   }
 
@@ -88,38 +86,38 @@ abstract class GearDataSpraydeck implements _i1.SerializableModel {
 
 class _Undefined {}
 
-class _GearDataSpraydeckImpl extends GearDataSpraydeck {
-  _GearDataSpraydeckImpl({
+class _GearPfdImpl extends GearPfd {
+  _GearPfdImpl({
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.SpraydeckDeckSize deckSize,
-    required _i4.GenericGearSize waistSize,
+    required _i3.GenericGearSize size,
+    required _i4.PfdType type,
   }) : super._(
           id: id,
           gearId: gearId,
           gear: gear,
-          deckSize: deckSize,
-          waistSize: waistSize,
+          size: size,
+          type: type,
         );
 
-  /// Returns a shallow copy of this [GearDataSpraydeck]
+  /// Returns a shallow copy of this [GearPfd]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  GearDataSpraydeck copyWith({
+  GearPfd copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.SpraydeckDeckSize? deckSize,
-    _i4.GenericGearSize? waistSize,
+    _i3.GenericGearSize? size,
+    _i4.PfdType? type,
   }) {
-    return GearDataSpraydeck(
+    return GearPfd(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
-      deckSize: deckSize ?? this.deckSize,
-      waistSize: waistSize ?? this.waistSize,
+      size: size ?? this.size,
+      type: type ?? this.type,
     );
   }
 }
