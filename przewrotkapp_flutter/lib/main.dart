@@ -130,7 +130,7 @@ class MyHomePageState extends State<MyHomePage> {
                         manufacturer: 'Liquidlogic',
                         model: 'Skip',
                       ),
-                      GearDataKayak(
+                      GearKayak(
                         gearId: 0,
                         type: KayakType.creek,
                         minWeight: 50,
