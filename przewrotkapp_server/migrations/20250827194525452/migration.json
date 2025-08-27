@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "gear",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [
+          {
+            "indexName": "gear_club_id_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "clubId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false
+          }
+        ],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"gear_club_id_idx\" is added to table \"gear\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "gear",
+            "columns": [
+              "clubId"
+            ],
+            "destrucive": false
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "uniqueIndexCreated",
+      "message": "Unique index \"gear_club_id_idx\" is added to table \"gear\". If there are existing rows with duplicate values, this migration will fail.",
+      "table": "gear",
+      "columns": [
+        "clubId"
+      ],
+      "destrucive": false
+    }
+  ],
+  "migrationApiVersion": 1
+}

@@ -15,7 +15,9 @@ import 'package:serverpod_test/serverpod_test.dart' as _i1;
 import 'package:serverpod/serverpod.dart' as _i2;
 import 'dart:async' as _i3;
 import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i4;
-import 'package:przewrotkapp_server/src/generated/greeting.dart' as _i5;
+import 'package:przewrotkapp_server/src/generated/gear/gear_data_kayak.dart'
+    as _i5;
+import 'package:przewrotkapp_server/src/generated/greeting.dart' as _i6;
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
 import 'package:przewrotkapp_server/src/generated/endpoints.dart';
 export 'package:serverpod_test/serverpod_test_public_exports.dart';
@@ -164,7 +166,8 @@ class _AllKayaksEndpoint {
 
   _i3.Future<void> addNewKayak(
     _i1.TestSessionBuilder sessionBuilder,
-    _i4.Gear newKayak,
+    _i4.Gear gear,
+    _i5.GearDataKayak kayak,
   ) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
       var _localUniqueSession =
@@ -177,7 +180,10 @@ class _AllKayaksEndpoint {
           createSessionCallback: (_) => _localUniqueSession,
           endpointPath: 'allKayaks',
           methodName: 'addNewKayak',
-          parameters: _i1.testObjectToJson({'newKayak': newKayak}),
+          parameters: _i1.testObjectToJson({
+            'gear': gear,
+            'kayak': kayak,
+          }),
           serializationManager: _serializationManager,
         );
         var _localReturnValue = await (_localCallContext.method.call(
@@ -260,7 +266,7 @@ class _GreetingEndpoint {
 
   final _i2.SerializationManager _serializationManager;
 
-  _i3.Future<_i5.Greeting> hello(
+  _i3.Future<_i6.Greeting> hello(
     _i1.TestSessionBuilder sessionBuilder,
     String name,
   ) async {
@@ -281,7 +287,7 @@ class _GreetingEndpoint {
         var _localReturnValue = await (_localCallContext.method.call(
           _localUniqueSession,
           _localCallContext.arguments,
-        ) as _i3.Future<_i5.Greeting>);
+        ) as _i3.Future<_i6.Greeting>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();

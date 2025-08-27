@@ -124,8 +124,20 @@ class MyHomePageState extends State<MyHomePage> {
               child: ElevatedButton(
                 onPressed: () async {
                   try {
-                    await client.allKayaks
-                        .addNewKayak(Gear(clubId: _textEditingController.text));
+                    await client.allKayaks.addNewKayak(
+                      Gear(
+                        clubId: _textEditingController.text,
+                        manufacturer: 'Liquidlogic',
+                        model: 'Skip',
+                      ),
+                      GearDataKayak(
+                        gearId: 0,
+                        type: KayakType.creek,
+                        minWeight: 50,
+                        maxWeight: 70,
+                        length: 160,
+                      ),
+                    );
                   } catch (e) {
                     print('Eurorrrroror $e');
                   }

@@ -13,6 +13,8 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import '../all_kayaks_endpoint.dart' as _i2;
 import '../greeting_endpoint.dart' as _i3;
 import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i4;
+import 'package:przewrotkapp_server/src/generated/gear/gear_data_kayak.dart'
+    as _i5;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -48,11 +50,16 @@ class Endpoints extends _i1.EndpointDispatch {
         'addNewKayak': _i1.MethodConnector(
           name: 'addNewKayak',
           params: {
-            'newKayak': _i1.ParameterDescription(
-              name: 'newKayak',
+            'gear': _i1.ParameterDescription(
+              name: 'gear',
               type: _i1.getType<_i4.Gear>(),
               nullable: false,
-            )
+            ),
+            'kayak': _i1.ParameterDescription(
+              name: 'kayak',
+              type: _i1.getType<_i5.GearDataKayak>(),
+              nullable: false,
+            ),
           },
           call: (
             _i1.Session session,
@@ -60,7 +67,8 @@ class Endpoints extends _i1.EndpointDispatch {
           ) async =>
               (endpoints['allKayaks'] as _i2.AllKayaksEndpoint).addNewKayak(
             session,
-            params['newKayak'],
+            params['gear'],
+            params['kayak'],
           ),
         ),
         'addKayakPhoto': _i1.MethodConnector(

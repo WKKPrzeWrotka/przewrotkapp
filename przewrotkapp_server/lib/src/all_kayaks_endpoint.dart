@@ -1,18 +1,33 @@
-import 'dart:math';
-
 import 'package:serverpod/serverpod.dart';
 
 import 'generated/protocol.dart';
 
 class AllKayaksEndpoint extends Endpoint {
   Future<List<Gear>> getAllKayaks(Session session) async {
-    await Future.delayed(Duration(seconds: 2));
-    if (Random().nextBool()) throw KayakException(kayakId: 'KK-32');
-    return Gear.db.find(session);
+    return [
+      (await GearDataKayak.db.findById(
+        session,
+        5,
+        include: GearDataKayak.include(
+          gear: Gear.include(),
+        ),
+      ))!
+          .gear!
+    ];
   }
 
-  Future<void> addNewKayak(Session session, Gear newKayak) async {
-    await Gear.db.insertRow(session, newKayak);
+  Future<void> addNewKayak(
+      Session session, Gear gear, GearDataKayak kayak) async {
+    final result = await session.db.transaction((trans) async {
+      final insertedGear =
+          await Gear.db.insertRow(session, gear, transaction: trans);
+      session.log('new gear: $insertedGear');
+      final insertedKayak = await GearDataKayak.db.insertRow(
+          session, kayak.copyWith(gearId: insertedGear.id),
+          transaction: trans);
+      session.log('new kayak: $insertedKayak');
+    });
+    session.log('adding kayak $result');
   }
 
   Future<String?> addKayakPhoto(Session session, String clubId) async {

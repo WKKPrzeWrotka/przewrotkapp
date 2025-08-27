@@ -12,8 +12,10 @@
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i3;
-import 'package:przewrotkapp_client/src/protocol/greeting.dart' as _i4;
-import 'protocol.dart' as _i5;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_data_kayak.dart'
+    as _i4;
+import 'package:przewrotkapp_client/src/protocol/greeting.dart' as _i5;
+import 'protocol.dart' as _i6;
 
 /// {@category Endpoint}
 class EndpointAllKayaks extends _i1.EndpointRef {
@@ -29,11 +31,17 @@ class EndpointAllKayaks extends _i1.EndpointRef {
         {},
       );
 
-  _i2.Future<void> addNewKayak(_i3.Gear newKayak) =>
+  _i2.Future<void> addNewKayak(
+    _i3.Gear gear,
+    _i4.GearDataKayak kayak,
+  ) =>
       caller.callServerEndpoint<void>(
         'allKayaks',
         'addNewKayak',
-        {'newKayak': newKayak},
+        {
+          'gear': gear,
+          'kayak': kayak,
+        },
       );
 
   _i2.Future<String?> addKayakPhoto(String clubId) =>
@@ -61,8 +69,8 @@ class EndpointGreeting extends _i1.EndpointRef {
   String get name => 'greeting';
 
   /// Returns a personalized greeting message: "Hello {name}".
-  _i2.Future<_i4.Greeting> hello(String name) =>
-      caller.callServerEndpoint<_i4.Greeting>(
+  _i2.Future<_i5.Greeting> hello(String name) =>
+      caller.callServerEndpoint<_i5.Greeting>(
         'greeting',
         'hello',
         {'name': name},
@@ -85,7 +93,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i5.Protocol(),
+          _i6.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
