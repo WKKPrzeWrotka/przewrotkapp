@@ -3,5 +3,3 @@ allKayaks:
   - addNewKayak:
   - addKayakPhoto:
   - getKayakPhoto:
-greeting:
-  - hello:

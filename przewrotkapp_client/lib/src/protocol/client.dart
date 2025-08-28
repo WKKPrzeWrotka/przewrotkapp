@@ -13,8 +13,7 @@ import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_kayak.dart' as _i3;
 import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i4;
-import 'package:przewrotkapp_client/src/protocol/greeting.dart' as _i5;
-import 'protocol.dart' as _i6;
+import 'protocol.dart' as _i5;
 
 /// {@category Endpoint}
 class EndpointAllKayaks extends _i1.EndpointRef {
@@ -58,24 +57,6 @@ class EndpointAllKayaks extends _i1.EndpointRef {
       );
 }
 
-/// This is an example endpoint that returns a greeting message through
-/// its [hello] method.
-/// {@category Endpoint}
-class EndpointGreeting extends _i1.EndpointRef {
-  EndpointGreeting(_i1.EndpointCaller caller) : super(caller);
-
-  @override
-  String get name => 'greeting';
-
-  /// Returns a personalized greeting message: "Hello {name}".
-  _i2.Future<_i5.Greeting> hello(String name) =>
-      caller.callServerEndpoint<_i5.Greeting>(
-        'greeting',
-        'hello',
-        {'name': name},
-      );
-}
-
 class Client extends _i1.ServerpodClientShared {
   Client(
     String host, {
@@ -92,7 +73,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i6.Protocol(),
+          _i5.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -103,18 +84,13 @@ class Client extends _i1.ServerpodClientShared {
               disconnectStreamsOnLostInternetConnection,
         ) {
     allKayaks = EndpointAllKayaks(this);
-    greeting = EndpointGreeting(this);
   }
 
   late final EndpointAllKayaks allKayaks;
 
-  late final EndpointGreeting greeting;
-
   @override
-  Map<String, _i1.EndpointRef> get endpointRefLookup => {
-        'allKayaks': allKayaks,
-        'greeting': greeting,
-      };
+  Map<String, _i1.EndpointRef> get endpointRefLookup =>
+      {'allKayaks': allKayaks};
 
   @override
   Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {};

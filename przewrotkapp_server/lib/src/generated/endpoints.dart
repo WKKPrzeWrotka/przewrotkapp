@@ -11,9 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../all_kayaks_endpoint.dart' as _i2;
-import '../greeting_endpoint.dart' as _i3;
-import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i4;
-import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i5;
+import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i3;
+import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i4;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -24,13 +23,7 @@ class Endpoints extends _i1.EndpointDispatch {
           server,
           'allKayaks',
           null,
-        ),
-      'greeting': _i3.GreetingEndpoint()
-        ..initialize(
-          server,
-          'greeting',
-          null,
-        ),
+        )
     };
     connectors['allKayaks'] = _i1.EndpointConnector(
       name: 'allKayaks',
@@ -51,12 +44,12 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<_i4.Gear>(),
+              type: _i1.getType<_i3.Gear>(),
               nullable: false,
             ),
             'kayak': _i1.ParameterDescription(
               name: 'kayak',
-              type: _i1.getType<_i5.GearKayak>(),
+              type: _i1.getType<_i4.GearKayak>(),
               nullable: false,
             ),
           },
@@ -106,30 +99,6 @@ class Endpoints extends _i1.EndpointDispatch {
             params['clubId'],
           ),
         ),
-      },
-    );
-    connectors['greeting'] = _i1.EndpointConnector(
-      name: 'greeting',
-      endpoint: endpoints['greeting']!,
-      methodConnectors: {
-        'hello': _i1.MethodConnector(
-          name: 'hello',
-          params: {
-            'name': _i1.ParameterDescription(
-              name: 'name',
-              type: _i1.getType<String>(),
-              nullable: false,
-            )
-          },
-          call: (
-            _i1.Session session,
-            Map<String, dynamic> params,
-          ) async =>
-              (endpoints['greeting'] as _i3.GreetingEndpoint).hello(
-            session,
-            params['name'],
-          ),
-        )
       },
     );
   }
