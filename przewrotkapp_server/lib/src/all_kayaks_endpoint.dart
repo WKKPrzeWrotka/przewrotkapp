@@ -3,21 +3,16 @@ import 'package:serverpod/serverpod.dart';
 import 'generated/protocol.dart';
 
 class AllKayaksEndpoint extends Endpoint {
-  Future<List<Gear>> getAllKayaks(Session session) async {
-    return [
-      (await GearKayak.db.findFirstRow(
-        session,
-        where: (kayakTable) => kayakTable.gear.clubId.equals('KK-32'),
-        include: GearKayak.include(
-          gear: Gear.include(),
-        ),
-      ))!
-          .gear!
-    ];
+  Future<List<GearKayak>> getAllKayaks(Session session) async {
+    return await GearKayak.db.find(
+      session,
+      include: GearKayak.include(
+        gear: Gear.include(),
+      ),
+    );
   }
 
-  Future<void> addNewKayak(
-      Session session, Gear gear, GearKayak kayak) async {
+  Future<void> addNewKayak(Session session, Gear gear, GearKayak kayak) async {
     final result = await session.db.transaction((trans) async {
       final insertedGear =
           await Gear.db.insertRow(session, gear, transaction: trans);

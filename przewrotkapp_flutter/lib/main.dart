@@ -1,8 +1,6 @@
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+import 'package:przewrotkapp_flutter/ui/common/gear_listing.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
 /// Sets up a global client object that can be used to talk to the server from
@@ -40,7 +38,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Serverpod Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const MyHomePage(title: 'Serverpod Examllll'),
+      home: const MyHomePage(title: 'PrzeWrotkApp'),
     );
   }
 }
@@ -69,19 +67,7 @@ class MyHomePageState extends State<MyHomePage> {
   /// Calls the `hello` method of the `greeting` endpoint. Will set either the
   /// `_resultMessage` or `_errorMessage` field, depending on if the call
   /// is successful.
-  void _callHello() async {
-    try {
-      final result = await client.greeting.hello(_textEditingController.text);
-      setState(() {
-        _errorMessage = null;
-        _resultMessage = result.message;
-      });
-    } catch (e) {
-      setState(() {
-        _errorMessage = '$e';
-      });
-    }
-  }
+  Future<List<GearKayak>> _getKayaks() async => client.allKayaks.getAllKayaks();
 
   @override
   Widget build(BuildContext context) {
@@ -91,126 +77,24 @@ class MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: TextField(
-                controller: _textEditingController,
-                decoration: const InputDecoration(hintText: 'Enter your name'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: ElevatedButton(
-                onPressed: _callHello,
-                child: const Text('Send to Server'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: ElevatedButton(
-                onPressed: () async {
-                  try {
-                    final res = await client.allKayaks.getAllKayaks();
-                    print(res.map((e) => e.clubId));
-                  } on KayakException catch (e) {
-                    print('Kayak error from kayak id ${e.kayakId}');
-                  }
-                },
-                child: const Text('Get kayaks'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: ElevatedButton(
-                onPressed: () async {
-                  try {
-                    await client.allKayaks.addNewKayak(
-                      Gear(
-                        clubId: _textEditingController.text,
-                        manufacturer: 'Liquidlogic',
-                        model: 'Skip',
-                      ),
-                      GearKayak(
-                        gearId: 0,
-                        type: KayakType.creek,
-                        minWeight: 50,
-                        maxWeight: 70,
-                        length: 160,
-                      ),
-                    );
-                  } catch (e) {
-                    print('Eurorrrroror $e');
-                  }
-                },
-                child: const Text('Add new kayak'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: ElevatedButton(
-                onPressed: () async {
-                  try {
-                    final photo =
-                        'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAADAFBMVEUAAAAAADMAAGYAAJkAAMwAAP8AMwAAMzMAM2YAM5kAM8wAM/8AZgAAZjMAZmYAZpkAZswAZv8AmQAAmTMAmWYAmZkAmcwAmf8AzAAAzDMAzGYAzJkAzMwAzP8A/wAA/zMA/2YA/5kA/8wA//8zAAAzADMzAGYzAJkzAMwzAP8zMwAzMzMzM2YzM5kzM8wzM/8zZgAzZjMzZmYzZpkzZswzZv8zmQAzmTMzmWYzmZkzmcwzmf8zzAAzzDMzzGYzzJkzzMwzzP8z/wAz/zMz/2Yz/5kz/8wz//9mAABmADNmAGZmAJlmAMxmAP9mMwBmMzNmM2ZmM5lmM8xmM/9mZgBmZjNmZmZmZplmZsxmZv9mmQBmmTNmmWZmmZlmmcxmmf9mzABmzDNmzGZmzJlmzMxmzP9m/wBm/zNm/2Zm/5lm/8xm//+ZAACZADOZAGaZAJmZAMyZAP+ZMwCZMzOZM2aZM5mZM8yZM/+ZZgCZZjOZZmaZZpmZZsyZZv+ZmQCZmTOZmWaZmZmZmcyZmf+ZzACZzDOZzGaZzJmZzMyZzP+Z/wCZ/zOZ/2aZ/5mZ/8yZ///MAADMADPMAGbMAJnMAMzMAP/MMwDMMzPMM2bMM5nMM8zMM//MZgDMZjPMZmbMZpnMZszMZv/MmQDMmTPMmWbMmZnMmczMmf/MzADMzDPMzGbMzJnMzMzMzP/M/wDM/zPM/2bM/5nM/8zM////AAD/ADP/AGb/AJn/AMz/AP//MwD/MzP/M2b/M5n/M8z/M///ZgD/ZjP/Zmb/Zpn/Zsz/Zv//mQD/mTP/mWb/mZn/mcz/mf//zAD/zDP/zGb/zJn/zMz/zP///wD//zP//2b//5n//8z///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABlenwdAAABAHRSTlP///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG8mZagAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAE9JREFUCJljuA4HDNeVlYFUhpxcL4i5+bocEABFr292V5ST2+QMYl6X63GT7+0FMTc5X1qvpAjSBlbonK2szHDdGQgyrl8HMzdt2gQ1Fw4A7Jw4vQZ1oWsAAAAASUVORK5CYII=';
-                    final desc = await client.allKayaks
-                        .addKayakPhoto(_textEditingController.text);
-                    print('desc: $desc');
-                    if (desc != null) {
-                      final data = ByteData.sublistView(base64.decode(photo));
-                      await FileUploader(desc).uploadByteData(data);
-                      print(
-                          'SuceeS? ${await client.allKayaks.getKayakPhoto(_textEditingController.text)}');
-                    }
-                  } catch (e) {
-                    print('Eurorrrroror $e');
-                  }
-                },
-                child: const Text('Add new photo'),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsGeometry.only(bottom: 16.0),
-              child: Text(_allKayaks ?? 'No kayaks yet'),
-            ),
-            ResultDisplay(
-              resultMessage: _resultMessage,
-              errorMessage: _errorMessage,
+            FutureBuilder(
+              future: _getKayaks(),
+              builder: (context, snap) {
+                return snap.hasData
+                    ? Column(
+                        children: [
+                          for (GearKayak kayak in snap.data!)
+                            GearListing(
+                              gear: kayak.gear!,
+                              subtypeData: kayak,
+                            ),
+                        ],
+                      )
+                    : Placeholder();
+              },
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-/// ResultDisplays shows the result of the call. Either the returned result
-/// from the `example.greeting` endpoint method or an error message.
-class ResultDisplay extends StatelessWidget {
-  final String? resultMessage;
-  final String? errorMessage;
-
-  const ResultDisplay({super.key, this.resultMessage, this.errorMessage});
-
-  @override
-  Widget build(BuildContext context) {
-    String text;
-    Color backgroundColor;
-    if (errorMessage != null) {
-      backgroundColor = Colors.red[300]!;
-      text = errorMessage!;
-    } else if (resultMessage != null) {
-      backgroundColor = Colors.green[300]!;
-      text = resultMessage!;
-    } else {
-      backgroundColor = Colors.grey[300]!;
-      text = 'No server response yet.';
-    }
-
-    return ConstrainedBox(
-      constraints: const BoxConstraints(minHeight: 50),
-      child: Container(
-        color: backgroundColor,
-        child: Center(child: Text(text)),
       ),
     );
   }

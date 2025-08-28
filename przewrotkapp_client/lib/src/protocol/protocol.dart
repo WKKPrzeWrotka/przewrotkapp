@@ -27,7 +27,7 @@ import 'gear/kayak_type.dart' as _i15;
 import 'gear/paddle_type.dart' as _i16;
 import 'gear/pfd_type.dart' as _i17;
 import 'gear/spraydeck_deck_size.dart' as _i18;
-import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i19;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_kayak.dart' as _i19;
 export 'greeting.dart';
 export 'exceptions/kayak_exception.dart';
 export 'gear/clothing_type.dart';
@@ -167,8 +167,9 @@ class Protocol extends _i1.SerializationManager {
           ? (data as List).map((e) => deserialize<Uri>(e)).toList()
           : null) as T;
     }
-    if (t == List<_i19.Gear>) {
-      return (data as List).map((e) => deserialize<_i19.Gear>(e)).toList() as T;
+    if (t == List<_i19.GearKayak>) {
+      return (data as List).map((e) => deserialize<_i19.GearKayak>(e)).toList()
+          as T;
     }
     return super.deserialize<T>(data, t);
   }

@@ -11,8 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
-import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i3;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_kayak.dart' as _i4;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_kayak.dart' as _i3;
+import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i4;
 import 'package:przewrotkapp_client/src/protocol/greeting.dart' as _i5;
 import 'protocol.dart' as _i6;
 
@@ -23,16 +23,16 @@ class EndpointAllKayaks extends _i1.EndpointRef {
   @override
   String get name => 'allKayaks';
 
-  _i2.Future<List<_i3.Gear>> getAllKayaks() =>
-      caller.callServerEndpoint<List<_i3.Gear>>(
+  _i2.Future<List<_i3.GearKayak>> getAllKayaks() =>
+      caller.callServerEndpoint<List<_i3.GearKayak>>(
         'allKayaks',
         'getAllKayaks',
         {},
       );
 
   _i2.Future<void> addNewKayak(
-    _i3.Gear gear,
-    _i4.GearKayak kayak,
+    _i4.Gear gear,
+    _i3.GearKayak kayak,
   ) =>
       caller.callServerEndpoint<void>(
         'allKayaks',

@@ -28,7 +28,7 @@ import 'gear/kayak_type.dart' as _i16;
 import 'gear/paddle_type.dart' as _i17;
 import 'gear/pfd_type.dart' as _i18;
 import 'gear/spraydeck_deck_size.dart' as _i19;
-import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i20;
+import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i20;
 export 'greeting.dart';
 export 'exceptions/kayak_exception.dart';
 export 'gear/clothing_type.dart';
@@ -838,8 +838,9 @@ class Protocol extends _i1.SerializationManagerServer {
           ? (data as List).map((e) => deserialize<Uri>(e)).toList()
           : null) as T;
     }
-    if (t == List<_i20.Gear>) {
-      return (data as List).map((e) => deserialize<_i20.Gear>(e)).toList() as T;
+    if (t == List<_i20.GearKayak>) {
+      return (data as List).map((e) => deserialize<_i20.GearKayak>(e)).toList()
+          as T;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);
