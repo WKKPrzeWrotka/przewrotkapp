@@ -22,8 +22,8 @@ abstract class GearKayak
     required this.gearId,
     this.gear,
     required this.type,
-    required this.minWeight,
-    required this.maxWeight,
+    this.minWeight,
+    this.maxWeight,
     required this.length,
   });
 
@@ -32,8 +32,8 @@ abstract class GearKayak
     required int gearId,
     _i2.Gear? gear,
     required _i3.KayakType type,
-    required int minWeight,
-    required int maxWeight,
+    int? minWeight,
+    int? maxWeight,
     required int length,
   }) = _GearKayakImpl;
 
@@ -46,8 +46,8 @@ abstract class GearKayak
           : _i2.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
       type: _i3.KayakType.fromJson((jsonSerialization['type'] as String)),
-      minWeight: jsonSerialization['minWeight'] as int,
-      maxWeight: jsonSerialization['maxWeight'] as int,
+      minWeight: jsonSerialization['minWeight'] as int?,
+      maxWeight: jsonSerialization['maxWeight'] as int?,
       length: jsonSerialization['length'] as int,
     );
   }
@@ -65,9 +65,9 @@ abstract class GearKayak
 
   _i3.KayakType type;
 
-  int minWeight;
+  int? minWeight;
 
-  int maxWeight;
+  int? maxWeight;
 
   int length;
 
@@ -93,8 +93,8 @@ abstract class GearKayak
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
       'type': type.toJson(),
-      'minWeight': minWeight,
-      'maxWeight': maxWeight,
+      if (minWeight != null) 'minWeight': minWeight,
+      if (maxWeight != null) 'maxWeight': maxWeight,
       'length': length,
     };
   }
@@ -106,8 +106,8 @@ abstract class GearKayak
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJsonForProtocol(),
       'type': type.toJson(),
-      'minWeight': minWeight,
-      'maxWeight': maxWeight,
+      if (minWeight != null) 'minWeight': minWeight,
+      if (maxWeight != null) 'maxWeight': maxWeight,
       'length': length,
     };
   }
@@ -150,8 +150,8 @@ class _GearKayakImpl extends GearKayak {
     required int gearId,
     _i2.Gear? gear,
     required _i3.KayakType type,
-    required int minWeight,
-    required int maxWeight,
+    int? minWeight,
+    int? maxWeight,
     required int length,
   }) : super._(
           id: id,
@@ -172,8 +172,8 @@ class _GearKayakImpl extends GearKayak {
     int? gearId,
     Object? gear = _Undefined,
     _i3.KayakType? type,
-    int? minWeight,
-    int? maxWeight,
+    Object? minWeight = _Undefined,
+    Object? maxWeight = _Undefined,
     int? length,
   }) {
     return GearKayak(
@@ -181,8 +181,8 @@ class _GearKayakImpl extends GearKayak {
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
       type: type ?? this.type,
-      minWeight: minWeight ?? this.minWeight,
-      maxWeight: maxWeight ?? this.maxWeight,
+      minWeight: minWeight is int? ? minWeight : this.minWeight,
+      maxWeight: maxWeight is int? ? maxWeight : this.maxWeight,
       length: length ?? this.length,
     );
   }

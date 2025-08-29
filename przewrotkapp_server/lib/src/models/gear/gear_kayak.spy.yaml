@@ -3,8 +3,8 @@ table: gear_kayaks
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
   type: KayakType
-  minWeight: int
-  maxWeight: int
+  minWeight: int?
+  maxWeight: int?
   length: int
 indexes:
   kayaks_gear_unique_idx:

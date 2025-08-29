@@ -17,7 +17,9 @@ enum KayakType implements _i1.SerializableModel {
   halfSlice,
   fullSlice,
   playboat,
-  zwalkowy;
+  zwalkowy,
+  dwuOsobowy,
+  kanadyjka;
 
   static KayakType fromJson(String name) {
     switch (name) {
@@ -33,6 +35,10 @@ enum KayakType implements _i1.SerializableModel {
         return KayakType.playboat;
       case 'zwalkowy':
         return KayakType.zwalkowy;
+      case 'dwuOsobowy':
+        return KayakType.dwuOsobowy;
+      case 'kanadyjka':
+        return KayakType.kanadyjka;
       default:
         throw ArgumentError('Value "$name" cannot be converted to "KayakType"');
     }
