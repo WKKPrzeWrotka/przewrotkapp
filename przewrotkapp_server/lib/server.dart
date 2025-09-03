@@ -21,7 +21,7 @@ void run(List<String> args) async {
     RouteStaticDirectory(serverDirectory: 'static', basePath: '/'),
     '/*',
   );
-  importClothesFromExcel(session: await pod.createSession());
+  importBeltsFromExcel(session: await pod.createSession());
 
   // Start the server.
   await pod.start();

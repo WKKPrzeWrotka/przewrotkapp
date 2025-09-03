@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:csv/csv.dart';
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
 import 'package:serverpod/server.dart';
 
@@ -158,6 +159,30 @@ Future<void> importClothesFromExcel({Session? session}) async {
     final newGear = await Gear.db.insertRow(session!, gear);
     final newClothing = await GearClothing.db
         .insertRow(session, clothing.copyWith(gearId: newGear.id));
+  }
+}
+
+Future<void> importBeltsFromExcel({Session? session}) async {
+  final clothesCsv = File('$_root/belts.csv');
+  // this one uses lib because it has a lot of "strings"
+  final beltsData = CsvToListConverter()
+      .convert(
+        (await clothesCsv.readAsLines()).join("\n"),
+        shouldParseNumbers: false,
+        convertEmptyTo: '',
+        eol: '\n',
+      )
+      .map((e) => e.cast<String>())
+      .toList();
+  for (final line in beltsData.sublist(1).cast<List<String>>()) {
+    final gear = Gear(
+      clubId: line[0].trim(),
+      friendlyName: line[1].trim().isEmpty ? null : line[1].trim(),
+    );
+    final belt = GearBelt(gearId: 0, length: double.parse(line[2]));
+    final newGear = await Gear.db.insertRow(session!, gear);
+    final newBelt =
+        await GearBelt.db.insertRow(session, belt.copyWith(gearId: newGear.id));
   }
 }
 
