@@ -12,15 +12,15 @@
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 
 enum PaddleType implements _i1.SerializableModel {
-  mountain,
+  gorskie,
   nizinne,
   zwalkowe,
   pagaj;
 
   static PaddleType fromJson(String name) {
     switch (name) {
-      case 'mountain':
-        return PaddleType.mountain;
+      case 'gorskie':
+        return PaddleType.gorskie;
       case 'nizinne':
         return PaddleType.nizinne;
       case 'zwalkowe':

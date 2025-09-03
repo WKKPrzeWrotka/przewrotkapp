@@ -3,7 +3,7 @@ serialized: byName
 # Let's see if no default makes any problems or not
 #default: zwalkowe
 values:
-  - mountain
+  - gorskie
   - nizinne
   - zwalkowe
   - pagaj
