@@ -22,6 +22,12 @@
             "dartType": "String"
           },
           {
+            "name": "type",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "protocol:GearType"
+          },
+          {
             "name": "manufacturer",
             "columnType": 0,
             "isNullable": true,

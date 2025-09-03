@@ -10,11 +10,13 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
+import '../gear/gear_type.dart' as _i2;
 
 abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
   Gear._({
     this.id,
     required this.clubId,
+    required this.type,
     this.manufacturer,
     this.model,
     this.friendlyName,
@@ -24,6 +26,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
   factory Gear({
     int? id,
     required String clubId,
+    required _i2.GearType type,
     String? manufacturer,
     String? model,
     String? friendlyName,
@@ -34,6 +37,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     return Gear(
       id: jsonSerialization['id'] as int?,
       clubId: jsonSerialization['clubId'] as String,
+      type: _i2.GearType.fromJson((jsonSerialization['type'] as String)),
       manufacturer: jsonSerialization['manufacturer'] as String?,
       model: jsonSerialization['model'] as String?,
       friendlyName: jsonSerialization['friendlyName'] as String?,
@@ -52,6 +56,8 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
 
   String clubId;
 
+  _i2.GearType type;
+
   String? manufacturer;
 
   String? model;
@@ -69,6 +75,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
   Gear copyWith({
     int? id,
     String? clubId,
+    _i2.GearType? type,
     String? manufacturer,
     String? model,
     String? friendlyName,
@@ -79,6 +86,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     return {
       if (id != null) 'id': id,
       'clubId': clubId,
+      'type': type.toJson(),
       if (manufacturer != null) 'manufacturer': manufacturer,
       if (model != null) 'model': model,
       if (friendlyName != null) 'friendlyName': friendlyName,
@@ -92,6 +100,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     return {
       if (id != null) 'id': id,
       'clubId': clubId,
+      'type': type.toJson(),
       if (manufacturer != null) 'manufacturer': manufacturer,
       if (model != null) 'model': model,
       if (friendlyName != null) 'friendlyName': friendlyName,
@@ -136,6 +145,7 @@ class _GearImpl extends Gear {
   _GearImpl({
     int? id,
     required String clubId,
+    required _i2.GearType type,
     String? manufacturer,
     String? model,
     String? friendlyName,
@@ -143,6 +153,7 @@ class _GearImpl extends Gear {
   }) : super._(
           id: id,
           clubId: clubId,
+          type: type,
           manufacturer: manufacturer,
           model: model,
           friendlyName: friendlyName,
@@ -156,6 +167,7 @@ class _GearImpl extends Gear {
   Gear copyWith({
     Object? id = _Undefined,
     String? clubId,
+    _i2.GearType? type,
     Object? manufacturer = _Undefined,
     Object? model = _Undefined,
     Object? friendlyName = _Undefined,
@@ -164,6 +176,7 @@ class _GearImpl extends Gear {
     return Gear(
       id: id is int? ? id : this.id,
       clubId: clubId ?? this.clubId,
+      type: type ?? this.type,
       manufacturer: manufacturer is String? ? manufacturer : this.manufacturer,
       model: model is String? ? model : this.model,
       friendlyName: friendlyName is String? ? friendlyName : this.friendlyName,
@@ -179,6 +192,11 @@ class GearTable extends _i1.Table<int?> {
     clubId = _i1.ColumnString(
       'clubId',
       this,
+    );
+    type = _i1.ColumnEnum(
+      'type',
+      this,
+      _i1.EnumSerialization.byName,
     );
     manufacturer = _i1.ColumnString(
       'manufacturer',
@@ -200,6 +218,8 @@ class GearTable extends _i1.Table<int?> {
 
   late final _i1.ColumnString clubId;
 
+  late final _i1.ColumnEnum<_i2.GearType> type;
+
   late final _i1.ColumnString manufacturer;
 
   late final _i1.ColumnString model;
@@ -212,6 +232,7 @@ class GearTable extends _i1.Table<int?> {
   List<_i1.Column> get columns => [
         id,
         clubId,
+        type,
         manufacturer,
         model,
         friendlyName,

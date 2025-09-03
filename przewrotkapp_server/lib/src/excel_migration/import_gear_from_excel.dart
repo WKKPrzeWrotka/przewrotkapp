@@ -1,5 +1,6 @@
 import 'dart:io';
 
+// ignore: depend_on_referenced_packages
 import 'package:csv/csv.dart';
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
 import 'package:serverpod/server.dart';
@@ -15,6 +16,7 @@ Future<void> importKayaksFromExcel({Session? session}) async {
     // print(line);
     final gear = Gear(
       clubId: line[0],
+      type: GearType.kayak,
       manufacturer: line[1].trim().isEmpty ? null : line[1],
       model: line[2].trim().isEmpty ? null : line[2],
       friendlyName: line[3].trim().isEmpty ? null : line[3],
@@ -27,8 +29,7 @@ Future<void> importKayaksFromExcel({Session? session}) async {
       length: int.parse(line[7]),
     );
     final newGear = await Gear.db.insertRow(session!, gear);
-    final newKayak = await GearKayak.db
-        .insertRow(session, kayak.copyWith(gearId: newGear.id));
+    await GearKayak.db.insertRow(session, kayak.copyWith(gearId: newGear.id));
   }
 }
 
@@ -40,6 +41,7 @@ Future<void> importPaddlesFromExcel({Session? session}) async {
   for (final line in paddlesData.sublist(1)) {
     final gear = Gear(
       clubId: line[0],
+      type: GearType.paddle,
       manufacturer: line[1].trim().isEmpty ? null : line[1],
       model: line[2].trim().isEmpty ? null : line[2],
     );
@@ -50,8 +52,7 @@ Future<void> importPaddlesFromExcel({Session? session}) async {
       rotation: int.parse(line[5]),
     );
     final newGear = await Gear.db.insertRow(session!, gear);
-    final newPaddle = await GearPaddle.db
-        .insertRow(session, paddle.copyWith(gearId: newGear.id));
+    await GearPaddle.db.insertRow(session, paddle.copyWith(gearId: newGear.id));
   }
 }
 
@@ -63,6 +64,7 @@ Future<void> importSpraydecksFromExcel({Session? session}) async {
   for (final line in spraydecksData.sublist(1)) {
     final gear = Gear(
       clubId: line[0],
+      type: GearType.spraydeck,
       manufacturer: line[1].trim().isEmpty ? null : line[1],
       model: line[2].trim().isEmpty ? null : line[2],
     );
@@ -72,7 +74,7 @@ Future<void> importSpraydecksFromExcel({Session? session}) async {
       waistSize: GenericGearSize.fromJson(line[4]),
     );
     final newGear = await Gear.db.insertRow(session!, gear);
-    final newSpraydeck = await GearSpraydeck.db
+    await GearSpraydeck.db
         .insertRow(session, spraydeck.copyWith(gearId: newGear.id));
   }
 }
@@ -85,6 +87,7 @@ Future<void> importPfdsFromExcel({Session? session}) async {
   for (final line in pfdsData.sublist(1)) {
     final gear = Gear(
       clubId: line[0],
+      type: GearType.pfd,
       manufacturer: line[1].trim().isEmpty ? null : line[1],
       model: line[2].trim().isEmpty ? null : line[2],
       friendlyName: line[3].trim().isEmpty ? null : line[3],
@@ -95,8 +98,7 @@ Future<void> importPfdsFromExcel({Session? session}) async {
       type: PfdType.fromJson(line[5]),
     );
     final newGear = await Gear.db.insertRow(session!, gear);
-    final newPfd =
-        await GearPfd.db.insertRow(session, pfd.copyWith(gearId: newGear.id));
+    await GearPfd.db.insertRow(session, pfd.copyWith(gearId: newGear.id));
   }
 }
 
@@ -108,6 +110,7 @@ Future<void> importHelmetsFromExcel({Session? session}) async {
   for (final line in helmetsData.sublist(1)) {
     final gear = Gear(
       clubId: line[0],
+      type: GearType.helmet,
       manufacturer: line[1].trim().isEmpty ? null : line[1],
       model: line[2].trim().isEmpty ? null : line[2],
     );
@@ -116,8 +119,7 @@ Future<void> importHelmetsFromExcel({Session? session}) async {
       size: GenericGearSize.fromJson(line[3]),
     );
     final newGear = await Gear.db.insertRow(session!, gear);
-    final newHelmet = await GearHelmet.db
-        .insertRow(session, helmet.copyWith(gearId: newGear.id));
+    await GearHelmet.db.insertRow(session, helmet.copyWith(gearId: newGear.id));
   }
 }
 
@@ -129,13 +131,14 @@ Future<void> importThrowbagsFromExcel({Session? session}) async {
   for (final line in throwbagsData.sublist(1)) {
     final gear = Gear(
       clubId: line[0],
+      type: GearType.throwbag,
       manufacturer: line[1].trim().isEmpty ? null : line[1],
       model: line[2].trim().isEmpty ? null : line[2],
       friendlyName: line[3].trim().isEmpty ? null : line[3],
     );
     final throwbag = GearThrowbag(gearId: 0, length: int.parse(line[4]));
     final newGear = await Gear.db.insertRow(session!, gear);
-    final newThrowbag = await GearThrowbag.db
+    await GearThrowbag.db
         .insertRow(session, throwbag.copyWith(gearId: newGear.id));
   }
 }
@@ -148,6 +151,7 @@ Future<void> importClothesFromExcel({Session? session}) async {
   for (final line in clothesData.sublist(1)) {
     final gear = Gear(
       clubId: line[0].trim(),
+      type: GearType.clothing,
       manufacturer: line[1].trim().isEmpty ? null : line[1].trim(),
       model: line[2].trim().isEmpty ? null : line[2].trim(),
     );
@@ -157,7 +161,7 @@ Future<void> importClothesFromExcel({Session? session}) async {
         type: ClothingType.fromJson(line[4]),
         typeDescription: line[5].trim());
     final newGear = await Gear.db.insertRow(session!, gear);
-    final newClothing = await GearClothing.db
+    await GearClothing.db
         .insertRow(session, clothing.copyWith(gearId: newGear.id));
   }
 }
@@ -177,12 +181,12 @@ Future<void> importBeltsFromExcel({Session? session}) async {
   for (final line in beltsData.sublist(1).cast<List<String>>()) {
     final gear = Gear(
       clubId: line[0].trim(),
+      type: GearType.belt,
       friendlyName: line[1].trim().isEmpty ? null : line[1].trim(),
     );
     final belt = GearBelt(gearId: 0, length: double.parse(line[2]));
     final newGear = await Gear.db.insertRow(session!, gear);
-    final newBelt =
-        await GearBelt.db.insertRow(session, belt.copyWith(gearId: newGear.id));
+    await GearBelt.db.insertRow(session, belt.copyWith(gearId: newGear.id));
   }
 }
 
@@ -194,13 +198,14 @@ Future<void> importFloatbagsFromExcel({Session? session}) async {
   for (final line in floatbagsData.sublist(1)) {
     final gear = Gear(
       clubId: line[0].trim(),
+      type: GearType.floatbag,
       manufacturer: line[1].trim().isEmpty ? null : line[1].trim(),
       model: line[2].trim().isEmpty ? null : line[2].trim(),
       friendlyName: line[3].trim().isEmpty ? null : line[3].trim(),
     );
     final floatbag = GearFloatbag(gearId: 0, volume: null);
     final newGear = await Gear.db.insertRow(session!, gear);
-    final newFloatbag = await GearFloatbag.db
+    await GearFloatbag.db
         .insertRow(session, floatbag.copyWith(gearId: newGear.id));
   }
 }

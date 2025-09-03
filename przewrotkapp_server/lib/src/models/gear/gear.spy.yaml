@@ -2,6 +2,11 @@ class: Gear
 table: gear
 fields:
   clubId: String
+  #  This is *kind* of repetition, because info about gear type is already
+  #  included in the existance of gear_x field, connected by foreign key
+  #  ...buuuut I thought this might help with simplifying queries, and if
+  #  I ever decide this is bad, I can just drop it :)
+  type: GearType
   manufacturer: String?
   model: String?
   friendlyName: String?

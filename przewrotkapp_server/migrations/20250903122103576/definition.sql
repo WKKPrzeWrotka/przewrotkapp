@@ -6,6 +6,7 @@ BEGIN;
 CREATE TABLE "gear" (
     "id" bigserial PRIMARY KEY,
     "clubId" text NOT NULL,
+    "type" text NOT NULL,
     "manufacturer" text,
     "model" text,
     "friendlyName" text,
@@ -463,9 +464,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR przewrotkapp
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('przewrotkapp', '20250903120627474', now())
+    VALUES ('przewrotkapp', '20250903122103576', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20250903120627474', "timestamp" = now();
+    DO UPDATE SET "version" = '20250903122103576', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod

@@ -23,12 +23,13 @@ import 'gear/gear_paddle.dart' as _i11;
 import 'gear/gear_pfd.dart' as _i12;
 import 'gear/gear_spraydeck.dart' as _i13;
 import 'gear/gear_throwbag.dart' as _i14;
-import 'gear/generic_gear_size.dart' as _i15;
-import 'gear/kayak_type.dart' as _i16;
-import 'gear/paddle_type.dart' as _i17;
-import 'gear/pfd_type.dart' as _i18;
-import 'gear/spraydeck_deck_size.dart' as _i19;
-import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i20;
+import 'gear/gear_type.dart' as _i15;
+import 'gear/generic_gear_size.dart' as _i16;
+import 'gear/kayak_type.dart' as _i17;
+import 'gear/paddle_type.dart' as _i18;
+import 'gear/pfd_type.dart' as _i19;
+import 'gear/spraydeck_deck_size.dart' as _i20;
+import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i21;
 export 'exceptions/kayak_exception.dart';
 export 'gear/clothing_type.dart';
 export 'gear/gear.dart';
@@ -41,6 +42,7 @@ export 'gear/gear_paddle.dart';
 export 'gear/gear_pfd.dart';
 export 'gear/gear_spraydeck.dart';
 export 'gear/gear_throwbag.dart';
+export 'gear/gear_type.dart';
 export 'gear/generic_gear_size.dart';
 export 'gear/kayak_type.dart';
 export 'gear/paddle_type.dart';
@@ -73,6 +75,12 @@ class Protocol extends _i1.SerializationManagerServer {
           columnType: _i2.ColumnType.text,
           isNullable: false,
           dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'type',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'protocol:GearType',
         ),
         _i2.ColumnDefinition(
           name: 'manufacturer',
@@ -841,20 +849,23 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i14.GearThrowbag) {
       return _i14.GearThrowbag.fromJson(data) as T;
     }
-    if (t == _i15.GenericGearSize) {
-      return _i15.GenericGearSize.fromJson(data) as T;
+    if (t == _i15.GearType) {
+      return _i15.GearType.fromJson(data) as T;
     }
-    if (t == _i16.KayakType) {
-      return _i16.KayakType.fromJson(data) as T;
+    if (t == _i16.GenericGearSize) {
+      return _i16.GenericGearSize.fromJson(data) as T;
     }
-    if (t == _i17.PaddleType) {
-      return _i17.PaddleType.fromJson(data) as T;
+    if (t == _i17.KayakType) {
+      return _i17.KayakType.fromJson(data) as T;
     }
-    if (t == _i18.PfdType) {
-      return _i18.PfdType.fromJson(data) as T;
+    if (t == _i18.PaddleType) {
+      return _i18.PaddleType.fromJson(data) as T;
     }
-    if (t == _i19.SpraydeckDeckSize) {
-      return _i19.SpraydeckDeckSize.fromJson(data) as T;
+    if (t == _i19.PfdType) {
+      return _i19.PfdType.fromJson(data) as T;
+    }
+    if (t == _i20.SpraydeckDeckSize) {
+      return _i20.SpraydeckDeckSize.fromJson(data) as T;
     }
     if (t == _i1.getType<_i3.KayakException?>()) {
       return (data != null ? _i3.KayakException.fromJson(data) : null) as T;
@@ -892,28 +903,31 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i14.GearThrowbag?>()) {
       return (data != null ? _i14.GearThrowbag.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i15.GenericGearSize?>()) {
-      return (data != null ? _i15.GenericGearSize.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i15.GearType?>()) {
+      return (data != null ? _i15.GearType.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i16.KayakType?>()) {
-      return (data != null ? _i16.KayakType.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i16.GenericGearSize?>()) {
+      return (data != null ? _i16.GenericGearSize.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i17.PaddleType?>()) {
-      return (data != null ? _i17.PaddleType.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i17.KayakType?>()) {
+      return (data != null ? _i17.KayakType.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i18.PfdType?>()) {
-      return (data != null ? _i18.PfdType.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i18.PaddleType?>()) {
+      return (data != null ? _i18.PaddleType.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i19.SpraydeckDeckSize?>()) {
-      return (data != null ? _i19.SpraydeckDeckSize.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i19.PfdType?>()) {
+      return (data != null ? _i19.PfdType.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i20.SpraydeckDeckSize?>()) {
+      return (data != null ? _i20.SpraydeckDeckSize.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<List<Uri>?>()) {
       return (data != null
           ? (data as List).map((e) => deserialize<Uri>(e)).toList()
           : null) as T;
     }
-    if (t == List<_i20.GearKayak>) {
-      return (data as List).map((e) => deserialize<_i20.GearKayak>(e)).toList()
+    if (t == List<_i21.GearKayak>) {
+      return (data as List).map((e) => deserialize<_i21.GearKayak>(e)).toList()
           as T;
     }
     try {
@@ -962,19 +976,22 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i14.GearThrowbag) {
       return 'GearThrowbag';
     }
-    if (data is _i15.GenericGearSize) {
+    if (data is _i15.GearType) {
+      return 'GearType';
+    }
+    if (data is _i16.GenericGearSize) {
       return 'GenericGearSize';
     }
-    if (data is _i16.KayakType) {
+    if (data is _i17.KayakType) {
       return 'KayakType';
     }
-    if (data is _i17.PaddleType) {
+    if (data is _i18.PaddleType) {
       return 'PaddleType';
     }
-    if (data is _i18.PfdType) {
+    if (data is _i19.PfdType) {
       return 'PfdType';
     }
-    if (data is _i19.SpraydeckDeckSize) {
+    if (data is _i20.SpraydeckDeckSize) {
       return 'SpraydeckDeckSize';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -1026,20 +1043,23 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName == 'GearThrowbag') {
       return deserialize<_i14.GearThrowbag>(data['data']);
     }
+    if (dataClassName == 'GearType') {
+      return deserialize<_i15.GearType>(data['data']);
+    }
     if (dataClassName == 'GenericGearSize') {
-      return deserialize<_i15.GenericGearSize>(data['data']);
+      return deserialize<_i16.GenericGearSize>(data['data']);
     }
     if (dataClassName == 'KayakType') {
-      return deserialize<_i16.KayakType>(data['data']);
+      return deserialize<_i17.KayakType>(data['data']);
     }
     if (dataClassName == 'PaddleType') {
-      return deserialize<_i17.PaddleType>(data['data']);
+      return deserialize<_i18.PaddleType>(data['data']);
     }
     if (dataClassName == 'PfdType') {
-      return deserialize<_i18.PfdType>(data['data']);
+      return deserialize<_i19.PfdType>(data['data']);
     }
     if (dataClassName == 'SpraydeckDeckSize') {
-      return deserialize<_i19.SpraydeckDeckSize>(data['data']);
+      return deserialize<_i20.SpraydeckDeckSize>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);

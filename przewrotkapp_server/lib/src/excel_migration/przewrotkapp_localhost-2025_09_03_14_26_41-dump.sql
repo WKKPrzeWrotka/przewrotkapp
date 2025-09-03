@@ -28,6 +28,7 @@ SET default_table_access_method = heap;
 CREATE TABLE public.gear (
     id bigint NOT NULL,
     "clubId" text NOT NULL,
+    type text NOT NULL,
     manufacturer text,
     model text,
     "friendlyName" text,
@@ -1034,341 +1035,341 @@ ALTER TABLE ONLY public.serverpod_session_log ALTER COLUMN id SET DEFAULT nextva
 -- Data for Name: gear; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.gear (id, "clubId", manufacturer, model, "friendlyName", "photoUrls") FROM stdin;
-1	KK-1	Zet	Raptor	\N	\N
-2	KK-2	Liquidlogic	Hoss	pomarańczowy	\N
-3	KK-3	Pyranha	Inazone	rozmiar 240	\N
-4	KK-4	Pyranha	Burn	2; L	\N
-5	KK-5	Wave Sport	Habitat	rozmiar 74	\N
-6	KK-6	\N	\N	Czerwony zabytek	\N
-7	KK-7	Eskimo	Diablo	czerwony	\N
-8	KK-8	Lettmann	\N	zielony	\N
-9	KK-9	Eskimo	Diablo	czerwono-pomarańczowy	\N
-10	KK-10	Eskimo	Diablo	żółto-pomarańczowy	\N
-11	KK-11	Pyranha	Inazone	rozmiar 232	\N
-12	KK-12	Necky	Gliss	7'11	\N
-13	KK-13	Prjion	Delirious	\N	\N
-14	KK-14	Prijon	Chopper	110447	\N
-15	KK-15	Prijon	Huricane	Żółty (2738)	\N
-16	KK-16	Waka	Tuna	\N	\N
-17	KK-17	Prijon	Chopper	110431	\N
-18	KK-18	Wave Sport	Big Ez	rozmiar 42	\N
-19	KK-19	Pyranha	Micro Bat	Banan	\N
-20	KK-20	Wave Sport	Diesel	rozmiar 75	\N
-21	KK-21	Pyrahna	Burn	M	\N
-22	KK-22	Dagger	Redline	\N	\N
-23	KK-23	Dagger	Axiom	45086	\N
-24	KK-24	\N	\N	Cieknie 2	\N
-25	KK-25	Prjion	\N	Pomarańczowy (57347)	\N
-26	KK-26	Prijon	Hurricane	Niebieski (5494)	\N
-27	KK-27	Prjion	Invader	\N	\N
-28	KK-28	Prijon	Tajfun	Marchewa	\N
-29	KK-30	Liquidlogic	Stomper	80	\N
-30	KK-31	Fluid	Solo	M	\N
-31	KK-32	Liquidlogic	Skipp	\N	\N
-32	KK-33	Pyranha	Jed	L	\N
-33	KK-34	Pyranha	M3	\N	\N
-34	KK-35	Wave Sport	Transformer	\N	\N
-35	KK-36	Eskimo	Salto	\N	\N
-36	KK-37	Dagger	Infrared	\N	\N
-37	KK-38	\N	\N	Freestyle Carbon	\N
-38	KK-39	Robson	Roadster	\N	\N
-39	KK-40	Dagger	Juice	7.1	\N
-40	KK-41	Wave Sport	Project	rozmiar 52	\N
-41	KK-42	Železny	Igo	\N	\N
-42	KK-43	Zet	Veloc	\N	\N
-43	KK-44	Jackson	Antix 1.0	M	\N
-44	KK-45	Jackson	Antix 1.0	L	\N
-45	KK-47	Jackson	Antix 1.0	S	\N
-46	KK-46	Dagger	GT	45481	\N
-47	KK-48	Exo	Rexy	\N	\N
-48	KK-49	Pyranha	Inazone	rozmiar 230	\N
-49	KK-50	Pyrahna	Burn	niebieski (M)	\N
-50	NULL_1	Liquidlogic	Hoss	żółty	\N
-51	NULL_2	Pyrahna	H3	rozmiar 235	\N
-52	KK-29	Prjion	Excursion	\N	\N
-53	KN-1	Lettman	\N	Kanadyjka	\N
-54	KN-2	\N	\N	Bazyli	\N
-55	P-01	\N	Listek	\N	\N
-56	P-02	\N	Listek	\N	\N
-57	P-03	TNP	\N	\N	\N
-58	P-04	TNP	\N	\N	\N
-59	P-05	\N	Łopata	\N	\N
-60	P-06	\N	\N	\N	\N
-61	WK-01	TNP	\N	\N	\N
-62	WK-02	Dr Kayak	\N	\N	\N
-63	WK-03	Dr Kayak	\N	\N	\N
-64	WK-04	Dr Kayak	\N	\N	\N
-65	WK-05	Dr Kayak	\N	\N	\N
-66	WK-06	Dr Kayak	\N	\N	\N
-67	WK-07	Dr Kayak	\N	\N	\N
-68	WK-08	Dr Kayak	\N	\N	\N
-69	WK-09	Dr Kayak	\N	\N	\N
-70	WK-10	Dr Kayak	\N	\N	\N
-71	WK-11	TNP	Rapa	\N	\N
-72	WK-12	TNP	Rapa	\N	\N
-73	WK-13	TNP	Rapa	\N	\N
-74	WK-14	Panda	\N	\N	\N
-75	WK-15	TNP	Rapa	\N	\N
-76	WK-16	Dr Kayak	\N	\N	\N
-77	WK-17	TNP	\N	\N	\N
-78	WK-18	Swat	Egalis	\N	\N
-79	WK-19	Dr Kayak	Banan	\N	\N
-80	WK-20	Dr Kayak	\N	\N	\N
-81	WK-21	Dr Kayak	\N	\N	\N
-82	WK-22	Dr Kayak	\N	\N	\N
-83	WK-23	Dr Kayak	\N	\N	\N
-84	WK-24	TNP	\N	\N	\N
-85	WK-25	Dr Kayak	\N	\N	\N
-86	WK-26	TNP	Rapa	\N	\N
-87	WK-27	TNP	Rapa	\N	\N
-88	WK-28	TNP	Rapa	\N	\N
-89	WK-29	TNP	Rapa	\N	\N
-90	WK-30	TNP	Rapa	\N	\N
-91	WK-31	TNP	Rapa	\N	\N
-92	WK-32	TNP	Rapa	\N	\N
-93	WK-33	TNP	Rapa	\N	\N
-94	WK-34	Schlegel	Duralen	\N	\N
-95	WK-35	\N	\N	\N	\N
-96	WK-36	\N	\N	\N	\N
-97	WK-37	\N	\N	\N	\N
-98	WK-38	Dr Kayak	Allaround	\N	\N
-99	WK-39	TNP	Rapa	\N	\N
-100	WD-01	Dr Kayak	\N	\N	\N
-101	WD-02	Dr Kayak	\N	\N	\N
-102	WD-03	Dr Kayak	\N	\N	\N
-103	WD-04	TNP	\N	\N	\N
-104	WD-05	Dr Kayak	\N	\N	\N
-105	WD-06	\N	\N	\N	\N
-106	WD-07	Dr Kayak	\N	\N	\N
-107	WD-08	Dr Kayak	\N	\N	\N
-108	WD-09	Dr Kayak	\N	\N	\N
-109	WD-10	TNP	\N	\N	\N
-110	WD-11	\N	\N	\N	\N
-111	WD-12	Plastex	\N	\N	\N
-112	WD-13	\N	\N	\N	\N
-113	WD-14	\N	\N	\N	\N
-114	WD-15	Schlegel	Tech III	\N	\N
-115	WD-16	Ainsworth	ABS100 all round	\N	\N
-116	WD-17	Ainsworth	ABS100 all round	\N	\N
-117	WD-18	Ainsworth	ABS100 all round	\N	\N
-118	WD-19	Ainsworth	ABS102 assy	\N	\N
-119	WD-20	Ainsworth	ABS102 assy	\N	\N
-120	WD-24	Swat	Egalis	\N	\N
-121	FS-10	Samoróbka	Nizinny	\N	\N
-122	FS-12	Samoróbka	Nizinny	\N	\N
-123	FS-13	Samoróbka	Nizinny	\N	\N
-124	FS-23	Samoróbka	Nizinny	\N	\N
-125	FS-30	Samoróbka	Nizinny	\N	\N
-126	KFD-01	Noname	Rock Big	\N	\N
-127	KFD-02	Noname	Rock Big	\N	\N
-128	KFD-03	Noname	Rock Big	\N	\N
-129	KFD-04	Noname	Rock Big	\N	\N
-130	KFD-05	Noname	Rock Big	\N	\N
-131	KFD-06	Noname	Rock Big	\N	\N
-132	KFD-07	Noname	Rock Big	\N	\N
-133	KFD-08	Noname	Rock Big	\N	\N
-134	KFD-09	Noname	Rock Big	\N	\N
-135	KFD-10	Hiko	\N	\N	\N
-136	KFD-11	Noname	Rock Big	\N	\N
-137	KFD-12	Noname	Rock Big	\N	\N
-138	KFD-13	Extreme	\N	\N	\N
-139	KFD-14	HF	Silverback	\N	\N
-140	KFD-15	StomRide	Simple	\N	\N
-141	KFD-16	StomRide	Simple	\N	\N
-142	KFD-17	StomRide	Escape	\N	\N
-143	KFD-18	Palm	Sport	\N	\N
-144	KFD-19	Palm	Sport	\N	\N
-145	KFD-20	StormRide	Escape	\N	\N
-146	KFD-21	Palm	Sport	\N	\N
-147	KFD-22	Palm	Sport	\N	\N
-148	KFD-23	Noname	Freestyle	\N	\N
-149	KFD-24	PeakUK	Whitewater	\N	\N
-150	KFD-25	PeakUK	Whitewater	\N	\N
-151	KFD-26	PeakUK	Whitewater	\N	\N
-152	KFD-27	PeakUK	Whitewater	\N	\N
-153	KFD-28	StormRide	Escape	\N	\N
-154	KFD-29	PeakUK	Whitewater	\N	\N
-155	KFD-30	PeakUK	Whitewater	\N	\N
-156	KFD-31	PeakUK	Standard	\N	\N
-157	KFD-32	PeakUK	Standard	\N	\N
-158	KFD-33	PeakUK	Standard	\N	\N
-159	KFD-34	PeakUK	Standard	\N	\N
-160	KFD-35	Noname	Rock Big	\N	\N
-161	KFM-01	Noname	\N	\N	\N
-162	KFM-02	Noname	\N	\N	\N
-163	KFM-03	Noname	\N	\N	\N
-164	KFM-04	Noname	\N	\N	\N
-165	KFM-05	Noname	\N	\N	\N
-166	KFM-06	Noname	\N	\N	\N
-167	KFM-07	Noname	\N	\N	\N
-168	KFM-08	Noname	\N	\N	\N
-169	KFM-09	Noname	\N	\N	\N
-170	KFM-10	Noname	\N	\N	\N
-171	KFM-12	Noname	\N	\N	\N
-172	KFM-13	Noname	\N	\N	\N
-173	KFM-14	Noname	\N	\N	\N
-174	KFM-15	BushSport	\N	\N	\N
-175	KFM-16	Noname	\N	\N	\N
-176	KFN-01	HikoSport	Nizinny	\N	\N
-177	KFN-02	HikoSport	Nizinny	\N	\N
-178	KFN-03	Palm	Nizinny	\N	\N
-179	AK-03	RTM	euroclub	\N	\N
-180	AK-04	RTM	euroclub	\N	\N
-181	AK-05	CSR	\N	\N	\N
-182	AK-06	RTM	euroclub	\N	\N
-183	AK-07	RTM	euroclub	\N	\N
-184	AK-08	RTM	euroclub	\N	\N
-185	AK-09	RTM	euroclub	\N	\N
-186	AK-10	RTM	euroclub	\N	\N
-187	AK-11	RTM	euroclub	\N	\N
-188	AK-12	RTM	euroclub	\N	\N
-189	AK-13	RTM	euroclub	\N	\N
-190	AK-14	Sportis	sailor	\N	\N
-191	AK-15	Aquarius	\N	\N	\N
-192	AK-16	Ratex	\N	\N	\N
-193	AK-17	Ratex	\N	\N	\N
-194	AK-18	RTM	euroclub	\N	\N
-195	AK-19	RTM	\N	\N	\N
-196	AK-20	RTM	euroclub	\N	\N
-197	AK-21	RTM	euroclub	\N	\N
-198	AK-22	Olimp	\N	\N	\N
-199	AK-23	Olimp	\N	\N	\N
-200	AK-24	Olimp	\N	\N	\N
-201	AK-25	Olimp	\N	\N	\N
-202	AK-26	Olimp	\N	\N	\N
-203	AK-27	Olimp	\N	\N	\N
-204	AK-30	Tribord	Secufit	\N	\N
-205	AK-35	Aquarius	kv2	mOrL	\N
-206	AK-36	Aquarius	kv2	\N	\N
-207	AK-37	Aquarius	kv2	\N	\N
-208	AK-38	Aquarius	kv2	\N	\N
-209	AK-40	CSR	\N	\N	\N
-210	AK-41	CSR	\N	\N	\N
-211	AK-42	CSR	\N	\N	\N
-212	AK-43	CSR	\N	\N	\N
-213	AK-44	CSR	\N	\N	\N
-214	AK-45	CSR	\N	\N	\N
-215	AK-46	CSR	\N	\N	\N
-216	AK-47	CSR	\N	\N	\N
-217	AK-48	Sportis	\N	LGBT	\N
-218	AK-50	Sportis	\N	LGBT	\N
-219	AK-51	Aquarius	\N	\N	\N
-220	AK-28	Hiko	NR	\N	\N
-221	AK-29	Hiko	NR	\N	\N
-222	AK-31	NRS	Zen	\N	\N
-223	AK-32	YAK	Escape	\N	\N
-224	AK-34	Astral	Greenjacket	\N	\N
-225	AK-39	Hiko	NR	\N	\N
-226	AK-52	Hiko	Cinch	\N	\N
-227	AK-53	Hiko	Cinch	\N	\N
-228	AK-54	Palm	FX	czerwona	\N
-229	AK-55	Palm	FX	niebieska	\N
-230	AK-56	Palm	FX	niebieska	\N
-231	AK-57	Palm	FX	niebieska	\N
-232	AK-58	Hiko	Cinch	\N	\N
-233	AK-59	Hiko	Cinch	\N	\N
-234	AK-33	Palm	Alpha	\N	\N
-235	AK-49	Mustard	\N	\N	\N
-236	KS-01	Ruk	Rapid	\N	\N
-237	KS-02	Hiko	Buckar00	\N	\N
-238	KS-03	Hiko	Buckar00	\N	\N
-239	KS-04	Prijon	Surf	\N	\N
-240	KS-05	Shred Ready	Standard Fullcat	\N	\N
-241	KS-06	Protec	Ace	\N	\N
-242	KS-07	Hiko	Vibe	\N	\N
-243	KS-08	Hiko	Vibe	\N	\N
-244	KS-09	Sweet Protection	Rocker	\N	\N
-245	KS-10	Shred Ready	Standard Fullcat	\N	\N
-246	KS-11	Sweet Protection	Wanderer II	\N	\N
-247	KS-12	WRSI	Current	\N	\N
-248	KS-13	Hiko	Buckar00	\N	\N
-249	KS-14	Hiko	Vibe	\N	\N
-250	KS-15	Hiko	Buckar00	\N	\N
-251	KS-16	Hiko	Vibe	\N	\N
-252	KS-17	Palm	ap2000	\N	\N
-253	KS-18	Palm	ap2000	\N	\N
-254	KS-19	Palm	ap2000	\N	\N
-255	KS-20	Palm	ap2000	\N	\N
-256	KS-21	Protec	Ace	\N	\N
-257	KS-22	Palm	ap2000	\N	\N
-258	KS-23	Descent	\N	\N	\N
-259	KS-24	Protec	Ace	\N	\N
-260	KS-25	Wild-water	MIDI	\N	\N
-261	KS-26	Prijon	Surf	\N	\N
-262	R-1	hf	compact	\N	\N
-263	R-2	hf	compact	\N	\N
-264	R-3	hf	compact	\N	\N
-265	R-4	hf	compact	\N	\N
-266	R-5	hf	compact	\N	\N
-267	R-6	YAK	\N	z rdzeniem	\N
-268	R-7	hf	compact	\N	\N
-269	R-8	hf	Weasel	\N	\N
-270	R-9	hf	Weasel	\N	\N
-271	R-10	hf	Weasel	\N	\N
-272	R-11	hf	Weasel	\N	\N
-273	OP-1	ProRace	\N	\N	\N
-274	OP-2	Olaian/Decathlon	100	\N	\N
-275	OP-3	ProRace	\N	\N	\N
-276	OP-4	Tribord	SK500	\N	\N
-277	OP-5	SA	\N	\N	\N
-278	OP-6	ProRace	\N	\N	\N
-279	OP-7	Olaian/Decathlon	100	\N	\N
-280	OP-8	ProRace	\N	\N	\N
-281	OP-9	ProRace	\N	\N	\N
-282	OP-10	Tribord	\N	\N	\N
-283	OP-11	Hiko	\N	\N	\N
-284	OP-12	ProRace	\N	\N	\N
-285	OP-13	ProRace	\N	\N	\N
-286	O-1	Tribord	\N	\N	\N
-287	OK-1	Hiko	\N	\N	\N
-288	OK-2	Tribord	SK500	\N	\N
-289	OK-3	Yak	Rapid Cag	\N	\N
-290	OK-4	Hiko	\N	\N	\N
-291	PS-01	\N	\N	Czerwony, zacisk	\N
-292	PS-02	\N	\N	Czerwony, zacisk	\N
-293	PS-03	\N	\N	Czerwony, zacisk	\N
-294	PS-04	\N	\N	Żółty, zacisk	\N
-295	PS-05	\N	\N	Niebieski, zacisk	\N
-296	PS-06	\N	\N	Niebieski, ratchet	\N
-297	PS-07	\N	\N	Niebieski, ratchet	\N
-298	PS-08	\N	\N	Niebieski, zacisk	\N
-299	PS-09	\N	\N	Żółty, zacisk, duży	\N
-300	PS-10	\N	\N	Niebieski, zacisk	\N
-301	PS-11	\N	\N	Niebieski, zacisk	\N
-302	PS-12	\N	\N	Żółty, 2 częściowy, ratchet	\N
-303	PS-13	\N	\N	Czarny, kajakowo, zacisk	\N
-304	PS-14	\N	\N	Czarny, kajakowo, zacisk	\N
-305	PS-15	\N	\N	Czarny, zacisk, duży	\N
-306	KW-01	Pyranha	\N	Tylna	\N
-307	KW-02	PeakUK	\N	Tylna	\N
-308	KW-03	Prijon	\N	Tylna	\N
-309	KW-04	WaterElement	\N	Tylna	\N
-310	KW-05	WaterElement	\N	Tylna	\N
-311	KW-06	WaterElement	\N	Tylna	\N
-312	KW-07	Prijon	\N	Tylna	\N
-313	KW-08	Hiko	\N	Tylna	\N
-314	KW-09	Hiko	\N	Tylna	\N
-315	KW-10	\N	Ponton	Przednia	\N
-316	KW-11	Pyranha	\N	Tylna	\N
-317	KW-12	Prijon	\N	Przednia	\N
-318	KW-13	Hiko	\N	Tylna	\N
-319	KW-14	Hiko	\N	Tylna	\N
-320	KW-15	PeakUK	STERN	Tylna	\N
-321	KW-16	PeakUK	STERN	Tylna	\N
-322	KW-17	PeakUK	STERN	Tylna	\N
-323	KW-18	PeakUK	STERN	Tylna	\N
-324	KW-19	PeakUK	STERN	Tylna	\N
-325	KW-20	PeakUK	STERN	Tylna	\N
-326	KW-21	PeakUK	STERN	Tylna	\N
-327	KW-22	WaterElement	\N	Tylna	\N
-328	KW-23	PeakUK	STERN	Tylna	\N
-329	KW-24	PeakUK	STERN	Tylna	\N
-330	KW-25	PeakUK	STERN	Tylna	\N
-331	KW-26	PeakUK	STERN	Tylna	\N
-332	KW-27	Vodak sport	\N	Tylna	\N
-333	KW-28	Zölzer	\N	Tylna	\N
-334	KW-29	\N	\N	Tylna	\N
+COPY public.gear (id, "clubId", type, manufacturer, model, "friendlyName", "photoUrls") FROM stdin;
+1	KK-1	kayak	Zet	Raptor	\N	\N
+2	KK-2	kayak	Liquidlogic	Hoss	pomarańczowy	\N
+3	KK-3	kayak	Pyranha	Inazone	rozmiar 240	\N
+4	KK-4	kayak	Pyranha	Burn	2; L	\N
+5	KK-5	kayak	Wave Sport	Habitat	rozmiar 74	\N
+6	KK-6	kayak	\N	\N	Czerwony zabytek	\N
+7	KK-7	kayak	Eskimo	Diablo	czerwony	\N
+8	KK-8	kayak	Lettmann	\N	zielony	\N
+9	KK-9	kayak	Eskimo	Diablo	czerwono-pomarańczowy	\N
+10	KK-10	kayak	Eskimo	Diablo	żółto-pomarańczowy	\N
+11	KK-11	kayak	Pyranha	Inazone	rozmiar 232	\N
+12	KK-12	kayak	Necky	Gliss	7'11	\N
+13	KK-13	kayak	Prjion	Delirious	\N	\N
+14	KK-14	kayak	Prijon	Chopper	110447	\N
+15	KK-15	kayak	Prijon	Huricane	Żółty (2738)	\N
+16	KK-16	kayak	Waka	Tuna	\N	\N
+17	KK-17	kayak	Prijon	Chopper	110431	\N
+18	KK-18	kayak	Wave Sport	Big Ez	rozmiar 42	\N
+19	KK-19	kayak	Pyranha	Micro Bat	Banan	\N
+20	KK-20	kayak	Wave Sport	Diesel	rozmiar 75	\N
+21	KK-21	kayak	Pyrahna	Burn	M	\N
+22	KK-22	kayak	Dagger	Redline	\N	\N
+23	KK-23	kayak	Dagger	Axiom	45086	\N
+24	KK-24	kayak	\N	\N	Cieknie 2	\N
+25	KK-25	kayak	Prjion	\N	Pomarańczowy (57347)	\N
+26	KK-26	kayak	Prijon	Hurricane	Niebieski (5494)	\N
+27	KK-27	kayak	Prjion	Invader	\N	\N
+28	KK-28	kayak	Prijon	Tajfun	Marchewa	\N
+29	KK-30	kayak	Liquidlogic	Stomper	80	\N
+30	KK-31	kayak	Fluid	Solo	M	\N
+31	KK-32	kayak	Liquidlogic	Skipp	\N	\N
+32	KK-33	kayak	Pyranha	Jed	L	\N
+33	KK-34	kayak	Pyranha	M3	\N	\N
+34	KK-35	kayak	Wave Sport	Transformer	\N	\N
+35	KK-36	kayak	Eskimo	Salto	\N	\N
+36	KK-37	kayak	Dagger	Infrared	\N	\N
+37	KK-38	kayak	\N	\N	Freestyle Carbon	\N
+38	KK-39	kayak	Robson	Roadster	\N	\N
+39	KK-40	kayak	Dagger	Juice	7.1	\N
+40	KK-41	kayak	Wave Sport	Project	rozmiar 52	\N
+41	KK-42	kayak	Železny	Igo	\N	\N
+42	KK-43	kayak	Zet	Veloc	\N	\N
+43	KK-44	kayak	Jackson	Antix 1.0	M	\N
+44	KK-45	kayak	Jackson	Antix 1.0	L	\N
+45	KK-47	kayak	Jackson	Antix 1.0	S	\N
+46	KK-46	kayak	Dagger	GT	45481	\N
+47	KK-48	kayak	Exo	Rexy	\N	\N
+48	KK-49	kayak	Pyranha	Inazone	rozmiar 230	\N
+49	KK-50	kayak	Pyrahna	Burn	niebieski (M)	\N
+50	NULL_1	kayak	Liquidlogic	Hoss	żółty	\N
+51	NULL_2	kayak	Pyrahna	H3	rozmiar 235	\N
+52	KK-29	kayak	Prjion	Excursion	\N	\N
+53	KN-1	kayak	Lettman	\N	Kanadyjka	\N
+54	KN-2	kayak	\N	\N	Bazyli	\N
+55	P-01	paddle	\N	Listek	\N	\N
+56	P-02	paddle	\N	Listek	\N	\N
+57	P-03	paddle	TNP	\N	\N	\N
+58	P-04	paddle	TNP	\N	\N	\N
+59	P-05	paddle	\N	Łopata	\N	\N
+60	P-06	paddle	\N	\N	\N	\N
+61	WK-01	paddle	TNP	\N	\N	\N
+62	WK-02	paddle	Dr Kayak	\N	\N	\N
+63	WK-03	paddle	Dr Kayak	\N	\N	\N
+64	WK-04	paddle	Dr Kayak	\N	\N	\N
+65	WK-05	paddle	Dr Kayak	\N	\N	\N
+66	WK-06	paddle	Dr Kayak	\N	\N	\N
+67	WK-07	paddle	Dr Kayak	\N	\N	\N
+68	WK-08	paddle	Dr Kayak	\N	\N	\N
+69	WK-09	paddle	Dr Kayak	\N	\N	\N
+70	WK-10	paddle	Dr Kayak	\N	\N	\N
+71	WK-11	paddle	TNP	Rapa	\N	\N
+72	WK-12	paddle	TNP	Rapa	\N	\N
+73	WK-13	paddle	TNP	Rapa	\N	\N
+74	WK-14	paddle	Panda	\N	\N	\N
+75	WK-15	paddle	TNP	Rapa	\N	\N
+76	WK-16	paddle	Dr Kayak	\N	\N	\N
+77	WK-17	paddle	TNP	\N	\N	\N
+78	WK-18	paddle	Swat	Egalis	\N	\N
+79	WK-19	paddle	Dr Kayak	Banan	\N	\N
+80	WK-20	paddle	Dr Kayak	\N	\N	\N
+81	WK-21	paddle	Dr Kayak	\N	\N	\N
+82	WK-22	paddle	Dr Kayak	\N	\N	\N
+83	WK-23	paddle	Dr Kayak	\N	\N	\N
+84	WK-24	paddle	TNP	\N	\N	\N
+85	WK-25	paddle	Dr Kayak	\N	\N	\N
+86	WK-26	paddle	TNP	Rapa	\N	\N
+87	WK-27	paddle	TNP	Rapa	\N	\N
+88	WK-28	paddle	TNP	Rapa	\N	\N
+89	WK-29	paddle	TNP	Rapa	\N	\N
+90	WK-30	paddle	TNP	Rapa	\N	\N
+91	WK-31	paddle	TNP	Rapa	\N	\N
+92	WK-32	paddle	TNP	Rapa	\N	\N
+93	WK-33	paddle	TNP	Rapa	\N	\N
+94	WK-34	paddle	Schlegel	Duralen	\N	\N
+95	WK-35	paddle	\N	\N	\N	\N
+96	WK-36	paddle	\N	\N	\N	\N
+97	WK-37	paddle	\N	\N	\N	\N
+98	WK-38	paddle	Dr Kayak	Allaround	\N	\N
+99	WK-39	paddle	TNP	Rapa	\N	\N
+100	WD-01	paddle	Dr Kayak	\N	\N	\N
+101	WD-02	paddle	Dr Kayak	\N	\N	\N
+102	WD-03	paddle	Dr Kayak	\N	\N	\N
+103	WD-04	paddle	TNP	\N	\N	\N
+104	WD-05	paddle	Dr Kayak	\N	\N	\N
+105	WD-06	paddle	\N	\N	\N	\N
+106	WD-07	paddle	Dr Kayak	\N	\N	\N
+107	WD-08	paddle	Dr Kayak	\N	\N	\N
+108	WD-09	paddle	Dr Kayak	\N	\N	\N
+109	WD-10	paddle	TNP	\N	\N	\N
+110	WD-11	paddle	\N	\N	\N	\N
+111	WD-12	paddle	Plastex	\N	\N	\N
+112	WD-13	paddle	\N	\N	\N	\N
+113	WD-14	paddle	\N	\N	\N	\N
+114	WD-15	paddle	Schlegel	Tech III	\N	\N
+115	WD-16	paddle	Ainsworth	ABS100 all round	\N	\N
+116	WD-17	paddle	Ainsworth	ABS100 all round	\N	\N
+117	WD-18	paddle	Ainsworth	ABS100 all round	\N	\N
+118	WD-19	paddle	Ainsworth	ABS102 assy	\N	\N
+119	WD-20	paddle	Ainsworth	ABS102 assy	\N	\N
+120	WD-24	paddle	Swat	Egalis	\N	\N
+121	FS-10	spraydeck	Samoróbka	Nizinny	\N	\N
+122	FS-12	spraydeck	Samoróbka	Nizinny	\N	\N
+123	FS-13	spraydeck	Samoróbka	Nizinny	\N	\N
+124	FS-23	spraydeck	Samoróbka	Nizinny	\N	\N
+125	FS-30	spraydeck	Samoróbka	Nizinny	\N	\N
+126	KFD-01	spraydeck	Noname	Rock Big	\N	\N
+127	KFD-02	spraydeck	Noname	Rock Big	\N	\N
+128	KFD-03	spraydeck	Noname	Rock Big	\N	\N
+129	KFD-04	spraydeck	Noname	Rock Big	\N	\N
+130	KFD-05	spraydeck	Noname	Rock Big	\N	\N
+131	KFD-06	spraydeck	Noname	Rock Big	\N	\N
+132	KFD-07	spraydeck	Noname	Rock Big	\N	\N
+133	KFD-08	spraydeck	Noname	Rock Big	\N	\N
+134	KFD-09	spraydeck	Noname	Rock Big	\N	\N
+135	KFD-10	spraydeck	Hiko	\N	\N	\N
+136	KFD-11	spraydeck	Noname	Rock Big	\N	\N
+137	KFD-12	spraydeck	Noname	Rock Big	\N	\N
+138	KFD-13	spraydeck	Extreme	\N	\N	\N
+139	KFD-14	spraydeck	HF	Silverback	\N	\N
+140	KFD-15	spraydeck	StomRide	Simple	\N	\N
+141	KFD-16	spraydeck	StomRide	Simple	\N	\N
+142	KFD-17	spraydeck	StomRide	Escape	\N	\N
+143	KFD-18	spraydeck	Palm	Sport	\N	\N
+144	KFD-19	spraydeck	Palm	Sport	\N	\N
+145	KFD-20	spraydeck	StormRide	Escape	\N	\N
+146	KFD-21	spraydeck	Palm	Sport	\N	\N
+147	KFD-22	spraydeck	Palm	Sport	\N	\N
+148	KFD-23	spraydeck	Noname	Freestyle	\N	\N
+149	KFD-24	spraydeck	PeakUK	Whitewater	\N	\N
+150	KFD-25	spraydeck	PeakUK	Whitewater	\N	\N
+151	KFD-26	spraydeck	PeakUK	Whitewater	\N	\N
+152	KFD-27	spraydeck	PeakUK	Whitewater	\N	\N
+153	KFD-28	spraydeck	StormRide	Escape	\N	\N
+154	KFD-29	spraydeck	PeakUK	Whitewater	\N	\N
+155	KFD-30	spraydeck	PeakUK	Whitewater	\N	\N
+156	KFD-31	spraydeck	PeakUK	Standard	\N	\N
+157	KFD-32	spraydeck	PeakUK	Standard	\N	\N
+158	KFD-33	spraydeck	PeakUK	Standard	\N	\N
+159	KFD-34	spraydeck	PeakUK	Standard	\N	\N
+160	KFD-35	spraydeck	Noname	Rock Big	\N	\N
+161	KFM-01	spraydeck	Noname	\N	\N	\N
+162	KFM-02	spraydeck	Noname	\N	\N	\N
+163	KFM-03	spraydeck	Noname	\N	\N	\N
+164	KFM-04	spraydeck	Noname	\N	\N	\N
+165	KFM-05	spraydeck	Noname	\N	\N	\N
+166	KFM-06	spraydeck	Noname	\N	\N	\N
+167	KFM-07	spraydeck	Noname	\N	\N	\N
+168	KFM-08	spraydeck	Noname	\N	\N	\N
+169	KFM-09	spraydeck	Noname	\N	\N	\N
+170	KFM-10	spraydeck	Noname	\N	\N	\N
+171	KFM-12	spraydeck	Noname	\N	\N	\N
+172	KFM-13	spraydeck	Noname	\N	\N	\N
+173	KFM-14	spraydeck	Noname	\N	\N	\N
+174	KFM-15	spraydeck	BushSport	\N	\N	\N
+175	KFM-16	spraydeck	Noname	\N	\N	\N
+176	KFN-01	spraydeck	HikoSport	Nizinny	\N	\N
+177	KFN-02	spraydeck	HikoSport	Nizinny	\N	\N
+178	KFN-03	spraydeck	Palm	Nizinny	\N	\N
+179	AK-03	pfd	RTM	euroclub	\N	\N
+180	AK-04	pfd	RTM	euroclub	\N	\N
+181	AK-05	pfd	CSR	\N	\N	\N
+182	AK-06	pfd	RTM	euroclub	\N	\N
+183	AK-07	pfd	RTM	euroclub	\N	\N
+184	AK-08	pfd	RTM	euroclub	\N	\N
+185	AK-09	pfd	RTM	euroclub	\N	\N
+186	AK-10	pfd	RTM	euroclub	\N	\N
+187	AK-11	pfd	RTM	euroclub	\N	\N
+188	AK-12	pfd	RTM	euroclub	\N	\N
+189	AK-13	pfd	RTM	euroclub	\N	\N
+190	AK-14	pfd	Sportis	sailor	\N	\N
+191	AK-15	pfd	Aquarius	\N	\N	\N
+192	AK-16	pfd	Ratex	\N	\N	\N
+193	AK-17	pfd	Ratex	\N	\N	\N
+194	AK-18	pfd	RTM	euroclub	\N	\N
+195	AK-19	pfd	RTM	\N	\N	\N
+196	AK-20	pfd	RTM	euroclub	\N	\N
+197	AK-21	pfd	RTM	euroclub	\N	\N
+198	AK-22	pfd	Olimp	\N	\N	\N
+199	AK-23	pfd	Olimp	\N	\N	\N
+200	AK-24	pfd	Olimp	\N	\N	\N
+201	AK-25	pfd	Olimp	\N	\N	\N
+202	AK-26	pfd	Olimp	\N	\N	\N
+203	AK-27	pfd	Olimp	\N	\N	\N
+204	AK-30	pfd	Tribord	Secufit	\N	\N
+205	AK-35	pfd	Aquarius	kv2	mOrL	\N
+206	AK-36	pfd	Aquarius	kv2	\N	\N
+207	AK-37	pfd	Aquarius	kv2	\N	\N
+208	AK-38	pfd	Aquarius	kv2	\N	\N
+209	AK-40	pfd	CSR	\N	\N	\N
+210	AK-41	pfd	CSR	\N	\N	\N
+211	AK-42	pfd	CSR	\N	\N	\N
+212	AK-43	pfd	CSR	\N	\N	\N
+213	AK-44	pfd	CSR	\N	\N	\N
+214	AK-45	pfd	CSR	\N	\N	\N
+215	AK-46	pfd	CSR	\N	\N	\N
+216	AK-47	pfd	CSR	\N	\N	\N
+217	AK-48	pfd	Sportis	\N	LGBT	\N
+218	AK-50	pfd	Sportis	\N	LGBT	\N
+219	AK-51	pfd	Aquarius	\N	\N	\N
+220	AK-28	pfd	Hiko	NR	\N	\N
+221	AK-29	pfd	Hiko	NR	\N	\N
+222	AK-31	pfd	NRS	Zen	\N	\N
+223	AK-32	pfd	YAK	Escape	\N	\N
+224	AK-34	pfd	Astral	Greenjacket	\N	\N
+225	AK-39	pfd	Hiko	NR	\N	\N
+226	AK-52	pfd	Hiko	Cinch	\N	\N
+227	AK-53	pfd	Hiko	Cinch	\N	\N
+228	AK-54	pfd	Palm	FX	czerwona	\N
+229	AK-55	pfd	Palm	FX	niebieska	\N
+230	AK-56	pfd	Palm	FX	niebieska	\N
+231	AK-57	pfd	Palm	FX	niebieska	\N
+232	AK-58	pfd	Hiko	Cinch	\N	\N
+233	AK-59	pfd	Hiko	Cinch	\N	\N
+234	AK-33	pfd	Palm	Alpha	\N	\N
+235	AK-49	pfd	Mustard	\N	\N	\N
+236	KS-01	helmet	Ruk	Rapid	\N	\N
+237	KS-02	helmet	Hiko	Buckar00	\N	\N
+238	KS-03	helmet	Hiko	Buckar00	\N	\N
+239	KS-04	helmet	Prijon	Surf	\N	\N
+240	KS-05	helmet	Shred Ready	Standard Fullcat	\N	\N
+241	KS-06	helmet	Protec	Ace	\N	\N
+242	KS-07	helmet	Hiko	Vibe	\N	\N
+243	KS-08	helmet	Hiko	Vibe	\N	\N
+244	KS-09	helmet	Sweet Protection	Rocker	\N	\N
+245	KS-10	helmet	Shred Ready	Standard Fullcat	\N	\N
+246	KS-11	helmet	Sweet Protection	Wanderer II	\N	\N
+247	KS-12	helmet	WRSI	Current	\N	\N
+248	KS-13	helmet	Hiko	Buckar00	\N	\N
+249	KS-14	helmet	Hiko	Vibe	\N	\N
+250	KS-15	helmet	Hiko	Buckar00	\N	\N
+251	KS-16	helmet	Hiko	Vibe	\N	\N
+252	KS-17	helmet	Palm	ap2000	\N	\N
+253	KS-18	helmet	Palm	ap2000	\N	\N
+254	KS-19	helmet	Palm	ap2000	\N	\N
+255	KS-20	helmet	Palm	ap2000	\N	\N
+256	KS-21	helmet	Protec	Ace	\N	\N
+257	KS-22	helmet	Palm	ap2000	\N	\N
+258	KS-23	helmet	Descent	\N	\N	\N
+259	KS-24	helmet	Protec	Ace	\N	\N
+260	KS-25	helmet	Wild-water	MIDI	\N	\N
+261	KS-26	helmet	Prijon	Surf	\N	\N
+262	R-1	throwbag	hf	compact	\N	\N
+263	R-2	throwbag	hf	compact	\N	\N
+264	R-3	throwbag	hf	compact	\N	\N
+265	R-4	throwbag	hf	compact	\N	\N
+266	R-5	throwbag	hf	compact	\N	\N
+267	R-6	throwbag	YAK	\N	z rdzeniem	\N
+268	R-7	throwbag	hf	compact	\N	\N
+269	R-8	throwbag	hf	Weasel	\N	\N
+270	R-9	throwbag	hf	Weasel	\N	\N
+271	R-10	throwbag	hf	Weasel	\N	\N
+272	R-11	throwbag	hf	Weasel	\N	\N
+273	OP-1	clothing	ProRace	\N	\N	\N
+274	OP-2	clothing	Olaian/Decathlon	100	\N	\N
+275	OP-3	clothing	ProRace	\N	\N	\N
+276	OP-4	clothing	Tribord	SK500	\N	\N
+277	OP-5	clothing	SA	\N	\N	\N
+278	OP-6	clothing	ProRace	\N	\N	\N
+279	OP-7	clothing	Olaian/Decathlon	100	\N	\N
+280	OP-8	clothing	ProRace	\N	\N	\N
+281	OP-9	clothing	ProRace	\N	\N	\N
+282	OP-10	clothing	Tribord	\N	\N	\N
+283	OP-11	clothing	Hiko	\N	\N	\N
+284	OP-12	clothing	ProRace	\N	\N	\N
+285	OP-13	clothing	ProRace	\N	\N	\N
+286	O-1	clothing	Tribord	\N	\N	\N
+287	OK-1	clothing	Hiko	\N	\N	\N
+288	OK-2	clothing	Tribord	SK500	\N	\N
+289	OK-3	clothing	Yak	Rapid Cag	\N	\N
+290	OK-4	clothing	Hiko	\N	\N	\N
+291	PS-01	belt	\N	\N	Czerwony, zacisk	\N
+292	PS-02	belt	\N	\N	Czerwony, zacisk	\N
+293	PS-03	belt	\N	\N	Czerwony, zacisk	\N
+294	PS-04	belt	\N	\N	Żółty, zacisk	\N
+295	PS-05	belt	\N	\N	Niebieski, zacisk	\N
+296	PS-06	belt	\N	\N	Niebieski, ratchet	\N
+297	PS-07	belt	\N	\N	Niebieski, ratchet	\N
+298	PS-08	belt	\N	\N	Niebieski, zacisk	\N
+299	PS-09	belt	\N	\N	Żółty, zacisk, duży	\N
+300	PS-10	belt	\N	\N	Niebieski, zacisk	\N
+301	PS-11	belt	\N	\N	Niebieski, zacisk	\N
+302	PS-12	belt	\N	\N	Żółty, 2 częściowy, ratchet	\N
+303	PS-13	belt	\N	\N	Czarny, kajakowo, zacisk	\N
+304	PS-14	belt	\N	\N	Czarny, kajakowo, zacisk	\N
+305	PS-15	belt	\N	\N	Czarny, zacisk, duży	\N
+306	KW-01	floatbag	Pyranha	\N	Tylna	\N
+307	KW-02	floatbag	PeakUK	\N	Tylna	\N
+308	KW-03	floatbag	Prijon	\N	Tylna	\N
+309	KW-04	floatbag	WaterElement	\N	Tylna	\N
+310	KW-05	floatbag	WaterElement	\N	Tylna	\N
+311	KW-06	floatbag	WaterElement	\N	Tylna	\N
+312	KW-07	floatbag	Prijon	\N	Tylna	\N
+313	KW-08	floatbag	Hiko	\N	Tylna	\N
+314	KW-09	floatbag	Hiko	\N	Tylna	\N
+315	KW-10	floatbag	\N	Ponton	Przednia	\N
+316	KW-11	floatbag	Pyranha	\N	Tylna	\N
+317	KW-12	floatbag	Prijon	\N	Przednia	\N
+318	KW-13	floatbag	Hiko	\N	Tylna	\N
+319	KW-14	floatbag	Hiko	\N	Tylna	\N
+320	KW-15	floatbag	PeakUK	STERN	Tylna	\N
+321	KW-16	floatbag	PeakUK	STERN	Tylna	\N
+322	KW-17	floatbag	PeakUK	STERN	Tylna	\N
+323	KW-18	floatbag	PeakUK	STERN	Tylna	\N
+324	KW-19	floatbag	PeakUK	STERN	Tylna	\N
+325	KW-20	floatbag	PeakUK	STERN	Tylna	\N
+326	KW-21	floatbag	PeakUK	STERN	Tylna	\N
+327	KW-22	floatbag	WaterElement	\N	Tylna	\N
+328	KW-23	floatbag	PeakUK	STERN	Tylna	\N
+329	KW-24	floatbag	PeakUK	STERN	Tylna	\N
+330	KW-25	floatbag	PeakUK	STERN	Tylna	\N
+331	KW-26	floatbag	PeakUK	STERN	Tylna	\N
+332	KW-27	floatbag	Vodak sport	\N	Tylna	\N
+333	KW-28	floatbag	Zölzer	\N	Tylna	\N
+334	KW-29	floatbag	\N	\N	Tylna	\N
 \.
 
 
@@ -1807,9 +1808,8 @@ COPY public.serverpod_future_call (id, name, "time", "serializedObject", "server
 --
 
 COPY public.serverpod_health_connection_info (id, "serverId", "timestamp", active, closing, idle, granularity) FROM stdin;
-1	default	2025-09-03 12:07:00	0	0	0	1
-2	default	2025-09-03 12:08:00	0	0	0	1
-3	default	2025-09-03 12:10:00	0	0	0	1
+1	default	2025-09-03 12:22:00	0	0	0	1
+2	default	2025-09-03 12:25:00	0	0	1	1
 \.
 
 
@@ -1818,15 +1818,12 @@ COPY public.serverpod_health_connection_info (id, "serverId", "timestamp", activ
 --
 
 COPY public.serverpod_health_metric (id, name, "serverId", "timestamp", "isHealthy", value, granularity) FROM stdin;
-1	serverpod_database	default	2025-09-03 12:07:00	t	0.003863	1
-2	serverpod_cpu	default	2025-09-03 12:07:00	t	0.06524658203125	1
-3	serverpod_memory	default	2025-09-03 12:07:00	t	0.5086037516593933	1
-4	serverpod_database	default	2025-09-03 12:08:00	t	0.002662	1
-5	serverpod_cpu	default	2025-09-03 12:08:00	t	0.0843505859375	1
-6	serverpod_memory	default	2025-09-03 12:08:00	t	0.5195396542549133	1
-7	serverpod_database	default	2025-09-03 12:10:00	t	0.003033	1
-8	serverpod_cpu	default	2025-09-03 12:10:00	t	0.1124267578125	1
-9	serverpod_memory	default	2025-09-03 12:10:00	t	0.5389905571937561	1
+1	serverpod_database	default	2025-09-03 12:22:00	t	0.003062	1
+2	serverpod_cpu	default	2025-09-03 12:22:00	t	0.143310546875	1
+3	serverpod_memory	default	2025-09-03 12:22:00	t	0.593451976776123	1
+4	serverpod_database	default	2025-09-03 12:25:00	t	0.002384	1
+5	serverpod_cpu	default	2025-09-03 12:25:00	t	0.18511962890625	1
+6	serverpod_memory	default	2025-09-03 12:25:00	t	0.5958800315856934	1
 \.
 
 
@@ -1859,8 +1856,8 @@ COPY public.serverpod_method (id, endpoint, method) FROM stdin;
 --
 
 COPY public.serverpod_migrations (id, module, version, "timestamp") FROM stdin;
-1	przewrotkapp	20250903120627474	2025-09-03 12:07:01.306864
-2	serverpod	20240516151843329	2025-09-03 12:07:01.306864
+1	przewrotkapp	20250903122103576	2025-09-03 12:21:37.921733
+2	serverpod	20240516151843329	2025-09-03 12:21:37.921733
 \.
 
 
@@ -1894,6 +1891,8 @@ COPY public.serverpod_runtime_settings (id, "logSettings", "logSettingsOverrides
 --
 
 COPY public.serverpod_session_log (id, "serverId", "time", module, endpoint, method, duration, "numQueries", slow, error, "stackTrace", "authenticatedUserId", "isOpen", touched) FROM stdin;
+1	default	2025-09-03 12:25:51.526772	\N	allKayaks	getAllKayaks	0.035548	1	f	\N	\N	\N	f	2025-09-03 12:25:51.526772
+2	default	2025-09-03 12:25:52.185966	\N	allKayaks	getAllKayaks	0.013293	1	f	\N	\N	\N	f	2025-09-03 12:25:52.185966
 \.
 
 
@@ -1992,14 +1991,14 @@ SELECT pg_catalog.setval('public.serverpod_future_call_id_seq', 1, false);
 -- Name: serverpod_health_connection_info_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.serverpod_health_connection_info_id_seq', 3, true);
+SELECT pg_catalog.setval('public.serverpod_health_connection_info_id_seq', 2, true);
 
 
 --
 -- Name: serverpod_health_metric_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.serverpod_health_metric_id_seq', 9, true);
+SELECT pg_catalog.setval('public.serverpod_health_metric_id_seq', 6, true);
 
 
 --
@@ -2055,7 +2054,7 @@ SELECT pg_catalog.setval('public.serverpod_runtime_settings_id_seq', 1, true);
 -- Name: serverpod_session_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.serverpod_session_log_id_seq', 1, false);
+SELECT pg_catalog.setval('public.serverpod_session_log_id_seq', 2, true);
 
 
 --

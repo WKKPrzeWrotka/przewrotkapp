@@ -21,6 +21,12 @@
           "dartType": "String"
         },
         {
+          "name": "type",
+          "columnType": 0,
+          "isNullable": false,
+          "dartType": "protocol:GearType"
+        },
+        {
           "name": "manufacturer",
           "columnType": 0,
           "isNullable": true,
@@ -1890,7 +1896,7 @@
   "installedModules": [
     {
       "module": "przewrotkapp",
-      "version": "20250903120627474"
+      "version": "20250903122103576"
     },
     {
       "module": "serverpod",
