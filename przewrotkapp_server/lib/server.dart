@@ -21,7 +21,7 @@ void run(List<String> args) async {
     RouteStaticDirectory(serverDirectory: 'static', basePath: '/'),
     '/*',
   );
-  importPaddlesFromExcel(session: await pod.createSession());
+  importSpraydecksFromExcel(session: await pod.createSession());
 
   // Start the server.
   await pod.start();

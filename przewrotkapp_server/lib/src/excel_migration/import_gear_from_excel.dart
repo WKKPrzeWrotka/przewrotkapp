@@ -54,6 +54,28 @@ Future<void> importPaddlesFromExcel({Session? session}) async {
   }
 }
 
+Future<void> importSpraydecksFromExcel({Session? session}) async {
+  final spraydecksCsv = File('$_root/spraydecks.csv');
+  final spraydecksData = await spraydecksCsv
+      .readAsLines()
+      .then((lines) => lines.map((line) => line.split(',')).toList());
+  for (final line in spraydecksData.sublist(1)) {
+    final gear = Gear(
+      clubId: line[0],
+      manufacturer: line[1].trim().isEmpty ? null : line[1],
+      model: line[2].trim().isEmpty ? null : line[2],
+    );
+    final spraydeck = GearSpraydeck(
+      gearId: 0,
+      deckSize: SpraydeckDeckSize.fromJson(line[3]),
+      waistSize: GenericGearSize.fromJson(line[4]),
+    );
+    final newGear = await Gear.db.insertRow(session!, gear);
+    final newSpraydeck = await GearSpraydeck.db
+        .insertRow(session, spraydeck.copyWith(gearId: newGear.id));
+  }
+}
+
 void main() {
   importKayaksFromExcel();
 }
