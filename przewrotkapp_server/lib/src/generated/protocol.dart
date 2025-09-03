@@ -29,7 +29,21 @@ import 'gear/kayak_type.dart' as _i17;
 import 'gear/paddle_type.dart' as _i18;
 import 'gear/pfd_type.dart' as _i19;
 import 'gear/spraydeck_deck_size.dart' as _i20;
-import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i21;
+import 'package:przewrotkapp_server/src/generated/gear/gear_belt.dart' as _i21;
+import 'package:przewrotkapp_server/src/generated/gear/gear_clothing.dart'
+    as _i22;
+import 'package:przewrotkapp_server/src/generated/gear/gear_floatbag.dart'
+    as _i23;
+import 'package:przewrotkapp_server/src/generated/gear/gear_helmet.dart'
+    as _i24;
+import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i25;
+import 'package:przewrotkapp_server/src/generated/gear/gear_paddle.dart'
+    as _i26;
+import 'package:przewrotkapp_server/src/generated/gear/gear_pfd.dart' as _i27;
+import 'package:przewrotkapp_server/src/generated/gear/gear_spraydeck.dart'
+    as _i28;
+import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
+    as _i29;
 export 'exceptions/kayak_exception.dart';
 export 'gear/clothing_type.dart';
 export 'gear/gear.dart';
@@ -926,9 +940,45 @@ class Protocol extends _i1.SerializationManagerServer {
           ? (data as List).map((e) => deserialize<Uri>(e)).toList()
           : null) as T;
     }
-    if (t == List<_i21.GearKayak>) {
-      return (data as List).map((e) => deserialize<_i21.GearKayak>(e)).toList()
+    if (t == List<_i21.GearBelt>) {
+      return (data as List).map((e) => deserialize<_i21.GearBelt>(e)).toList()
           as T;
+    }
+    if (t == List<_i22.GearClothing>) {
+      return (data as List)
+          .map((e) => deserialize<_i22.GearClothing>(e))
+          .toList() as T;
+    }
+    if (t == List<_i23.GearFloatbag>) {
+      return (data as List)
+          .map((e) => deserialize<_i23.GearFloatbag>(e))
+          .toList() as T;
+    }
+    if (t == List<_i24.GearHelmet>) {
+      return (data as List).map((e) => deserialize<_i24.GearHelmet>(e)).toList()
+          as T;
+    }
+    if (t == List<_i25.GearKayak>) {
+      return (data as List).map((e) => deserialize<_i25.GearKayak>(e)).toList()
+          as T;
+    }
+    if (t == List<_i26.GearPaddle>) {
+      return (data as List).map((e) => deserialize<_i26.GearPaddle>(e)).toList()
+          as T;
+    }
+    if (t == List<_i27.GearPfd>) {
+      return (data as List).map((e) => deserialize<_i27.GearPfd>(e)).toList()
+          as T;
+    }
+    if (t == List<_i28.GearSpraydeck>) {
+      return (data as List)
+          .map((e) => deserialize<_i28.GearSpraydeck>(e))
+          .toList() as T;
+    }
+    if (t == List<_i29.GearThrowbag>) {
+      return (data as List)
+          .map((e) => deserialize<_i29.GearThrowbag>(e))
+          .toList() as T;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);

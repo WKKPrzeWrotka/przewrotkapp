@@ -1,5 +1,10 @@
-allKayaks:
+gearRead:
+  - getAllBelts:
+  - getAllClothes:
+  - getAllFloatbags:
+  - getAllHelmets:
   - getAllKayaks:
-  - addNewKayak:
-  - addKayakPhoto:
-  - getKayakPhoto:
+  - getAllPaddles:
+  - getAllPfds:
+  - getAllSpraydecks:
+  - getAllThrowbags:

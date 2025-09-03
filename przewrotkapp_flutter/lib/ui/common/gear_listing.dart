@@ -15,6 +15,18 @@ class GearListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final emoji = switch (gear.type) {
+      GearType.belt => '🪢',
+      GearType.clothing => '👕',
+      GearType.floatbag => '🎈',
+      GearType.helmet => '🪖',
+      GearType.kayak => '🛶',
+      GearType.paddle => '🪏',
+      GearType.pfd => '🛟',
+      GearType.spraydeck => '👗',
+      GearType.throwbag => '🤾',
+      GearType.other => '❓',
+    };
     return Card(
       child: ListTile(
         leading: AspectRatio(
@@ -29,16 +41,29 @@ class GearListing extends StatelessWidget {
               : Icon(Icons.kayaking),
         ),
         title: Text(
-          '${gear.manufacturer ?? ''} ${gear.model ?? ''}'
-          '${gear.friendlyName != null ? ' (${gear.friendlyName})' : ''}',
+          "$emoji "
+          "${(gear.manufacturer == null && gear.model == null) ? gear.friendlyName.toString() : '${gear.manufacturer ?? ''} ${gear.model ?? ''}'
+              '${gear.friendlyName != null ? ' (${gear.friendlyName})' : ''}'}",
         ),
-        subtitle: switch (subtypeData) {
-          GearKayak kayak =>
-            Text('${kayak.type}, ${kayak.minWeight}-${kayak.maxWeight}kg'),
-          GearPaddle paddle =>
-            Text('${paddle.length}cm, ${paddle.rotation}°, ${paddle.type}'),
-          _ => Text('to jest dupa')
-        },
+        subtitle: Text(
+          switch (subtypeData) {
+            GearBelt belt => "${belt.length}m",
+            GearClothing clothing =>
+              "${clothing.type}${clothing.typeDescription != null ? ", ${clothing.typeDescription}" : ""}",
+            GearFloatbag floatbag =>
+              floatbag.volume != null ? "${floatbag.volume}L" : "",
+            GearHelmet helmet => "${helmet.size}",
+            GearKayak kayak =>
+              '${kayak.type}, ${kayak.minWeight}-${kayak.maxWeight}kg',
+            GearPaddle paddle =>
+              '${paddle.length.toString().replaceFirst(".0", "")}cm, ${paddle.rotation}°, ${paddle.type}',
+            GearPfd pfd => "${pfd.type}, ${pfd.size}",
+            GearSpraydeck spraydeck =>
+              "${spraydeck.deckSize}, ${spraydeck.waistSize}",
+            GearThrowbag throwbag => "${throwbag.length}m",
+            _ => 'to jest dupa',
+          },
+        ),
         trailing: trailing,
         // tileColor: Colors.red,
       ),

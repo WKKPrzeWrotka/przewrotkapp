@@ -10,25 +10,63 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
-import '../all_kayaks_endpoint.dart' as _i2;
-import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i3;
-import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i4;
+import '../gear_read_endpoint.dart' as _i2;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
   void initializeEndpoints(_i1.Server server) {
     var endpoints = <String, _i1.Endpoint>{
-      'allKayaks': _i2.AllKayaksEndpoint()
+      'gearRead': _i2.GearReadEndpoint()
         ..initialize(
           server,
-          'allKayaks',
+          'gearRead',
           null,
         )
     };
-    connectors['allKayaks'] = _i1.EndpointConnector(
-      name: 'allKayaks',
-      endpoint: endpoints['allKayaks']!,
+    connectors['gearRead'] = _i1.EndpointConnector(
+      name: 'gearRead',
+      endpoint: endpoints['gearRead']!,
       methodConnectors: {
+        'getAllBelts': _i1.MethodConnector(
+          name: 'getAllBelts',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllBelts(session),
+        ),
+        'getAllClothes': _i1.MethodConnector(
+          name: 'getAllClothes',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllClothes(session),
+        ),
+        'getAllFloatbags': _i1.MethodConnector(
+          name: 'getAllFloatbags',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllFloatbags(session),
+        ),
+        'getAllHelmets': _i1.MethodConnector(
+          name: 'getAllHelmets',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllHelmets(session),
+        ),
         'getAllKayaks': _i1.MethodConnector(
           name: 'getAllKayaks',
           params: {},
@@ -36,68 +74,48 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['allKayaks'] as _i2.AllKayaksEndpoint)
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
                   .getAllKayaks(session),
         ),
-        'addNewKayak': _i1.MethodConnector(
-          name: 'addNewKayak',
-          params: {
-            'gear': _i1.ParameterDescription(
-              name: 'gear',
-              type: _i1.getType<_i3.Gear>(),
-              nullable: false,
-            ),
-            'kayak': _i1.ParameterDescription(
-              name: 'kayak',
-              type: _i1.getType<_i4.GearKayak>(),
-              nullable: false,
-            ),
-          },
+        'getAllPaddles': _i1.MethodConnector(
+          name: 'getAllPaddles',
+          params: {},
           call: (
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['allKayaks'] as _i2.AllKayaksEndpoint).addNewKayak(
-            session,
-            params['gear'],
-            params['kayak'],
-          ),
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllPaddles(session),
         ),
-        'addKayakPhoto': _i1.MethodConnector(
-          name: 'addKayakPhoto',
-          params: {
-            'clubId': _i1.ParameterDescription(
-              name: 'clubId',
-              type: _i1.getType<String>(),
-              nullable: false,
-            )
-          },
+        'getAllPfds': _i1.MethodConnector(
+          name: 'getAllPfds',
+          params: {},
           call: (
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['allKayaks'] as _i2.AllKayaksEndpoint).addKayakPhoto(
-            session,
-            params['clubId'],
-          ),
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllPfds(session),
         ),
-        'getKayakPhoto': _i1.MethodConnector(
-          name: 'getKayakPhoto',
-          params: {
-            'clubId': _i1.ParameterDescription(
-              name: 'clubId',
-              type: _i1.getType<String>(),
-              nullable: false,
-            )
-          },
+        'getAllSpraydecks': _i1.MethodConnector(
+          name: 'getAllSpraydecks',
+          params: {},
           call: (
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['allKayaks'] as _i2.AllKayaksEndpoint).getKayakPhoto(
-            session,
-            params['clubId'],
-          ),
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllSpraydecks(session),
+        ),
+        'getAllThrowbags': _i1.MethodConnector(
+          name: 'getAllThrowbags',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllThrowbags(session),
         ),
       },
     );

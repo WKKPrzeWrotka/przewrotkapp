@@ -12,15 +12,15 @@ class GearBrowserPage extends StatelessWidget {
     return ListView(
       children: [
         FutureBuilder(
-          future: client.allKayaks.getAllKayaks(),
+          future: _getAllGear(client),
           builder: (context, snap) {
             return snap.hasData
                 ? Column(
                     children: [
-                      for (GearKayak kayak in snap.data!)
+                      for ((Gear, dynamic) gear in snap.data!)
                         GearListing(
-                          gear: kayak.gear!,
-                          subtypeData: kayak,
+                          gear: gear.$1,
+                          subtypeData: gear.$2,
                         ),
                     ],
                   )
@@ -30,4 +30,21 @@ class GearBrowserPage extends StatelessWidget {
       ],
     );
   }
+}
+
+Future<List<(Gear, dynamic)>> _getAllGear(Client client) async {
+  final all = await Future.wait([
+    client.gearRead.getAllBelts(),
+    client.gearRead.getAllClothes(),
+    client.gearRead.getAllFloatbags(),
+    client.gearRead.getAllHelmets(),
+    client.gearRead.getAllKayaks(),
+    client.gearRead.getAllPaddles(),
+    client.gearRead.getAllPfds(),
+    client.gearRead.getAllSpraydecks(),
+    client.gearRead.getAllThrowbags(),
+  ]);
+  return [for (final a in all) ...a]
+      .map((dynamic e) => (e.gear as Gear, e))
+      .toList();
 }

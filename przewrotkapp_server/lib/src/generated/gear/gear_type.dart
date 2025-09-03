@@ -21,6 +21,8 @@ enum GearType implements _i1.SerializableModel {
   pfd,
   spraydeck,
   throwbag,
+
+  /// Avoid if possible!!
   other;
 
   static GearType fromJson(String name) {
