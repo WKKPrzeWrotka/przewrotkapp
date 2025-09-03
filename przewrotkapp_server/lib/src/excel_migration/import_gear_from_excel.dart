@@ -76,6 +76,29 @@ Future<void> importSpraydecksFromExcel({Session? session}) async {
   }
 }
 
+Future<void> importPfdsFromExcel({Session? session}) async {
+  final pfdsCsv = File('$_root/pfds.csv');
+  final pfdsData = await pfdsCsv
+      .readAsLines()
+      .then((lines) => lines.map((line) => line.split(',')).toList());
+  for (final line in pfdsData.sublist(1)) {
+    final gear = Gear(
+      clubId: line[0],
+      manufacturer: line[1].trim().isEmpty ? null : line[1],
+      model: line[2].trim().isEmpty ? null : line[2],
+      friendlyName: line[3].trim().isEmpty ? null : line[3],
+    );
+    final pfd = GearPfd(
+      gearId: 0,
+      size: GenericGearSize.fromJson(line[4]),
+      type: PfdType.fromJson(line[5]),
+    );
+    final newGear = await Gear.db.insertRow(session!, gear);
+    final newPfd =
+        await GearPfd.db.insertRow(session, pfd.copyWith(gearId: newGear.id));
+  }
+}
+
 void main() {
   importKayaksFromExcel();
 }

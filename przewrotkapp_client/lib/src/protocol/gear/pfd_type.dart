@@ -12,14 +12,14 @@
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 
 enum PfdType implements _i1.SerializableModel {
-  mountain,
+  gorska,
   freestyle,
   nizinna;
 
   static PfdType fromJson(String name) {
     switch (name) {
-      case 'mountain':
-        return PfdType.mountain;
+      case 'gorska':
+        return PfdType.gorska;
       case 'freestyle':
         return PfdType.freestyle;
       case 'nizinna':
