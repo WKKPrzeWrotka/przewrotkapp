@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+import 'package:przewrotkapp_flutter/ui/common/utils.dart';
 
 class GearListing extends StatelessWidget {
   final Gear gear;
@@ -15,18 +16,7 @@ class GearListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emoji = switch (gear.type) {
-      GearType.belt => '🪢',
-      GearType.clothing => '👕',
-      GearType.floatbag => '🎈',
-      GearType.helmet => '🪖',
-      GearType.kayak => '🛶',
-      GearType.paddle => '🪏',
-      GearType.pfd => '🛟',
-      GearType.spraydeck => '👗',
-      GearType.throwbag => '🤾',
-      GearType.other => '❓',
-    };
+    final emoji = gearTypeToEmoji(gear.type);
     return Card(
       child: ListTile(
         leading: AspectRatio(
