@@ -99,6 +99,27 @@ Future<void> importPfdsFromExcel({Session? session}) async {
   }
 }
 
+Future<void> importHelmetsFromExcel({Session? session}) async {
+  final helmetsCsv = File('$_root/helmets.csv');
+  final helmetsData = await helmetsCsv
+      .readAsLines()
+      .then((lines) => lines.map((line) => line.split(',')).toList());
+  for (final line in helmetsData.sublist(1)) {
+    final gear = Gear(
+      clubId: line[0],
+      manufacturer: line[1].trim().isEmpty ? null : line[1],
+      model: line[2].trim().isEmpty ? null : line[2],
+    );
+    final helmet = GearHelmet(
+      gearId: 0,
+      size: GenericGearSize.fromJson(line[3]),
+    );
+    final newGear = await Gear.db.insertRow(session!, gear);
+    final newHelmet = await GearHelmet.db
+        .insertRow(session, helmet.copyWith(gearId: newGear.id));
+  }
+}
+
 void main() {
   importKayaksFromExcel();
 }
