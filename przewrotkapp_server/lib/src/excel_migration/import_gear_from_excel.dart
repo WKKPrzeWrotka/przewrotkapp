@@ -120,6 +120,25 @@ Future<void> importHelmetsFromExcel({Session? session}) async {
   }
 }
 
+Future<void> importThrowbagsFromExcel({Session? session}) async {
+  final throwbagsCsv = File('$_root/throwbags.csv');
+  final throwbagsData = await throwbagsCsv
+      .readAsLines()
+      .then((lines) => lines.map((line) => line.split(',')).toList());
+  for (final line in throwbagsData.sublist(1)) {
+    final gear = Gear(
+      clubId: line[0],
+      manufacturer: line[1].trim().isEmpty ? null : line[1],
+      model: line[2].trim().isEmpty ? null : line[2],
+      friendlyName: line[3].trim().isEmpty ? null : line[3],
+    );
+    final throwbag = GearThrowbag(gearId: 0, length: int.parse(line[4]));
+    final newGear = await Gear.db.insertRow(session!, gear);
+    final newThrowbag = await GearThrowbag.db
+        .insertRow(session, throwbag.copyWith(gearId: newGear.id));
+  }
+}
+
 void main() {
   importKayaksFromExcel();
 }
