@@ -9,25 +9,22 @@ class GearBrowserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final client = context.read<Client>();
-    return ListView(
-      children: [
-        FutureBuilder(
-          future: _getAllGear(client),
-          builder: (context, snap) {
-            return snap.hasData
-                ? Column(
-                    children: [
-                      for ((Gear, dynamic) gear in snap.data!)
-                        GearListing(
-                          gear: gear.$1,
-                          subtypeData: gear.$2,
-                        ),
-                    ],
-                  )
-                : Placeholder();
-          },
-        ),
-      ],
+    return FutureBuilder(
+      future: _getAllGear(client),
+      builder: (context, snap) {
+        return snap.hasData
+            ? ListView(
+                padding: const EdgeInsets.all(16),
+                children: [
+                  for ((Gear, dynamic) gear in snap.data!)
+                    GearListing(
+                      gear: gear.$1,
+                      subtypeData: gear.$2,
+                    ),
+                ],
+              )
+            : Placeholder();
+      },
     );
   }
 }

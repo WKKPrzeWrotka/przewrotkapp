@@ -57,14 +57,11 @@ class MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: [
-          GearBrowserPage(),
-          Placeholder(),
-          Placeholder(),
-        ][_currentPage.index],
-      ),
+      body: [
+        GearBrowserPage(),
+        Placeholder(),
+        Placeholder(),
+      ][_currentPage.index],
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentPage.index,
         destinations: [
