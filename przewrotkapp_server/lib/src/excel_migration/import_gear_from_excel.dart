@@ -186,6 +186,25 @@ Future<void> importBeltsFromExcel({Session? session}) async {
   }
 }
 
+Future<void> importFloatbagsFromExcel({Session? session}) async {
+  final floatbagsCsv = File('$_root/floatbags.csv');
+  final floatbagsData = await floatbagsCsv
+      .readAsLines()
+      .then((lines) => lines.map((line) => line.split(',')).toList());
+  for (final line in floatbagsData.sublist(1)) {
+    final gear = Gear(
+      clubId: line[0].trim(),
+      manufacturer: line[1].trim().isEmpty ? null : line[1].trim(),
+      model: line[2].trim().isEmpty ? null : line[2].trim(),
+      friendlyName: line[3].trim().isEmpty ? null : line[3].trim(),
+    );
+    final floatbag = GearFloatbag(gearId: 0, volume: null);
+    final newGear = await Gear.db.insertRow(session!, gear);
+    final newFloatbag = await GearFloatbag.db
+        .insertRow(session, floatbag.copyWith(gearId: newGear.id));
+  }
+}
+
 void main() {
   importKayaksFromExcel();
 }

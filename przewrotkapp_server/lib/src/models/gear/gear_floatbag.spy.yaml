@@ -1,0 +1,9 @@
+class: GearFloatbag
+table: gear_floatbags
+fields:
+  gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
+  volume: int?
+indexes:
+  floatbags_gear_unique_idx:
+    fields: gearId
+    unique: true

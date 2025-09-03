@@ -1,4 +1,3 @@
-import 'package:przewrotkapp_server/src/excel_migration/import_gear_from_excel.dart';
 import 'package:przewrotkapp_server/src/web/routes/root.dart';
 import 'package:serverpod/serverpod.dart';
 
@@ -21,9 +20,7 @@ void run(List<String> args) async {
     RouteStaticDirectory(serverDirectory: 'static', basePath: '/'),
     '/*',
   );
-  importBeltsFromExcel(session: await pod.createSession());
 
   // Start the server.
   await pod.start();
-
 }
