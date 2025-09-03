@@ -54,7 +54,13 @@ class GearListing extends StatelessWidget {
             _ => 'to jest dupa',
           },
         ),
-        trailing: trailing,
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(gear.clubId, style: Theme.of(context).textTheme.bodyMedium),
+            if (trailing != null) trailing!,
+          ],
+        ),
         // tileColor: Colors.red,
       ),
     );
