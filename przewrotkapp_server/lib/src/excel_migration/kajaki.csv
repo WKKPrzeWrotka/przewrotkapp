@@ -1,0 +1,55 @@
+numer,producent,model,friendlyName,typ,minimalnaWaga,maksymalnaWaga,dlugosc
+KK-1,Zet,Raptor, ,creek,65,105,257
+KK-2,Liquidlogic,Hoss,pomarańczowy,riverRunner,60,109,235
+KK-3,Pyranha,Inazone,rozmiar 240,fullSlice,85,120,243
+KK-4,Pyranha,Burn,2; L,creek,75,127,252
+KK-5,Wave Sport,Habitat,rozmiar 74,creek,68,118,245
+KK-6,,,Czerwony zabytek,zwalkowy,NULL,NULL,319
+KK-7,Eskimo,Diablo,czerwony,zwalkowy,NULL,100,280
+KK-8,Lettmann,,zielony,zwalkowy,NULL,NULL,323
+KK-9,Eskimo,Diablo,czerwono-pomarańczowy,zwalkowy,NULL,100,280
+KK-10,Eskimo,Diablo,żółto-pomarańczowy,zwalkowy,NULL,100,280
+KK-11,Pyranha,Inazone,rozmiar 232,fullSlice,65,95,234
+KK-12,Necky,Gliss,7'11,halfSlice,70,95,239
+KK-13,Prjion,Delirious, ,playboat,NULL,NULL,232
+KK-14,Prijon,Chopper,110447,zwalkowy,NULL,NULL,294
+KK-15,Prijon,Huricane,Żółty (2738),zwalkowy,NULL,80,266
+KK-16,Waka,Tuna, ,creek,65,110,260
+KK-17,Prijon,Chopper,110431,zwalkowy,NULL,NULL,294
+KK-18,Wave Sport,Big Ez,rozmiar 42,playboat,50,110,219
+KK-19,Pyranha,Micro Bat,Banan,creek,45,80,236
+KK-20,Wave Sport,Diesel,rozmiar 75,riverRunner,68,113,259
+KK-21,Pyrahna,Burn,M,creek,55,105,244
+KK-22,Dagger,Redline, ,halfSlice,65,100,261
+KK-23,Dagger,Axiom,45086,halfSlice,30,50,207
+KK-24,,,Cieknie 2,zwalkowy,NULL,NULL,298
+KK-25,Prjion,,Pomarańczowy (57347),zwalkowy,NULL,NULL,295
+KK-26,Prijon,Hurricane,Niebieski (5494),zwalkowy,NULL,80,310
+KK-27,Prjion,Invader, ,zwalkowy,50,90,334
+KK-28,Prijon,Tajfun,Marchewa,zwalkowy,50,130,390
+KK-30,Liquidlogic,Stomper,80,creek,50,95,249
+KK-31,Fluid,Solo,M,creek,55,110,234
+KK-32,Liquidlogic,Skipp, ,playboat,50,72,197
+KK-33,Pyranha,Jed,L,playboat,80,110,187
+KK-34,Pyranha,M3, ,creek,70,105,243
+KK-35,Wave Sport,Transformer, ,playboat,54,73,181
+KK-36,Eskimo,Salto, ,creek,NULL,NULL,243
+KK-37,Dagger,Infrared, ,fullSlice,45,75,256
+KK-38,,,Freestyle Carbon,playboat,NULL,NULL,187
+KK-39,Robson,Roadster, ,playboat,NULL,NULL,243
+KK-40,Dagger,Juice,7.1,riverRunner,77,109,210
+KK-41,Wave Sport,Project,rozmiar 52,playboat,63,86,196
+KK-42,Železny,Igo, ,playboat,NULL,NULL,179
+KK-43,Zet,Veloc, ,creek,45,70,247
+KK-44,Jackson,Antix 1.0,M,halfSlice,60,85,234
+KK-45,Jackson,Antix 1.0,L,halfSlice,75,115,246
+KK-47,Jackson,Antix 1.0,S,halfSlice,35,65,224
+KK-46,Dagger,GT,45481,riverRunner,40,80,239
+KK-48,Exo,Rexy, ,halfSlice,65,100,258
+KK-49,Pyranha,Inazone,rozmiar 230,fullSlice,70,105,230
+KK-50,Pyrahna,Burn,niebieski (M),creek,55,105,244
+NULL_1,Liquidlogic,Hoss,żółty,riverRunner,60,109,214
+NULL_2,Pyrahna,H3,rozmiar 235,creek,45,95,230
+KK-29,Prjion,Excursion, ,dwuOsobowy,70,110,517
+KN-1,Lettman,,Kanadyjka,kanadyjka,NULL,NULL,470
+KN-2,,,Bazyli,kanadyjka,NULL,NULL,518
