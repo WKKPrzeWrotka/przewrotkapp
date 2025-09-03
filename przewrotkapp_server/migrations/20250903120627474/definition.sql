@@ -12,62 +12,78 @@ CREATE TABLE "gear" (
     "photoUrls" json
 );
 
+-- Indexes
+CREATE UNIQUE INDEX "gear_club_id_idx" ON "gear" USING btree ("clubId");
+
 --
--- Class GearDataBelt as table gear_data_belts
+-- Class GearBelt as table gear_belts
 --
-CREATE TABLE "gear_data_belts" (
+CREATE TABLE "gear_belts" (
     "id" bigserial PRIMARY KEY,
     "gearId" bigint NOT NULL,
     "length" double precision NOT NULL
 );
 
 -- Indexes
-CREATE UNIQUE INDEX "belts_gear_unique_idx" ON "gear_data_belts" USING btree ("gearId");
+CREATE UNIQUE INDEX "belts_gear_unique_idx" ON "gear_belts" USING btree ("gearId");
 
 --
--- Class GearDataClothing as table gear_data_clothes
+-- Class GearClothing as table gear_clothes
 --
-CREATE TABLE "gear_data_clothes" (
+CREATE TABLE "gear_clothes" (
     "id" bigserial PRIMARY KEY,
     "gearId" bigint NOT NULL,
+    "size" text NOT NULL,
     "type" text NOT NULL,
     "typeDescription" text
 );
 
 -- Indexes
-CREATE UNIQUE INDEX "clothes_gear_unique_idx" ON "gear_data_clothes" USING btree ("gearId");
+CREATE UNIQUE INDEX "clothes_gear_unique_idx" ON "gear_clothes" USING btree ("gearId");
 
 --
--- Class GearDataHelmet as table gear_data_helmets
+-- Class GearFloatbag as table gear_floatbags
 --
-CREATE TABLE "gear_data_helmets" (
+CREATE TABLE "gear_floatbags" (
+    "id" bigserial PRIMARY KEY,
+    "gearId" bigint NOT NULL,
+    "volume" bigint
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "floatbags_gear_unique_idx" ON "gear_floatbags" USING btree ("gearId");
+
+--
+-- Class GearHelmet as table gear_helmets
+--
+CREATE TABLE "gear_helmets" (
     "id" bigserial PRIMARY KEY,
     "gearId" bigint NOT NULL,
     "size" text NOT NULL
 );
 
 -- Indexes
-CREATE UNIQUE INDEX "helmets_gear_unique_idx" ON "gear_data_helmets" USING btree ("gearId");
+CREATE UNIQUE INDEX "helmets_gear_unique_idx" ON "gear_helmets" USING btree ("gearId");
 
 --
--- Class GearDataKayak as table gear_data_kayaks
+-- Class GearKayak as table gear_kayaks
 --
-CREATE TABLE "gear_data_kayaks" (
+CREATE TABLE "gear_kayaks" (
     "id" bigserial PRIMARY KEY,
     "gearId" bigint NOT NULL,
     "type" text NOT NULL,
-    "minWeight" bigint NOT NULL,
-    "maxWeight" bigint NOT NULL,
+    "minWeight" bigint,
+    "maxWeight" bigint,
     "length" bigint NOT NULL
 );
 
 -- Indexes
-CREATE UNIQUE INDEX "kayaks_gear_unique_idx" ON "gear_data_kayaks" USING btree ("gearId");
+CREATE UNIQUE INDEX "kayaks_gear_unique_idx" ON "gear_kayaks" USING btree ("gearId");
 
 --
--- Class GearDataPaddle as table gear_data_paddles
+-- Class GearPaddle as table gear_paddles
 --
-CREATE TABLE "gear_data_paddles" (
+CREATE TABLE "gear_paddles" (
     "id" bigserial PRIMARY KEY,
     "gearId" bigint NOT NULL,
     "type" text NOT NULL,
@@ -76,12 +92,12 @@ CREATE TABLE "gear_data_paddles" (
 );
 
 -- Indexes
-CREATE UNIQUE INDEX "paddles_gear_unique_idx" ON "gear_data_paddles" USING btree ("gearId");
+CREATE UNIQUE INDEX "paddles_gear_unique_idx" ON "gear_paddles" USING btree ("gearId");
 
 --
--- Class GearDataPfd as table gear_data_pfds
+-- Class GearPfd as table gear_pfds
 --
-CREATE TABLE "gear_data_pfds" (
+CREATE TABLE "gear_pfds" (
     "id" bigserial PRIMARY KEY,
     "gearId" bigint NOT NULL,
     "size" text NOT NULL,
@@ -89,12 +105,12 @@ CREATE TABLE "gear_data_pfds" (
 );
 
 -- Indexes
-CREATE UNIQUE INDEX "pfds_gear_unique_idx" ON "gear_data_pfds" USING btree ("gearId");
+CREATE UNIQUE INDEX "pfds_gear_unique_idx" ON "gear_pfds" USING btree ("gearId");
 
 --
--- Class GearDataSpraydeck as table gear_data_spraydecks
+-- Class GearSpraydeck as table gear_spraydecks
 --
-CREATE TABLE "gear_data_spraydecks" (
+CREATE TABLE "gear_spraydecks" (
     "id" bigserial PRIMARY KEY,
     "gearId" bigint NOT NULL,
     "deckSize" text NOT NULL,
@@ -102,19 +118,19 @@ CREATE TABLE "gear_data_spraydecks" (
 );
 
 -- Indexes
-CREATE UNIQUE INDEX "spraydecks_gear_unique_idx" ON "gear_data_spraydecks" USING btree ("gearId");
+CREATE UNIQUE INDEX "spraydecks_gear_unique_idx" ON "gear_spraydecks" USING btree ("gearId");
 
 --
--- Class GearDataThrowbag as table gear_data_throwbags
+-- Class GearThrowbag as table gear_throwbags
 --
-CREATE TABLE "gear_data_throwbags" (
+CREATE TABLE "gear_throwbags" (
     "id" bigserial PRIMARY KEY,
     "gearId" bigint NOT NULL,
     "length" bigint NOT NULL
 );
 
 -- Indexes
-CREATE UNIQUE INDEX "throwbags_gear_unique_idx" ON "gear_data_throwbags" USING btree ("gearId");
+CREATE UNIQUE INDEX "throwbags_gear_unique_idx" ON "gear_throwbags" USING btree ("gearId");
 
 --
 -- Class CloudStorageEntry as table serverpod_cloud_storage
@@ -323,80 +339,90 @@ CREATE INDEX "serverpod_session_log_touched_idx" ON "serverpod_session_log" USIN
 CREATE INDEX "serverpod_session_log_isopen_idx" ON "serverpod_session_log" USING btree ("isOpen");
 
 --
--- Foreign relations for "gear_data_belts" table
+-- Foreign relations for "gear_belts" table
 --
-ALTER TABLE ONLY "gear_data_belts"
-    ADD CONSTRAINT "gear_data_belts_fk_0"
+ALTER TABLE ONLY "gear_belts"
+    ADD CONSTRAINT "gear_belts_fk_0"
     FOREIGN KEY("gearId")
     REFERENCES "gear"("id")
     ON DELETE CASCADE
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "gear_data_clothes" table
+-- Foreign relations for "gear_clothes" table
 --
-ALTER TABLE ONLY "gear_data_clothes"
-    ADD CONSTRAINT "gear_data_clothes_fk_0"
+ALTER TABLE ONLY "gear_clothes"
+    ADD CONSTRAINT "gear_clothes_fk_0"
     FOREIGN KEY("gearId")
     REFERENCES "gear"("id")
     ON DELETE CASCADE
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "gear_data_helmets" table
+-- Foreign relations for "gear_floatbags" table
 --
-ALTER TABLE ONLY "gear_data_helmets"
-    ADD CONSTRAINT "gear_data_helmets_fk_0"
+ALTER TABLE ONLY "gear_floatbags"
+    ADD CONSTRAINT "gear_floatbags_fk_0"
     FOREIGN KEY("gearId")
     REFERENCES "gear"("id")
     ON DELETE CASCADE
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "gear_data_kayaks" table
+-- Foreign relations for "gear_helmets" table
 --
-ALTER TABLE ONLY "gear_data_kayaks"
-    ADD CONSTRAINT "gear_data_kayaks_fk_0"
+ALTER TABLE ONLY "gear_helmets"
+    ADD CONSTRAINT "gear_helmets_fk_0"
     FOREIGN KEY("gearId")
     REFERENCES "gear"("id")
     ON DELETE CASCADE
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "gear_data_paddles" table
+-- Foreign relations for "gear_kayaks" table
 --
-ALTER TABLE ONLY "gear_data_paddles"
-    ADD CONSTRAINT "gear_data_paddles_fk_0"
+ALTER TABLE ONLY "gear_kayaks"
+    ADD CONSTRAINT "gear_kayaks_fk_0"
     FOREIGN KEY("gearId")
     REFERENCES "gear"("id")
     ON DELETE CASCADE
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "gear_data_pfds" table
+-- Foreign relations for "gear_paddles" table
 --
-ALTER TABLE ONLY "gear_data_pfds"
-    ADD CONSTRAINT "gear_data_pfds_fk_0"
+ALTER TABLE ONLY "gear_paddles"
+    ADD CONSTRAINT "gear_paddles_fk_0"
     FOREIGN KEY("gearId")
     REFERENCES "gear"("id")
     ON DELETE CASCADE
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "gear_data_spraydecks" table
+-- Foreign relations for "gear_pfds" table
 --
-ALTER TABLE ONLY "gear_data_spraydecks"
-    ADD CONSTRAINT "gear_data_spraydecks_fk_0"
+ALTER TABLE ONLY "gear_pfds"
+    ADD CONSTRAINT "gear_pfds_fk_0"
     FOREIGN KEY("gearId")
     REFERENCES "gear"("id")
     ON DELETE CASCADE
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "gear_data_throwbags" table
+-- Foreign relations for "gear_spraydecks" table
 --
-ALTER TABLE ONLY "gear_data_throwbags"
-    ADD CONSTRAINT "gear_data_throwbags_fk_0"
+ALTER TABLE ONLY "gear_spraydecks"
+    ADD CONSTRAINT "gear_spraydecks_fk_0"
+    FOREIGN KEY("gearId")
+    REFERENCES "gear"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "gear_throwbags" table
+--
+ALTER TABLE ONLY "gear_throwbags"
+    ADD CONSTRAINT "gear_throwbags_fk_0"
     FOREIGN KEY("gearId")
     REFERENCES "gear"("id")
     ON DELETE CASCADE
@@ -437,9 +463,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR przewrotkapp
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('przewrotkapp', '20250826213448197', now())
+    VALUES ('przewrotkapp', '20250903120627474', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20250826213448197', "timestamp" = now();
+    DO UPDATE SET "version" = '20250903120627474', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod

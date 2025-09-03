@@ -1,7 +1,7 @@
 BEGIN;
 
 --
--- Class Gear as table gear
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "gear" (
     "id" bigserial PRIMARY KEY,
@@ -16,7 +16,7 @@ CREATE TABLE "gear" (
 CREATE UNIQUE INDEX "gear_club_id_idx" ON "gear" USING btree ("clubId");
 
 --
--- Class GearBelt as table gear_belts
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "gear_belts" (
     "id" bigserial PRIMARY KEY,
@@ -28,11 +28,12 @@ CREATE TABLE "gear_belts" (
 CREATE UNIQUE INDEX "belts_gear_unique_idx" ON "gear_belts" USING btree ("gearId");
 
 --
--- Class GearClothing as table gear_clothes
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "gear_clothes" (
     "id" bigserial PRIMARY KEY,
     "gearId" bigint NOT NULL,
+    "size" text NOT NULL,
     "type" text NOT NULL,
     "typeDescription" text
 );
@@ -41,7 +42,19 @@ CREATE TABLE "gear_clothes" (
 CREATE UNIQUE INDEX "clothes_gear_unique_idx" ON "gear_clothes" USING btree ("gearId");
 
 --
--- Class GearHelmet as table gear_helmets
+-- ACTION CREATE TABLE
+--
+CREATE TABLE "gear_floatbags" (
+    "id" bigserial PRIMARY KEY,
+    "gearId" bigint NOT NULL,
+    "volume" bigint
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "floatbags_gear_unique_idx" ON "gear_floatbags" USING btree ("gearId");
+
+--
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "gear_helmets" (
     "id" bigserial PRIMARY KEY,
@@ -53,14 +66,14 @@ CREATE TABLE "gear_helmets" (
 CREATE UNIQUE INDEX "helmets_gear_unique_idx" ON "gear_helmets" USING btree ("gearId");
 
 --
--- Class GearKayak as table gear_kayaks
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "gear_kayaks" (
     "id" bigserial PRIMARY KEY,
     "gearId" bigint NOT NULL,
     "type" text NOT NULL,
-    "minWeight" bigint NOT NULL,
-    "maxWeight" bigint NOT NULL,
+    "minWeight" bigint,
+    "maxWeight" bigint,
     "length" bigint NOT NULL
 );
 
@@ -68,7 +81,7 @@ CREATE TABLE "gear_kayaks" (
 CREATE UNIQUE INDEX "kayaks_gear_unique_idx" ON "gear_kayaks" USING btree ("gearId");
 
 --
--- Class GearPaddle as table gear_paddles
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "gear_paddles" (
     "id" bigserial PRIMARY KEY,
@@ -82,7 +95,7 @@ CREATE TABLE "gear_paddles" (
 CREATE UNIQUE INDEX "paddles_gear_unique_idx" ON "gear_paddles" USING btree ("gearId");
 
 --
--- Class GearPfd as table gear_pfds
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "gear_pfds" (
     "id" bigserial PRIMARY KEY,
@@ -95,7 +108,7 @@ CREATE TABLE "gear_pfds" (
 CREATE UNIQUE INDEX "pfds_gear_unique_idx" ON "gear_pfds" USING btree ("gearId");
 
 --
--- Class GearSpraydeck as table gear_spraydecks
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "gear_spraydecks" (
     "id" bigserial PRIMARY KEY,
@@ -108,7 +121,7 @@ CREATE TABLE "gear_spraydecks" (
 CREATE UNIQUE INDEX "spraydecks_gear_unique_idx" ON "gear_spraydecks" USING btree ("gearId");
 
 --
--- Class GearThrowbag as table gear_throwbags
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "gear_throwbags" (
     "id" bigserial PRIMARY KEY,
@@ -120,7 +133,7 @@ CREATE TABLE "gear_throwbags" (
 CREATE UNIQUE INDEX "throwbags_gear_unique_idx" ON "gear_throwbags" USING btree ("gearId");
 
 --
--- Class CloudStorageEntry as table serverpod_cloud_storage
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "serverpod_cloud_storage" (
     "id" bigserial PRIMARY KEY,
@@ -137,7 +150,7 @@ CREATE UNIQUE INDEX "serverpod_cloud_storage_path_idx" ON "serverpod_cloud_stora
 CREATE INDEX "serverpod_cloud_storage_expiration" ON "serverpod_cloud_storage" USING btree ("expiration");
 
 --
--- Class CloudStorageDirectUploadEntry as table serverpod_cloud_storage_direct_upload
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "serverpod_cloud_storage_direct_upload" (
     "id" bigserial PRIMARY KEY,
@@ -151,7 +164,7 @@ CREATE TABLE "serverpod_cloud_storage_direct_upload" (
 CREATE UNIQUE INDEX "serverpod_cloud_storage_direct_upload_storage_path" ON "serverpod_cloud_storage_direct_upload" USING btree ("storageId", "path");
 
 --
--- Class FutureCallEntry as table serverpod_future_call
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "serverpod_future_call" (
     "id" bigserial PRIMARY KEY,
@@ -168,7 +181,7 @@ CREATE INDEX "serverpod_future_call_serverId_idx" ON "serverpod_future_call" USI
 CREATE INDEX "serverpod_future_call_identifier_idx" ON "serverpod_future_call" USING btree ("identifier");
 
 --
--- Class ServerHealthConnectionInfo as table serverpod_health_connection_info
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "serverpod_health_connection_info" (
     "id" bigserial PRIMARY KEY,
@@ -184,7 +197,7 @@ CREATE TABLE "serverpod_health_connection_info" (
 CREATE UNIQUE INDEX "serverpod_health_connection_info_timestamp_idx" ON "serverpod_health_connection_info" USING btree ("timestamp", "serverId", "granularity");
 
 --
--- Class ServerHealthMetric as table serverpod_health_metric
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "serverpod_health_metric" (
     "id" bigserial PRIMARY KEY,
@@ -200,7 +213,7 @@ CREATE TABLE "serverpod_health_metric" (
 CREATE UNIQUE INDEX "serverpod_health_metric_timestamp_idx" ON "serverpod_health_metric" USING btree ("timestamp", "serverId", "name", "granularity");
 
 --
--- Class LogEntry as table serverpod_log
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "serverpod_log" (
     "id" bigserial PRIMARY KEY,
@@ -220,7 +233,7 @@ CREATE TABLE "serverpod_log" (
 CREATE INDEX "serverpod_log_sessionLogId_idx" ON "serverpod_log" USING btree ("sessionLogId");
 
 --
--- Class MessageLogEntry as table serverpod_message_log
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "serverpod_message_log" (
     "id" bigserial PRIMARY KEY,
@@ -237,7 +250,7 @@ CREATE TABLE "serverpod_message_log" (
 );
 
 --
--- Class MethodInfo as table serverpod_method
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "serverpod_method" (
     "id" bigserial PRIMARY KEY,
@@ -249,7 +262,7 @@ CREATE TABLE "serverpod_method" (
 CREATE UNIQUE INDEX "serverpod_method_endpoint_method_idx" ON "serverpod_method" USING btree ("endpoint", "method");
 
 --
--- Class DatabaseMigrationVersion as table serverpod_migrations
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "serverpod_migrations" (
     "id" bigserial PRIMARY KEY,
@@ -262,7 +275,7 @@ CREATE TABLE "serverpod_migrations" (
 CREATE UNIQUE INDEX "serverpod_migrations_ids" ON "serverpod_migrations" USING btree ("module");
 
 --
--- Class QueryLogEntry as table serverpod_query_log
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "serverpod_query_log" (
     "id" bigserial PRIMARY KEY,
@@ -282,7 +295,7 @@ CREATE TABLE "serverpod_query_log" (
 CREATE INDEX "serverpod_query_log_sessionLogId_idx" ON "serverpod_query_log" USING btree ("sessionLogId");
 
 --
--- Class ReadWriteTestEntry as table serverpod_readwrite_test
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "serverpod_readwrite_test" (
     "id" bigserial PRIMARY KEY,
@@ -290,7 +303,7 @@ CREATE TABLE "serverpod_readwrite_test" (
 );
 
 --
--- Class RuntimeSettings as table serverpod_runtime_settings
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "serverpod_runtime_settings" (
     "id" bigserial PRIMARY KEY,
@@ -301,7 +314,7 @@ CREATE TABLE "serverpod_runtime_settings" (
 );
 
 --
--- Class SessionLogEntry as table serverpod_session_log
+-- ACTION CREATE TABLE
 --
 CREATE TABLE "serverpod_session_log" (
     "id" bigserial PRIMARY KEY,
@@ -326,7 +339,7 @@ CREATE INDEX "serverpod_session_log_touched_idx" ON "serverpod_session_log" USIN
 CREATE INDEX "serverpod_session_log_isopen_idx" ON "serverpod_session_log" USING btree ("isOpen");
 
 --
--- Foreign relations for "gear_belts" table
+-- ACTION CREATE FOREIGN KEY
 --
 ALTER TABLE ONLY "gear_belts"
     ADD CONSTRAINT "gear_belts_fk_0"
@@ -336,7 +349,7 @@ ALTER TABLE ONLY "gear_belts"
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "gear_clothes" table
+-- ACTION CREATE FOREIGN KEY
 --
 ALTER TABLE ONLY "gear_clothes"
     ADD CONSTRAINT "gear_clothes_fk_0"
@@ -346,7 +359,17 @@ ALTER TABLE ONLY "gear_clothes"
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "gear_helmets" table
+-- ACTION CREATE FOREIGN KEY
+--
+ALTER TABLE ONLY "gear_floatbags"
+    ADD CONSTRAINT "gear_floatbags_fk_0"
+    FOREIGN KEY("gearId")
+    REFERENCES "gear"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- ACTION CREATE FOREIGN KEY
 --
 ALTER TABLE ONLY "gear_helmets"
     ADD CONSTRAINT "gear_helmets_fk_0"
@@ -356,7 +379,7 @@ ALTER TABLE ONLY "gear_helmets"
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "gear_kayaks" table
+-- ACTION CREATE FOREIGN KEY
 --
 ALTER TABLE ONLY "gear_kayaks"
     ADD CONSTRAINT "gear_kayaks_fk_0"
@@ -366,7 +389,7 @@ ALTER TABLE ONLY "gear_kayaks"
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "gear_paddles" table
+-- ACTION CREATE FOREIGN KEY
 --
 ALTER TABLE ONLY "gear_paddles"
     ADD CONSTRAINT "gear_paddles_fk_0"
@@ -376,7 +399,7 @@ ALTER TABLE ONLY "gear_paddles"
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "gear_pfds" table
+-- ACTION CREATE FOREIGN KEY
 --
 ALTER TABLE ONLY "gear_pfds"
     ADD CONSTRAINT "gear_pfds_fk_0"
@@ -386,7 +409,7 @@ ALTER TABLE ONLY "gear_pfds"
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "gear_spraydecks" table
+-- ACTION CREATE FOREIGN KEY
 --
 ALTER TABLE ONLY "gear_spraydecks"
     ADD CONSTRAINT "gear_spraydecks_fk_0"
@@ -396,7 +419,7 @@ ALTER TABLE ONLY "gear_spraydecks"
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "gear_throwbags" table
+-- ACTION CREATE FOREIGN KEY
 --
 ALTER TABLE ONLY "gear_throwbags"
     ADD CONSTRAINT "gear_throwbags_fk_0"
@@ -406,7 +429,7 @@ ALTER TABLE ONLY "gear_throwbags"
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "serverpod_log" table
+-- ACTION CREATE FOREIGN KEY
 --
 ALTER TABLE ONLY "serverpod_log"
     ADD CONSTRAINT "serverpod_log_fk_0"
@@ -416,7 +439,7 @@ ALTER TABLE ONLY "serverpod_log"
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "serverpod_message_log" table
+-- ACTION CREATE FOREIGN KEY
 --
 ALTER TABLE ONLY "serverpod_message_log"
     ADD CONSTRAINT "serverpod_message_log_fk_0"
@@ -426,7 +449,7 @@ ALTER TABLE ONLY "serverpod_message_log"
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "serverpod_query_log" table
+-- ACTION CREATE FOREIGN KEY
 --
 ALTER TABLE ONLY "serverpod_query_log"
     ADD CONSTRAINT "serverpod_query_log_fk_0"
@@ -440,9 +463,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR przewrotkapp
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('przewrotkapp', '20250827200809532', now())
+    VALUES ('przewrotkapp', '20250903120627474', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20250827200809532', "timestamp" = now();
+    DO UPDATE SET "version" = '20250903120627474', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod
