@@ -139,6 +139,28 @@ Future<void> importThrowbagsFromExcel({Session? session}) async {
   }
 }
 
+Future<void> importClothesFromExcel({Session? session}) async {
+  final clothesCsv = File('$_root/clothes.csv');
+  final clothesData = await clothesCsv
+      .readAsLines()
+      .then((lines) => lines.map((line) => line.split(',')).toList());
+  for (final line in clothesData.sublist(1)) {
+    final gear = Gear(
+      clubId: line[0].trim(),
+      manufacturer: line[1].trim().isEmpty ? null : line[1].trim(),
+      model: line[2].trim().isEmpty ? null : line[2].trim(),
+    );
+    final clothing = GearClothing(
+        gearId: 0,
+        size: GenericGearSize.fromJson(line[3]),
+        type: ClothingType.fromJson(line[4]),
+        typeDescription: line[5].trim());
+    final newGear = await Gear.db.insertRow(session!, gear);
+    final newClothing = await GearClothing.db
+        .insertRow(session, clothing.copyWith(gearId: newGear.id));
+  }
+}
+
 void main() {
   importKayaksFromExcel();
 }

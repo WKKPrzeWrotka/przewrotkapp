@@ -2,6 +2,7 @@ class: GearClothing
 table: gear_clothes
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
+  size: GenericGearSize
   type: ClothingType
   typeDescription: String?
 indexes:

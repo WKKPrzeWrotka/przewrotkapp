@@ -1,0 +1,104 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "gear_clothes"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "gear_clothes",
+        "dartName": "GearClothing",
+        "module": "przewrotkapp",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 6,
+            "isNullable": false,
+            "columnDefault": "nextval('gear_clothes_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "gearId",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "size",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "protocol:GenericGearSize"
+          },
+          {
+            "name": "type",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "protocol:ClothingType"
+          },
+          {
+            "name": "typeDescription",
+            "columnType": 0,
+            "isNullable": true,
+            "dartType": "String?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "gear_clothes_fk_0",
+            "columns": [
+              "gearId"
+            ],
+            "referenceTable": "gear",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 4
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "gear_clothes_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          },
+          {
+            "indexName": "clothes_gear_unique_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "gearId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"gear_clothes\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "gear_clothes",
+      "columns": [
+        "size"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

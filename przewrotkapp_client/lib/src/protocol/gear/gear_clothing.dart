@@ -11,13 +11,15 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import '../gear/gear.dart' as _i2;
-import '../gear/clothing_type.dart' as _i3;
+import '../gear/generic_gear_size.dart' as _i3;
+import '../gear/clothing_type.dart' as _i4;
 
 abstract class GearClothing implements _i1.SerializableModel {
   GearClothing._({
     this.id,
     required this.gearId,
     this.gear,
+    required this.size,
     required this.type,
     this.typeDescription,
   });
@@ -26,7 +28,8 @@ abstract class GearClothing implements _i1.SerializableModel {
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.ClothingType type,
+    required _i3.GenericGearSize size,
+    required _i4.ClothingType type,
     String? typeDescription,
   }) = _GearClothingImpl;
 
@@ -38,7 +41,8 @@ abstract class GearClothing implements _i1.SerializableModel {
           ? null
           : _i2.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      type: _i3.ClothingType.fromJson((jsonSerialization['type'] as String)),
+      size: _i3.GenericGearSize.fromJson((jsonSerialization['size'] as String)),
+      type: _i4.ClothingType.fromJson((jsonSerialization['type'] as String)),
       typeDescription: jsonSerialization['typeDescription'] as String?,
     );
   }
@@ -52,7 +56,9 @@ abstract class GearClothing implements _i1.SerializableModel {
 
   _i2.Gear? gear;
 
-  _i3.ClothingType type;
+  _i3.GenericGearSize size;
+
+  _i4.ClothingType type;
 
   String? typeDescription;
 
@@ -63,7 +69,8 @@ abstract class GearClothing implements _i1.SerializableModel {
     int? id,
     int? gearId,
     _i2.Gear? gear,
-    _i3.ClothingType? type,
+    _i3.GenericGearSize? size,
+    _i4.ClothingType? type,
     String? typeDescription,
   });
   @override
@@ -72,6 +79,7 @@ abstract class GearClothing implements _i1.SerializableModel {
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
+      'size': size.toJson(),
       'type': type.toJson(),
       if (typeDescription != null) 'typeDescription': typeDescription,
     };
@@ -90,12 +98,14 @@ class _GearClothingImpl extends GearClothing {
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.ClothingType type,
+    required _i3.GenericGearSize size,
+    required _i4.ClothingType type,
     String? typeDescription,
   }) : super._(
           id: id,
           gearId: gearId,
           gear: gear,
+          size: size,
           type: type,
           typeDescription: typeDescription,
         );
@@ -108,13 +118,15 @@ class _GearClothingImpl extends GearClothing {
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.ClothingType? type,
+    _i3.GenericGearSize? size,
+    _i4.ClothingType? type,
     Object? typeDescription = _Undefined,
   }) {
     return GearClothing(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
+      size: size ?? this.size,
       type: type ?? this.type,
       typeDescription:
           typeDescription is String? ? typeDescription : this.typeDescription,

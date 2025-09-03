@@ -7,4 +7,6 @@ Wszystko co zmieniam w excelkach
 - kfn-02 jako m
 - kfn-03 jako m
 - KFD-14 JAKO L !!!
-
+- OP-11 jako L
+- OP-10 jako L bo tak - sprawdzić to!
+- OP-2 jako XL

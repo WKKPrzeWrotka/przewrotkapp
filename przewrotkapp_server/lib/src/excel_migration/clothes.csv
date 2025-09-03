@@ -1,0 +1,19 @@
+Numer ,Producent ,Model,Rozmiar,Type,Type desc
+OP-1,ProRace,,l,neopreneFoam,Long
+OP-2,Olaian/Decathlon,100,xl,neopreneFoam,Short
+OP-3,ProRace,,xl,neopreneFoam,Long
+OP-4,Tribord,SK500,s,neopreneFoam,Longjohn
+OP-5,SA,,kidsXl,neopreneFoam,Short
+OP-6,ProRace,,m,neopreneFoam,Long
+OP-7,Olaian/Decathlon,100,xl,neopreneFoam,Short
+OP-8,ProRace,,s,neopreneFoam,Long
+OP-9,ProRace,,l,neopreneFoam,Long
+OP-10,Tribord,,l,neopreneFoam,Longjohn
+OP-11,Hiko,,l,neopreneFoam,Longjohn
+OP-12,ProRace,,xl,neopreneFoam,Long
+OP-13,ProRace,,s,neopreneFoam,Long
+O-1,Tribord,,m,neopreneFoam,Koszulka 
+OK-1,Hiko,,xl,jacket,Sucha przynajmniej kiedyś 
+OK-2,Tribord,SK500,xs,jacket,Żeglarska
+OK-3,Yak,Rapid Cag,l,jacket,Pół sucha
+OK-4,Hiko,,l,jacket,Sucha

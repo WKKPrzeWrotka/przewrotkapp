@@ -216,6 +216,12 @@ class Protocol extends _i1.SerializationManagerServer {
           dartType: 'int',
         ),
         _i2.ColumnDefinition(
+          name: 'size',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'protocol:GenericGearSize',
+        ),
+        _i2.ColumnDefinition(
           name: 'type',
           columnType: _i2.ColumnType.text,
           isNullable: false,

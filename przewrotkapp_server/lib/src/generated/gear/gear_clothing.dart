@@ -13,7 +13,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../gear/gear.dart' as _i2;
-import '../gear/clothing_type.dart' as _i3;
+import '../gear/generic_gear_size.dart' as _i3;
+import '../gear/clothing_type.dart' as _i4;
 
 abstract class GearClothing
     implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
@@ -21,6 +22,7 @@ abstract class GearClothing
     this.id,
     required this.gearId,
     this.gear,
+    required this.size,
     required this.type,
     this.typeDescription,
   });
@@ -29,7 +31,8 @@ abstract class GearClothing
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.ClothingType type,
+    required _i3.GenericGearSize size,
+    required _i4.ClothingType type,
     String? typeDescription,
   }) = _GearClothingImpl;
 
@@ -41,7 +44,8 @@ abstract class GearClothing
           ? null
           : _i2.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      type: _i3.ClothingType.fromJson((jsonSerialization['type'] as String)),
+      size: _i3.GenericGearSize.fromJson((jsonSerialization['size'] as String)),
+      type: _i4.ClothingType.fromJson((jsonSerialization['type'] as String)),
       typeDescription: jsonSerialization['typeDescription'] as String?,
     );
   }
@@ -57,7 +61,9 @@ abstract class GearClothing
 
   _i2.Gear? gear;
 
-  _i3.ClothingType type;
+  _i3.GenericGearSize size;
+
+  _i4.ClothingType type;
 
   String? typeDescription;
 
@@ -71,7 +77,8 @@ abstract class GearClothing
     int? id,
     int? gearId,
     _i2.Gear? gear,
-    _i3.ClothingType? type,
+    _i3.GenericGearSize? size,
+    _i4.ClothingType? type,
     String? typeDescription,
   });
   @override
@@ -80,6 +87,7 @@ abstract class GearClothing
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
+      'size': size.toJson(),
       'type': type.toJson(),
       if (typeDescription != null) 'typeDescription': typeDescription,
     };
@@ -91,6 +99,7 @@ abstract class GearClothing
       if (id != null) 'id': id,
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJsonForProtocol(),
+      'size': size.toJson(),
       'type': type.toJson(),
       if (typeDescription != null) 'typeDescription': typeDescription,
     };
@@ -133,12 +142,14 @@ class _GearClothingImpl extends GearClothing {
     int? id,
     required int gearId,
     _i2.Gear? gear,
-    required _i3.ClothingType type,
+    required _i3.GenericGearSize size,
+    required _i4.ClothingType type,
     String? typeDescription,
   }) : super._(
           id: id,
           gearId: gearId,
           gear: gear,
+          size: size,
           type: type,
           typeDescription: typeDescription,
         );
@@ -151,13 +162,15 @@ class _GearClothingImpl extends GearClothing {
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.ClothingType? type,
+    _i3.GenericGearSize? size,
+    _i4.ClothingType? type,
     Object? typeDescription = _Undefined,
   }) {
     return GearClothing(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
       gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
+      size: size ?? this.size,
       type: type ?? this.type,
       typeDescription:
           typeDescription is String? ? typeDescription : this.typeDescription,
@@ -170,6 +183,11 @@ class GearClothingTable extends _i1.Table<int?> {
     gearId = _i1.ColumnInt(
       'gearId',
       this,
+    );
+    size = _i1.ColumnEnum(
+      'size',
+      this,
+      _i1.EnumSerialization.byName,
     );
     type = _i1.ColumnEnum(
       'type',
@@ -186,7 +204,9 @@ class GearClothingTable extends _i1.Table<int?> {
 
   _i2.GearTable? _gear;
 
-  late final _i1.ColumnEnum<_i3.ClothingType> type;
+  late final _i1.ColumnEnum<_i3.GenericGearSize> size;
+
+  late final _i1.ColumnEnum<_i4.ClothingType> type;
 
   late final _i1.ColumnString typeDescription;
 
@@ -207,6 +227,7 @@ class GearClothingTable extends _i1.Table<int?> {
   List<_i1.Column> get columns => [
         id,
         gearId,
+        size,
         type,
         typeDescription,
       ];

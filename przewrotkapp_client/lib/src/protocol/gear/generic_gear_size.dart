@@ -12,6 +12,11 @@
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 
 enum GenericGearSize implements _i1.SerializableModel {
+  kidsXs,
+  kidsS,
+  kidsM,
+  kidsL,
+  kidsXl,
   xxs,
   xxsOrXs,
   xs,
@@ -28,6 +33,16 @@ enum GenericGearSize implements _i1.SerializableModel {
 
   static GenericGearSize fromJson(String name) {
     switch (name) {
+      case 'kidsXs':
+        return GenericGearSize.kidsXs;
+      case 'kidsS':
+        return GenericGearSize.kidsS;
+      case 'kidsM':
+        return GenericGearSize.kidsM;
+      case 'kidsL':
+        return GenericGearSize.kidsL;
+      case 'kidsXl':
+        return GenericGearSize.kidsXl;
       case 'xxs':
         return GenericGearSize.xxs;
       case 'xxsOrXs':
