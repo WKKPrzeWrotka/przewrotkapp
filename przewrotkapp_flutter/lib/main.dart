@@ -14,7 +14,7 @@ void main() {
   // E.g. `flutter run --dart-define=SERVER_URL=https://api.example.com/`
   const serverUrlFromEnv = String.fromEnvironment('SERVER_URL');
   serverUrl =
-      serverUrlFromEnv.isEmpty ? 'http://$localhost:8080/' : serverUrlFromEnv;
+      serverUrlFromEnv.isEmpty ? 'https://api.app.przewrotka.lastgimbus.com/' : serverUrlFromEnv;
 
   runApp(const MyApp());
 }
