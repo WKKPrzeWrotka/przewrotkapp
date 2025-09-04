@@ -3,6 +3,9 @@ description: Starting point for a Serverpod server.
 # version: 1.0.0
 # homepage: https://www.example.com
 
+executables:
+  pwa: main
+
 environment:
   sdk: '>=3.5.0 <4.0.0'
 
