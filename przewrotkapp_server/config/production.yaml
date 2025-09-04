@@ -6,22 +6,22 @@
 
 # Configuration for the main API server.
 apiServer:
-  port: 8080
-  publicHost: api.examplepod.com
+  port: 42069
+  publicHost: api.app.przewrotkapp.com
   publicPort: 443
   publicScheme: https
 
 # Configuration for the Insights server.
 insightsServer:
-  port: 8081
+  port: 42071
   publicHost: insights.examplepod.com
   publicPort: 443
   publicScheme: https
 
 # Configuration for the web server.
 webServer:
-  port: 8082
-  publicHost: app.examplepod.com
+  port: 42070
+  publicHost: api.app.przewrotkapp.com
   publicPort: 443
   publicScheme: https
 
@@ -30,11 +30,11 @@ webServer:
 # If you are connecting on a public IP (e.g. on AWS or Google Cloud Run), you
 # connect on the public IP of the database e.g. database.examplepod.com.
 database:
-  host: database.private-production.examplepod.com
+  host: localhost
   port: 5432
-  name: serverpod
-  user: postgres
-  requireSsl: true
+  name: przewrotkapp
+  user: przewrotkapp
+  requireSsl: false
   #isUnixSocket: true # defaults to false
 
 # This is the setup for Redis. The default for the Google Cloud Engine Terraform

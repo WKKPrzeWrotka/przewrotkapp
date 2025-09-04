@@ -16,10 +16,9 @@ with lib;
   		wantedBy = [ "multi-user.target" ];
   		after = [ "postgresql.service" ];
   		serviceConfig = {
-  			User = "przewrotkapp";
-  			Group = "przewrotkapp";
+  			User = "matiii";
   			WorkingDirectory = "/home/matiii/przewrotkapp/przewrotkapp_server";
-  			ExecStart = "${lib.getExe pkgs.pwa}";
+  			ExecStart = "${lib.getExe pkgs.pwa} --mode production";
   			Restart = "always";
   			RestartSec = "5";
   		};
