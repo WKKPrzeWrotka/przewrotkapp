@@ -1,4 +1,5 @@
 gearRead:
+  - getAllGear:
   - getAllBelts:
   - getAllClothes:
   - getAllFloatbags:

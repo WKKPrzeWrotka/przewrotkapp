@@ -35,6 +35,16 @@ class Endpoints extends _i1.EndpointDispatch {
       name: 'gearRead',
       endpoint: endpoints['gearRead']!,
       methodConnectors: {
+        'getAllGear': _i1.MethodConnector(
+          name: 'getAllGear',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllGear(session),
+        ),
         'getAllBelts': _i1.MethodConnector(
           name: 'getAllBelts',
           params: {},

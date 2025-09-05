@@ -3,6 +3,10 @@ import 'package:serverpod/serverpod.dart';
 import 'generated/protocol.dart';
 
 class GearReadEndpoint extends Endpoint {
+  Future<List<Gear>> getAllGear(Session session) async {
+    return await Gear.db.find(session);
+  }
+
   Future<List<GearBelt>> getAllBelts(Session session) async {
     return await GearBelt.db.find(
       session,
