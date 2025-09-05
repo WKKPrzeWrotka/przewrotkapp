@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+cd "$(dirname "$0")"
+
+git pull
+flutter build web --output=/var/www/html/app.przewrotka.lastgimbus.com/ --wasm
