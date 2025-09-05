@@ -1,0 +1,8 @@
+class: Rental
+table: rentals
+fields:
+  created: DateTime
+  lastModified: DateTime
+  from: DateTime
+  to: DateTime
+  junctions: List<RentalJunction>?, relation(name=rental_junctions)

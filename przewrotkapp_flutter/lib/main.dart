@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+import 'package:przewrotkapp_flutter/ui/pages/calendar_page.dart';
 import 'package:przewrotkapp_flutter/ui/pages/gear_browser/gear_browser_page.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
@@ -13,8 +14,9 @@ void main() {
   // You can set the variable when running or building your app like this:
   // E.g. `flutter run --dart-define=SERVER_URL=https://api.example.com/`
   const serverUrlFromEnv = String.fromEnvironment('SERVER_URL');
-  serverUrl =
-      serverUrlFromEnv.isEmpty ? 'https://api.app.przewrotka.lastgimbus.com/' : serverUrlFromEnv;
+  serverUrl = serverUrlFromEnv.isEmpty
+      ? 'https://api.app.przewrotka.lastgimbus.com/'
+      : serverUrlFromEnv;
 
   runApp(const MyApp());
 }
@@ -59,7 +61,7 @@ class MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(title: Text(widget.title)),
       body: [
         GearBrowserPage(),
-        Placeholder(),
+        CalendarPage(),
         Placeholder(),
       ][_currentPage.index],
       bottomNavigationBar: NavigationBar(
@@ -74,6 +76,36 @@ class MyHomePageState extends State<MyHomePage> {
         onDestinationSelected: (i) {
           _currentPage = _HomePages.values[i];
           setState(() {});
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (_) => Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    final client = context.read<Client>();
+                    await client.rental.rentGear(
+                      [
+                        (await client.gearRead.getAllKayaks())
+                            .firstWhere((e) => e.gear!.clubId == "KK-32")
+                            .gear!,
+                        (await client.gearRead.getAllKayaks())
+                            .firstWhere((e) => e.gear!.clubId == "KK-1")
+                            .gear!,
+                      ],
+                      DateTime(2025, 9, 11, 6),
+                      DateTime(2025, 9, 14, 23),
+                    );
+                  },
+                  child: Text("Add"),
+                ),
+              ],
+            ),
+          );
         },
       ),
     );

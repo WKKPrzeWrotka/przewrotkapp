@@ -29,6 +29,8 @@ dependencies:
     path: ../przewrotkapp_client
   provider: ^6.1.5+1
 
+  calendar_view: ^1.4.0
+
 dev_dependencies:
   flutter_lints: '>=3.0.0 <7.0.0'
   flutter_test:

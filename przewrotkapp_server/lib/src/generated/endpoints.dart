@@ -11,6 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../gear_read_endpoint.dart' as _i2;
+import '../rental_endpoint.dart' as _i3;
+import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i4;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -21,7 +23,13 @@ class Endpoints extends _i1.EndpointDispatch {
           server,
           'gearRead',
           null,
-        )
+        ),
+      'rental': _i3.RentalEndpoint()
+        ..initialize(
+          server,
+          'rental',
+          null,
+        ),
     };
     connectors['gearRead'] = _i1.EndpointConnector(
       name: 'gearRead',
@@ -116,6 +124,52 @@ class Endpoints extends _i1.EndpointDispatch {
           ) async =>
               (endpoints['gearRead'] as _i2.GearReadEndpoint)
                   .getAllThrowbags(session),
+        ),
+      },
+    );
+    connectors['rental'] = _i1.EndpointConnector(
+      name: 'rental',
+      endpoint: endpoints['rental']!,
+      methodConnectors: {
+        'getAllRentals': _i1.MethodConnector(
+          name: 'getAllRentals',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['rental'] as _i3.RentalEndpoint)
+                  .getAllRentals(session),
+        ),
+        'rentGear': _i1.MethodConnector(
+          name: 'rentGear',
+          params: {
+            'gear': _i1.ParameterDescription(
+              name: 'gear',
+              type: _i1.getType<List<_i4.Gear>>(),
+              nullable: false,
+            ),
+            'from': _i1.ParameterDescription(
+              name: 'from',
+              type: _i1.getType<DateTime>(),
+              nullable: false,
+            ),
+            'to': _i1.ParameterDescription(
+              name: 'to',
+              type: _i1.getType<DateTime>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['rental'] as _i3.RentalEndpoint).rentGear(
+            session,
+            params['gear'],
+            params['from'],
+            params['to'],
+          ),
         ),
       },
     );

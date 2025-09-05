@@ -29,21 +29,25 @@ import 'gear/kayak_type.dart' as _i17;
 import 'gear/paddle_type.dart' as _i18;
 import 'gear/pfd_type.dart' as _i19;
 import 'gear/spraydeck_deck_size.dart' as _i20;
-import 'package:przewrotkapp_server/src/generated/gear/gear_belt.dart' as _i21;
+import 'rental/rental.dart' as _i21;
+import 'rental/rental_junction.dart' as _i22;
+import 'package:przewrotkapp_server/src/generated/gear/gear_belt.dart' as _i23;
 import 'package:przewrotkapp_server/src/generated/gear/gear_clothing.dart'
-    as _i22;
-import 'package:przewrotkapp_server/src/generated/gear/gear_floatbag.dart'
-    as _i23;
-import 'package:przewrotkapp_server/src/generated/gear/gear_helmet.dart'
     as _i24;
-import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i25;
-import 'package:przewrotkapp_server/src/generated/gear/gear_paddle.dart'
+import 'package:przewrotkapp_server/src/generated/gear/gear_floatbag.dart'
+    as _i25;
+import 'package:przewrotkapp_server/src/generated/gear/gear_helmet.dart'
     as _i26;
-import 'package:przewrotkapp_server/src/generated/gear/gear_pfd.dart' as _i27;
-import 'package:przewrotkapp_server/src/generated/gear/gear_spraydeck.dart'
+import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i27;
+import 'package:przewrotkapp_server/src/generated/gear/gear_paddle.dart'
     as _i28;
+import 'package:przewrotkapp_server/src/generated/gear/gear_pfd.dart' as _i29;
+import 'package:przewrotkapp_server/src/generated/gear/gear_spraydeck.dart'
+    as _i30;
 import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
-    as _i29;
+    as _i31;
+import 'package:przewrotkapp_server/src/generated/rental/rental.dart' as _i32;
+import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i33;
 export 'exceptions/kayak_exception.dart';
 export 'gear/clothing_type.dart';
 export 'gear/gear.dart';
@@ -62,6 +66,8 @@ export 'gear/kayak_type.dart';
 export 'gear/paddle_type.dart';
 export 'gear/pfd_type.dart';
 export 'gear/spraydeck_deck_size.dart';
+export 'rental/rental.dart';
+export 'rental/rental_junction.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
   Protocol._();
@@ -818,6 +824,144 @@ class Protocol extends _i1.SerializationManagerServer {
       ],
       managed: true,
     ),
+    _i2.TableDefinition(
+      name: 'rental_junctions',
+      dartName: 'RentalJunction',
+      schema: 'public',
+      module: 'przewrotkapp',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'rental_junctions_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'gearId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'rentalId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+      ],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'rental_junctions_fk_0',
+          columns: ['gearId'],
+          referenceTable: 'gear',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+        _i2.ForeignKeyDefinition(
+          constraintName: 'rental_junctions_fk_1',
+          columns: ['rentalId'],
+          referenceTable: 'rentals',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+      ],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'rental_junctions_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'rental_junctions_index_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'gearId',
+            ),
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'rentalId',
+            ),
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
+      name: 'rentals',
+      dartName: 'Rental',
+      schema: 'public',
+      module: 'przewrotkapp',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'rentals_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'created',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+        _i2.ColumnDefinition(
+          name: 'lastModified',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+        _i2.ColumnDefinition(
+          name: 'from',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+        _i2.ColumnDefinition(
+          name: 'to',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'rentals_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        )
+      ],
+      managed: true,
+    ),
     ..._i2.Protocol.targetTableDefinitions,
   ];
 
@@ -881,6 +1025,12 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i20.SpraydeckDeckSize) {
       return _i20.SpraydeckDeckSize.fromJson(data) as T;
     }
+    if (t == _i21.Rental) {
+      return _i21.Rental.fromJson(data) as T;
+    }
+    if (t == _i22.RentalJunction) {
+      return _i22.RentalJunction.fromJson(data) as T;
+    }
     if (t == _i1.getType<_i3.KayakException?>()) {
       return (data != null ? _i3.KayakException.fromJson(data) : null) as T;
     }
@@ -935,50 +1085,77 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i20.SpraydeckDeckSize?>()) {
       return (data != null ? _i20.SpraydeckDeckSize.fromJson(data) : null) as T;
     }
+    if (t == _i1.getType<_i21.Rental?>()) {
+      return (data != null ? _i21.Rental.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i22.RentalJunction?>()) {
+      return (data != null ? _i22.RentalJunction.fromJson(data) : null) as T;
+    }
     if (t == _i1.getType<List<Uri>?>()) {
       return (data != null
           ? (data as List).map((e) => deserialize<Uri>(e)).toList()
           : null) as T;
     }
-    if (t == List<_i21.GearBelt>) {
-      return (data as List).map((e) => deserialize<_i21.GearBelt>(e)).toList()
+    if (t == _i1.getType<List<_i22.RentalJunction>?>()) {
+      return (data != null
+          ? (data as List)
+              .map((e) => deserialize<_i22.RentalJunction>(e))
+              .toList()
+          : null) as T;
+    }
+    if (t == _i1.getType<List<_i22.RentalJunction>?>()) {
+      return (data != null
+          ? (data as List)
+              .map((e) => deserialize<_i22.RentalJunction>(e))
+              .toList()
+          : null) as T;
+    }
+    if (t == List<_i23.GearBelt>) {
+      return (data as List).map((e) => deserialize<_i23.GearBelt>(e)).toList()
           as T;
     }
-    if (t == List<_i22.GearClothing>) {
+    if (t == List<_i24.GearClothing>) {
       return (data as List)
-          .map((e) => deserialize<_i22.GearClothing>(e))
+          .map((e) => deserialize<_i24.GearClothing>(e))
           .toList() as T;
     }
-    if (t == List<_i23.GearFloatbag>) {
+    if (t == List<_i25.GearFloatbag>) {
       return (data as List)
-          .map((e) => deserialize<_i23.GearFloatbag>(e))
+          .map((e) => deserialize<_i25.GearFloatbag>(e))
           .toList() as T;
     }
-    if (t == List<_i24.GearHelmet>) {
-      return (data as List).map((e) => deserialize<_i24.GearHelmet>(e)).toList()
+    if (t == List<_i26.GearHelmet>) {
+      return (data as List).map((e) => deserialize<_i26.GearHelmet>(e)).toList()
           as T;
     }
-    if (t == List<_i25.GearKayak>) {
-      return (data as List).map((e) => deserialize<_i25.GearKayak>(e)).toList()
+    if (t == List<_i27.GearKayak>) {
+      return (data as List).map((e) => deserialize<_i27.GearKayak>(e)).toList()
           as T;
     }
-    if (t == List<_i26.GearPaddle>) {
-      return (data as List).map((e) => deserialize<_i26.GearPaddle>(e)).toList()
+    if (t == List<_i28.GearPaddle>) {
+      return (data as List).map((e) => deserialize<_i28.GearPaddle>(e)).toList()
           as T;
     }
-    if (t == List<_i27.GearPfd>) {
-      return (data as List).map((e) => deserialize<_i27.GearPfd>(e)).toList()
+    if (t == List<_i29.GearPfd>) {
+      return (data as List).map((e) => deserialize<_i29.GearPfd>(e)).toList()
           as T;
     }
-    if (t == List<_i28.GearSpraydeck>) {
+    if (t == List<_i30.GearSpraydeck>) {
       return (data as List)
-          .map((e) => deserialize<_i28.GearSpraydeck>(e))
+          .map((e) => deserialize<_i30.GearSpraydeck>(e))
           .toList() as T;
     }
-    if (t == List<_i29.GearThrowbag>) {
+    if (t == List<_i31.GearThrowbag>) {
       return (data as List)
-          .map((e) => deserialize<_i29.GearThrowbag>(e))
+          .map((e) => deserialize<_i31.GearThrowbag>(e))
           .toList() as T;
+    }
+    if (t == List<_i32.Rental>) {
+      return (data as List).map((e) => deserialize<_i32.Rental>(e)).toList()
+          as T;
+    }
+    if (t == List<_i33.Gear>) {
+      return (data as List).map((e) => deserialize<_i33.Gear>(e)).toList() as T;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);
@@ -1043,6 +1220,12 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (data is _i20.SpraydeckDeckSize) {
       return 'SpraydeckDeckSize';
+    }
+    if (data is _i21.Rental) {
+      return 'Rental';
+    }
+    if (data is _i22.RentalJunction) {
+      return 'RentalJunction';
     }
     className = _i2.Protocol().getClassNameForObject(data);
     if (className != null) {
@@ -1111,6 +1294,12 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName == 'SpraydeckDeckSize') {
       return deserialize<_i20.SpraydeckDeckSize>(data['data']);
     }
+    if (dataClassName == 'Rental') {
+      return deserialize<_i21.Rental>(data['data']);
+    }
+    if (dataClassName == 'RentalJunction') {
+      return deserialize<_i22.RentalJunction>(data['data']);
+    }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
       return _i2.Protocol().deserializeByClassName(data);
@@ -1147,6 +1336,10 @@ class Protocol extends _i1.SerializationManagerServer {
         return _i13.GearSpraydeck.t;
       case _i14.GearThrowbag:
         return _i14.GearThrowbag.t;
+      case _i21.Rental:
+        return _i21.Rental.t;
+      case _i22.RentalJunction:
+        return _i22.RentalJunction.t;
     }
     return null;
   }

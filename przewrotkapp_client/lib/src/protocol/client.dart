@@ -24,7 +24,9 @@ import 'package:przewrotkapp_client/src/protocol/gear/gear_spraydeck.dart'
     as _i10;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_throwbag.dart'
     as _i11;
-import 'protocol.dart' as _i12;
+import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i12;
+import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i13;
+import 'protocol.dart' as _i14;
 
 /// {@category Endpoint}
 class EndpointGearRead extends _i1.EndpointRef {
@@ -97,6 +99,36 @@ class EndpointGearRead extends _i1.EndpointRef {
       );
 }
 
+/// {@category Endpoint}
+class EndpointRental extends _i1.EndpointRef {
+  EndpointRental(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'rental';
+
+  _i2.Future<List<_i12.Rental>> getAllRentals() =>
+      caller.callServerEndpoint<List<_i12.Rental>>(
+        'rental',
+        'getAllRentals',
+        {},
+      );
+
+  _i2.Future<void> rentGear(
+    List<_i13.Gear> gear,
+    DateTime from,
+    DateTime to,
+  ) =>
+      caller.callServerEndpoint<void>(
+        'rental',
+        'rentGear',
+        {
+          'gear': gear,
+          'from': from,
+          'to': to,
+        },
+      );
+}
+
 class Client extends _i1.ServerpodClientShared {
   Client(
     String host, {
@@ -113,7 +145,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i12.Protocol(),
+          _i14.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -124,12 +156,18 @@ class Client extends _i1.ServerpodClientShared {
               disconnectStreamsOnLostInternetConnection,
         ) {
     gearRead = EndpointGearRead(this);
+    rental = EndpointRental(this);
   }
 
   late final EndpointGearRead gearRead;
 
+  late final EndpointRental rental;
+
   @override
-  Map<String, _i1.EndpointRef> get endpointRefLookup => {'gearRead': gearRead};
+  Map<String, _i1.EndpointRef> get endpointRefLookup => {
+        'gearRead': gearRead,
+        'rental': rental,
+      };
 
   @override
   Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {};

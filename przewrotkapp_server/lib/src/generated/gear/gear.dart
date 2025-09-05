@@ -8,9 +8,12 @@
 // ignore_for_file: type_literal_in_constant_pattern
 // ignore_for_file: use_super_parameters
 
+// ignore_for_file: unnecessary_null_comparison
+
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../gear/gear_type.dart' as _i2;
+import '../rental/rental_junction.dart' as _i3;
 
 abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
   Gear._({
@@ -21,6 +24,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     this.model,
     this.friendlyName,
     this.photoUrls,
+    this.junctions,
   });
 
   factory Gear({
@@ -31,6 +35,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     String? model,
     String? friendlyName,
     List<Uri>? photoUrls,
+    List<_i3.RentalJunction>? junctions,
   }) = _GearImpl;
 
   factory Gear.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -43,6 +48,9 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
       friendlyName: jsonSerialization['friendlyName'] as String?,
       photoUrls: (jsonSerialization['photoUrls'] as List?)
           ?.map((e) => _i1.UriJsonExtension.fromJson(e))
+          .toList(),
+      junctions: (jsonSerialization['junctions'] as List?)
+          ?.map((e) => _i3.RentalJunction.fromJson((e as Map<String, dynamic>)))
           .toList(),
     );
   }
@@ -66,6 +74,8 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
 
   List<Uri>? photoUrls;
 
+  List<_i3.RentalJunction>? junctions;
+
   @override
   _i1.Table<int?> get table => t;
 
@@ -80,6 +90,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     String? model,
     String? friendlyName,
     List<Uri>? photoUrls,
+    List<_i3.RentalJunction>? junctions,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -92,6 +103,8 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
       if (friendlyName != null) 'friendlyName': friendlyName,
       if (photoUrls != null)
         'photoUrls': photoUrls?.toJson(valueToJson: (v) => v.toJson()),
+      if (junctions != null)
+        'junctions': junctions?.toJson(valueToJson: (v) => v.toJson()),
     };
   }
 
@@ -106,11 +119,14 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
       if (friendlyName != null) 'friendlyName': friendlyName,
       if (photoUrls != null)
         'photoUrls': photoUrls?.toJson(valueToJson: (v) => v.toJson()),
+      if (junctions != null)
+        'junctions':
+            junctions?.toJson(valueToJson: (v) => v.toJsonForProtocol()),
     };
   }
 
-  static GearInclude include() {
-    return GearInclude._();
+  static GearInclude include({_i3.RentalJunctionIncludeList? junctions}) {
+    return GearInclude._(junctions: junctions);
   }
 
   static GearIncludeList includeList({
@@ -150,6 +166,7 @@ class _GearImpl extends Gear {
     String? model,
     String? friendlyName,
     List<Uri>? photoUrls,
+    List<_i3.RentalJunction>? junctions,
   }) : super._(
           id: id,
           clubId: clubId,
@@ -158,6 +175,7 @@ class _GearImpl extends Gear {
           model: model,
           friendlyName: friendlyName,
           photoUrls: photoUrls,
+          junctions: junctions,
         );
 
   /// Returns a shallow copy of this [Gear]
@@ -172,6 +190,7 @@ class _GearImpl extends Gear {
     Object? model = _Undefined,
     Object? friendlyName = _Undefined,
     Object? photoUrls = _Undefined,
+    Object? junctions = _Undefined,
   }) {
     return Gear(
       id: id is int? ? id : this.id,
@@ -183,6 +202,9 @@ class _GearImpl extends Gear {
       photoUrls: photoUrls is List<Uri>?
           ? photoUrls
           : this.photoUrls?.map((e0) => e0).toList(),
+      junctions: junctions is List<_i3.RentalJunction>?
+          ? junctions
+          : this.junctions?.map((e0) => e0.copyWith()).toList(),
     );
   }
 }
@@ -228,6 +250,41 @@ class GearTable extends _i1.Table<int?> {
 
   late final _i1.ColumnSerializable photoUrls;
 
+  _i3.RentalJunctionTable? ___junctions;
+
+  _i1.ManyRelation<_i3.RentalJunctionTable>? _junctions;
+
+  _i3.RentalJunctionTable get __junctions {
+    if (___junctions != null) return ___junctions!;
+    ___junctions = _i1.createRelationTable(
+      relationFieldName: '__junctions',
+      field: Gear.t.id,
+      foreignField: _i3.RentalJunction.t.gearId,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i3.RentalJunctionTable(tableRelation: foreignTableRelation),
+    );
+    return ___junctions!;
+  }
+
+  _i1.ManyRelation<_i3.RentalJunctionTable> get junctions {
+    if (_junctions != null) return _junctions!;
+    var relationTable = _i1.createRelationTable(
+      relationFieldName: 'junctions',
+      field: Gear.t.id,
+      foreignField: _i3.RentalJunction.t.gearId,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i3.RentalJunctionTable(tableRelation: foreignTableRelation),
+    );
+    _junctions = _i1.ManyRelation<_i3.RentalJunctionTable>(
+      tableWithRelations: relationTable,
+      table: _i3.RentalJunctionTable(
+          tableRelation: relationTable.tableRelation!.lastRelation),
+    );
+    return _junctions!;
+  }
+
   @override
   List<_i1.Column> get columns => [
         id,
@@ -238,13 +295,25 @@ class GearTable extends _i1.Table<int?> {
         friendlyName,
         photoUrls,
       ];
+
+  @override
+  _i1.Table? getRelationTable(String relationField) {
+    if (relationField == 'junctions') {
+      return __junctions;
+    }
+    return null;
+  }
 }
 
 class GearInclude extends _i1.IncludeObject {
-  GearInclude._();
+  GearInclude._({_i3.RentalJunctionIncludeList? junctions}) {
+    _junctions = junctions;
+  }
+
+  _i3.RentalJunctionIncludeList? _junctions;
 
   @override
-  Map<String, _i1.Include?> get includes => {};
+  Map<String, _i1.Include?> get includes => {'junctions': _junctions};
 
   @override
   _i1.Table<int?> get table => Gear.t;
@@ -272,6 +341,14 @@ class GearIncludeList extends _i1.IncludeList {
 
 class GearRepository {
   const GearRepository._();
+
+  final attach = const GearAttachRepository._();
+
+  final attachRow = const GearAttachRowRepository._();
+
+  final detach = const GearDetachRepository._();
+
+  final detachRow = const GearDetachRowRepository._();
 
   /// Returns a list of [Gear]s matching the given query parameters.
   ///
@@ -304,6 +381,7 @@ class GearRepository {
     bool orderDescending = false,
     _i1.OrderByListBuilder<GearTable>? orderByList,
     _i1.Transaction? transaction,
+    GearInclude? include,
   }) async {
     return session.db.find<Gear>(
       where: where?.call(Gear.t),
@@ -313,6 +391,7 @@ class GearRepository {
       limit: limit,
       offset: offset,
       transaction: transaction,
+      include: include,
     );
   }
 
@@ -341,6 +420,7 @@ class GearRepository {
     bool orderDescending = false,
     _i1.OrderByListBuilder<GearTable>? orderByList,
     _i1.Transaction? transaction,
+    GearInclude? include,
   }) async {
     return session.db.findFirstRow<Gear>(
       where: where?.call(Gear.t),
@@ -349,6 +429,7 @@ class GearRepository {
       orderDescending: orderDescending,
       offset: offset,
       transaction: transaction,
+      include: include,
     );
   }
 
@@ -357,10 +438,12 @@ class GearRepository {
     _i1.Session session,
     int id, {
     _i1.Transaction? transaction,
+    GearInclude? include,
   }) async {
     return session.db.findById<Gear>(
       id,
       transaction: transaction,
+      include: include,
     );
   }
 
@@ -478,6 +561,114 @@ class GearRepository {
     return session.db.count<Gear>(
       where: where?.call(Gear.t),
       limit: limit,
+      transaction: transaction,
+    );
+  }
+}
+
+class GearAttachRepository {
+  const GearAttachRepository._();
+
+  /// Creates a relation between this [Gear] and the given [RentalJunction]s
+  /// by setting each [RentalJunction]'s foreign key `gearId` to refer to this [Gear].
+  Future<void> junctions(
+    _i1.Session session,
+    Gear gear,
+    List<_i3.RentalJunction> rentalJunction, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (rentalJunction.any((e) => e.id == null)) {
+      throw ArgumentError.notNull('rentalJunction.id');
+    }
+    if (gear.id == null) {
+      throw ArgumentError.notNull('gear.id');
+    }
+
+    var $rentalJunction =
+        rentalJunction.map((e) => e.copyWith(gearId: gear.id)).toList();
+    await session.db.update<_i3.RentalJunction>(
+      $rentalJunction,
+      columns: [_i3.RentalJunction.t.gearId],
+      transaction: transaction,
+    );
+  }
+}
+
+class GearAttachRowRepository {
+  const GearAttachRowRepository._();
+
+  /// Creates a relation between this [Gear] and the given [RentalJunction]
+  /// by setting the [RentalJunction]'s foreign key `gearId` to refer to this [Gear].
+  Future<void> junctions(
+    _i1.Session session,
+    Gear gear,
+    _i3.RentalJunction rentalJunction, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (rentalJunction.id == null) {
+      throw ArgumentError.notNull('rentalJunction.id');
+    }
+    if (gear.id == null) {
+      throw ArgumentError.notNull('gear.id');
+    }
+
+    var $rentalJunction = rentalJunction.copyWith(gearId: gear.id);
+    await session.db.updateRow<_i3.RentalJunction>(
+      $rentalJunction,
+      columns: [_i3.RentalJunction.t.gearId],
+      transaction: transaction,
+    );
+  }
+}
+
+class GearDetachRepository {
+  const GearDetachRepository._();
+
+  /// Detaches the relation between this [Gear] and the given [RentalJunction]
+  /// by setting the [RentalJunction]'s foreign key `gearId` to `null`.
+  ///
+  /// This removes the association between the two models without deleting
+  /// the related record.
+  Future<void> junctions(
+    _i1.Session session,
+    List<_i3.RentalJunction> rentalJunction, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (rentalJunction.any((e) => e.id == null)) {
+      throw ArgumentError.notNull('rentalJunction.id');
+    }
+
+    var $rentalJunction =
+        rentalJunction.map((e) => e.copyWith(gearId: null)).toList();
+    await session.db.update<_i3.RentalJunction>(
+      $rentalJunction,
+      columns: [_i3.RentalJunction.t.gearId],
+      transaction: transaction,
+    );
+  }
+}
+
+class GearDetachRowRepository {
+  const GearDetachRowRepository._();
+
+  /// Detaches the relation between this [Gear] and the given [RentalJunction]
+  /// by setting the [RentalJunction]'s foreign key `gearId` to `null`.
+  ///
+  /// This removes the association between the two models without deleting
+  /// the related record.
+  Future<void> junctions(
+    _i1.Session session,
+    _i3.RentalJunction rentalJunction, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (rentalJunction.id == null) {
+      throw ArgumentError.notNull('rentalJunction.id');
+    }
+
+    var $rentalJunction = rentalJunction.copyWith(gearId: null);
+    await session.db.updateRow<_i3.RentalJunction>(
+      $rentalJunction,
+      columns: [_i3.RentalJunction.t.gearId],
       transaction: transaction,
     );
   }

@@ -8,3 +8,6 @@ gearRead:
   - getAllPfds:
   - getAllSpraydecks:
   - getAllThrowbags:
+rental:
+  - getAllRentals:
+  - rentGear:

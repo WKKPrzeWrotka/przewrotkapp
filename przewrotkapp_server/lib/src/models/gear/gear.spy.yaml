@@ -11,6 +11,7 @@ fields:
   model: String?
   friendlyName: String?
   photoUrls: List<Uri>?
+  junctions: List<RentalJunction>?, relation(name=gear_junctions)
 indexes:
   gear_club_id_idx:
     fields: clubId

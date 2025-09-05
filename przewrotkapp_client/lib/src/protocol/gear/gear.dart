@@ -11,6 +11,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import '../gear/gear_type.dart' as _i2;
+import '../rental/rental_junction.dart' as _i3;
 
 abstract class Gear implements _i1.SerializableModel {
   Gear._({
@@ -21,6 +22,7 @@ abstract class Gear implements _i1.SerializableModel {
     this.model,
     this.friendlyName,
     this.photoUrls,
+    this.junctions,
   });
 
   factory Gear({
@@ -31,6 +33,7 @@ abstract class Gear implements _i1.SerializableModel {
     String? model,
     String? friendlyName,
     List<Uri>? photoUrls,
+    List<_i3.RentalJunction>? junctions,
   }) = _GearImpl;
 
   factory Gear.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -43,6 +46,9 @@ abstract class Gear implements _i1.SerializableModel {
       friendlyName: jsonSerialization['friendlyName'] as String?,
       photoUrls: (jsonSerialization['photoUrls'] as List?)
           ?.map((e) => _i1.UriJsonExtension.fromJson(e))
+          .toList(),
+      junctions: (jsonSerialization['junctions'] as List?)
+          ?.map((e) => _i3.RentalJunction.fromJson((e as Map<String, dynamic>)))
           .toList(),
     );
   }
@@ -64,6 +70,8 @@ abstract class Gear implements _i1.SerializableModel {
 
   List<Uri>? photoUrls;
 
+  List<_i3.RentalJunction>? junctions;
+
   /// Returns a shallow copy of this [Gear]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
@@ -75,6 +83,7 @@ abstract class Gear implements _i1.SerializableModel {
     String? model,
     String? friendlyName,
     List<Uri>? photoUrls,
+    List<_i3.RentalJunction>? junctions,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -87,6 +96,8 @@ abstract class Gear implements _i1.SerializableModel {
       if (friendlyName != null) 'friendlyName': friendlyName,
       if (photoUrls != null)
         'photoUrls': photoUrls?.toJson(valueToJson: (v) => v.toJson()),
+      if (junctions != null)
+        'junctions': junctions?.toJson(valueToJson: (v) => v.toJson()),
     };
   }
 
@@ -107,6 +118,7 @@ class _GearImpl extends Gear {
     String? model,
     String? friendlyName,
     List<Uri>? photoUrls,
+    List<_i3.RentalJunction>? junctions,
   }) : super._(
           id: id,
           clubId: clubId,
@@ -115,6 +127,7 @@ class _GearImpl extends Gear {
           model: model,
           friendlyName: friendlyName,
           photoUrls: photoUrls,
+          junctions: junctions,
         );
 
   /// Returns a shallow copy of this [Gear]
@@ -129,6 +142,7 @@ class _GearImpl extends Gear {
     Object? model = _Undefined,
     Object? friendlyName = _Undefined,
     Object? photoUrls = _Undefined,
+    Object? junctions = _Undefined,
   }) {
     return Gear(
       id: id is int? ? id : this.id,
@@ -140,6 +154,9 @@ class _GearImpl extends Gear {
       photoUrls: photoUrls is List<Uri>?
           ? photoUrls
           : this.photoUrls?.map((e0) => e0).toList(),
+      junctions: junctions is List<_i3.RentalJunction>?
+          ? junctions
+          : this.junctions?.map((e0) => e0.copyWith()).toList(),
     );
   }
 }
