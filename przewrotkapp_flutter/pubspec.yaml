@@ -27,6 +27,8 @@ dependencies:
   serverpod_flutter: 2.9.1
   przewrotkapp_client:
     path: ../przewrotkapp_client
+  serverpod_auth_shared_flutter: 2.9.1
+  serverpod_auth_email_flutter: 2.9.1
   provider: ^6.1.5+1
 
   calendar_view: ^1.4.0

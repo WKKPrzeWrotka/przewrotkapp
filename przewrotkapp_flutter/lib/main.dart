@@ -3,11 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_flutter/ui/pages/calendar_page.dart';
 import 'package:przewrotkapp_flutter/ui/pages/gear_browser/gear_browser_page.dart';
+import 'package:przewrotkapp_flutter/ui/pages/user/user_page.dart';
+import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
 late String serverUrl;
+late Client _client;
+late SessionManager _sessionManager;
 
-void main() {
+void main() async {
   // When you are running the app on a physical device, you need to set the
   // server URL to the IP address of your computer. You can find the IP
   // address by running `ipconfig` on Windows or `ifconfig` on Mac/Linux.
@@ -18,6 +22,13 @@ void main() {
       ? 'https://api.app.przewrotka.lastgimbus.com/'
       : serverUrlFromEnv;
 
+  _client = Client(
+    serverUrl,
+    authenticationKeyManager: FlutterAuthenticationKeyManager(),
+  )..connectivityMonitor = FlutterConnectivityMonitor();
+  _sessionManager = SessionManager(caller: _client.modules.auth);
+  await _sessionManager.initialize();
+
   runApp(const MyApp());
 }
 
@@ -26,13 +37,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'PrzeWrotkApp',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: Provider(
-          create: (_) => Client(serverUrl)
-            ..connectivityMonitor = FlutterConnectivityMonitor(),
-          child: const MyHomePage(title: 'PrzeWrotkApp')),
+    return MultiProvider(
+      providers: [
+        Provider<Client>(create: (_) => _client),
+        ChangeNotifierProvider<SessionManager>(create: (_) => _sessionManager),
+      ],
+      child: MaterialApp(
+        title: 'PrzeWrotkApp',
+        theme: ThemeData(primarySwatch: Colors.blue),
+        home: const MyHomePage(title: 'PrzeWrotkApp'),
+      ),
     );
   }
 }
@@ -62,7 +76,7 @@ class MyHomePageState extends State<MyHomePage> {
       body: [
         GearBrowserPage(),
         CalendarPage(),
-        Placeholder(),
+        UserPage(),
       ][_currentPage.index],
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentPage.index,

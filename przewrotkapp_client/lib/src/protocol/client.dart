@@ -26,7 +26,8 @@ import 'package:przewrotkapp_client/src/protocol/gear/gear_spraydeck.dart'
 import 'package:przewrotkapp_client/src/protocol/gear/gear_throwbag.dart'
     as _i12;
 import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i13;
-import 'protocol.dart' as _i14;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i14;
+import 'protocol.dart' as _i15;
 
 /// {@category Endpoint}
 class EndpointGearRead extends _i1.EndpointRef {
@@ -136,6 +137,14 @@ class EndpointRental extends _i1.EndpointRef {
       );
 }
 
+class Modules {
+  Modules(Client client) {
+    auth = _i14.Caller(client);
+  }
+
+  late final _i14.Caller auth;
+}
+
 class Client extends _i1.ServerpodClientShared {
   Client(
     String host, {
@@ -152,7 +161,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i14.Protocol(),
+          _i15.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -164,11 +173,14 @@ class Client extends _i1.ServerpodClientShared {
         ) {
     gearRead = EndpointGearRead(this);
     rental = EndpointRental(this);
+    modules = Modules(this);
   }
 
   late final EndpointGearRead gearRead;
 
   late final EndpointRental rental;
+
+  late final Modules modules;
 
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
@@ -177,5 +189,6 @@ class Client extends _i1.ServerpodClientShared {
       };
 
   @override
-  Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {};
+  Map<String, _i1.ModuleEndpointCaller> get moduleLookup =>
+      {'auth': modules.auth};
 }

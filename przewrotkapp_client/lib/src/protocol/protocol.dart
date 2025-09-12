@@ -45,6 +45,7 @@ import 'package:przewrotkapp_client/src/protocol/gear/gear_spraydeck.dart'
 import 'package:przewrotkapp_client/src/protocol/gear/gear_throwbag.dart'
     as _i31;
 import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i32;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i33;
 export 'exceptions/kayak_exception.dart';
 export 'gear/clothing_type.dart';
 export 'gear/gear.dart';
@@ -266,6 +267,9 @@ class Protocol extends _i1.SerializationManager {
       return (data as List).map((e) => deserialize<_i32.Rental>(e)).toList()
           as T;
     }
+    try {
+      return _i33.Protocol().deserialize<T>(data, t);
+    } on _i1.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
 
@@ -332,6 +336,10 @@ class Protocol extends _i1.SerializationManager {
     }
     if (data is _i21.RentalJunction) {
       return 'RentalJunction';
+    }
+    className = _i33.Protocol().getClassNameForObject(data);
+    if (className != null) {
+      return 'serverpod_auth.$className';
     }
     return null;
   }
@@ -401,6 +409,10 @@ class Protocol extends _i1.SerializationManager {
     }
     if (dataClassName == 'RentalJunction') {
       return deserialize<_i21.RentalJunction>(data['data']);
+    }
+    if (dataClassName.startsWith('serverpod_auth.')) {
+      data['className'] = dataClassName.substring(15);
+      return _i33.Protocol().deserializeByClassName(data);
     }
     return super.deserializeByClassName(data);
   }
