@@ -7,7 +7,7 @@
 # Configuration for the main API server.
 apiServer:
   port: 42069
-  publicHost: api.app.przewrotkapp.com
+  publicHost: api.app.przewrotka.lastgimbus.com
   publicPort: 443
   publicScheme: https
 
@@ -21,7 +21,7 @@ insightsServer:
 # Configuration for the web server.
 webServer:
   port: 42070
-  publicHost: api.app.przewrotkapp.com
+  publicHost: api.app.przewrotka.lastgimbus.com
   publicPort: 443
   publicScheme: https
 
