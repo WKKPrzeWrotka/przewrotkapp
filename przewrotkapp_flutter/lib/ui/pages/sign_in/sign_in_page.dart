@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:serverpod_auth_email_flutter/serverpod_auth_email_flutter.dart';
@@ -13,7 +14,7 @@ class SignInPage extends StatelessWidget {
       body: Center(
         child: SignInWithEmailButton(
           caller: context.read<Client>().modules.auth,
-          onSignedIn: Navigator.of(context).pop,
+          onSignedIn: () => context.go('/'),
         ),
       ),
     );

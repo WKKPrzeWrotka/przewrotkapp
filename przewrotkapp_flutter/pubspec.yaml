@@ -24,6 +24,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  go_router: ^16.2.1
   serverpod_flutter: 2.9.1
   przewrotkapp_client:
     path: ../przewrotkapp_client

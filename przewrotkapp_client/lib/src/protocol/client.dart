@@ -137,6 +137,21 @@ class EndpointRental extends _i1.EndpointRef {
       );
 }
 
+/// {@category Endpoint}
+class EndpointUser extends _i1.EndpointRef {
+  EndpointUser(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'user';
+
+  _i2.Future<_i14.UserInfoPublic> getUserInfo(int userId) =>
+      caller.callServerEndpoint<_i14.UserInfoPublic>(
+        'user',
+        'getUserInfo',
+        {'userId': userId},
+      );
+}
+
 class Modules {
   Modules(Client client) {
     auth = _i14.Caller(client);
@@ -173,6 +188,7 @@ class Client extends _i1.ServerpodClientShared {
         ) {
     gearRead = EndpointGearRead(this);
     rental = EndpointRental(this);
+    user = EndpointUser(this);
     modules = Modules(this);
   }
 
@@ -180,12 +196,15 @@ class Client extends _i1.ServerpodClientShared {
 
   late final EndpointRental rental;
 
+  late final EndpointUser user;
+
   late final Modules modules;
 
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'gearRead': gearRead,
         'rental': rental,
+        'user': user,
       };
 
   @override

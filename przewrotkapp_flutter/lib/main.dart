@@ -1,8 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_flutter/ui/pages/calendar_page.dart';
 import 'package:przewrotkapp_flutter/ui/pages/gear_browser/gear_browser_page.dart';
+import 'package:przewrotkapp_flutter/ui/pages/sign_in/sign_in_page.dart';
 import 'package:przewrotkapp_flutter/ui/pages/user/user_page.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
@@ -10,6 +14,7 @@ import 'package:serverpod_flutter/serverpod_flutter.dart';
 late String serverUrl;
 late Client _client;
 late SessionManager _sessionManager;
+late GoRouter _router;
 
 void main() async {
   // When you are running the app on a physical device, you need to set the
@@ -29,6 +34,62 @@ void main() async {
   _sessionManager = SessionManager(caller: _client.modules.auth);
   await _sessionManager.initialize();
 
+  if (kIsWeb) {
+    usePathUrlStrategy();
+  }
+
+  _router = GoRouter(
+    redirect: (context, state) {
+      if (!context.read<SessionManager>().isSignedIn) {
+        return '/signin';
+      } else {
+        return null;
+      }
+    },
+    routes: [
+      GoRoute(
+        path: '/',
+        redirect: (_, __) => '/gear',
+      ),
+      ShellRoute(
+        builder: (context, state, child) {
+          return MyHomePage(child: child);
+        },
+        routes: [
+          GoRoute(
+            path: '/gear',
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: GearBrowserPage()),
+          ),
+          GoRoute(
+            path: '/calendar',
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: CalendarPage()),
+          ),
+          GoRoute(
+            path: '/user/:userId',
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: UserPage(
+                userId: int.parse(state.pathParameters['userId']!),
+              ),
+            ),
+          ),
+        ],
+      ),
+      GoRoute(
+        path: '/signin',
+        redirect: (context, __) {
+          if (context.read<SessionManager>().isSignedIn) {
+            return '/';
+          } else {
+            return null;
+          }
+        },
+        builder: (context, state) => SignInPage(),
+      ),
+    ],
+  );
+
   runApp(const MyApp());
 }
 
@@ -42,19 +103,19 @@ class MyApp extends StatelessWidget {
         Provider<Client>(create: (_) => _client),
         ChangeNotifierProvider<SessionManager>(create: (_) => _sessionManager),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routerConfig: _router,
         title: 'PrzeWrotkApp',
         theme: ThemeData(primarySwatch: Colors.blue),
-        home: const MyHomePage(title: 'PrzeWrotkApp'),
       ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  final Widget child;
 
-  final String title;
+  const MyHomePage({super.key, required this.child});
 
   @override
   MyHomePageState createState() => MyHomePageState();
@@ -72,12 +133,8 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: [
-        GearBrowserPage(),
-        CalendarPage(),
-        UserPage(),
-      ][_currentPage.index],
+      appBar: AppBar(title: Text('PrzeWrotkApp')),
+      body: widget.child,
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentPage.index,
         destinations: [
@@ -89,37 +146,12 @@ class MyHomePageState extends State<MyHomePage> {
         ],
         onDestinationSelected: (i) {
           _currentPage = _HomePages.values[i];
-          setState(() {});
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (_) => Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ElevatedButton(
-                  onPressed: () async {
-                    final client = context.read<Client>();
-                    await client.rental.rentGear(
-                      [
-                        (await client.gearRead.getAllKayaks())
-                            .firstWhere((e) => e.gear!.clubId == "KK-32")
-                            .gear!,
-                        (await client.gearRead.getAllKayaks())
-                            .firstWhere((e) => e.gear!.clubId == "KK-1")
-                            .gear!,
-                      ],
-                      DateTime(2025, 9, 11, 6),
-                      DateTime(2025, 9, 14, 23),
-                    );
-                  },
-                  child: Text("Add"),
-                ),
-              ],
-            ),
-          );
+          context.go(switch (_currentPage) {
+            _HomePages.gearBrowser => '/gear',
+            _HomePages.calendar => '/calendar',
+            _HomePages.userAccount =>
+              '/user/${context.read<SessionManager>().signedInUser!.id}',
+          });
         },
       ),
     );

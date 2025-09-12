@@ -30,6 +30,7 @@ import 'package:przewrotkapp_server/src/generated/gear/gear_spraydeck.dart'
 import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
     as _i13;
 import 'package:przewrotkapp_server/src/generated/rental/rental.dart' as _i14;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i15;
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
 import 'package:przewrotkapp_server/src/generated/endpoints.dart';
 export 'package:serverpod_test/serverpod_test_public_exports.dart';
@@ -119,6 +120,8 @@ class TestEndpoints {
   late final _GearReadEndpoint gearRead;
 
   late final _RentalEndpoint rental;
+
+  late final _UserEndpoint user;
 }
 
 class _InternalTestEndpoints extends TestEndpoints
@@ -133,6 +136,10 @@ class _InternalTestEndpoints extends TestEndpoints
       serializationManager,
     );
     rental = _RentalEndpoint(
+      endpoints,
+      serializationManager,
+    );
+    user = _UserEndpoint(
       endpoints,
       serializationManager,
     );
@@ -485,6 +492,46 @@ class _RentalEndpoint {
           _localUniqueSession,
           _localCallContext.arguments,
         ) as _i3.Future<void>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+}
+
+class _UserEndpoint {
+  _UserEndpoint(
+    this._endpointDispatch,
+    this._serializationManager,
+  );
+
+  final _i2.EndpointDispatch _endpointDispatch;
+
+  final _i2.SerializationManager _serializationManager;
+
+  _i3.Future<_i15.UserInfoPublic> getUserInfo(
+    _i1.TestSessionBuilder sessionBuilder,
+    int userId,
+  ) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'user',
+        method: 'getUserInfo',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'user',
+          methodName: 'getUserInfo',
+          parameters: _i1.testObjectToJson({'userId': userId}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<_i15.UserInfoPublic>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();

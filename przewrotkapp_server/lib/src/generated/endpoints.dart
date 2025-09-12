@@ -12,8 +12,9 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../gear_read_endpoint.dart' as _i2;
 import '../rental_endpoint.dart' as _i3;
-import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i4;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i5;
+import '../user_endpoint.dart' as _i4;
+import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i5;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i6;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -29,6 +30,12 @@ class Endpoints extends _i1.EndpointDispatch {
         ..initialize(
           server,
           'rental',
+          null,
+        ),
+      'user': _i4.UserEndpoint()
+        ..initialize(
+          server,
+          'user',
           null,
         ),
     };
@@ -157,7 +164,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<List<_i4.Gear>>(),
+              type: _i1.getType<List<_i5.Gear>>(),
               nullable: false,
             ),
             'from': _i1.ParameterDescription(
@@ -184,6 +191,30 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
-    modules['serverpod_auth'] = _i5.Endpoints()..initializeEndpoints(server);
+    connectors['user'] = _i1.EndpointConnector(
+      name: 'user',
+      endpoint: endpoints['user']!,
+      methodConnectors: {
+        'getUserInfo': _i1.MethodConnector(
+          name: 'getUserInfo',
+          params: {
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i4.UserEndpoint).getUserInfo(
+            session,
+            params['userId'],
+          ),
+        )
+      },
+    );
+    modules['serverpod_auth'] = _i6.Endpoints()..initializeEndpoints(server);
   }
 }

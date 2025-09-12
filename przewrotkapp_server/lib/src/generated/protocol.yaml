@@ -12,3 +12,5 @@ gearRead:
 rental:
   - getAllRentals:
   - rentGear:
+user:
+  - getUserInfo:
