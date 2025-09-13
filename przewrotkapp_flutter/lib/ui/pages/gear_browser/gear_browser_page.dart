@@ -87,33 +87,13 @@ class _GearBrowserPageState extends State<GearBrowserPage> {
         );
 
     return gearSelection.isNotEmpty
-        ? ListView(
+        ? ListView.builder(
             padding: const EdgeInsets.all(16),
-            children: [
-              SearchBar(),
-              Row(
-                children: [
-                  FilterChip(
-                    label: Text(
-                      typeChoiceSet.isEmpty
-                          ? "Type"
-                          : typeChoiceSet.map(gearTypeToEmoji).join("+"),
-                    ),
-                    onSelected: (e) => _showSheet(),
-                    selected: typeChoiceSet.isNotEmpty,
-                    deleteIcon: Icon(Icons.arrow_drop_down),
-                    onDeleted: _showSheet,
-                    // avatar: Icon(Icons.account_box),
-                    deleteButtonTooltipMessage: "Select",
-                  ),
-                ],
-              ),
-              for ((Gear, dynamic) gear in gearSelection)
-                GearListing(
-                  gear: gear.$1,
-                  subtypeData: gear.$2,
-                ),
-            ],
+            itemCount: gearSelection.length,
+            itemBuilder: (context, i) => GearListing(
+              gear: gearSelection[i].$1,
+              subtypeData: gearSelection[i].$2,
+            ),
           )
         : Placeholder();
   }
