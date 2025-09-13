@@ -76,6 +76,13 @@ void run(List<String> args) async {
     '/*',
   );
 
+  await insertPhotoUrls(
+    await pod.createSession(),
+    Uri.parse('https://static.app.przewrotka.lastgimbus.com/gear_photos/'),
+    Directory(
+        '/var/www/html/static.app.przewrotka.lastgimbus.com/gear_photos'),
+  );
+
   // Start the server.
   await pod.start();
 }

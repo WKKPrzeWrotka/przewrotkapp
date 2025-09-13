@@ -21,9 +21,8 @@ Future<void> insertPhotoUrls(
       print('Did not find $clubId');
       continue;
     }
-    final List<Uri> uris = folder
-        .listSync()
-        .whereType<File>()
+    final List<Uri> uris = (folder.listSync().whereType<File>().toList()
+          ..sort((a, b) => basename(a.path).compareTo(basename(b.path))))
         .map((f) => urlBase.resolve('$clubId/${basename(f.path)}'))
         .toList();
     print('URIs for $clubId: $uris');
