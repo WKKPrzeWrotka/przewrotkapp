@@ -27,6 +27,6 @@ Future<void> insertPhotoUrls(
         .map((f) => urlBase.resolve('$clubId/${basename(f.path)}'))
         .toList();
     print('URIs for $clubId: $uris');
-    // TODO: Actually insert
+    await Gear.db.updateRow(session, gear.copyWith(photoUrls: uris));
   }
 }

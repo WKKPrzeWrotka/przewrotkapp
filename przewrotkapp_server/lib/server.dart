@@ -80,7 +80,7 @@ void run(List<String> args) async {
     await pod.createSession(),
     Uri.parse('https://static.app.przewrotka.lastgimbus.com/gear_photos/'),
     Directory(
-        '/home/matiii/dev/proj/flutter/przewrotkapp/przewrotkapp_server/gear_photos'),
+        '/var/www/html/static.app.przewrotka.lastgimbus.com/gear_photos'),
   );
 
   // Start the server.
