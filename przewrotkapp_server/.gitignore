@@ -16,3 +16,5 @@ config/firebase_service_account_key.json
 
 # NixOS
 result
+
+gear_photos/

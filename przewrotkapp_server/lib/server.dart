@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
+import 'package:przewrotkapp_server/src/excel_migration/insert_photo_urls.dart';
 import 'package:przewrotkapp_server/src/web/routes/root.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as auth;
@@ -71,6 +74,13 @@ void run(List<String> args) async {
   pod.webServer.addRoute(
     RouteStaticDirectory(serverDirectory: 'static', basePath: '/'),
     '/*',
+  );
+
+  await insertPhotoUrls(
+    await pod.createSession(),
+    Uri.parse('https://static.app.przewrotka.lastgimbus.com/gear_photos/'),
+    Directory(
+        '/home/matiii/dev/proj/flutter/przewrotkapp/przewrotkapp_server/gear_photos'),
   );
 
   // Start the server.

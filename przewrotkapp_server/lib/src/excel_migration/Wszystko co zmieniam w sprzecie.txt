@@ -10,3 +10,7 @@ Wszystko co zmieniam w excelkach
 - OP-11 jako L
 - OP-10 jako L bo tak - sprawdzić to!
 - OP-2 jako XL
+
+Zmienilem też w zdjęciach:
+- wywaliłem wszystko co nie ma klubowego id - lampki, hamak itp
+- wywaliłem rzeczy które miały złe id - albo nie podpisane albo duplikaty (KS-20_prim)
