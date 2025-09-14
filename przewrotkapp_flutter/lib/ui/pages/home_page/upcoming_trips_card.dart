@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class UpcomingTripsCard extends StatefulWidget {
   const UpcomingTripsCard({super.key});
@@ -22,7 +23,10 @@ class _UpcomingTripsCardState extends State<UpcomingTripsCard> {
             Text("Najbliższe wyjazdy:", style: tt.headlineSmall),
             Text('- Kolna 03.10 - 05.10'),
             Text('- dawajcie na troje 27.09 - 28.09'),
-            ElevatedButton(onPressed: () {}, child: Text('Nowy wyjazd!')),
+            ElevatedButton(
+              onPressed: () => context.push('/newRental'),
+              child: Text('Nowy wyjazd!'),
+            ),
             ElevatedButton(onPressed: () {}, child: Text('Zobacz kalendarz')),
           ],
         ),

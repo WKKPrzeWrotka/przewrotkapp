@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:przewrotkapp_flutter/ui/pages/new_rental_page.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 import 'ui/pages/calendar_page.dart';
@@ -36,6 +37,10 @@ final router = GoRouter(
           state.pathParameters['userId']!,
         ),
       ),
+    ),
+    GoRoute(
+      path: '/newRental',
+      builder: (context, state) => NewRentalPage(),
     ),
     GoRoute(
       path: '/signin',
