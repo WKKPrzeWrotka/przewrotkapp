@@ -34,7 +34,11 @@ class _NewRentalPageState extends State<NewRentalPage> {
         return fullName.contains(t);
       }
       return true;
-    }).toList();
+    }).toList()
+      ..sort((a, b) {
+        final l = a.clubId.length.compareTo(b.clubId.length);
+        return l != 0 ? l : a.clubId.compareTo(b.clubId);
+      });
     setState(() {});
   }
 
