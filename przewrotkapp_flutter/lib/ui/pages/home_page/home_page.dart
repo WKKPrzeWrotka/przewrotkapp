@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:przewrotkapp_flutter/ui/pages/home_page/favourite_gear_card.dart';
+import 'package:przewrotkapp_flutter/ui/pages/home_page/hours_card.dart';
+import 'package:przewrotkapp_flutter/ui/pages/home_page/upcoming_trips_card.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 class HomePage extends StatelessWidget {
@@ -27,6 +30,14 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
+        ],
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(8),
+        children: [
+          HoursCard(),
+          UpcomingTripsCard(),
+          FavouriteGearCard(),
         ],
       ),
     );
