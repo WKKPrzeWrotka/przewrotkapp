@@ -112,8 +112,12 @@ class _NewRentalPageState extends State<NewRentalPage> {
               filterGear();
             },
           ),
-          SizedBox(
+          Container(
             height: 300,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 1.5),
+              borderRadius: BorderRadius.circular(12),
+            ),
             child: FutureBuilder(
               future: allGearCmpl.future,
               builder: (context, snap) {
@@ -128,6 +132,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
               },
             ),
           ),
+          SizedBox(height: 128),
         ],
       ),
     );
