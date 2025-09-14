@@ -32,28 +32,31 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     final sm = context.watch<SessionManager>();
     final isYou = sm.signedInUser?.id == widget.userId;
-    return FutureBuilder(
-      future: _userCmpl.future,
-      builder: (context, snap) {
-        if (!snap.hasData) return Placeholder();
-        final user = snap.data!;
-        return Column(
-          children: [
-            isYou
-                ? SizedBox(
-                    width: 128,
-                    height: 128,
-                    child: UserImageButton(sessionManager: sm, compact: false),
-                  )
-                : CircularUserImage(
-                    userInfoPublic: user,
-                    size: 128,
-                  ),
-            Text(
-                '${user.userName ?? 'null'}${user.fullName != null ? '(${user.fullName})' : ''}'),
-          ],
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(title: Text('User page :>'), automaticallyImplyLeading: true,),
+      body: FutureBuilder(
+        future: _userCmpl.future,
+        builder: (context, snap) {
+          if (!snap.hasData) return Placeholder();
+          final user = snap.data!;
+          return Column(
+            children: [
+              isYou
+                  ? SizedBox(
+                      width: 128,
+                      height: 128,
+                      child: UserImageButton(sessionManager: sm, compact: false),
+                    )
+                  : CircularUserImage(
+                      userInfoPublic: user,
+                      size: 128,
+                    ),
+              Text(
+                  '${user.userName ?? 'null'}${user.fullName != null ? '(${user.fullName})' : ''}'),
+            ],
+          );
+        },
+      ),
     );
   }
 }
