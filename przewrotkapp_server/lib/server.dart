@@ -61,6 +61,12 @@ void run(List<String> args) async {
       ),
       validationCodeLength: 4,
       minPasswordLength: 6,
+      onUserCreated: (session, userInfo) async {
+        await ExtraUserInfo.db.insertRow(
+          session,
+          ExtraUserInfo(userInfoId: userInfo.id!, socialLinks: {}),
+        );
+      },
     ),
   );
 

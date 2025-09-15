@@ -14,3 +14,4 @@ rental:
   - rentGear:
 user:
   - getUserInfo:
+  - getExtraUserInfo:

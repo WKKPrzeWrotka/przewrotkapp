@@ -27,7 +27,9 @@ import 'package:przewrotkapp_client/src/protocol/gear/gear_throwbag.dart'
     as _i12;
 import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i13;
 import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i14;
-import 'protocol.dart' as _i15;
+import 'package:przewrotkapp_client/src/protocol/user/extra_user_info.dart'
+    as _i15;
+import 'protocol.dart' as _i16;
 
 /// {@category Endpoint}
 class EndpointGearRead extends _i1.EndpointRef {
@@ -150,6 +152,13 @@ class EndpointUser extends _i1.EndpointRef {
         'getUserInfo',
         {'userId': userId},
       );
+
+  _i2.Future<_i15.ExtraUserInfo> getExtraUserInfo([int? userId]) =>
+      caller.callServerEndpoint<_i15.ExtraUserInfo>(
+        'user',
+        'getExtraUserInfo',
+        {'userId': userId},
+      );
 }
 
 class Modules {
@@ -176,7 +185,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i15.Protocol(),
+          _i16.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,

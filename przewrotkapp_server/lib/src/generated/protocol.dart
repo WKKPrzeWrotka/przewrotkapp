@@ -32,23 +32,25 @@ import 'gear/pfd_type.dart' as _i20;
 import 'gear/spraydeck_deck_size.dart' as _i21;
 import 'rental/rental.dart' as _i22;
 import 'rental/rental_junction.dart' as _i23;
-import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i24;
-import 'package:przewrotkapp_server/src/generated/gear/gear_belt.dart' as _i25;
+import 'user/extra_user_info.dart' as _i24;
+import 'user/favourites.dart' as _i25;
+import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i26;
+import 'package:przewrotkapp_server/src/generated/gear/gear_belt.dart' as _i27;
 import 'package:przewrotkapp_server/src/generated/gear/gear_clothing.dart'
-    as _i26;
-import 'package:przewrotkapp_server/src/generated/gear/gear_floatbag.dart'
-    as _i27;
-import 'package:przewrotkapp_server/src/generated/gear/gear_helmet.dart'
     as _i28;
-import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i29;
-import 'package:przewrotkapp_server/src/generated/gear/gear_paddle.dart'
+import 'package:przewrotkapp_server/src/generated/gear/gear_floatbag.dart'
+    as _i29;
+import 'package:przewrotkapp_server/src/generated/gear/gear_helmet.dart'
     as _i30;
-import 'package:przewrotkapp_server/src/generated/gear/gear_pfd.dart' as _i31;
-import 'package:przewrotkapp_server/src/generated/gear/gear_spraydeck.dart'
+import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i31;
+import 'package:przewrotkapp_server/src/generated/gear/gear_paddle.dart'
     as _i32;
+import 'package:przewrotkapp_server/src/generated/gear/gear_pfd.dart' as _i33;
+import 'package:przewrotkapp_server/src/generated/gear/gear_spraydeck.dart'
+    as _i34;
 import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
-    as _i33;
-import 'package:przewrotkapp_server/src/generated/rental/rental.dart' as _i34;
+    as _i35;
+import 'package:przewrotkapp_server/src/generated/rental/rental.dart' as _i36;
 export 'exceptions/kayak_exception.dart';
 export 'gear/clothing_type.dart';
 export 'gear/gear.dart';
@@ -69,6 +71,8 @@ export 'gear/pfd_type.dart';
 export 'gear/spraydeck_deck_size.dart';
 export 'rental/rental.dart';
 export 'rental/rental_junction.dart';
+export 'user/extra_user_info.dart';
+export 'user/favourites.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
   Protocol._();
@@ -78,6 +82,168 @@ class Protocol extends _i1.SerializationManagerServer {
   static final Protocol _instance = Protocol._();
 
   static final List<_i2.TableDefinition> targetTableDefinitions = [
+    _i2.TableDefinition(
+      name: 'extra_user_infos',
+      dartName: 'ExtraUserInfo',
+      schema: 'public',
+      module: 'przewrotkapp',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'extra_user_infos_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'userInfoId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'phoneNumber',
+          columnType: _i2.ColumnType.text,
+          isNullable: true,
+          dartType: 'String?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'discordUsername',
+          columnType: _i2.ColumnType.text,
+          isNullable: true,
+          dartType: 'String?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'socialLinks',
+          columnType: _i2.ColumnType.json,
+          isNullable: false,
+          dartType: 'Map<String,Uri>',
+        ),
+      ],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'extra_user_infos_fk_0',
+          columns: ['userInfoId'],
+          referenceTable: 'serverpod_user_info',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.cascade,
+          matchType: null,
+        )
+      ],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'extra_user_infos_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'extra_user_info_user_info_unique_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'userInfoId',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
+      name: 'favourites_junctions',
+      dartName: 'FavouritesJunction',
+      schema: 'public',
+      module: 'przewrotkapp',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'favourites_junctions_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'gearId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'extraUserInfoId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+      ],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'favourites_junctions_fk_0',
+          columns: ['gearId'],
+          referenceTable: 'gear',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.cascade,
+          matchType: null,
+        ),
+        _i2.ForeignKeyDefinition(
+          constraintName: 'favourites_junctions_fk_1',
+          columns: ['extraUserInfoId'],
+          referenceTable: 'extra_user_infos',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.cascade,
+          matchType: null,
+        ),
+      ],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'favourites_junctions_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'favourites_junctions_index_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'gearId',
+            ),
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'extraUserInfoId',
+            ),
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
     _i2.TableDefinition(
       name: 'gear',
       dartName: 'Gear',
@@ -1063,6 +1229,12 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i23.RentalJunction) {
       return _i23.RentalJunction.fromJson(data) as T;
     }
+    if (t == _i24.ExtraUserInfo) {
+      return _i24.ExtraUserInfo.fromJson(data) as T;
+    }
+    if (t == _i25.FavouritesJunction) {
+      return _i25.FavouritesJunction.fromJson(data) as T;
+    }
     if (t == _i1.getType<_i4.KayakException?>()) {
       return (data != null ? _i4.KayakException.fromJson(data) : null) as T;
     }
@@ -1123,6 +1295,13 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i23.RentalJunction?>()) {
       return (data != null ? _i23.RentalJunction.fromJson(data) : null) as T;
     }
+    if (t == _i1.getType<_i24.ExtraUserInfo?>()) {
+      return (data != null ? _i24.ExtraUserInfo.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i25.FavouritesJunction?>()) {
+      return (data != null ? _i25.FavouritesJunction.fromJson(data) : null)
+          as T;
+    }
     if (t == _i1.getType<List<Uri>?>()) {
       return (data != null
           ? (data as List).map((e) => deserialize<Uri>(e)).toList()
@@ -1135,6 +1314,13 @@ class Protocol extends _i1.SerializationManagerServer {
               .toList()
           : null) as T;
     }
+    if (t == _i1.getType<List<_i25.FavouritesJunction>?>()) {
+      return (data != null
+          ? (data as List)
+              .map((e) => deserialize<_i25.FavouritesJunction>(e))
+              .toList()
+          : null) as T;
+    }
     if (t == _i1.getType<List<_i23.RentalJunction>?>()) {
       return (data != null
           ? (data as List)
@@ -1142,51 +1328,62 @@ class Protocol extends _i1.SerializationManagerServer {
               .toList()
           : null) as T;
     }
-    if (t == List<_i24.Gear>) {
-      return (data as List).map((e) => deserialize<_i24.Gear>(e)).toList() as T;
+    if (t == Map<String, Uri>) {
+      return (data as Map).map(
+          (k, v) => MapEntry(deserialize<String>(k), deserialize<Uri>(v))) as T;
     }
-    if (t == List<_i25.GearBelt>) {
-      return (data as List).map((e) => deserialize<_i25.GearBelt>(e)).toList()
+    if (t == _i1.getType<List<_i25.FavouritesJunction>?>()) {
+      return (data != null
+          ? (data as List)
+              .map((e) => deserialize<_i25.FavouritesJunction>(e))
+              .toList()
+          : null) as T;
+    }
+    if (t == List<_i26.Gear>) {
+      return (data as List).map((e) => deserialize<_i26.Gear>(e)).toList() as T;
+    }
+    if (t == List<_i27.GearBelt>) {
+      return (data as List).map((e) => deserialize<_i27.GearBelt>(e)).toList()
           as T;
     }
-    if (t == List<_i26.GearClothing>) {
+    if (t == List<_i28.GearClothing>) {
       return (data as List)
-          .map((e) => deserialize<_i26.GearClothing>(e))
+          .map((e) => deserialize<_i28.GearClothing>(e))
           .toList() as T;
     }
-    if (t == List<_i27.GearFloatbag>) {
+    if (t == List<_i29.GearFloatbag>) {
       return (data as List)
-          .map((e) => deserialize<_i27.GearFloatbag>(e))
+          .map((e) => deserialize<_i29.GearFloatbag>(e))
           .toList() as T;
     }
-    if (t == List<_i28.GearHelmet>) {
-      return (data as List).map((e) => deserialize<_i28.GearHelmet>(e)).toList()
+    if (t == List<_i30.GearHelmet>) {
+      return (data as List).map((e) => deserialize<_i30.GearHelmet>(e)).toList()
           as T;
     }
-    if (t == List<_i29.GearKayak>) {
-      return (data as List).map((e) => deserialize<_i29.GearKayak>(e)).toList()
+    if (t == List<_i31.GearKayak>) {
+      return (data as List).map((e) => deserialize<_i31.GearKayak>(e)).toList()
           as T;
     }
-    if (t == List<_i30.GearPaddle>) {
-      return (data as List).map((e) => deserialize<_i30.GearPaddle>(e)).toList()
+    if (t == List<_i32.GearPaddle>) {
+      return (data as List).map((e) => deserialize<_i32.GearPaddle>(e)).toList()
           as T;
     }
-    if (t == List<_i31.GearPfd>) {
-      return (data as List).map((e) => deserialize<_i31.GearPfd>(e)).toList()
+    if (t == List<_i33.GearPfd>) {
+      return (data as List).map((e) => deserialize<_i33.GearPfd>(e)).toList()
           as T;
     }
-    if (t == List<_i32.GearSpraydeck>) {
+    if (t == List<_i34.GearSpraydeck>) {
       return (data as List)
-          .map((e) => deserialize<_i32.GearSpraydeck>(e))
+          .map((e) => deserialize<_i34.GearSpraydeck>(e))
           .toList() as T;
     }
-    if (t == List<_i33.GearThrowbag>) {
+    if (t == List<_i35.GearThrowbag>) {
       return (data as List)
-          .map((e) => deserialize<_i33.GearThrowbag>(e))
+          .map((e) => deserialize<_i35.GearThrowbag>(e))
           .toList() as T;
     }
-    if (t == List<_i34.Rental>) {
-      return (data as List).map((e) => deserialize<_i34.Rental>(e)).toList()
+    if (t == List<_i36.Rental>) {
+      return (data as List).map((e) => deserialize<_i36.Rental>(e)).toList()
           as T;
     }
     try {
@@ -1261,6 +1458,12 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (data is _i23.RentalJunction) {
       return 'RentalJunction';
+    }
+    if (data is _i24.ExtraUserInfo) {
+      return 'ExtraUserInfo';
+    }
+    if (data is _i25.FavouritesJunction) {
+      return 'FavouritesJunction';
     }
     className = _i2.Protocol().getClassNameForObject(data);
     if (className != null) {
@@ -1339,6 +1542,12 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName == 'RentalJunction') {
       return deserialize<_i23.RentalJunction>(data['data']);
     }
+    if (dataClassName == 'ExtraUserInfo') {
+      return deserialize<_i24.ExtraUserInfo>(data['data']);
+    }
+    if (dataClassName == 'FavouritesJunction') {
+      return deserialize<_i25.FavouritesJunction>(data['data']);
+    }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
       return _i2.Protocol().deserializeByClassName(data);
@@ -1389,6 +1598,10 @@ class Protocol extends _i1.SerializationManagerServer {
         return _i22.Rental.t;
       case _i23.RentalJunction:
         return _i23.RentalJunction.t;
+      case _i24.ExtraUserInfo:
+        return _i24.ExtraUserInfo.t;
+      case _i25.FavouritesJunction:
+        return _i25.FavouritesJunction.t;
     }
     return null;
   }

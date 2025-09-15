@@ -31,6 +31,8 @@ import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
     as _i13;
 import 'package:przewrotkapp_server/src/generated/rental/rental.dart' as _i14;
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i15;
+import 'package:przewrotkapp_server/src/generated/user/extra_user_info.dart'
+    as _i16;
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
 import 'package:przewrotkapp_server/src/generated/endpoints.dart';
 export 'package:serverpod_test/serverpod_test_public_exports.dart';
@@ -532,6 +534,35 @@ class _UserEndpoint {
           _localUniqueSession,
           _localCallContext.arguments,
         ) as _i3.Future<_i15.UserInfoPublic>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _i3.Future<_i16.ExtraUserInfo> getExtraUserInfo(
+    _i1.TestSessionBuilder sessionBuilder, [
+    int? userId,
+  ]) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'user',
+        method: 'getExtraUserInfo',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'user',
+          methodName: 'getExtraUserInfo',
+          parameters: _i1.testObjectToJson({'userId': userId}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<_i16.ExtraUserInfo>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();

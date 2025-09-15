@@ -30,22 +30,24 @@ import 'gear/pfd_type.dart' as _i18;
 import 'gear/spraydeck_deck_size.dart' as _i19;
 import 'rental/rental.dart' as _i20;
 import 'rental/rental_junction.dart' as _i21;
-import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i22;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_belt.dart' as _i23;
+import 'user/extra_user_info.dart' as _i22;
+import 'user/favourites.dart' as _i23;
+import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i24;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_belt.dart' as _i25;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_clothing.dart'
-    as _i24;
+    as _i26;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_floatbag.dart'
-    as _i25;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_helmet.dart' as _i26;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_kayak.dart' as _i27;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_paddle.dart' as _i28;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_pfd.dart' as _i29;
+    as _i27;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_helmet.dart' as _i28;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_kayak.dart' as _i29;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_paddle.dart' as _i30;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_pfd.dart' as _i31;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_spraydeck.dart'
-    as _i30;
+    as _i32;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_throwbag.dart'
-    as _i31;
-import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i32;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i33;
+    as _i33;
+import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i34;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i35;
 export 'exceptions/kayak_exception.dart';
 export 'gear/clothing_type.dart';
 export 'gear/gear.dart';
@@ -66,6 +68,8 @@ export 'gear/pfd_type.dart';
 export 'gear/spraydeck_deck_size.dart';
 export 'rental/rental.dart';
 export 'rental/rental_junction.dart';
+export 'user/extra_user_info.dart';
+export 'user/favourites.dart';
 export 'client.dart';
 
 class Protocol extends _i1.SerializationManager {
@@ -141,6 +145,12 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i21.RentalJunction) {
       return _i21.RentalJunction.fromJson(data) as T;
     }
+    if (t == _i22.ExtraUserInfo) {
+      return _i22.ExtraUserInfo.fromJson(data) as T;
+    }
+    if (t == _i23.FavouritesJunction) {
+      return _i23.FavouritesJunction.fromJson(data) as T;
+    }
     if (t == _i1.getType<_i2.KayakException?>()) {
       return (data != null ? _i2.KayakException.fromJson(data) : null) as T;
     }
@@ -201,6 +211,13 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i21.RentalJunction?>()) {
       return (data != null ? _i21.RentalJunction.fromJson(data) : null) as T;
     }
+    if (t == _i1.getType<_i22.ExtraUserInfo?>()) {
+      return (data != null ? _i22.ExtraUserInfo.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i23.FavouritesJunction?>()) {
+      return (data != null ? _i23.FavouritesJunction.fromJson(data) : null)
+          as T;
+    }
     if (t == _i1.getType<List<Uri>?>()) {
       return (data != null
           ? (data as List).map((e) => deserialize<Uri>(e)).toList()
@@ -213,6 +230,13 @@ class Protocol extends _i1.SerializationManager {
               .toList()
           : null) as T;
     }
+    if (t == _i1.getType<List<_i23.FavouritesJunction>?>()) {
+      return (data != null
+          ? (data as List)
+              .map((e) => deserialize<_i23.FavouritesJunction>(e))
+              .toList()
+          : null) as T;
+    }
     if (t == _i1.getType<List<_i21.RentalJunction>?>()) {
       return (data != null
           ? (data as List)
@@ -220,55 +244,66 @@ class Protocol extends _i1.SerializationManager {
               .toList()
           : null) as T;
     }
-    if (t == List<_i22.Gear>) {
-      return (data as List).map((e) => deserialize<_i22.Gear>(e)).toList() as T;
+    if (t == Map<String, Uri>) {
+      return (data as Map).map(
+          (k, v) => MapEntry(deserialize<String>(k), deserialize<Uri>(v))) as T;
     }
-    if (t == List<_i23.GearBelt>) {
-      return (data as List).map((e) => deserialize<_i23.GearBelt>(e)).toList()
+    if (t == _i1.getType<List<_i23.FavouritesJunction>?>()) {
+      return (data != null
+          ? (data as List)
+              .map((e) => deserialize<_i23.FavouritesJunction>(e))
+              .toList()
+          : null) as T;
+    }
+    if (t == List<_i24.Gear>) {
+      return (data as List).map((e) => deserialize<_i24.Gear>(e)).toList() as T;
+    }
+    if (t == List<_i25.GearBelt>) {
+      return (data as List).map((e) => deserialize<_i25.GearBelt>(e)).toList()
           as T;
     }
-    if (t == List<_i24.GearClothing>) {
+    if (t == List<_i26.GearClothing>) {
       return (data as List)
-          .map((e) => deserialize<_i24.GearClothing>(e))
+          .map((e) => deserialize<_i26.GearClothing>(e))
           .toList() as T;
     }
-    if (t == List<_i25.GearFloatbag>) {
+    if (t == List<_i27.GearFloatbag>) {
       return (data as List)
-          .map((e) => deserialize<_i25.GearFloatbag>(e))
+          .map((e) => deserialize<_i27.GearFloatbag>(e))
           .toList() as T;
     }
-    if (t == List<_i26.GearHelmet>) {
-      return (data as List).map((e) => deserialize<_i26.GearHelmet>(e)).toList()
+    if (t == List<_i28.GearHelmet>) {
+      return (data as List).map((e) => deserialize<_i28.GearHelmet>(e)).toList()
           as T;
     }
-    if (t == List<_i27.GearKayak>) {
-      return (data as List).map((e) => deserialize<_i27.GearKayak>(e)).toList()
+    if (t == List<_i29.GearKayak>) {
+      return (data as List).map((e) => deserialize<_i29.GearKayak>(e)).toList()
           as T;
     }
-    if (t == List<_i28.GearPaddle>) {
-      return (data as List).map((e) => deserialize<_i28.GearPaddle>(e)).toList()
+    if (t == List<_i30.GearPaddle>) {
+      return (data as List).map((e) => deserialize<_i30.GearPaddle>(e)).toList()
           as T;
     }
-    if (t == List<_i29.GearPfd>) {
-      return (data as List).map((e) => deserialize<_i29.GearPfd>(e)).toList()
+    if (t == List<_i31.GearPfd>) {
+      return (data as List).map((e) => deserialize<_i31.GearPfd>(e)).toList()
           as T;
     }
-    if (t == List<_i30.GearSpraydeck>) {
+    if (t == List<_i32.GearSpraydeck>) {
       return (data as List)
-          .map((e) => deserialize<_i30.GearSpraydeck>(e))
+          .map((e) => deserialize<_i32.GearSpraydeck>(e))
           .toList() as T;
     }
-    if (t == List<_i31.GearThrowbag>) {
+    if (t == List<_i33.GearThrowbag>) {
       return (data as List)
-          .map((e) => deserialize<_i31.GearThrowbag>(e))
+          .map((e) => deserialize<_i33.GearThrowbag>(e))
           .toList() as T;
     }
-    if (t == List<_i32.Rental>) {
-      return (data as List).map((e) => deserialize<_i32.Rental>(e)).toList()
+    if (t == List<_i34.Rental>) {
+      return (data as List).map((e) => deserialize<_i34.Rental>(e)).toList()
           as T;
     }
     try {
-      return _i33.Protocol().deserialize<T>(data, t);
+      return _i35.Protocol().deserialize<T>(data, t);
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
@@ -337,7 +372,13 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i21.RentalJunction) {
       return 'RentalJunction';
     }
-    className = _i33.Protocol().getClassNameForObject(data);
+    if (data is _i22.ExtraUserInfo) {
+      return 'ExtraUserInfo';
+    }
+    if (data is _i23.FavouritesJunction) {
+      return 'FavouritesJunction';
+    }
+    className = _i35.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth.$className';
     }
@@ -410,9 +451,15 @@ class Protocol extends _i1.SerializationManager {
     if (dataClassName == 'RentalJunction') {
       return deserialize<_i21.RentalJunction>(data['data']);
     }
+    if (dataClassName == 'ExtraUserInfo') {
+      return deserialize<_i22.ExtraUserInfo>(data['data']);
+    }
+    if (dataClassName == 'FavouritesJunction') {
+      return deserialize<_i23.FavouritesJunction>(data['data']);
+    }
     if (dataClassName.startsWith('serverpod_auth.')) {
       data['className'] = dataClassName.substring(15);
-      return _i33.Protocol().deserializeByClassName(data);
+      return _i35.Protocol().deserializeByClassName(data);
     }
     return super.deserializeByClassName(data);
   }
