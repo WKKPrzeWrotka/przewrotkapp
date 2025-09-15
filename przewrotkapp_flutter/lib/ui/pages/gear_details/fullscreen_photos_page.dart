@@ -17,11 +17,13 @@ class FullscreenPhotosPage extends StatelessWidget {
       ),
       body: PageView.builder(
         itemCount: imageUrls.length,
-        itemBuilder: (context, i) {
-          return PhotoView(
+        itemBuilder: (context, i) => PhotoViewGestureDetectorScope(
+          axis: Axis.horizontal,
+          child: PhotoView(
+            minScale: PhotoViewComputedScale.contained,
             imageProvider: NetworkImage(imageUrls[i].toString()),
-          );
-        },
+          ),
+        ),
       ),
     );
   }
