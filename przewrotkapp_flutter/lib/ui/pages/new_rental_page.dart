@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
@@ -21,6 +23,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
   var selectedGearType = GearType.kayak;
   final searchBarCtrl = TextEditingController();
   var gearSelection = <Gear>[];
+  final shoppingCart = <Gear>{};
 
   void filterGear() async {
     gearSelection = (await allGearCmpl.future).where((e) {
@@ -40,6 +43,17 @@ class _NewRentalPageState extends State<NewRentalPage> {
         return l != 0 ? l : a.clubId.compareTo(b.clubId);
       });
     setState(() {});
+  }
+
+  int hoursForGear(Set<Gear> gear, DateTime from, DateTime to) {
+    return (gear.where((e) => e.type == GearType.kayak).length +
+            [
+              for (final type in GearType.values.toList()
+                ..remove(GearType.kayak)
+                ..remove(GearType.other))
+                gear.where((e) => e.type == type).length
+            ].reduce(max)) *
+        (to.getDayDifference(from) + 1);
   }
 
   @override
@@ -71,6 +85,13 @@ class _NewRentalPageState extends State<NewRentalPage> {
             value: selectedDates,
             onValueChanged: (newDates) {
               selectedDates = newDates;
+              // THIS IS VERY IMPORTANT !!
+              if (selectedDates.isNotEmpty) {
+                selectedDates[0] = selectedDates[0].copyWith(hour: 6);
+              }
+              if (selectedDates.length == 2) {
+                selectedDates[1] = selectedDates[1].copyWith(hour: 23);
+              }
               setState(() {});
             },
           ),
@@ -125,13 +146,54 @@ class _NewRentalPageState extends State<NewRentalPage> {
                     ? ListView(
                         children: [
                           for (final gear in gearSelection)
-                            GearListing(gear: gear)
+                            GearListing(
+                              gear: gear,
+                              trailing: IconButton(
+                                onPressed: shoppingCart.contains(gear)
+                                    ? null
+                                    : () {
+                                        shoppingCart.add(gear);
+                                        setState(() {});
+                                      },
+                                icon: Icon(Icons.add_shopping_cart),
+                              ),
+                            )
                         ],
                       )
                     : Placeholder();
               },
             ),
           ),
+          Text("Wybrano:", style: tt.headlineMedium),
+          Column(
+            children: [
+              for (final gear in shoppingCart)
+                GearListing(
+                  gear: gear,
+                  trailing: IconButton(
+                    color: Colors.red,
+                    onPressed: () {
+                      shoppingCart.remove(gear);
+                      setState(() {});
+                    },
+                    icon: Icon(Icons.remove_shopping_cart),
+                  ),
+                ),
+            ],
+          ),
+          Text(
+            "Koszt: ${selectedDates.length == 2 ? hoursForGear(shoppingCart, selectedDates[0], selectedDates[1]) : "?"}h",
+            style: tt.headlineMedium,
+          ),
+          FilledButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text("Przytrzymaj :)")));
+              },
+              onLongPress: () {
+                // TODO
+              },
+              child: Text("Bierz!")),
           SizedBox(height: 128),
         ],
       ),

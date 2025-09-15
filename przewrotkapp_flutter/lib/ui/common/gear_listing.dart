@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
-import 'package:przewrotkapp_flutter/ui/common/utils.dart';
 
 class GearListing extends StatelessWidget {
   final Gear gear;
@@ -16,7 +15,6 @@ class GearListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final emoji = gearTypeToEmoji(gear.type);
     return Card(
       child: ListTile(
         leading: AspectRatio(
@@ -28,12 +26,14 @@ class GearListing extends StatelessWidget {
                     gear.photoUrls!.first.toString(),
                   ),
                 )
+              // TODO: Type-specific emoji here
               : Icon(Icons.kayaking),
         ),
         title: Text(
-          "$emoji "
-          "${(gear.manufacturer == null && gear.model == null) ? gear.friendlyName.toString() : '${gear.manufacturer ?? ''} ${gear.model ?? ''}'
-              '${gear.friendlyName != null ? ' (${gear.friendlyName})' : ''}'}",
+          (gear.manufacturer == null && gear.model == null)
+              ? gear.friendlyName.toString()
+              : '${gear.manufacturer ?? ''} ${gear.model ?? ''}'
+                  '${gear.friendlyName != null ? ' (${gear.friendlyName})' : ''}',
         ),
         subtitle: Text(
           switch (subtypeData) {
