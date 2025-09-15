@@ -1,5 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:przewrotkapp_flutter/ui/pages/gear_details/fullscreen_photos_page.dart';
+import 'package:przewrotkapp_flutter/ui/pages/gear_details/gear_details_page.dart';
 import 'package:przewrotkapp_flutter/ui/pages/new_rental_page.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
@@ -25,6 +27,18 @@ final router = GoRouter(
     GoRoute(
       path: '/gear',
       builder: (context, state) => GearBrowserPage(),
+    ),
+    GoRoute(
+      path: '/gearDetails/:gearId',
+      builder: (context, state) => GearDetailsPage(
+        gearId: int.parse(state.pathParameters['gearId']!),
+      ),
+    ),
+    GoRoute(
+      path: '/gearDetails/:gearId/photos',
+      builder: (context, state) => FullscreenPhotosPage(
+        imageUrls: state.extra as List<Uri>,
+      ),
     ),
     GoRoute(
       path: '/calendar',

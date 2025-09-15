@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+import 'package:przewrotkapp_flutter/ui/common/utils.dart';
 
 class GearListing extends StatelessWidget {
   final Gear gear;
@@ -17,6 +19,7 @@ class GearListing extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
+        onTap: () => context.push('/gearDetails/${gear.id!}'),
         leading: AspectRatio(
           aspectRatio: 1.777,
           child: gear.photoUrls?.firstOrNull != null
@@ -29,12 +32,7 @@ class GearListing extends StatelessWidget {
               // TODO: Type-specific emoji here
               : Icon(Icons.kayaking),
         ),
-        title: Text(
-          (gear.manufacturer == null && gear.model == null)
-              ? gear.friendlyName.toString()
-              : '${gear.manufacturer ?? ''} ${gear.model ?? ''}'
-                  '${gear.friendlyName != null ? ' (${gear.friendlyName})' : ''}',
-        ),
+        title: Text(gear.displayName()),
         subtitle: Text(
           switch (subtypeData) {
             GearBelt belt => "${belt.length}m",
