@@ -12,11 +12,14 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
-import '../rental/rental_junction.dart' as _i2;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i2;
+import '../rental/rental_junction.dart' as _i3;
 
 abstract class Rental implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
   Rental._({
     this.id,
+    required this.userInfoId,
+    this.userInfo,
     required this.created,
     required this.lastModified,
     required this.from,
@@ -26,23 +29,30 @@ abstract class Rental implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
 
   factory Rental({
     int? id,
+    required int userInfoId,
+    _i2.UserInfo? userInfo,
     required DateTime created,
     required DateTime lastModified,
     required DateTime from,
     required DateTime to,
-    List<_i2.RentalJunction>? junctions,
+    List<_i3.RentalJunction>? junctions,
   }) = _RentalImpl;
 
   factory Rental.fromJson(Map<String, dynamic> jsonSerialization) {
     return Rental(
       id: jsonSerialization['id'] as int?,
+      userInfoId: jsonSerialization['userInfoId'] as int,
+      userInfo: jsonSerialization['userInfo'] == null
+          ? null
+          : _i2.UserInfo.fromJson(
+              (jsonSerialization['userInfo'] as Map<String, dynamic>)),
       created: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['created']),
       lastModified:
           _i1.DateTimeJsonExtension.fromJson(jsonSerialization['lastModified']),
       from: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['from']),
       to: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['to']),
       junctions: (jsonSerialization['junctions'] as List?)
-          ?.map((e) => _i2.RentalJunction.fromJson((e as Map<String, dynamic>)))
+          ?.map((e) => _i3.RentalJunction.fromJson((e as Map<String, dynamic>)))
           .toList(),
     );
   }
@@ -54,6 +64,10 @@ abstract class Rental implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
   @override
   int? id;
 
+  int userInfoId;
+
+  _i2.UserInfo? userInfo;
+
   DateTime created;
 
   DateTime lastModified;
@@ -62,7 +76,7 @@ abstract class Rental implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
 
   DateTime to;
 
-  List<_i2.RentalJunction>? junctions;
+  List<_i3.RentalJunction>? junctions;
 
   @override
   _i1.Table<int?> get table => t;
@@ -72,16 +86,20 @@ abstract class Rental implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
   @_i1.useResult
   Rental copyWith({
     int? id,
+    int? userInfoId,
+    _i2.UserInfo? userInfo,
     DateTime? created,
     DateTime? lastModified,
     DateTime? from,
     DateTime? to,
-    List<_i2.RentalJunction>? junctions,
+    List<_i3.RentalJunction>? junctions,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
+      'userInfoId': userInfoId,
+      if (userInfo != null) 'userInfo': userInfo?.toJson(),
       'created': created.toJson(),
       'lastModified': lastModified.toJson(),
       'from': from.toJson(),
@@ -95,6 +113,8 @@ abstract class Rental implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
   Map<String, dynamic> toJsonForProtocol() {
     return {
       if (id != null) 'id': id,
+      'userInfoId': userInfoId,
+      if (userInfo != null) 'userInfo': userInfo?.toJsonForProtocol(),
       'created': created.toJson(),
       'lastModified': lastModified.toJson(),
       'from': from.toJson(),
@@ -105,8 +125,14 @@ abstract class Rental implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     };
   }
 
-  static RentalInclude include({_i2.RentalJunctionIncludeList? junctions}) {
-    return RentalInclude._(junctions: junctions);
+  static RentalInclude include({
+    _i2.UserInfoInclude? userInfo,
+    _i3.RentalJunctionIncludeList? junctions,
+  }) {
+    return RentalInclude._(
+      userInfo: userInfo,
+      junctions: junctions,
+    );
   }
 
   static RentalIncludeList includeList({
@@ -140,13 +166,17 @@ class _Undefined {}
 class _RentalImpl extends Rental {
   _RentalImpl({
     int? id,
+    required int userInfoId,
+    _i2.UserInfo? userInfo,
     required DateTime created,
     required DateTime lastModified,
     required DateTime from,
     required DateTime to,
-    List<_i2.RentalJunction>? junctions,
+    List<_i3.RentalJunction>? junctions,
   }) : super._(
           id: id,
+          userInfoId: userInfoId,
+          userInfo: userInfo,
           created: created,
           lastModified: lastModified,
           from: from,
@@ -160,6 +190,8 @@ class _RentalImpl extends Rental {
   @override
   Rental copyWith({
     Object? id = _Undefined,
+    int? userInfoId,
+    Object? userInfo = _Undefined,
     DateTime? created,
     DateTime? lastModified,
     DateTime? from,
@@ -168,11 +200,14 @@ class _RentalImpl extends Rental {
   }) {
     return Rental(
       id: id is int? ? id : this.id,
+      userInfoId: userInfoId ?? this.userInfoId,
+      userInfo:
+          userInfo is _i2.UserInfo? ? userInfo : this.userInfo?.copyWith(),
       created: created ?? this.created,
       lastModified: lastModified ?? this.lastModified,
       from: from ?? this.from,
       to: to ?? this.to,
-      junctions: junctions is List<_i2.RentalJunction>?
+      junctions: junctions is List<_i3.RentalJunction>?
           ? junctions
           : this.junctions?.map((e0) => e0.copyWith()).toList(),
     );
@@ -181,6 +216,10 @@ class _RentalImpl extends Rental {
 
 class RentalTable extends _i1.Table<int?> {
   RentalTable({super.tableRelation}) : super(tableName: 'rentals') {
+    userInfoId = _i1.ColumnInt(
+      'userInfoId',
+      this,
+    );
     created = _i1.ColumnDateTime(
       'created',
       this,
@@ -199,6 +238,10 @@ class RentalTable extends _i1.Table<int?> {
     );
   }
 
+  late final _i1.ColumnInt userInfoId;
+
+  _i2.UserInfoTable? _userInfo;
+
   late final _i1.ColumnDateTime created;
 
   late final _i1.ColumnDateTime lastModified;
@@ -207,36 +250,49 @@ class RentalTable extends _i1.Table<int?> {
 
   late final _i1.ColumnDateTime to;
 
-  _i2.RentalJunctionTable? ___junctions;
+  _i3.RentalJunctionTable? ___junctions;
 
-  _i1.ManyRelation<_i2.RentalJunctionTable>? _junctions;
+  _i1.ManyRelation<_i3.RentalJunctionTable>? _junctions;
 
-  _i2.RentalJunctionTable get __junctions {
+  _i2.UserInfoTable get userInfo {
+    if (_userInfo != null) return _userInfo!;
+    _userInfo = _i1.createRelationTable(
+      relationFieldName: 'userInfo',
+      field: Rental.t.userInfoId,
+      foreignField: _i2.UserInfo.t.id,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i2.UserInfoTable(tableRelation: foreignTableRelation),
+    );
+    return _userInfo!;
+  }
+
+  _i3.RentalJunctionTable get __junctions {
     if (___junctions != null) return ___junctions!;
     ___junctions = _i1.createRelationTable(
       relationFieldName: '__junctions',
       field: Rental.t.id,
-      foreignField: _i2.RentalJunction.t.rentalId,
+      foreignField: _i3.RentalJunction.t.rentalId,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i2.RentalJunctionTable(tableRelation: foreignTableRelation),
+          _i3.RentalJunctionTable(tableRelation: foreignTableRelation),
     );
     return ___junctions!;
   }
 
-  _i1.ManyRelation<_i2.RentalJunctionTable> get junctions {
+  _i1.ManyRelation<_i3.RentalJunctionTable> get junctions {
     if (_junctions != null) return _junctions!;
     var relationTable = _i1.createRelationTable(
       relationFieldName: 'junctions',
       field: Rental.t.id,
-      foreignField: _i2.RentalJunction.t.rentalId,
+      foreignField: _i3.RentalJunction.t.rentalId,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i2.RentalJunctionTable(tableRelation: foreignTableRelation),
+          _i3.RentalJunctionTable(tableRelation: foreignTableRelation),
     );
-    _junctions = _i1.ManyRelation<_i2.RentalJunctionTable>(
+    _junctions = _i1.ManyRelation<_i3.RentalJunctionTable>(
       tableWithRelations: relationTable,
-      table: _i2.RentalJunctionTable(
+      table: _i3.RentalJunctionTable(
           tableRelation: relationTable.tableRelation!.lastRelation),
     );
     return _junctions!;
@@ -245,6 +301,7 @@ class RentalTable extends _i1.Table<int?> {
   @override
   List<_i1.Column> get columns => [
         id,
+        userInfoId,
         created,
         lastModified,
         from,
@@ -253,6 +310,9 @@ class RentalTable extends _i1.Table<int?> {
 
   @override
   _i1.Table? getRelationTable(String relationField) {
+    if (relationField == 'userInfo') {
+      return userInfo;
+    }
     if (relationField == 'junctions') {
       return __junctions;
     }
@@ -261,14 +321,23 @@ class RentalTable extends _i1.Table<int?> {
 }
 
 class RentalInclude extends _i1.IncludeObject {
-  RentalInclude._({_i2.RentalJunctionIncludeList? junctions}) {
+  RentalInclude._({
+    _i2.UserInfoInclude? userInfo,
+    _i3.RentalJunctionIncludeList? junctions,
+  }) {
+    _userInfo = userInfo;
     _junctions = junctions;
   }
 
-  _i2.RentalJunctionIncludeList? _junctions;
+  _i2.UserInfoInclude? _userInfo;
+
+  _i3.RentalJunctionIncludeList? _junctions;
 
   @override
-  Map<String, _i1.Include?> get includes => {'junctions': _junctions};
+  Map<String, _i1.Include?> get includes => {
+        'userInfo': _userInfo,
+        'junctions': _junctions,
+      };
 
   @override
   _i1.Table<int?> get table => Rental.t;
@@ -529,7 +598,7 @@ class RentalAttachRepository {
   Future<void> junctions(
     _i1.Session session,
     Rental rental,
-    List<_i2.RentalJunction> rentalJunction, {
+    List<_i3.RentalJunction> rentalJunction, {
     _i1.Transaction? transaction,
   }) async {
     if (rentalJunction.any((e) => e.id == null)) {
@@ -541,9 +610,9 @@ class RentalAttachRepository {
 
     var $rentalJunction =
         rentalJunction.map((e) => e.copyWith(rentalId: rental.id)).toList();
-    await session.db.update<_i2.RentalJunction>(
+    await session.db.update<_i3.RentalJunction>(
       $rentalJunction,
-      columns: [_i2.RentalJunction.t.rentalId],
+      columns: [_i3.RentalJunction.t.rentalId],
       transaction: transaction,
     );
   }
@@ -552,12 +621,35 @@ class RentalAttachRepository {
 class RentalAttachRowRepository {
   const RentalAttachRowRepository._();
 
+  /// Creates a relation between the given [Rental] and [UserInfo]
+  /// by setting the [Rental]'s foreign key `userInfoId` to refer to the [UserInfo].
+  Future<void> userInfo(
+    _i1.Session session,
+    Rental rental,
+    _i2.UserInfo userInfo, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (rental.id == null) {
+      throw ArgumentError.notNull('rental.id');
+    }
+    if (userInfo.id == null) {
+      throw ArgumentError.notNull('userInfo.id');
+    }
+
+    var $rental = rental.copyWith(userInfoId: userInfo.id);
+    await session.db.updateRow<Rental>(
+      $rental,
+      columns: [Rental.t.userInfoId],
+      transaction: transaction,
+    );
+  }
+
   /// Creates a relation between this [Rental] and the given [RentalJunction]
   /// by setting the [RentalJunction]'s foreign key `rentalId` to refer to this [Rental].
   Future<void> junctions(
     _i1.Session session,
     Rental rental,
-    _i2.RentalJunction rentalJunction, {
+    _i3.RentalJunction rentalJunction, {
     _i1.Transaction? transaction,
   }) async {
     if (rentalJunction.id == null) {
@@ -568,9 +660,9 @@ class RentalAttachRowRepository {
     }
 
     var $rentalJunction = rentalJunction.copyWith(rentalId: rental.id);
-    await session.db.updateRow<_i2.RentalJunction>(
+    await session.db.updateRow<_i3.RentalJunction>(
       $rentalJunction,
-      columns: [_i2.RentalJunction.t.rentalId],
+      columns: [_i3.RentalJunction.t.rentalId],
       transaction: transaction,
     );
   }
@@ -586,7 +678,7 @@ class RentalDetachRepository {
   /// the related record.
   Future<void> junctions(
     _i1.Session session,
-    List<_i2.RentalJunction> rentalJunction, {
+    List<_i3.RentalJunction> rentalJunction, {
     _i1.Transaction? transaction,
   }) async {
     if (rentalJunction.any((e) => e.id == null)) {
@@ -595,9 +687,9 @@ class RentalDetachRepository {
 
     var $rentalJunction =
         rentalJunction.map((e) => e.copyWith(rentalId: null)).toList();
-    await session.db.update<_i2.RentalJunction>(
+    await session.db.update<_i3.RentalJunction>(
       $rentalJunction,
-      columns: [_i2.RentalJunction.t.rentalId],
+      columns: [_i3.RentalJunction.t.rentalId],
       transaction: transaction,
     );
   }
@@ -613,7 +705,7 @@ class RentalDetachRowRepository {
   /// the related record.
   Future<void> junctions(
     _i1.Session session,
-    _i2.RentalJunction rentalJunction, {
+    _i3.RentalJunction rentalJunction, {
     _i1.Transaction? transaction,
   }) async {
     if (rentalJunction.id == null) {
@@ -621,9 +713,9 @@ class RentalDetachRowRepository {
     }
 
     var $rentalJunction = rentalJunction.copyWith(rentalId: null);
-    await session.db.updateRow<_i2.RentalJunction>(
+    await session.db.updateRow<_i3.RentalJunction>(
       $rentalJunction,
-      columns: [_i2.RentalJunction.t.rentalId],
+      columns: [_i3.RentalJunction.t.rentalId],
       transaction: transaction,
     );
   }

@@ -1,8 +1,13 @@
 class: Rental
 table: rentals
 fields:
+  userInfo: module:auth:UserInfo?, relation
   created: DateTime
   lastModified: DateTime
   from: DateTime
   to: DateTime
   junctions: List<RentalJunction>?, relation(name=rental_junctions)
+indexes:
+  rentals_users_unique_idx:
+    fields: userInfoId
+    unique: false

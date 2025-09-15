@@ -10,11 +10,14 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import '../rental/rental_junction.dart' as _i2;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i2;
+import '../rental/rental_junction.dart' as _i3;
 
 abstract class Rental implements _i1.SerializableModel {
   Rental._({
     this.id,
+    required this.userInfoId,
+    this.userInfo,
     required this.created,
     required this.lastModified,
     required this.from,
@@ -24,23 +27,30 @@ abstract class Rental implements _i1.SerializableModel {
 
   factory Rental({
     int? id,
+    required int userInfoId,
+    _i2.UserInfo? userInfo,
     required DateTime created,
     required DateTime lastModified,
     required DateTime from,
     required DateTime to,
-    List<_i2.RentalJunction>? junctions,
+    List<_i3.RentalJunction>? junctions,
   }) = _RentalImpl;
 
   factory Rental.fromJson(Map<String, dynamic> jsonSerialization) {
     return Rental(
       id: jsonSerialization['id'] as int?,
+      userInfoId: jsonSerialization['userInfoId'] as int,
+      userInfo: jsonSerialization['userInfo'] == null
+          ? null
+          : _i2.UserInfo.fromJson(
+              (jsonSerialization['userInfo'] as Map<String, dynamic>)),
       created: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['created']),
       lastModified:
           _i1.DateTimeJsonExtension.fromJson(jsonSerialization['lastModified']),
       from: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['from']),
       to: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['to']),
       junctions: (jsonSerialization['junctions'] as List?)
-          ?.map((e) => _i2.RentalJunction.fromJson((e as Map<String, dynamic>)))
+          ?.map((e) => _i3.RentalJunction.fromJson((e as Map<String, dynamic>)))
           .toList(),
     );
   }
@@ -50,6 +60,10 @@ abstract class Rental implements _i1.SerializableModel {
   /// the id will be null.
   int? id;
 
+  int userInfoId;
+
+  _i2.UserInfo? userInfo;
+
   DateTime created;
 
   DateTime lastModified;
@@ -58,23 +72,27 @@ abstract class Rental implements _i1.SerializableModel {
 
   DateTime to;
 
-  List<_i2.RentalJunction>? junctions;
+  List<_i3.RentalJunction>? junctions;
 
   /// Returns a shallow copy of this [Rental]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   Rental copyWith({
     int? id,
+    int? userInfoId,
+    _i2.UserInfo? userInfo,
     DateTime? created,
     DateTime? lastModified,
     DateTime? from,
     DateTime? to,
-    List<_i2.RentalJunction>? junctions,
+    List<_i3.RentalJunction>? junctions,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
+      'userInfoId': userInfoId,
+      if (userInfo != null) 'userInfo': userInfo?.toJson(),
       'created': created.toJson(),
       'lastModified': lastModified.toJson(),
       'from': from.toJson(),
@@ -95,13 +113,17 @@ class _Undefined {}
 class _RentalImpl extends Rental {
   _RentalImpl({
     int? id,
+    required int userInfoId,
+    _i2.UserInfo? userInfo,
     required DateTime created,
     required DateTime lastModified,
     required DateTime from,
     required DateTime to,
-    List<_i2.RentalJunction>? junctions,
+    List<_i3.RentalJunction>? junctions,
   }) : super._(
           id: id,
+          userInfoId: userInfoId,
+          userInfo: userInfo,
           created: created,
           lastModified: lastModified,
           from: from,
@@ -115,6 +137,8 @@ class _RentalImpl extends Rental {
   @override
   Rental copyWith({
     Object? id = _Undefined,
+    int? userInfoId,
+    Object? userInfo = _Undefined,
     DateTime? created,
     DateTime? lastModified,
     DateTime? from,
@@ -123,11 +147,14 @@ class _RentalImpl extends Rental {
   }) {
     return Rental(
       id: id is int? ? id : this.id,
+      userInfoId: userInfoId ?? this.userInfoId,
+      userInfo:
+          userInfo is _i2.UserInfo? ? userInfo : this.userInfo?.copyWith(),
       created: created ?? this.created,
       lastModified: lastModified ?? this.lastModified,
       from: from ?? this.from,
       to: to ?? this.to,
-      junctions: junctions is List<_i2.RentalJunction>?
+      junctions: junctions is List<_i3.RentalJunction>?
           ? junctions
           : this.junctions?.map((e0) => e0.copyWith()).toList(),
     );

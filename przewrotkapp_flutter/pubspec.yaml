@@ -34,6 +34,8 @@ dependencies:
   serverpod_auth_email_flutter: 2.9.1
   provider: ^6.1.5+1
 
+  vibration: ^3.1.3
+
   calendar_view: ^1.4.0
   calendar_date_picker2: ^2.0.1
 

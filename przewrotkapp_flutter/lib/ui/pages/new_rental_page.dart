@@ -4,10 +4,13 @@ import 'dart:math';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_flutter/ui/common/gear_listing.dart';
 import 'package:przewrotkapp_flutter/ui/common/utils.dart';
+import 'package:vibration/vibration.dart';
+import '../common/utils.dart';
 
 class NewRentalPage extends StatefulWidget {
   const NewRentalPage({super.key});
@@ -16,7 +19,16 @@ class NewRentalPage extends StatefulWidget {
   State<NewRentalPage> createState() => _NewRentalPageState();
 }
 
+enum _RentingState {
+  selecting,
+  loading,
+  success,
+  error,
+}
+
 class _NewRentalPageState extends State<NewRentalPage> {
+  var rentingState = _RentingState.selecting;
+
   var selectedDates = <DateTime>[];
   final cart = <(Gear, dynamic)>[];
   final allGearCmpl = Completer<List<Gear>>();
@@ -185,41 +197,51 @@ class _NewRentalPageState extends State<NewRentalPage> {
             "Koszt: ${selectedDates.length == 2 ? hoursForGear(shoppingCart, selectedDates[0], selectedDates[1]) : "?"}h",
             style: tt.headlineMedium,
           ),
-          FilledButton(
+          SizedBox(
+            height: 64,
+            child: FilledButton(
               onPressed: () {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text("Przytrzymaj :)")));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Przytrzymaj :)")),
+                );
               },
-              onLongPress: () {
-                // TODO
+              onLongPress: () async {
+                try {
+                  Vibration.vibrate();
+                } catch (e) {
+                  // nothing, dont care
+                }
+                rentingState = _RentingState.loading;
+                setState(() {});
+                try {
+                  await context.read<Client>().rental.rentGear(
+                        shoppingCart.toList(),
+                        selectedDates[0],
+                        selectedDates[1],
+                      );
+                  rentingState = _RentingState.success;
+                  setState(() {});
+                  await Future.delayed(Duration(milliseconds: 500));
+                  context.pop();
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Error! $e")),
+                  );
+                  rentingState = _RentingState.selecting;
+                  setState(() {});
+                }
               },
-              child: Text("Bierz!")),
-          SizedBox(height: 128),
+              child: switch (rentingState) {
+                _RentingState.selecting => Text("Bierz!"),
+                _RentingState.loading => CircularProgressIndicator(),
+                _RentingState.success => Icon(Icons.check),
+                _RentingState.error => Icon(Icons.error),
+              },
+            ),
+          ),
+          SizedBox(height: 24),
         ],
       ),
     );
   }
-}
-
-extension on DateTime {
-  String toStringDate() => "$year-"
-      "${month.toString().padLeft(2, '0')}-"
-      "${day.toString().padLeft(2, '0')}";
-}
-
-extension on GearType {
-  String toHumanString() => switch (this) {
-        GearType.belt => "Pasy transportowe",
-        GearType.clothing => "Ubrania",
-        GearType.floatbag => "Komory",
-        GearType.helmet => "Kaski",
-        GearType.kayak => "Kajaki",
-        GearType.paddle => "Wiosła",
-        GearType.pfd => "Kamizelki",
-        GearType.spraydeck => "Fartuchy",
-        GearType.throwbag => "Rzutki",
-        GearType.other => "Inne",
-      };
-
-  String toDisplayString() => gearTypeToEmoji(this) + toHumanString();
 }
