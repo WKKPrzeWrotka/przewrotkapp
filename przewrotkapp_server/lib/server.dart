@@ -46,7 +46,7 @@ void run(List<String> args) async {
 
   auth.AuthConfig.set(
     auth.AuthConfig(
-      userImageSize: 512,
+      userImageSize: 256,
       sendValidationEmail: (session, email, code) => sendEmail(
         session,
         email,
