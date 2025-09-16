@@ -14,78 +14,90 @@ class GearDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
+    final gear = context
+        .watch<List<GearPair>?>()
+        ?.firstWhere((e) => e.gear.id == gearId)
+        .gear;
+
+    final client = context.read<Client>();
+    final extraUser = context.watch<ExtraUserInfo?>();
+    final isFavourite =
+        extraUser?.favouritesJunctions?.any((e) => e.gear!.id == gearId) ??
+            false;
     return Scaffold(
       appBar: AppBar(
         title: Text("Szczegóły $gearId"),
         actions: [
           IconButton(
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text("Dodano do ulubionych! (Naprawde to nie)"),
-                ),
-              );
-            },
-            icon: Icon(Icons.favorite_outline),
-          )
+            onPressed: gear != null
+                ? () async {
+                    final newState = !isFavourite;
+                    client.user.updateGearFavourite(gear, newState);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        duration: Duration(seconds: 1),
+                        content: Text(
+                          newState
+                              ? "Dodano do ulubionych!"
+                              : "Usunięto z ulubionych :(",
+                        ),
+                      ),
+                    );
+                  }
+                : null,
+            icon: Icon(
+              isFavourite ? Icons.favorite : Icons.favorite_outline,
+            ),
+          ),
         ],
       ),
-      body: FutureBuilder(
-        future: context
-            .read<Future<List<GearPair>>>()
-            .then((e) => e.firstWhere((e) => e.gear.id == gearId)),
-        builder: (context, snap) {
-          final gear = snap.data?.gear;
-          return snap.hasData
-              ? ListView(
-                  padding: EdgeInsets.all(8),
-                  children: [
-                    if (snap.data!.gear.photoUrls?.isNotEmpty ?? false)
-                      SizedBox(
-                        height: 192,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          children: [
-                            for (final uri in snap.data!.gear.photoUrls!)
-                              Container(
-                                padding: EdgeInsets.all(4),
-                                child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadiusGeometry.circular(8),
-                                  // this doesn't actually splash... but okay...
-                                  child: InkWell(
-                                    onTap: () => context.push(
-                                      '/gearDetails/$gearId/photos',
-                                      extra: snap.data!.gear.photoUrls!,
-                                    ),
-                                    child: Image.network(uri.toString()),
-                                  ),
+      body: gear != null
+          ? ListView(
+              padding: EdgeInsets.all(8),
+              children: [
+                if (gear.photoUrls?.isNotEmpty ?? false)
+                  SizedBox(
+                    height: 192,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      children: [
+                        for (final uri in gear.photoUrls!)
+                          Container(
+                            padding: EdgeInsets.all(4),
+                            child: ClipRRect(
+                              borderRadius: BorderRadiusGeometry.circular(8),
+                              // this doesn't actually splash... but okay...
+                              child: InkWell(
+                                onTap: () => context.push(
+                                  '/gearDetails/$gearId/photos',
+                                  extra: gear.photoUrls!,
                                 ),
+                                child: Image.network(uri.toString()),
                               ),
-                          ],
-                        ),
-                      ),
-                    ListTile(
-                      title: CopyableText(
-                        child: Text(
-                          gear!.displayName(),
-                          style: tt.headlineMedium,
-                        ),
-                      ),
-                      trailing: CopyableText(
-                        child: Text(
-                          gear.clubId,
-                          style: tt.bodyLarge,
-                        ),
-                      ),
+                            ),
+                          ),
+                      ],
                     ),
-                    // TODO: All details of the gear and other crazy shit
-                  ],
-                )
-              : Placeholder();
-        },
-      ),
+                  ),
+                ListTile(
+                  title: CopyableText(
+                    child: Text(
+                      gear.displayName(),
+                      style: tt.headlineMedium,
+                    ),
+                  ),
+                  trailing: CopyableText(
+                    child: Text(
+                      gear.clubId,
+                      style: tt.bodyLarge,
+                    ),
+                  ),
+                ),
+                // TODO: All details of the gear and other crazy shit
+              ],
+            )
+          : Placeholder(),
     );
   }
 }

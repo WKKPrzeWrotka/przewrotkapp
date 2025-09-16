@@ -93,6 +93,28 @@ class EndpointUser extends _i1.EndpointRef {
         'getExtraUserInfo',
         {'userId': userId},
       );
+
+  _i2.Stream<_i7.ExtraUserInfo> watchExtraUserInfo([int? userId]) =>
+      caller.callStreamingServerEndpoint<_i2.Stream<_i7.ExtraUserInfo>,
+          _i7.ExtraUserInfo>(
+        'user',
+        'watchExtraUserInfo',
+        {'userId': userId},
+        {},
+      );
+
+  _i2.Future<void> updateGearFavourite(
+    _i5.Gear gear,
+    bool isFavourite,
+  ) =>
+      caller.callServerEndpoint<void>(
+        'user',
+        'updateGearFavourite',
+        {
+          'gear': gear,
+          'isFavourite': isFavourite,
+        },
+      );
 }
 
 class Modules {

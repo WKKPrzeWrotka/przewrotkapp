@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
 
 class UserEndpoint extends Endpoint {
+  final _userUpdateCtrl = StreamController<int>.broadcast();
+
   Future<UserInfoPublic> getUserInfo(Session session, int userId) async {
     return (await Users.findUserByUserId(session, userId))!.toPublic();
   }
@@ -19,5 +23,39 @@ class UserEndpoint extends Endpoint {
         ),
       ),
     ))!;
+  }
+
+  Stream<ExtraUserInfo> watchExtraUserInfo(Session session,
+      [int? userId]) async* {
+    final id = userId ?? (await session.authenticated)!.userId;
+    yield await getExtraUserInfo(session, userId);
+    await for (final updatedId in _userUpdateCtrl.stream) {
+      if (updatedId != id) continue;
+      yield await getExtraUserInfo(session, userId);
+    }
+  }
+
+  Future<void> updateGearFavourite(
+      Session session, Gear gear, bool isFavourite) async {
+    final id = (await session.authenticated)!.userId;
+    final extraUser = await getExtraUserInfo(session, id);
+    try {
+      if (isFavourite) {
+        await FavouritesJunction.db.insertRow(
+          session,
+          FavouritesJunction(gearId: gear.id!, extraUserInfoId: extraUser.id!),
+        );
+      } else {
+        await FavouritesJunction.db.deleteWhere(
+          session,
+          where: (fj) =>
+              fj.gearId.equals(gear.id) &
+              fj.extraUserInfoId.equals(extraUser.id),
+        );
+      }
+    } finally {
+      // no catch because i do want to throw de error
+      _userUpdateCtrl.add(id);
+    }
   }
 }

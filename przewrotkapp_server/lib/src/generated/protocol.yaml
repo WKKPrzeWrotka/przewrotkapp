@@ -7,3 +7,5 @@ rental:
 user:
   - getUserInfo:
   - getExtraUserInfo:
+  - watchExtraUserInfo:
+  - updateGearFavourite:

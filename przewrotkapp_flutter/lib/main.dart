@@ -57,6 +57,10 @@ class MyApp extends StatelessWidget {
           initialData: null,
           create: (_) => _client.rental.watchRentals(past: false),
         ),
+        StreamProvider<ExtraUserInfo?>(
+          initialData: null,
+          create: (_) => _client.user.watchExtraUserInfo(),
+        ),
       ],
       child: MaterialApp.router(
         routerConfig: router,

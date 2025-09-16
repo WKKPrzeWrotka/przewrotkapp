@@ -170,6 +170,51 @@ class Endpoints extends _i1.EndpointDispatch {
             params['userId'],
           ),
         ),
+        'updateGearFavourite': _i1.MethodConnector(
+          name: 'updateGearFavourite',
+          params: {
+            'gear': _i1.ParameterDescription(
+              name: 'gear',
+              type: _i1.getType<_i5.Gear>(),
+              nullable: false,
+            ),
+            'isFavourite': _i1.ParameterDescription(
+              name: 'isFavourite',
+              type: _i1.getType<bool>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i4.UserEndpoint).updateGearFavourite(
+            session,
+            params['gear'],
+            params['isFavourite'],
+          ),
+        ),
+        'watchExtraUserInfo': _i1.MethodStreamConnector(
+          name: 'watchExtraUserInfo',
+          params: {
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
+              type: _i1.getType<int?>(),
+              nullable: true,
+            )
+          },
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['user'] as _i4.UserEndpoint).watchExtraUserInfo(
+            session,
+            params['userId'],
+          ),
+        ),
       },
     );
     modules['serverpod_auth'] = _i6.Endpoints()..initializeEndpoints(server);
