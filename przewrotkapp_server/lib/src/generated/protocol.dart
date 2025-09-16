@@ -1445,6 +1445,9 @@ class Protocol extends _i1.SerializationManagerServer {
     if (className != null) {
       return 'serverpod_auth.$className';
     }
+    if (data is List<_i29.Rental>) {
+      return 'List<Rental>';
+    }
     return null;
   }
 
@@ -1533,6 +1536,9 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName.startsWith('serverpod_auth.')) {
       data['className'] = dataClassName.substring(15);
       return _i3.Protocol().deserializeByClassName(data);
+    }
+    if (dataClassName == 'List<Rental>') {
+      return deserialize<List<_i29.Rental>>(data['data']);
     }
     return super.deserializeByClassName(data);
   }

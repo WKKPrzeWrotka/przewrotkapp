@@ -41,10 +41,19 @@ class EndpointRental extends _i1.EndpointRef {
   @override
   String get name => 'rental';
 
-  _i2.Future<List<_i4.Rental>> getAllRentals() =>
+  _i2.Future<List<_i4.Rental>> getRentals({required bool past}) =>
       caller.callServerEndpoint<List<_i4.Rental>>(
         'rental',
-        'getAllRentals',
+        'getRentals',
+        {'past': past},
+      );
+
+  _i2.Stream<List<_i4.Rental>> watchRentals({required bool past}) =>
+      caller.callStreamingServerEndpoint<_i2.Stream<List<_i4.Rental>>,
+          List<_i4.Rental>>(
+        'rental',
+        'watchRentals',
+        {'past': past},
         {},
       );
 

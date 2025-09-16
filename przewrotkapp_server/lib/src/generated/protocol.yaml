@@ -1,7 +1,8 @@
 gearRead:
   - getAllGear:
 rental:
-  - getAllRentals:
+  - getRentals:
+  - watchRentals:
   - rentGear:
 user:
   - getUserInfo:

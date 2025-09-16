@@ -183,20 +183,22 @@ class _RentalEndpoint {
 
   final _i2.SerializationManager _serializationManager;
 
-  _i3.Future<List<_i5.Rental>> getAllRentals(
-      _i1.TestSessionBuilder sessionBuilder) async {
+  _i3.Future<List<_i5.Rental>> getRentals(
+    _i1.TestSessionBuilder sessionBuilder, {
+    required bool past,
+  }) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
       var _localUniqueSession =
           (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
         endpoint: 'rental',
-        method: 'getAllRentals',
+        method: 'getRentals',
       );
       try {
         var _localCallContext = await _endpointDispatch.getMethodCallContext(
           createSessionCallback: (_) => _localUniqueSession,
           endpointPath: 'rental',
-          methodName: 'getAllRentals',
-          parameters: _i1.testObjectToJson({}),
+          methodName: 'getRentals',
+          parameters: _i1.testObjectToJson({'past': past}),
           serializationManager: _serializationManager,
         );
         var _localReturnValue = await (_localCallContext.method.call(
@@ -208,6 +210,38 @@ class _RentalEndpoint {
         await _localUniqueSession.close();
       }
     });
+  }
+
+  _i3.Stream<List<_i5.Rental>> watchRentals(
+    _i1.TestSessionBuilder sessionBuilder, {
+    required bool past,
+  }) {
+    var _localTestStreamManager = _i1.TestStreamManager<List<_i5.Rental>>();
+    _i1.callStreamFunctionAndHandleExceptions(
+      () async {
+        var _localUniqueSession =
+            (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+          endpoint: 'rental',
+          method: 'watchRentals',
+        );
+        var _localCallContext =
+            await _endpointDispatch.getMethodStreamCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'rental',
+          methodName: 'watchRentals',
+          arguments: {'past': past},
+          requestedInputStreams: [],
+          serializationManager: _serializationManager,
+        );
+        await _localTestStreamManager.callStreamMethod(
+          _localCallContext,
+          _localUniqueSession,
+          {},
+        );
+      },
+      _localTestStreamManager.outputStreamController,
+    );
+    return _localTestStreamManager.outputStreamController.stream;
   }
 
   _i3.Future<void> rentGear(

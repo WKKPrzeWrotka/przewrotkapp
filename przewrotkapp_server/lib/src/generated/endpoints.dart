@@ -59,15 +59,23 @@ class Endpoints extends _i1.EndpointDispatch {
       name: 'rental',
       endpoint: endpoints['rental']!,
       methodConnectors: {
-        'getAllRentals': _i1.MethodConnector(
-          name: 'getAllRentals',
-          params: {},
+        'getRentals': _i1.MethodConnector(
+          name: 'getRentals',
+          params: {
+            'past': _i1.ParameterDescription(
+              name: 'past',
+              type: _i1.getType<bool>(),
+              nullable: false,
+            )
+          },
           call: (
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['rental'] as _i3.RentalEndpoint)
-                  .getAllRentals(session),
+              (endpoints['rental'] as _i3.RentalEndpoint).getRentals(
+            session,
+            past: params['past'],
+          ),
         ),
         'rentGear': _i1.MethodConnector(
           name: 'rentGear',
@@ -97,6 +105,27 @@ class Endpoints extends _i1.EndpointDispatch {
             params['gear'],
             params['from'],
             params['to'],
+          ),
+        ),
+        'watchRentals': _i1.MethodStreamConnector(
+          name: 'watchRentals',
+          params: {
+            'past': _i1.ParameterDescription(
+              name: 'past',
+              type: _i1.getType<bool>(),
+              nullable: false,
+            )
+          },
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['rental'] as _i3.RentalEndpoint).watchRentals(
+            session,
+            past: params['past'],
           ),
         ),
       },

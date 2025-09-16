@@ -16,36 +16,31 @@ class _UpcomingTripsCardState extends State<UpcomingTripsCard> {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
-    final client = context.read<Client>();
+    final rentals = context.watch<List<Rental>?>();
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         // TODO: StreamBuilder.
         // Actually, StreamBuilders everywhere...
-        child: FutureBuilder(
-            future: client.rental.getAllRentals(),
-            builder: (context, snap) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 2,
-                children: [
-                  Text("Najbliższe wyjazdy:", style: tt.headlineSmall),
-                  if (snap.hasData)
-                    for (final rental in snap.data!.limit(10))
-                      Text(
-                        "- ${rental.from.toStringDate(showYear: false)} - "
-                        "${rental.to.toStringDate(showYear: false)}",
-                      ),
-                  if (!snap.hasData) Text("Ładowanie..."),
-                  ElevatedButton(
-                    onPressed: () => context.push('/newRental'),
-                    child: Text('Nowy wyjazd!'),
-                  ),
-                  ElevatedButton(
-                      onPressed: () {}, child: Text('Zobacz kalendarz')),
-                ],
-              );
-            }),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 2,
+          children: [
+            Text("Najbliższe wyjazdy:", style: tt.headlineSmall),
+            if (rentals != null)
+              for (final rental in rentals.limit(10))
+                Text(
+                  "- ${rental.from.toStringDate(showYear: false)} - "
+                  "${rental.to.toStringDate(showYear: false)}",
+                ),
+            if (rentals == null) Text("Ładowanie..."),
+            ElevatedButton(
+              onPressed: () => context.push('/newRental'),
+              child: Text('Nowy wyjazd!'),
+            ),
+            ElevatedButton(onPressed: () {}, child: Text('Zobacz kalendarz')),
+          ],
+        ),
       ),
     );
   }

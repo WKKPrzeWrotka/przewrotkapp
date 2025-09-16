@@ -55,6 +55,10 @@ class MyApp extends StatelessWidget {
             // TODO: Cancel retry-on-fail stream :)
           },
         ),
+        StreamProvider<List<Rental>?>(
+          initialData: null,
+          create: (_) => _client.rental.watchRentals(past: false),
+        ),
       ],
       child: MaterialApp.router(
         routerConfig: router,
