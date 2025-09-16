@@ -29,6 +29,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
   var rentingState = _RentingState.selecting;
 
   var selectedDates = <DateTime>[];
+  List<GearPair>? allGear;
   final cart = <GearPair>[];
   var selectedGearType = GearType.kayak;
   final searchBarCtrl = TextEditingController();
@@ -36,7 +37,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
   final shoppingCart = <GearPair>{};
 
   void filterGear() async {
-    gearSelection = (await context.read<Future<List<GearPair>>>()).where((e) {
+    gearSelection = (allGear ?? []).where((e) {
       if (e.gear.type != selectedGearType) return false;
       final t = searchBarCtrl.text.toLowerCase();
       if (t.isNotEmpty) {
@@ -67,20 +68,11 @@ class _NewRentalPageState extends State<NewRentalPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    Future.microtask(() async {
-      if (mounted) {
-        await context.read<Future<List<GearPair>>>();
-        filterGear();
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
+    allGear = context.watch<List<GearPair>?>();
+    filterGear();
     return Scaffold(
       appBar: AppBar(title: Text("Wypożycz sprzęcior")),
       body: ListView(
@@ -119,7 +111,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
                   selected: selectedGearType == type,
                   onSelected: (v) {
                     if (v) selectedGearType = type;
-                    filterGear();
+                    setState(() {});
                   },
                 ),
             ],
@@ -132,14 +124,13 @@ class _NewRentalPageState extends State<NewRentalPage> {
                 IconButton(
                   onPressed: () {
                     searchBarCtrl.clear();
-                    filterGear();
                     setState(() {});
                   },
                   icon: Icon(Icons.clear),
                 ),
             ],
             onSubmitted: (v) {
-              filterGear();
+              setState(() {});
             },
           ),
           Container(
@@ -148,30 +139,25 @@ class _NewRentalPageState extends State<NewRentalPage> {
               border: Border.all(color: Colors.grey, width: 1.5),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: FutureBuilder(
-              future: context.read<Future<List<GearPair>>>(),
-              builder: (context, snap) {
-                return snap.hasData
-                    ? ListView(
-                        children: [
-                          for (final gear in gearSelection)
-                            GearListing(
-                              gearPair: gear,
-                              trailing: IconButton(
-                                onPressed: shoppingCart.contains(gear)
-                                    ? null
-                                    : () {
-                                        shoppingCart.add(gear);
-                                        setState(() {});
-                                      },
-                                icon: Icon(Icons.add_shopping_cart),
-                              ),
-                            )
-                        ],
-                      )
-                    : Placeholder();
-              },
-            ),
+            child: allGear != null
+                ? ListView(
+                    children: [
+                      for (final gear in gearSelection)
+                        GearListing(
+                          gearPair: gear,
+                          trailing: IconButton(
+                            onPressed: shoppingCart.contains(gear)
+                                ? null
+                                : () {
+                                    shoppingCart.add(gear);
+                                    setState(() {});
+                                  },
+                            icon: Icon(Icons.add_shopping_cart),
+                          ),
+                        )
+                    ],
+                  )
+                : Placeholder(),
           ),
           Text("Wybrano:", style: tt.headlineMedium),
           Column(
