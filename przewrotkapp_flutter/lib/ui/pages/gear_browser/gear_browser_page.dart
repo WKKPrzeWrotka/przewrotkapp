@@ -14,19 +14,19 @@ class GearBrowserPage extends StatefulWidget {
 class _GearBrowserPageState extends State<GearBrowserPage> {
   var typeChoiceSet = <GearType>{};
 
-  late List<(Gear, dynamic)> allGear;
-  List<(Gear, dynamic)> gearSelection = [];
+  late List<GearPair> allGear;
+  List<GearPair> gearSelection = [];
 
   void applyGearFilter() {
     gearSelection = typeChoiceSet.isEmpty
         ? allGear
-        : allGear.where((e) => typeChoiceSet.contains(e.$1.type)).toList();
+        : allGear.where((e) => typeChoiceSet.contains(e.gear.type)).toList();
   }
 
   @override
   void initState() {
     super.initState();
-    _getAllGear(context.read<Client>()).then((v) => setState(() {
+    context.read<Future<List<GearPair>>>().then((v) => setState(() {
           allGear = v;
           gearSelection = v;
         }));
@@ -90,28 +90,9 @@ class _GearBrowserPageState extends State<GearBrowserPage> {
         ? ListView.builder(
             padding: const EdgeInsets.all(16),
             itemCount: gearSelection.length,
-            itemBuilder: (context, i) => GearListing(
-              gear: gearSelection[i].$1,
-              subtypeData: gearSelection[i].$2,
-            ),
+            itemBuilder: (context, i) =>
+                GearListing(gearPair: gearSelection[i]),
           )
         : Placeholder();
   }
-}
-
-Future<List<(Gear, dynamic)>> _getAllGear(Client client) async {
-  final all = await Future.wait([
-    client.gearRead.getAllBelts(),
-    client.gearRead.getAllClothes(),
-    client.gearRead.getAllFloatbags(),
-    client.gearRead.getAllHelmets(),
-    client.gearRead.getAllKayaks(),
-    client.gearRead.getAllPaddles(),
-    client.gearRead.getAllPfds(),
-    client.gearRead.getAllSpraydecks(),
-    client.gearRead.getAllThrowbags(),
-  ]);
-  return [for (final a in all) ...a]
-      .map((dynamic e) => (e.gear as Gear, e))
-      .toList();
 }

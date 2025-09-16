@@ -1,5 +1,6 @@
 class: GearFloatbag
 table: gear_floatbags
+extends: GearExtra
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
   volume: int?

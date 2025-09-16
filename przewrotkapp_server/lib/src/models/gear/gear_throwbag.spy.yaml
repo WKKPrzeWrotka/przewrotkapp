@@ -1,5 +1,6 @@
 class: GearThrowbag
 table: gear_throwbags
+extends: GearExtra
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
   length: int

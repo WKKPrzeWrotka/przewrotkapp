@@ -6,3 +6,6 @@ server_test_tools_path: test/integration/test_tools
 modules:
   serverpod_auth:
     nickname: auth
+
+experimental_features:
+  inheritance: true

@@ -4,14 +4,12 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_flutter/ui/common/utils.dart';
 
 class GearListing extends StatelessWidget {
-  final Gear gear;
-  final dynamic subtypeData;
+  final GearPair gearPair;
   final Widget? trailing;
 
   const GearListing({
     super.key,
-    required this.gear,
-    this.subtypeData,
+    required this.gearPair,
     this.trailing,
   });
 
@@ -19,22 +17,22 @@ class GearListing extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap: () => context.push('/gearDetails/${gear.id!}'),
+        onTap: () => context.push('/gearDetails/${gearPair.gear.id!}'),
         leading: AspectRatio(
           aspectRatio: 1.777,
-          child: gear.photoUrls?.firstOrNull != null
+          child: gearPair.gear.photoUrls?.firstOrNull != null
               ? ClipRRect(
                   borderRadius: BorderRadiusGeometry.circular(6),
                   child: Image.network(
-                    gear.photoUrls!.first.toString(),
+                    gearPair.gear.photoUrls!.first.toString(),
                   ),
                 )
               // TODO: Type-specific emoji here
               : Icon(Icons.kayaking),
         ),
-        title: Text(gear.displayName()),
+        title: Text(gearPair.gear.displayName()),
         subtitle: Text(
-          switch (subtypeData) {
+          switch (gearPair.gearExtra) {
             GearBelt belt => "${belt.length}m",
             GearClothing clothing =>
               "${clothing.type}${clothing.typeDescription != null ? ", ${clothing.typeDescription}" : ""}",
@@ -55,7 +53,8 @@ class GearListing extends StatelessWidget {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(gear.clubId, style: Theme.of(context).textTheme.bodyMedium),
+            Text(gearPair.gear.clubId,
+                style: Theme.of(context).textTheme.bodyMedium),
             if (trailing != null) trailing!,
           ],
         ),

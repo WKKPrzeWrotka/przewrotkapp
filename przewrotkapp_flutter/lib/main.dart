@@ -45,6 +45,16 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<Client>(create: (_) => _client),
         ChangeNotifierProvider<SessionManager>(create: (_) => _sessionManager),
+        // Maybe wrap it in some container class to indicate what it is
+        Provider<Future<List<GearPair>>>(
+          create: (_) {
+            // TODO: Retry on fail
+            return _client.gearRead.getAllGear();
+          },
+          dispose: (_, __) {
+            // TODO: Cancel retry-on-fail stream :)
+          },
+        ),
       ],
       child: MaterialApp.router(
         routerConfig: router,

@@ -9,10 +9,12 @@
 // ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import '../gear/gear.dart' as _i2;
+import '../protocol.dart' as _i1;
+import 'package:serverpod_client/serverpod_client.dart' as _i2;
+import '../gear/gear.dart' as _i3;
 
-abstract class GearFloatbag implements _i1.SerializableModel {
+abstract class GearFloatbag extends _i1.GearExtra
+    implements _i2.SerializableModel {
   GearFloatbag._({
     this.id,
     required this.gearId,
@@ -23,7 +25,7 @@ abstract class GearFloatbag implements _i1.SerializableModel {
   factory GearFloatbag({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
+    _i3.Gear? gear,
     int? volume,
   }) = _GearFloatbagImpl;
 
@@ -33,7 +35,7 @@ abstract class GearFloatbag implements _i1.SerializableModel {
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
-          : _i2.Gear.fromJson(
+          : _i3.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
       volume: jsonSerialization['volume'] as int?,
     );
@@ -46,17 +48,18 @@ abstract class GearFloatbag implements _i1.SerializableModel {
 
   int gearId;
 
-  _i2.Gear? gear;
+  _i3.Gear? gear;
 
   int? volume;
 
   /// Returns a shallow copy of this [GearFloatbag]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @override
+  @_i2.useResult
   GearFloatbag copyWith({
     int? id,
     int? gearId,
-    _i2.Gear? gear,
+    _i3.Gear? gear,
     int? volume,
   });
   @override
@@ -71,7 +74,7 @@ abstract class GearFloatbag implements _i1.SerializableModel {
 
   @override
   String toString() {
-    return _i1.SerializationManager.encode(this);
+    return _i2.SerializationManager.encode(this);
   }
 }
 
@@ -81,7 +84,7 @@ class _GearFloatbagImpl extends GearFloatbag {
   _GearFloatbagImpl({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
+    _i3.Gear? gear,
     int? volume,
   }) : super._(
           id: id,
@@ -92,7 +95,7 @@ class _GearFloatbagImpl extends GearFloatbag {
 
   /// Returns a shallow copy of this [GearFloatbag]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @_i2.useResult
   @override
   GearFloatbag copyWith({
     Object? id = _Undefined,
@@ -103,7 +106,7 @@ class _GearFloatbagImpl extends GearFloatbag {
     return GearFloatbag(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
-      gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
+      gear: gear is _i3.Gear? ? gear : this.gear?.copyWith(),
       volume: volume is int? ? volume : this.volume,
     );
   }

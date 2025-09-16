@@ -10,7 +10,6 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_flutter/ui/common/gear_listing.dart';
 import 'package:przewrotkapp_flutter/ui/common/utils.dart';
 import 'package:vibration/vibration.dart';
-import '../common/utils.dart';
 
 class NewRentalPage extends StatefulWidget {
   const NewRentalPage({super.key});
@@ -30,40 +29,39 @@ class _NewRentalPageState extends State<NewRentalPage> {
   var rentingState = _RentingState.selecting;
 
   var selectedDates = <DateTime>[];
-  final cart = <(Gear, dynamic)>[];
-  final allGearCmpl = Completer<List<Gear>>();
+  final cart = <GearPair>[];
   var selectedGearType = GearType.kayak;
   final searchBarCtrl = TextEditingController();
-  var gearSelection = <Gear>[];
-  final shoppingCart = <Gear>{};
+  var gearSelection = <GearPair>[];
+  final shoppingCart = <GearPair>{};
 
   void filterGear() async {
-    gearSelection = (await allGearCmpl.future).where((e) {
-      if (e.type != selectedGearType) return false;
+    gearSelection = (await context.read<Future<List<GearPair>>>()).where((e) {
+      if (e.gear.type != selectedGearType) return false;
       final t = searchBarCtrl.text.toLowerCase();
       if (t.isNotEmpty) {
-        final fullName = (e.clubId.toLowerCase()) +
-            (e.manufacturer?.toLowerCase() ?? "") +
-            (e.model?.toLowerCase() ?? "") +
-            (e.friendlyName?.toLowerCase() ?? "");
+        final fullName = (e.gear.clubId.toLowerCase()) +
+            (e.gear.manufacturer?.toLowerCase() ?? "") +
+            (e.gear.model?.toLowerCase() ?? "") +
+            (e.gear.friendlyName?.toLowerCase() ?? "");
         return fullName.contains(t);
       }
       return true;
     }).toList()
       ..sort((a, b) {
-        final l = a.clubId.length.compareTo(b.clubId.length);
-        return l != 0 ? l : a.clubId.compareTo(b.clubId);
+        final l = a.gear.clubId.length.compareTo(b.gear.clubId.length);
+        return l != 0 ? l : a.gear.clubId.compareTo(b.gear.clubId);
       });
     setState(() {});
   }
 
-  int hoursForGear(Set<Gear> gear, DateTime from, DateTime to) {
-    return (gear.where((e) => e.type == GearType.kayak).length +
+  int hoursForGear(Set<GearPair> gear, DateTime from, DateTime to) {
+    return (gear.where((e) => e.gear.type == GearType.kayak).length +
             [
               for (final type in GearType.values.toList()
                 ..remove(GearType.kayak)
                 ..remove(GearType.other))
-                gear.where((e) => e.type == type).length
+                gear.where((e) => e.gear.type == type).length
             ].reduce(max)) *
         (to.getDayDifference(from) + 1);
   }
@@ -73,8 +71,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
     super.initState();
     Future.microtask(() async {
       if (mounted) {
-        final client = context.read<Client>();
-        allGearCmpl.complete(await client.gearRead.getAllGear());
+        await context.read<Future<List<GearPair>>>();
         filterGear();
       }
     });
@@ -152,14 +149,14 @@ class _NewRentalPageState extends State<NewRentalPage> {
               borderRadius: BorderRadius.circular(12),
             ),
             child: FutureBuilder(
-              future: allGearCmpl.future,
+              future: context.read<Future<List<GearPair>>>(),
               builder: (context, snap) {
                 return snap.hasData
                     ? ListView(
                         children: [
                           for (final gear in gearSelection)
                             GearListing(
-                              gear: gear,
+                              gearPair: gear,
                               trailing: IconButton(
                                 onPressed: shoppingCart.contains(gear)
                                     ? null
@@ -181,7 +178,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
             children: [
               for (final gear in shoppingCart)
                 GearListing(
-                  gear: gear,
+                  gearPair: gear,
                   trailing: IconButton(
                     color: Colors.red,
                     onPressed: () {
@@ -215,7 +212,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
                 setState(() {});
                 try {
                   await context.read<Client>().rental.rentGear(
-                        shoppingCart.toList(),
+                        shoppingCart.map((e) => e.gear).toList(),
                         selectedDates[0],
                         selectedDates[1],
                       );

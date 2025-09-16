@@ -9,10 +9,11 @@
 // ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import '../gear/gear.dart' as _i2;
+import '../protocol.dart' as _i1;
+import 'package:serverpod_client/serverpod_client.dart' as _i2;
+import '../gear/gear.dart' as _i3;
 
-abstract class GearBelt implements _i1.SerializableModel {
+abstract class GearBelt extends _i1.GearExtra implements _i2.SerializableModel {
   GearBelt._({
     this.id,
     required this.gearId,
@@ -23,7 +24,7 @@ abstract class GearBelt implements _i1.SerializableModel {
   factory GearBelt({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
+    _i3.Gear? gear,
     required double length,
   }) = _GearBeltImpl;
 
@@ -33,7 +34,7 @@ abstract class GearBelt implements _i1.SerializableModel {
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
-          : _i2.Gear.fromJson(
+          : _i3.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
       length: (jsonSerialization['length'] as num).toDouble(),
     );
@@ -46,17 +47,18 @@ abstract class GearBelt implements _i1.SerializableModel {
 
   int gearId;
 
-  _i2.Gear? gear;
+  _i3.Gear? gear;
 
   double length;
 
   /// Returns a shallow copy of this [GearBelt]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @override
+  @_i2.useResult
   GearBelt copyWith({
     int? id,
     int? gearId,
-    _i2.Gear? gear,
+    _i3.Gear? gear,
     double? length,
   });
   @override
@@ -71,7 +73,7 @@ abstract class GearBelt implements _i1.SerializableModel {
 
   @override
   String toString() {
-    return _i1.SerializationManager.encode(this);
+    return _i2.SerializationManager.encode(this);
   }
 }
 
@@ -81,7 +83,7 @@ class _GearBeltImpl extends GearBelt {
   _GearBeltImpl({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
+    _i3.Gear? gear,
     required double length,
   }) : super._(
           id: id,
@@ -92,7 +94,7 @@ class _GearBeltImpl extends GearBelt {
 
   /// Returns a shallow copy of this [GearBelt]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @_i2.useResult
   @override
   GearBelt copyWith({
     Object? id = _Undefined,
@@ -103,7 +105,7 @@ class _GearBeltImpl extends GearBelt {
     return GearBelt(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
-      gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
+      gear: gear is _i3.Gear? ? gear : this.gear?.copyWith(),
       length: length ?? this.length,
     );
   }

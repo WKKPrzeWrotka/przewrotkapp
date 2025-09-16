@@ -1,5 +1,6 @@
 class: GearPfd
 table: gear_pfds
+extends: GearExtra
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
   size: GenericGearSize

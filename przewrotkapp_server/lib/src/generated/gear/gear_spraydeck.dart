@@ -11,13 +11,14 @@
 // ignore_for_file: unnecessary_null_comparison
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod/serverpod.dart' as _i1;
-import '../gear/gear.dart' as _i2;
-import '../gear/spraydeck_deck_size.dart' as _i3;
-import '../gear/generic_gear_size.dart' as _i4;
+import '../protocol.dart' as _i1;
+import 'package:serverpod/serverpod.dart' as _i2;
+import '../gear/gear.dart' as _i3;
+import '../gear/spraydeck_deck_size.dart' as _i4;
+import '../gear/generic_gear_size.dart' as _i5;
 
-abstract class GearSpraydeck
-    implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
+abstract class GearSpraydeck extends _i1.GearExtra
+    implements _i2.TableRow<int?>, _i2.ProtocolSerialization {
   GearSpraydeck._({
     this.id,
     required this.gearId,
@@ -29,9 +30,9 @@ abstract class GearSpraydeck
   factory GearSpraydeck({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
-    required _i3.SpraydeckDeckSize deckSize,
-    required _i4.GenericGearSize waistSize,
+    _i3.Gear? gear,
+    required _i4.SpraydeckDeckSize deckSize,
+    required _i5.GenericGearSize waistSize,
   }) = _GearSpraydeckImpl;
 
   factory GearSpraydeck.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -40,11 +41,11 @@ abstract class GearSpraydeck
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
-          : _i2.Gear.fromJson(
+          : _i3.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      deckSize: _i3.SpraydeckDeckSize.fromJson(
+      deckSize: _i4.SpraydeckDeckSize.fromJson(
           (jsonSerialization['deckSize'] as String)),
-      waistSize: _i4.GenericGearSize.fromJson(
+      waistSize: _i5.GenericGearSize.fromJson(
           (jsonSerialization['waistSize'] as String)),
     );
   }
@@ -58,24 +59,25 @@ abstract class GearSpraydeck
 
   int gearId;
 
-  _i2.Gear? gear;
+  _i3.Gear? gear;
 
-  _i3.SpraydeckDeckSize deckSize;
+  _i4.SpraydeckDeckSize deckSize;
 
-  _i4.GenericGearSize waistSize;
+  _i5.GenericGearSize waistSize;
 
   @override
-  _i1.Table<int?> get table => t;
+  _i2.Table<int?> get table => t;
 
   /// Returns a shallow copy of this [GearSpraydeck]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @override
+  @_i2.useResult
   GearSpraydeck copyWith({
     int? id,
     int? gearId,
-    _i2.Gear? gear,
-    _i3.SpraydeckDeckSize? deckSize,
-    _i4.GenericGearSize? waistSize,
+    _i3.Gear? gear,
+    _i4.SpraydeckDeckSize? deckSize,
+    _i5.GenericGearSize? waistSize,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -99,17 +101,17 @@ abstract class GearSpraydeck
     };
   }
 
-  static GearSpraydeckInclude include({_i2.GearInclude? gear}) {
+  static GearSpraydeckInclude include({_i3.GearInclude? gear}) {
     return GearSpraydeckInclude._(gear: gear);
   }
 
   static GearSpraydeckIncludeList includeList({
-    _i1.WhereExpressionBuilder<GearSpraydeckTable>? where,
+    _i2.WhereExpressionBuilder<GearSpraydeckTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearSpraydeckTable>? orderBy,
+    _i2.OrderByBuilder<GearSpraydeckTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearSpraydeckTable>? orderByList,
+    _i2.OrderByListBuilder<GearSpraydeckTable>? orderByList,
     GearSpraydeckInclude? include,
   }) {
     return GearSpraydeckIncludeList._(
@@ -125,7 +127,7 @@ abstract class GearSpraydeck
 
   @override
   String toString() {
-    return _i1.SerializationManager.encode(this);
+    return _i2.SerializationManager.encode(this);
   }
 }
 
@@ -135,9 +137,9 @@ class _GearSpraydeckImpl extends GearSpraydeck {
   _GearSpraydeckImpl({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
-    required _i3.SpraydeckDeckSize deckSize,
-    required _i4.GenericGearSize waistSize,
+    _i3.Gear? gear,
+    required _i4.SpraydeckDeckSize deckSize,
+    required _i5.GenericGearSize waistSize,
   }) : super._(
           id: id,
           gearId: gearId,
@@ -148,67 +150,67 @@ class _GearSpraydeckImpl extends GearSpraydeck {
 
   /// Returns a shallow copy of this [GearSpraydeck]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @_i2.useResult
   @override
   GearSpraydeck copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.SpraydeckDeckSize? deckSize,
-    _i4.GenericGearSize? waistSize,
+    _i4.SpraydeckDeckSize? deckSize,
+    _i5.GenericGearSize? waistSize,
   }) {
     return GearSpraydeck(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
-      gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
+      gear: gear is _i3.Gear? ? gear : this.gear?.copyWith(),
       deckSize: deckSize ?? this.deckSize,
       waistSize: waistSize ?? this.waistSize,
     );
   }
 }
 
-class GearSpraydeckTable extends _i1.Table<int?> {
+class GearSpraydeckTable extends _i2.Table<int?> {
   GearSpraydeckTable({super.tableRelation})
       : super(tableName: 'gear_spraydecks') {
-    gearId = _i1.ColumnInt(
+    gearId = _i2.ColumnInt(
       'gearId',
       this,
     );
-    deckSize = _i1.ColumnEnum(
+    deckSize = _i2.ColumnEnum(
       'deckSize',
       this,
-      _i1.EnumSerialization.byName,
+      _i2.EnumSerialization.byName,
     );
-    waistSize = _i1.ColumnEnum(
+    waistSize = _i2.ColumnEnum(
       'waistSize',
       this,
-      _i1.EnumSerialization.byName,
+      _i2.EnumSerialization.byName,
     );
   }
 
-  late final _i1.ColumnInt gearId;
+  late final _i2.ColumnInt gearId;
 
-  _i2.GearTable? _gear;
+  _i3.GearTable? _gear;
 
-  late final _i1.ColumnEnum<_i3.SpraydeckDeckSize> deckSize;
+  late final _i2.ColumnEnum<_i4.SpraydeckDeckSize> deckSize;
 
-  late final _i1.ColumnEnum<_i4.GenericGearSize> waistSize;
+  late final _i2.ColumnEnum<_i5.GenericGearSize> waistSize;
 
-  _i2.GearTable get gear {
+  _i3.GearTable get gear {
     if (_gear != null) return _gear!;
-    _gear = _i1.createRelationTable(
+    _gear = _i2.createRelationTable(
       relationFieldName: 'gear',
       field: GearSpraydeck.t.gearId,
-      foreignField: _i2.Gear.t.id,
+      foreignField: _i3.Gear.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i2.GearTable(tableRelation: foreignTableRelation),
+          _i3.GearTable(tableRelation: foreignTableRelation),
     );
     return _gear!;
   }
 
   @override
-  List<_i1.Column> get columns => [
+  List<_i2.Column> get columns => [
         id,
         gearId,
         deckSize,
@@ -216,7 +218,7 @@ class GearSpraydeckTable extends _i1.Table<int?> {
       ];
 
   @override
-  _i1.Table? getRelationTable(String relationField) {
+  _i2.Table? getRelationTable(String relationField) {
     if (relationField == 'gear') {
       return gear;
     }
@@ -224,23 +226,23 @@ class GearSpraydeckTable extends _i1.Table<int?> {
   }
 }
 
-class GearSpraydeckInclude extends _i1.IncludeObject {
-  GearSpraydeckInclude._({_i2.GearInclude? gear}) {
+class GearSpraydeckInclude extends _i2.IncludeObject {
+  GearSpraydeckInclude._({_i3.GearInclude? gear}) {
     _gear = gear;
   }
 
-  _i2.GearInclude? _gear;
+  _i3.GearInclude? _gear;
 
   @override
-  Map<String, _i1.Include?> get includes => {'gear': _gear};
+  Map<String, _i2.Include?> get includes => {'gear': _gear};
 
   @override
-  _i1.Table<int?> get table => GearSpraydeck.t;
+  _i2.Table<int?> get table => GearSpraydeck.t;
 }
 
-class GearSpraydeckIncludeList extends _i1.IncludeList {
+class GearSpraydeckIncludeList extends _i2.IncludeList {
   GearSpraydeckIncludeList._({
-    _i1.WhereExpressionBuilder<GearSpraydeckTable>? where,
+    _i2.WhereExpressionBuilder<GearSpraydeckTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -252,10 +254,10 @@ class GearSpraydeckIncludeList extends _i1.IncludeList {
   }
 
   @override
-  Map<String, _i1.Include?> get includes => include?.includes ?? {};
+  Map<String, _i2.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table<int?> get table => GearSpraydeck.t;
+  _i2.Table<int?> get table => GearSpraydeck.t;
 }
 
 class GearSpraydeckRepository {
@@ -286,14 +288,14 @@ class GearSpraydeckRepository {
   /// );
   /// ```
   Future<List<GearSpraydeck>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearSpraydeckTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearSpraydeckTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearSpraydeckTable>? orderBy,
+    _i2.OrderByBuilder<GearSpraydeckTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearSpraydeckTable>? orderByList,
-    _i1.Transaction? transaction,
+    _i2.OrderByListBuilder<GearSpraydeckTable>? orderByList,
+    _i2.Transaction? transaction,
     GearSpraydeckInclude? include,
   }) async {
     return session.db.find<GearSpraydeck>(
@@ -326,13 +328,13 @@ class GearSpraydeckRepository {
   /// );
   /// ```
   Future<GearSpraydeck?> findFirstRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearSpraydeckTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearSpraydeckTable>? where,
     int? offset,
-    _i1.OrderByBuilder<GearSpraydeckTable>? orderBy,
+    _i2.OrderByBuilder<GearSpraydeckTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearSpraydeckTable>? orderByList,
-    _i1.Transaction? transaction,
+    _i2.OrderByListBuilder<GearSpraydeckTable>? orderByList,
+    _i2.Transaction? transaction,
     GearSpraydeckInclude? include,
   }) async {
     return session.db.findFirstRow<GearSpraydeck>(
@@ -348,9 +350,9 @@ class GearSpraydeckRepository {
 
   /// Finds a single [GearSpraydeck] by its [id] or null if no such row exists.
   Future<GearSpraydeck?> findById(
-    _i1.Session session,
+    _i2.Session session,
     int id, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
     GearSpraydeckInclude? include,
   }) async {
     return session.db.findById<GearSpraydeck>(
@@ -367,9 +369,9 @@ class GearSpraydeckRepository {
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// insert, none of the rows will be inserted.
   Future<List<GearSpraydeck>> insert(
-    _i1.Session session,
+    _i2.Session session,
     List<GearSpraydeck> rows, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.insert<GearSpraydeck>(
       rows,
@@ -381,9 +383,9 @@ class GearSpraydeckRepository {
   ///
   /// The returned [GearSpraydeck] will have its `id` field set.
   Future<GearSpraydeck> insertRow(
-    _i1.Session session,
+    _i2.Session session,
     GearSpraydeck row, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.insertRow<GearSpraydeck>(
       row,
@@ -397,10 +399,10 @@ class GearSpraydeckRepository {
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// update, none of the rows will be updated.
   Future<List<GearSpraydeck>> update(
-    _i1.Session session,
+    _i2.Session session,
     List<GearSpraydeck> rows, {
-    _i1.ColumnSelections<GearSpraydeckTable>? columns,
-    _i1.Transaction? transaction,
+    _i2.ColumnSelections<GearSpraydeckTable>? columns,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.update<GearSpraydeck>(
       rows,
@@ -413,10 +415,10 @@ class GearSpraydeckRepository {
   /// Optionally, a list of [columns] can be provided to only update those
   /// columns. Defaults to all columns.
   Future<GearSpraydeck> updateRow(
-    _i1.Session session,
+    _i2.Session session,
     GearSpraydeck row, {
-    _i1.ColumnSelections<GearSpraydeckTable>? columns,
-    _i1.Transaction? transaction,
+    _i2.ColumnSelections<GearSpraydeckTable>? columns,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.updateRow<GearSpraydeck>(
       row,
@@ -429,9 +431,9 @@ class GearSpraydeckRepository {
   /// This is an atomic operation, meaning that if one of the rows fail to
   /// be deleted, none of the rows will be deleted.
   Future<List<GearSpraydeck>> delete(
-    _i1.Session session,
+    _i2.Session session,
     List<GearSpraydeck> rows, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.delete<GearSpraydeck>(
       rows,
@@ -441,9 +443,9 @@ class GearSpraydeckRepository {
 
   /// Deletes a single [GearSpraydeck].
   Future<GearSpraydeck> deleteRow(
-    _i1.Session session,
+    _i2.Session session,
     GearSpraydeck row, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.deleteRow<GearSpraydeck>(
       row,
@@ -453,9 +455,9 @@ class GearSpraydeckRepository {
 
   /// Deletes all rows matching the [where] expression.
   Future<List<GearSpraydeck>> deleteWhere(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<GearSpraydeckTable> where,
-    _i1.Transaction? transaction,
+    _i2.Session session, {
+    required _i2.WhereExpressionBuilder<GearSpraydeckTable> where,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.deleteWhere<GearSpraydeck>(
       where: where(GearSpraydeck.t),
@@ -466,10 +468,10 @@ class GearSpraydeckRepository {
   /// Counts the number of rows matching the [where] expression. If omitted,
   /// will return the count of all rows in the table.
   Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearSpraydeckTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearSpraydeckTable>? where,
     int? limit,
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.count<GearSpraydeck>(
       where: where?.call(GearSpraydeck.t),
@@ -485,10 +487,10 @@ class GearSpraydeckAttachRowRepository {
   /// Creates a relation between the given [GearSpraydeck] and [Gear]
   /// by setting the [GearSpraydeck]'s foreign key `gearId` to refer to the [Gear].
   Future<void> gear(
-    _i1.Session session,
+    _i2.Session session,
     GearSpraydeck gearSpraydeck,
-    _i2.Gear gear, {
-    _i1.Transaction? transaction,
+    _i3.Gear gear, {
+    _i2.Transaction? transaction,
   }) async {
     if (gearSpraydeck.id == null) {
       throw ArgumentError.notNull('gearSpraydeck.id');

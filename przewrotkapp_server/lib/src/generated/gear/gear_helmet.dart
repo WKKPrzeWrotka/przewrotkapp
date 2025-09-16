@@ -11,12 +11,13 @@
 // ignore_for_file: unnecessary_null_comparison
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod/serverpod.dart' as _i1;
-import '../gear/gear.dart' as _i2;
-import '../gear/generic_gear_size.dart' as _i3;
+import '../protocol.dart' as _i1;
+import 'package:serverpod/serverpod.dart' as _i2;
+import '../gear/gear.dart' as _i3;
+import '../gear/generic_gear_size.dart' as _i4;
 
-abstract class GearHelmet
-    implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
+abstract class GearHelmet extends _i1.GearExtra
+    implements _i2.TableRow<int?>, _i2.ProtocolSerialization {
   GearHelmet._({
     this.id,
     required this.gearId,
@@ -27,8 +28,8 @@ abstract class GearHelmet
   factory GearHelmet({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
-    required _i3.GenericGearSize size,
+    _i3.Gear? gear,
+    required _i4.GenericGearSize size,
   }) = _GearHelmetImpl;
 
   factory GearHelmet.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -37,9 +38,9 @@ abstract class GearHelmet
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
-          : _i2.Gear.fromJson(
+          : _i3.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      size: _i3.GenericGearSize.fromJson((jsonSerialization['size'] as String)),
+      size: _i4.GenericGearSize.fromJson((jsonSerialization['size'] as String)),
     );
   }
 
@@ -52,21 +53,22 @@ abstract class GearHelmet
 
   int gearId;
 
-  _i2.Gear? gear;
+  _i3.Gear? gear;
 
-  _i3.GenericGearSize size;
+  _i4.GenericGearSize size;
 
   @override
-  _i1.Table<int?> get table => t;
+  _i2.Table<int?> get table => t;
 
   /// Returns a shallow copy of this [GearHelmet]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @override
+  @_i2.useResult
   GearHelmet copyWith({
     int? id,
     int? gearId,
-    _i2.Gear? gear,
-    _i3.GenericGearSize? size,
+    _i3.Gear? gear,
+    _i4.GenericGearSize? size,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -88,17 +90,17 @@ abstract class GearHelmet
     };
   }
 
-  static GearHelmetInclude include({_i2.GearInclude? gear}) {
+  static GearHelmetInclude include({_i3.GearInclude? gear}) {
     return GearHelmetInclude._(gear: gear);
   }
 
   static GearHelmetIncludeList includeList({
-    _i1.WhereExpressionBuilder<GearHelmetTable>? where,
+    _i2.WhereExpressionBuilder<GearHelmetTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearHelmetTable>? orderBy,
+    _i2.OrderByBuilder<GearHelmetTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearHelmetTable>? orderByList,
+    _i2.OrderByListBuilder<GearHelmetTable>? orderByList,
     GearHelmetInclude? include,
   }) {
     return GearHelmetIncludeList._(
@@ -114,7 +116,7 @@ abstract class GearHelmet
 
   @override
   String toString() {
-    return _i1.SerializationManager.encode(this);
+    return _i2.SerializationManager.encode(this);
   }
 }
 
@@ -124,8 +126,8 @@ class _GearHelmetImpl extends GearHelmet {
   _GearHelmetImpl({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
-    required _i3.GenericGearSize size,
+    _i3.Gear? gear,
+    required _i4.GenericGearSize size,
   }) : super._(
           id: id,
           gearId: gearId,
@@ -135,64 +137,64 @@ class _GearHelmetImpl extends GearHelmet {
 
   /// Returns a shallow copy of this [GearHelmet]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @_i2.useResult
   @override
   GearHelmet copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.GenericGearSize? size,
+    _i4.GenericGearSize? size,
   }) {
     return GearHelmet(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
-      gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
+      gear: gear is _i3.Gear? ? gear : this.gear?.copyWith(),
       size: size ?? this.size,
     );
   }
 }
 
-class GearHelmetTable extends _i1.Table<int?> {
+class GearHelmetTable extends _i2.Table<int?> {
   GearHelmetTable({super.tableRelation}) : super(tableName: 'gear_helmets') {
-    gearId = _i1.ColumnInt(
+    gearId = _i2.ColumnInt(
       'gearId',
       this,
     );
-    size = _i1.ColumnEnum(
+    size = _i2.ColumnEnum(
       'size',
       this,
-      _i1.EnumSerialization.byName,
+      _i2.EnumSerialization.byName,
     );
   }
 
-  late final _i1.ColumnInt gearId;
+  late final _i2.ColumnInt gearId;
 
-  _i2.GearTable? _gear;
+  _i3.GearTable? _gear;
 
-  late final _i1.ColumnEnum<_i3.GenericGearSize> size;
+  late final _i2.ColumnEnum<_i4.GenericGearSize> size;
 
-  _i2.GearTable get gear {
+  _i3.GearTable get gear {
     if (_gear != null) return _gear!;
-    _gear = _i1.createRelationTable(
+    _gear = _i2.createRelationTable(
       relationFieldName: 'gear',
       field: GearHelmet.t.gearId,
-      foreignField: _i2.Gear.t.id,
+      foreignField: _i3.Gear.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i2.GearTable(tableRelation: foreignTableRelation),
+          _i3.GearTable(tableRelation: foreignTableRelation),
     );
     return _gear!;
   }
 
   @override
-  List<_i1.Column> get columns => [
+  List<_i2.Column> get columns => [
         id,
         gearId,
         size,
       ];
 
   @override
-  _i1.Table? getRelationTable(String relationField) {
+  _i2.Table? getRelationTable(String relationField) {
     if (relationField == 'gear') {
       return gear;
     }
@@ -200,23 +202,23 @@ class GearHelmetTable extends _i1.Table<int?> {
   }
 }
 
-class GearHelmetInclude extends _i1.IncludeObject {
-  GearHelmetInclude._({_i2.GearInclude? gear}) {
+class GearHelmetInclude extends _i2.IncludeObject {
+  GearHelmetInclude._({_i3.GearInclude? gear}) {
     _gear = gear;
   }
 
-  _i2.GearInclude? _gear;
+  _i3.GearInclude? _gear;
 
   @override
-  Map<String, _i1.Include?> get includes => {'gear': _gear};
+  Map<String, _i2.Include?> get includes => {'gear': _gear};
 
   @override
-  _i1.Table<int?> get table => GearHelmet.t;
+  _i2.Table<int?> get table => GearHelmet.t;
 }
 
-class GearHelmetIncludeList extends _i1.IncludeList {
+class GearHelmetIncludeList extends _i2.IncludeList {
   GearHelmetIncludeList._({
-    _i1.WhereExpressionBuilder<GearHelmetTable>? where,
+    _i2.WhereExpressionBuilder<GearHelmetTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -228,10 +230,10 @@ class GearHelmetIncludeList extends _i1.IncludeList {
   }
 
   @override
-  Map<String, _i1.Include?> get includes => include?.includes ?? {};
+  Map<String, _i2.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table<int?> get table => GearHelmet.t;
+  _i2.Table<int?> get table => GearHelmet.t;
 }
 
 class GearHelmetRepository {
@@ -262,14 +264,14 @@ class GearHelmetRepository {
   /// );
   /// ```
   Future<List<GearHelmet>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearHelmetTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearHelmetTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearHelmetTable>? orderBy,
+    _i2.OrderByBuilder<GearHelmetTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearHelmetTable>? orderByList,
-    _i1.Transaction? transaction,
+    _i2.OrderByListBuilder<GearHelmetTable>? orderByList,
+    _i2.Transaction? transaction,
     GearHelmetInclude? include,
   }) async {
     return session.db.find<GearHelmet>(
@@ -302,13 +304,13 @@ class GearHelmetRepository {
   /// );
   /// ```
   Future<GearHelmet?> findFirstRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearHelmetTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearHelmetTable>? where,
     int? offset,
-    _i1.OrderByBuilder<GearHelmetTable>? orderBy,
+    _i2.OrderByBuilder<GearHelmetTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearHelmetTable>? orderByList,
-    _i1.Transaction? transaction,
+    _i2.OrderByListBuilder<GearHelmetTable>? orderByList,
+    _i2.Transaction? transaction,
     GearHelmetInclude? include,
   }) async {
     return session.db.findFirstRow<GearHelmet>(
@@ -324,9 +326,9 @@ class GearHelmetRepository {
 
   /// Finds a single [GearHelmet] by its [id] or null if no such row exists.
   Future<GearHelmet?> findById(
-    _i1.Session session,
+    _i2.Session session,
     int id, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
     GearHelmetInclude? include,
   }) async {
     return session.db.findById<GearHelmet>(
@@ -343,9 +345,9 @@ class GearHelmetRepository {
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// insert, none of the rows will be inserted.
   Future<List<GearHelmet>> insert(
-    _i1.Session session,
+    _i2.Session session,
     List<GearHelmet> rows, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.insert<GearHelmet>(
       rows,
@@ -357,9 +359,9 @@ class GearHelmetRepository {
   ///
   /// The returned [GearHelmet] will have its `id` field set.
   Future<GearHelmet> insertRow(
-    _i1.Session session,
+    _i2.Session session,
     GearHelmet row, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.insertRow<GearHelmet>(
       row,
@@ -373,10 +375,10 @@ class GearHelmetRepository {
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// update, none of the rows will be updated.
   Future<List<GearHelmet>> update(
-    _i1.Session session,
+    _i2.Session session,
     List<GearHelmet> rows, {
-    _i1.ColumnSelections<GearHelmetTable>? columns,
-    _i1.Transaction? transaction,
+    _i2.ColumnSelections<GearHelmetTable>? columns,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.update<GearHelmet>(
       rows,
@@ -389,10 +391,10 @@ class GearHelmetRepository {
   /// Optionally, a list of [columns] can be provided to only update those
   /// columns. Defaults to all columns.
   Future<GearHelmet> updateRow(
-    _i1.Session session,
+    _i2.Session session,
     GearHelmet row, {
-    _i1.ColumnSelections<GearHelmetTable>? columns,
-    _i1.Transaction? transaction,
+    _i2.ColumnSelections<GearHelmetTable>? columns,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.updateRow<GearHelmet>(
       row,
@@ -405,9 +407,9 @@ class GearHelmetRepository {
   /// This is an atomic operation, meaning that if one of the rows fail to
   /// be deleted, none of the rows will be deleted.
   Future<List<GearHelmet>> delete(
-    _i1.Session session,
+    _i2.Session session,
     List<GearHelmet> rows, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.delete<GearHelmet>(
       rows,
@@ -417,9 +419,9 @@ class GearHelmetRepository {
 
   /// Deletes a single [GearHelmet].
   Future<GearHelmet> deleteRow(
-    _i1.Session session,
+    _i2.Session session,
     GearHelmet row, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.deleteRow<GearHelmet>(
       row,
@@ -429,9 +431,9 @@ class GearHelmetRepository {
 
   /// Deletes all rows matching the [where] expression.
   Future<List<GearHelmet>> deleteWhere(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<GearHelmetTable> where,
-    _i1.Transaction? transaction,
+    _i2.Session session, {
+    required _i2.WhereExpressionBuilder<GearHelmetTable> where,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.deleteWhere<GearHelmet>(
       where: where(GearHelmet.t),
@@ -442,10 +444,10 @@ class GearHelmetRepository {
   /// Counts the number of rows matching the [where] expression. If omitted,
   /// will return the count of all rows in the table.
   Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearHelmetTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearHelmetTable>? where,
     int? limit,
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.count<GearHelmet>(
       where: where?.call(GearHelmet.t),
@@ -461,10 +463,10 @@ class GearHelmetAttachRowRepository {
   /// Creates a relation between the given [GearHelmet] and [Gear]
   /// by setting the [GearHelmet]'s foreign key `gearId` to refer to the [Gear].
   Future<void> gear(
-    _i1.Session session,
+    _i2.Session session,
     GearHelmet gearHelmet,
-    _i2.Gear gear, {
-    _i1.Transaction? transaction,
+    _i3.Gear gear, {
+    _i2.Transaction? transaction,
   }) async {
     if (gearHelmet.id == null) {
       throw ArgumentError.notNull('gearHelmet.id');

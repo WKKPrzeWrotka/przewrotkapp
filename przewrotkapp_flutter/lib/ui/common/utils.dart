@@ -2,23 +2,6 @@ import 'dart:math';
 
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
-Future<List<(Gear, dynamic)>> getAllGearWithExtras(Client client) async {
-  final all = await Future.wait([
-    client.gearRead.getAllBelts(),
-    client.gearRead.getAllClothes(),
-    client.gearRead.getAllFloatbags(),
-    client.gearRead.getAllHelmets(),
-    client.gearRead.getAllKayaks(),
-    client.gearRead.getAllPaddles(),
-    client.gearRead.getAllPfds(),
-    client.gearRead.getAllSpraydecks(),
-    client.gearRead.getAllThrowbags(),
-  ]);
-  return [for (final a in all) ...a]
-      .map((dynamic e) => (e.gear as Gear, e))
-      .toList();
-}
-
 String gearTypeToEmoji(GearType type) => switch (type) {
       GearType.belt => '🪢',
       GearType.clothing => '👕',

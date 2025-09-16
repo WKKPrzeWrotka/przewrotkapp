@@ -11,11 +11,12 @@
 // ignore_for_file: unnecessary_null_comparison
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod/serverpod.dart' as _i1;
-import '../gear/gear.dart' as _i2;
+import '../protocol.dart' as _i1;
+import 'package:serverpod/serverpod.dart' as _i2;
+import '../gear/gear.dart' as _i3;
 
-abstract class GearBelt
-    implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
+abstract class GearBelt extends _i1.GearExtra
+    implements _i2.TableRow<int?>, _i2.ProtocolSerialization {
   GearBelt._({
     this.id,
     required this.gearId,
@@ -26,7 +27,7 @@ abstract class GearBelt
   factory GearBelt({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
+    _i3.Gear? gear,
     required double length,
   }) = _GearBeltImpl;
 
@@ -36,7 +37,7 @@ abstract class GearBelt
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
-          : _i2.Gear.fromJson(
+          : _i3.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
       length: (jsonSerialization['length'] as num).toDouble(),
     );
@@ -51,20 +52,21 @@ abstract class GearBelt
 
   int gearId;
 
-  _i2.Gear? gear;
+  _i3.Gear? gear;
 
   double length;
 
   @override
-  _i1.Table<int?> get table => t;
+  _i2.Table<int?> get table => t;
 
   /// Returns a shallow copy of this [GearBelt]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @override
+  @_i2.useResult
   GearBelt copyWith({
     int? id,
     int? gearId,
-    _i2.Gear? gear,
+    _i3.Gear? gear,
     double? length,
   });
   @override
@@ -87,17 +89,17 @@ abstract class GearBelt
     };
   }
 
-  static GearBeltInclude include({_i2.GearInclude? gear}) {
+  static GearBeltInclude include({_i3.GearInclude? gear}) {
     return GearBeltInclude._(gear: gear);
   }
 
   static GearBeltIncludeList includeList({
-    _i1.WhereExpressionBuilder<GearBeltTable>? where,
+    _i2.WhereExpressionBuilder<GearBeltTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearBeltTable>? orderBy,
+    _i2.OrderByBuilder<GearBeltTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearBeltTable>? orderByList,
+    _i2.OrderByListBuilder<GearBeltTable>? orderByList,
     GearBeltInclude? include,
   }) {
     return GearBeltIncludeList._(
@@ -113,7 +115,7 @@ abstract class GearBelt
 
   @override
   String toString() {
-    return _i1.SerializationManager.encode(this);
+    return _i2.SerializationManager.encode(this);
   }
 }
 
@@ -123,7 +125,7 @@ class _GearBeltImpl extends GearBelt {
   _GearBeltImpl({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
+    _i3.Gear? gear,
     required double length,
   }) : super._(
           id: id,
@@ -134,7 +136,7 @@ class _GearBeltImpl extends GearBelt {
 
   /// Returns a shallow copy of this [GearBelt]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @_i2.useResult
   @override
   GearBelt copyWith({
     Object? id = _Undefined,
@@ -145,52 +147,52 @@ class _GearBeltImpl extends GearBelt {
     return GearBelt(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
-      gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
+      gear: gear is _i3.Gear? ? gear : this.gear?.copyWith(),
       length: length ?? this.length,
     );
   }
 }
 
-class GearBeltTable extends _i1.Table<int?> {
+class GearBeltTable extends _i2.Table<int?> {
   GearBeltTable({super.tableRelation}) : super(tableName: 'gear_belts') {
-    gearId = _i1.ColumnInt(
+    gearId = _i2.ColumnInt(
       'gearId',
       this,
     );
-    length = _i1.ColumnDouble(
+    length = _i2.ColumnDouble(
       'length',
       this,
     );
   }
 
-  late final _i1.ColumnInt gearId;
+  late final _i2.ColumnInt gearId;
 
-  _i2.GearTable? _gear;
+  _i3.GearTable? _gear;
 
-  late final _i1.ColumnDouble length;
+  late final _i2.ColumnDouble length;
 
-  _i2.GearTable get gear {
+  _i3.GearTable get gear {
     if (_gear != null) return _gear!;
-    _gear = _i1.createRelationTable(
+    _gear = _i2.createRelationTable(
       relationFieldName: 'gear',
       field: GearBelt.t.gearId,
-      foreignField: _i2.Gear.t.id,
+      foreignField: _i3.Gear.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i2.GearTable(tableRelation: foreignTableRelation),
+          _i3.GearTable(tableRelation: foreignTableRelation),
     );
     return _gear!;
   }
 
   @override
-  List<_i1.Column> get columns => [
+  List<_i2.Column> get columns => [
         id,
         gearId,
         length,
       ];
 
   @override
-  _i1.Table? getRelationTable(String relationField) {
+  _i2.Table? getRelationTable(String relationField) {
     if (relationField == 'gear') {
       return gear;
     }
@@ -198,23 +200,23 @@ class GearBeltTable extends _i1.Table<int?> {
   }
 }
 
-class GearBeltInclude extends _i1.IncludeObject {
-  GearBeltInclude._({_i2.GearInclude? gear}) {
+class GearBeltInclude extends _i2.IncludeObject {
+  GearBeltInclude._({_i3.GearInclude? gear}) {
     _gear = gear;
   }
 
-  _i2.GearInclude? _gear;
+  _i3.GearInclude? _gear;
 
   @override
-  Map<String, _i1.Include?> get includes => {'gear': _gear};
+  Map<String, _i2.Include?> get includes => {'gear': _gear};
 
   @override
-  _i1.Table<int?> get table => GearBelt.t;
+  _i2.Table<int?> get table => GearBelt.t;
 }
 
-class GearBeltIncludeList extends _i1.IncludeList {
+class GearBeltIncludeList extends _i2.IncludeList {
   GearBeltIncludeList._({
-    _i1.WhereExpressionBuilder<GearBeltTable>? where,
+    _i2.WhereExpressionBuilder<GearBeltTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -226,10 +228,10 @@ class GearBeltIncludeList extends _i1.IncludeList {
   }
 
   @override
-  Map<String, _i1.Include?> get includes => include?.includes ?? {};
+  Map<String, _i2.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table<int?> get table => GearBelt.t;
+  _i2.Table<int?> get table => GearBelt.t;
 }
 
 class GearBeltRepository {
@@ -260,14 +262,14 @@ class GearBeltRepository {
   /// );
   /// ```
   Future<List<GearBelt>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearBeltTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearBeltTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearBeltTable>? orderBy,
+    _i2.OrderByBuilder<GearBeltTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearBeltTable>? orderByList,
-    _i1.Transaction? transaction,
+    _i2.OrderByListBuilder<GearBeltTable>? orderByList,
+    _i2.Transaction? transaction,
     GearBeltInclude? include,
   }) async {
     return session.db.find<GearBelt>(
@@ -300,13 +302,13 @@ class GearBeltRepository {
   /// );
   /// ```
   Future<GearBelt?> findFirstRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearBeltTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearBeltTable>? where,
     int? offset,
-    _i1.OrderByBuilder<GearBeltTable>? orderBy,
+    _i2.OrderByBuilder<GearBeltTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearBeltTable>? orderByList,
-    _i1.Transaction? transaction,
+    _i2.OrderByListBuilder<GearBeltTable>? orderByList,
+    _i2.Transaction? transaction,
     GearBeltInclude? include,
   }) async {
     return session.db.findFirstRow<GearBelt>(
@@ -322,9 +324,9 @@ class GearBeltRepository {
 
   /// Finds a single [GearBelt] by its [id] or null if no such row exists.
   Future<GearBelt?> findById(
-    _i1.Session session,
+    _i2.Session session,
     int id, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
     GearBeltInclude? include,
   }) async {
     return session.db.findById<GearBelt>(
@@ -341,9 +343,9 @@ class GearBeltRepository {
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// insert, none of the rows will be inserted.
   Future<List<GearBelt>> insert(
-    _i1.Session session,
+    _i2.Session session,
     List<GearBelt> rows, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.insert<GearBelt>(
       rows,
@@ -355,9 +357,9 @@ class GearBeltRepository {
   ///
   /// The returned [GearBelt] will have its `id` field set.
   Future<GearBelt> insertRow(
-    _i1.Session session,
+    _i2.Session session,
     GearBelt row, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.insertRow<GearBelt>(
       row,
@@ -371,10 +373,10 @@ class GearBeltRepository {
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// update, none of the rows will be updated.
   Future<List<GearBelt>> update(
-    _i1.Session session,
+    _i2.Session session,
     List<GearBelt> rows, {
-    _i1.ColumnSelections<GearBeltTable>? columns,
-    _i1.Transaction? transaction,
+    _i2.ColumnSelections<GearBeltTable>? columns,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.update<GearBelt>(
       rows,
@@ -387,10 +389,10 @@ class GearBeltRepository {
   /// Optionally, a list of [columns] can be provided to only update those
   /// columns. Defaults to all columns.
   Future<GearBelt> updateRow(
-    _i1.Session session,
+    _i2.Session session,
     GearBelt row, {
-    _i1.ColumnSelections<GearBeltTable>? columns,
-    _i1.Transaction? transaction,
+    _i2.ColumnSelections<GearBeltTable>? columns,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.updateRow<GearBelt>(
       row,
@@ -403,9 +405,9 @@ class GearBeltRepository {
   /// This is an atomic operation, meaning that if one of the rows fail to
   /// be deleted, none of the rows will be deleted.
   Future<List<GearBelt>> delete(
-    _i1.Session session,
+    _i2.Session session,
     List<GearBelt> rows, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.delete<GearBelt>(
       rows,
@@ -415,9 +417,9 @@ class GearBeltRepository {
 
   /// Deletes a single [GearBelt].
   Future<GearBelt> deleteRow(
-    _i1.Session session,
+    _i2.Session session,
     GearBelt row, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.deleteRow<GearBelt>(
       row,
@@ -427,9 +429,9 @@ class GearBeltRepository {
 
   /// Deletes all rows matching the [where] expression.
   Future<List<GearBelt>> deleteWhere(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<GearBeltTable> where,
-    _i1.Transaction? transaction,
+    _i2.Session session, {
+    required _i2.WhereExpressionBuilder<GearBeltTable> where,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.deleteWhere<GearBelt>(
       where: where(GearBelt.t),
@@ -440,10 +442,10 @@ class GearBeltRepository {
   /// Counts the number of rows matching the [where] expression. If omitted,
   /// will return the count of all rows in the table.
   Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearBeltTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearBeltTable>? where,
     int? limit,
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.count<GearBelt>(
       where: where?.call(GearBelt.t),
@@ -459,10 +461,10 @@ class GearBeltAttachRowRepository {
   /// Creates a relation between the given [GearBelt] and [Gear]
   /// by setting the [GearBelt]'s foreign key `gearId` to refer to the [Gear].
   Future<void> gear(
-    _i1.Session session,
+    _i2.Session session,
     GearBelt gearBelt,
-    _i2.Gear gear, {
-    _i1.Transaction? transaction,
+    _i3.Gear gear, {
+    _i2.Transaction? transaction,
   }) async {
     if (gearBelt.id == null) {
       throw ArgumentError.notNull('gearBelt.id');

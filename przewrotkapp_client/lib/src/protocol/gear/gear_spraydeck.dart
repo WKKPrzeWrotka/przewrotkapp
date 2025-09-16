@@ -9,12 +9,14 @@
 // ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import '../gear/gear.dart' as _i2;
-import '../gear/spraydeck_deck_size.dart' as _i3;
-import '../gear/generic_gear_size.dart' as _i4;
+import '../protocol.dart' as _i1;
+import 'package:serverpod_client/serverpod_client.dart' as _i2;
+import '../gear/gear.dart' as _i3;
+import '../gear/spraydeck_deck_size.dart' as _i4;
+import '../gear/generic_gear_size.dart' as _i5;
 
-abstract class GearSpraydeck implements _i1.SerializableModel {
+abstract class GearSpraydeck extends _i1.GearExtra
+    implements _i2.SerializableModel {
   GearSpraydeck._({
     this.id,
     required this.gearId,
@@ -26,9 +28,9 @@ abstract class GearSpraydeck implements _i1.SerializableModel {
   factory GearSpraydeck({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
-    required _i3.SpraydeckDeckSize deckSize,
-    required _i4.GenericGearSize waistSize,
+    _i3.Gear? gear,
+    required _i4.SpraydeckDeckSize deckSize,
+    required _i5.GenericGearSize waistSize,
   }) = _GearSpraydeckImpl;
 
   factory GearSpraydeck.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -37,11 +39,11 @@ abstract class GearSpraydeck implements _i1.SerializableModel {
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
-          : _i2.Gear.fromJson(
+          : _i3.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      deckSize: _i3.SpraydeckDeckSize.fromJson(
+      deckSize: _i4.SpraydeckDeckSize.fromJson(
           (jsonSerialization['deckSize'] as String)),
-      waistSize: _i4.GenericGearSize.fromJson(
+      waistSize: _i5.GenericGearSize.fromJson(
           (jsonSerialization['waistSize'] as String)),
     );
   }
@@ -53,21 +55,22 @@ abstract class GearSpraydeck implements _i1.SerializableModel {
 
   int gearId;
 
-  _i2.Gear? gear;
+  _i3.Gear? gear;
 
-  _i3.SpraydeckDeckSize deckSize;
+  _i4.SpraydeckDeckSize deckSize;
 
-  _i4.GenericGearSize waistSize;
+  _i5.GenericGearSize waistSize;
 
   /// Returns a shallow copy of this [GearSpraydeck]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @override
+  @_i2.useResult
   GearSpraydeck copyWith({
     int? id,
     int? gearId,
-    _i2.Gear? gear,
-    _i3.SpraydeckDeckSize? deckSize,
-    _i4.GenericGearSize? waistSize,
+    _i3.Gear? gear,
+    _i4.SpraydeckDeckSize? deckSize,
+    _i5.GenericGearSize? waistSize,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -82,7 +85,7 @@ abstract class GearSpraydeck implements _i1.SerializableModel {
 
   @override
   String toString() {
-    return _i1.SerializationManager.encode(this);
+    return _i2.SerializationManager.encode(this);
   }
 }
 
@@ -92,9 +95,9 @@ class _GearSpraydeckImpl extends GearSpraydeck {
   _GearSpraydeckImpl({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
-    required _i3.SpraydeckDeckSize deckSize,
-    required _i4.GenericGearSize waistSize,
+    _i3.Gear? gear,
+    required _i4.SpraydeckDeckSize deckSize,
+    required _i5.GenericGearSize waistSize,
   }) : super._(
           id: id,
           gearId: gearId,
@@ -105,19 +108,19 @@ class _GearSpraydeckImpl extends GearSpraydeck {
 
   /// Returns a shallow copy of this [GearSpraydeck]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @_i2.useResult
   @override
   GearSpraydeck copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.SpraydeckDeckSize? deckSize,
-    _i4.GenericGearSize? waistSize,
+    _i4.SpraydeckDeckSize? deckSize,
+    _i5.GenericGearSize? waistSize,
   }) {
     return GearSpraydeck(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
-      gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
+      gear: gear is _i3.Gear? ? gear : this.gear?.copyWith(),
       deckSize: deckSize ?? this.deckSize,
       waistSize: waistSize ?? this.waistSize,
     );

@@ -9,11 +9,13 @@
 // ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import '../gear/gear.dart' as _i2;
-import '../gear/generic_gear_size.dart' as _i3;
+import '../protocol.dart' as _i1;
+import 'package:serverpod_client/serverpod_client.dart' as _i2;
+import '../gear/gear.dart' as _i3;
+import '../gear/generic_gear_size.dart' as _i4;
 
-abstract class GearHelmet implements _i1.SerializableModel {
+abstract class GearHelmet extends _i1.GearExtra
+    implements _i2.SerializableModel {
   GearHelmet._({
     this.id,
     required this.gearId,
@@ -24,8 +26,8 @@ abstract class GearHelmet implements _i1.SerializableModel {
   factory GearHelmet({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
-    required _i3.GenericGearSize size,
+    _i3.Gear? gear,
+    required _i4.GenericGearSize size,
   }) = _GearHelmetImpl;
 
   factory GearHelmet.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -34,9 +36,9 @@ abstract class GearHelmet implements _i1.SerializableModel {
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
-          : _i2.Gear.fromJson(
+          : _i3.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      size: _i3.GenericGearSize.fromJson((jsonSerialization['size'] as String)),
+      size: _i4.GenericGearSize.fromJson((jsonSerialization['size'] as String)),
     );
   }
 
@@ -47,18 +49,19 @@ abstract class GearHelmet implements _i1.SerializableModel {
 
   int gearId;
 
-  _i2.Gear? gear;
+  _i3.Gear? gear;
 
-  _i3.GenericGearSize size;
+  _i4.GenericGearSize size;
 
   /// Returns a shallow copy of this [GearHelmet]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @override
+  @_i2.useResult
   GearHelmet copyWith({
     int? id,
     int? gearId,
-    _i2.Gear? gear,
-    _i3.GenericGearSize? size,
+    _i3.Gear? gear,
+    _i4.GenericGearSize? size,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -72,7 +75,7 @@ abstract class GearHelmet implements _i1.SerializableModel {
 
   @override
   String toString() {
-    return _i1.SerializationManager.encode(this);
+    return _i2.SerializationManager.encode(this);
   }
 }
 
@@ -82,8 +85,8 @@ class _GearHelmetImpl extends GearHelmet {
   _GearHelmetImpl({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
-    required _i3.GenericGearSize size,
+    _i3.Gear? gear,
+    required _i4.GenericGearSize size,
   }) : super._(
           id: id,
           gearId: gearId,
@@ -93,18 +96,18 @@ class _GearHelmetImpl extends GearHelmet {
 
   /// Returns a shallow copy of this [GearHelmet]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @_i2.useResult
   @override
   GearHelmet copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.GenericGearSize? size,
+    _i4.GenericGearSize? size,
   }) {
     return GearHelmet(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
-      gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
+      gear: gear is _i3.Gear? ? gear : this.gear?.copyWith(),
       size: size ?? this.size,
     );
   }

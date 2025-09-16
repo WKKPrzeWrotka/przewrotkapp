@@ -1,14 +1,5 @@
 gearRead:
   - getAllGear:
-  - getAllBelts:
-  - getAllClothes:
-  - getAllFloatbags:
-  - getAllHelmets:
-  - getAllKayaks:
-  - getAllPaddles:
-  - getAllPfds:
-  - getAllSpraydecks:
-  - getAllThrowbags:
 rental:
   - getAllRentals:
   - rentGear:

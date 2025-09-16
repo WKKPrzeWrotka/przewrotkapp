@@ -1,5 +1,6 @@
 class: GearClothing
 table: gear_clothes
+extends: GearExtra
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
   size: GenericGearSize

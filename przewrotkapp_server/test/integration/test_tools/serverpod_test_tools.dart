@@ -14,25 +14,12 @@
 import 'package:serverpod_test/serverpod_test.dart' as _i1;
 import 'package:serverpod/serverpod.dart' as _i2;
 import 'dart:async' as _i3;
-import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i4;
-import 'package:przewrotkapp_server/src/generated/gear/gear_belt.dart' as _i5;
-import 'package:przewrotkapp_server/src/generated/gear/gear_clothing.dart'
-    as _i6;
-import 'package:przewrotkapp_server/src/generated/gear/gear_floatbag.dart'
-    as _i7;
-import 'package:przewrotkapp_server/src/generated/gear/gear_helmet.dart' as _i8;
-import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i9;
-import 'package:przewrotkapp_server/src/generated/gear/gear_paddle.dart'
-    as _i10;
-import 'package:przewrotkapp_server/src/generated/gear/gear_pfd.dart' as _i11;
-import 'package:przewrotkapp_server/src/generated/gear/gear_spraydeck.dart'
-    as _i12;
-import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
-    as _i13;
-import 'package:przewrotkapp_server/src/generated/rental/rental.dart' as _i14;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i15;
+import 'package:przewrotkapp_server/src/generated/gear/gear_pair.dart' as _i4;
+import 'package:przewrotkapp_server/src/generated/rental/rental.dart' as _i5;
+import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i6;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i7;
 import 'package:przewrotkapp_server/src/generated/user/extra_user_info.dart'
-    as _i16;
+    as _i8;
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
 import 'package:przewrotkapp_server/src/generated/endpoints.dart';
 export 'package:serverpod_test/serverpod_test_public_exports.dart';
@@ -158,7 +145,7 @@ class _GearReadEndpoint {
 
   final _i2.SerializationManager _serializationManager;
 
-  _i3.Future<List<_i4.Gear>> getAllGear(
+  _i3.Future<List<_i4.GearPair>> getAllGear(
       _i1.TestSessionBuilder sessionBuilder) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
       var _localUniqueSession =
@@ -177,250 +164,7 @@ class _GearReadEndpoint {
         var _localReturnValue = await (_localCallContext.method.call(
           _localUniqueSession,
           _localCallContext.arguments,
-        ) as _i3.Future<List<_i4.Gear>>);
-        return _localReturnValue;
-      } finally {
-        await _localUniqueSession.close();
-      }
-    });
-  }
-
-  _i3.Future<List<_i5.GearBelt>> getAllBelts(
-      _i1.TestSessionBuilder sessionBuilder) async {
-    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
-      var _localUniqueSession =
-          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
-        endpoint: 'gearRead',
-        method: 'getAllBelts',
-      );
-      try {
-        var _localCallContext = await _endpointDispatch.getMethodCallContext(
-          createSessionCallback: (_) => _localUniqueSession,
-          endpointPath: 'gearRead',
-          methodName: 'getAllBelts',
-          parameters: _i1.testObjectToJson({}),
-          serializationManager: _serializationManager,
-        );
-        var _localReturnValue = await (_localCallContext.method.call(
-          _localUniqueSession,
-          _localCallContext.arguments,
-        ) as _i3.Future<List<_i5.GearBelt>>);
-        return _localReturnValue;
-      } finally {
-        await _localUniqueSession.close();
-      }
-    });
-  }
-
-  _i3.Future<List<_i6.GearClothing>> getAllClothes(
-      _i1.TestSessionBuilder sessionBuilder) async {
-    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
-      var _localUniqueSession =
-          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
-        endpoint: 'gearRead',
-        method: 'getAllClothes',
-      );
-      try {
-        var _localCallContext = await _endpointDispatch.getMethodCallContext(
-          createSessionCallback: (_) => _localUniqueSession,
-          endpointPath: 'gearRead',
-          methodName: 'getAllClothes',
-          parameters: _i1.testObjectToJson({}),
-          serializationManager: _serializationManager,
-        );
-        var _localReturnValue = await (_localCallContext.method.call(
-          _localUniqueSession,
-          _localCallContext.arguments,
-        ) as _i3.Future<List<_i6.GearClothing>>);
-        return _localReturnValue;
-      } finally {
-        await _localUniqueSession.close();
-      }
-    });
-  }
-
-  _i3.Future<List<_i7.GearFloatbag>> getAllFloatbags(
-      _i1.TestSessionBuilder sessionBuilder) async {
-    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
-      var _localUniqueSession =
-          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
-        endpoint: 'gearRead',
-        method: 'getAllFloatbags',
-      );
-      try {
-        var _localCallContext = await _endpointDispatch.getMethodCallContext(
-          createSessionCallback: (_) => _localUniqueSession,
-          endpointPath: 'gearRead',
-          methodName: 'getAllFloatbags',
-          parameters: _i1.testObjectToJson({}),
-          serializationManager: _serializationManager,
-        );
-        var _localReturnValue = await (_localCallContext.method.call(
-          _localUniqueSession,
-          _localCallContext.arguments,
-        ) as _i3.Future<List<_i7.GearFloatbag>>);
-        return _localReturnValue;
-      } finally {
-        await _localUniqueSession.close();
-      }
-    });
-  }
-
-  _i3.Future<List<_i8.GearHelmet>> getAllHelmets(
-      _i1.TestSessionBuilder sessionBuilder) async {
-    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
-      var _localUniqueSession =
-          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
-        endpoint: 'gearRead',
-        method: 'getAllHelmets',
-      );
-      try {
-        var _localCallContext = await _endpointDispatch.getMethodCallContext(
-          createSessionCallback: (_) => _localUniqueSession,
-          endpointPath: 'gearRead',
-          methodName: 'getAllHelmets',
-          parameters: _i1.testObjectToJson({}),
-          serializationManager: _serializationManager,
-        );
-        var _localReturnValue = await (_localCallContext.method.call(
-          _localUniqueSession,
-          _localCallContext.arguments,
-        ) as _i3.Future<List<_i8.GearHelmet>>);
-        return _localReturnValue;
-      } finally {
-        await _localUniqueSession.close();
-      }
-    });
-  }
-
-  _i3.Future<List<_i9.GearKayak>> getAllKayaks(
-      _i1.TestSessionBuilder sessionBuilder) async {
-    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
-      var _localUniqueSession =
-          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
-        endpoint: 'gearRead',
-        method: 'getAllKayaks',
-      );
-      try {
-        var _localCallContext = await _endpointDispatch.getMethodCallContext(
-          createSessionCallback: (_) => _localUniqueSession,
-          endpointPath: 'gearRead',
-          methodName: 'getAllKayaks',
-          parameters: _i1.testObjectToJson({}),
-          serializationManager: _serializationManager,
-        );
-        var _localReturnValue = await (_localCallContext.method.call(
-          _localUniqueSession,
-          _localCallContext.arguments,
-        ) as _i3.Future<List<_i9.GearKayak>>);
-        return _localReturnValue;
-      } finally {
-        await _localUniqueSession.close();
-      }
-    });
-  }
-
-  _i3.Future<List<_i10.GearPaddle>> getAllPaddles(
-      _i1.TestSessionBuilder sessionBuilder) async {
-    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
-      var _localUniqueSession =
-          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
-        endpoint: 'gearRead',
-        method: 'getAllPaddles',
-      );
-      try {
-        var _localCallContext = await _endpointDispatch.getMethodCallContext(
-          createSessionCallback: (_) => _localUniqueSession,
-          endpointPath: 'gearRead',
-          methodName: 'getAllPaddles',
-          parameters: _i1.testObjectToJson({}),
-          serializationManager: _serializationManager,
-        );
-        var _localReturnValue = await (_localCallContext.method.call(
-          _localUniqueSession,
-          _localCallContext.arguments,
-        ) as _i3.Future<List<_i10.GearPaddle>>);
-        return _localReturnValue;
-      } finally {
-        await _localUniqueSession.close();
-      }
-    });
-  }
-
-  _i3.Future<List<_i11.GearPfd>> getAllPfds(
-      _i1.TestSessionBuilder sessionBuilder) async {
-    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
-      var _localUniqueSession =
-          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
-        endpoint: 'gearRead',
-        method: 'getAllPfds',
-      );
-      try {
-        var _localCallContext = await _endpointDispatch.getMethodCallContext(
-          createSessionCallback: (_) => _localUniqueSession,
-          endpointPath: 'gearRead',
-          methodName: 'getAllPfds',
-          parameters: _i1.testObjectToJson({}),
-          serializationManager: _serializationManager,
-        );
-        var _localReturnValue = await (_localCallContext.method.call(
-          _localUniqueSession,
-          _localCallContext.arguments,
-        ) as _i3.Future<List<_i11.GearPfd>>);
-        return _localReturnValue;
-      } finally {
-        await _localUniqueSession.close();
-      }
-    });
-  }
-
-  _i3.Future<List<_i12.GearSpraydeck>> getAllSpraydecks(
-      _i1.TestSessionBuilder sessionBuilder) async {
-    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
-      var _localUniqueSession =
-          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
-        endpoint: 'gearRead',
-        method: 'getAllSpraydecks',
-      );
-      try {
-        var _localCallContext = await _endpointDispatch.getMethodCallContext(
-          createSessionCallback: (_) => _localUniqueSession,
-          endpointPath: 'gearRead',
-          methodName: 'getAllSpraydecks',
-          parameters: _i1.testObjectToJson({}),
-          serializationManager: _serializationManager,
-        );
-        var _localReturnValue = await (_localCallContext.method.call(
-          _localUniqueSession,
-          _localCallContext.arguments,
-        ) as _i3.Future<List<_i12.GearSpraydeck>>);
-        return _localReturnValue;
-      } finally {
-        await _localUniqueSession.close();
-      }
-    });
-  }
-
-  _i3.Future<List<_i13.GearThrowbag>> getAllThrowbags(
-      _i1.TestSessionBuilder sessionBuilder) async {
-    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
-      var _localUniqueSession =
-          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
-        endpoint: 'gearRead',
-        method: 'getAllThrowbags',
-      );
-      try {
-        var _localCallContext = await _endpointDispatch.getMethodCallContext(
-          createSessionCallback: (_) => _localUniqueSession,
-          endpointPath: 'gearRead',
-          methodName: 'getAllThrowbags',
-          parameters: _i1.testObjectToJson({}),
-          serializationManager: _serializationManager,
-        );
-        var _localReturnValue = await (_localCallContext.method.call(
-          _localUniqueSession,
-          _localCallContext.arguments,
-        ) as _i3.Future<List<_i13.GearThrowbag>>);
+        ) as _i3.Future<List<_i4.GearPair>>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -439,7 +183,7 @@ class _RentalEndpoint {
 
   final _i2.SerializationManager _serializationManager;
 
-  _i3.Future<List<_i14.Rental>> getAllRentals(
+  _i3.Future<List<_i5.Rental>> getAllRentals(
       _i1.TestSessionBuilder sessionBuilder) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
       var _localUniqueSession =
@@ -458,7 +202,7 @@ class _RentalEndpoint {
         var _localReturnValue = await (_localCallContext.method.call(
           _localUniqueSession,
           _localCallContext.arguments,
-        ) as _i3.Future<List<_i14.Rental>>);
+        ) as _i3.Future<List<_i5.Rental>>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -468,7 +212,7 @@ class _RentalEndpoint {
 
   _i3.Future<void> rentGear(
     _i1.TestSessionBuilder sessionBuilder,
-    List<_i4.Gear> gear,
+    List<_i6.Gear> gear,
     DateTime from,
     DateTime to,
   ) async {
@@ -512,7 +256,7 @@ class _UserEndpoint {
 
   final _i2.SerializationManager _serializationManager;
 
-  _i3.Future<_i15.UserInfoPublic> getUserInfo(
+  _i3.Future<_i7.UserInfoPublic> getUserInfo(
     _i1.TestSessionBuilder sessionBuilder,
     int userId,
   ) async {
@@ -533,7 +277,7 @@ class _UserEndpoint {
         var _localReturnValue = await (_localCallContext.method.call(
           _localUniqueSession,
           _localCallContext.arguments,
-        ) as _i3.Future<_i15.UserInfoPublic>);
+        ) as _i3.Future<_i7.UserInfoPublic>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -541,7 +285,7 @@ class _UserEndpoint {
     });
   }
 
-  _i3.Future<_i16.ExtraUserInfo> getExtraUserInfo(
+  _i3.Future<_i8.ExtraUserInfo> getExtraUserInfo(
     _i1.TestSessionBuilder sessionBuilder, [
     int? userId,
   ]) async {
@@ -562,7 +306,7 @@ class _UserEndpoint {
         var _localReturnValue = await (_localCallContext.method.call(
           _localUniqueSession,
           _localCallContext.arguments,
-        ) as _i3.Future<_i16.ExtraUserInfo>);
+        ) as _i3.Future<_i8.ExtraUserInfo>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();

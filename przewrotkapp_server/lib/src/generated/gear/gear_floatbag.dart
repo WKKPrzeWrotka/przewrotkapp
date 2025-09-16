@@ -11,11 +11,12 @@
 // ignore_for_file: unnecessary_null_comparison
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod/serverpod.dart' as _i1;
-import '../gear/gear.dart' as _i2;
+import '../protocol.dart' as _i1;
+import 'package:serverpod/serverpod.dart' as _i2;
+import '../gear/gear.dart' as _i3;
 
-abstract class GearFloatbag
-    implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
+abstract class GearFloatbag extends _i1.GearExtra
+    implements _i2.TableRow<int?>, _i2.ProtocolSerialization {
   GearFloatbag._({
     this.id,
     required this.gearId,
@@ -26,7 +27,7 @@ abstract class GearFloatbag
   factory GearFloatbag({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
+    _i3.Gear? gear,
     int? volume,
   }) = _GearFloatbagImpl;
 
@@ -36,7 +37,7 @@ abstract class GearFloatbag
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
-          : _i2.Gear.fromJson(
+          : _i3.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
       volume: jsonSerialization['volume'] as int?,
     );
@@ -51,20 +52,21 @@ abstract class GearFloatbag
 
   int gearId;
 
-  _i2.Gear? gear;
+  _i3.Gear? gear;
 
   int? volume;
 
   @override
-  _i1.Table<int?> get table => t;
+  _i2.Table<int?> get table => t;
 
   /// Returns a shallow copy of this [GearFloatbag]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @override
+  @_i2.useResult
   GearFloatbag copyWith({
     int? id,
     int? gearId,
-    _i2.Gear? gear,
+    _i3.Gear? gear,
     int? volume,
   });
   @override
@@ -87,17 +89,17 @@ abstract class GearFloatbag
     };
   }
 
-  static GearFloatbagInclude include({_i2.GearInclude? gear}) {
+  static GearFloatbagInclude include({_i3.GearInclude? gear}) {
     return GearFloatbagInclude._(gear: gear);
   }
 
   static GearFloatbagIncludeList includeList({
-    _i1.WhereExpressionBuilder<GearFloatbagTable>? where,
+    _i2.WhereExpressionBuilder<GearFloatbagTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearFloatbagTable>? orderBy,
+    _i2.OrderByBuilder<GearFloatbagTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearFloatbagTable>? orderByList,
+    _i2.OrderByListBuilder<GearFloatbagTable>? orderByList,
     GearFloatbagInclude? include,
   }) {
     return GearFloatbagIncludeList._(
@@ -113,7 +115,7 @@ abstract class GearFloatbag
 
   @override
   String toString() {
-    return _i1.SerializationManager.encode(this);
+    return _i2.SerializationManager.encode(this);
   }
 }
 
@@ -123,7 +125,7 @@ class _GearFloatbagImpl extends GearFloatbag {
   _GearFloatbagImpl({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
+    _i3.Gear? gear,
     int? volume,
   }) : super._(
           id: id,
@@ -134,7 +136,7 @@ class _GearFloatbagImpl extends GearFloatbag {
 
   /// Returns a shallow copy of this [GearFloatbag]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @_i2.useResult
   @override
   GearFloatbag copyWith({
     Object? id = _Undefined,
@@ -145,53 +147,53 @@ class _GearFloatbagImpl extends GearFloatbag {
     return GearFloatbag(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
-      gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
+      gear: gear is _i3.Gear? ? gear : this.gear?.copyWith(),
       volume: volume is int? ? volume : this.volume,
     );
   }
 }
 
-class GearFloatbagTable extends _i1.Table<int?> {
+class GearFloatbagTable extends _i2.Table<int?> {
   GearFloatbagTable({super.tableRelation})
       : super(tableName: 'gear_floatbags') {
-    gearId = _i1.ColumnInt(
+    gearId = _i2.ColumnInt(
       'gearId',
       this,
     );
-    volume = _i1.ColumnInt(
+    volume = _i2.ColumnInt(
       'volume',
       this,
     );
   }
 
-  late final _i1.ColumnInt gearId;
+  late final _i2.ColumnInt gearId;
 
-  _i2.GearTable? _gear;
+  _i3.GearTable? _gear;
 
-  late final _i1.ColumnInt volume;
+  late final _i2.ColumnInt volume;
 
-  _i2.GearTable get gear {
+  _i3.GearTable get gear {
     if (_gear != null) return _gear!;
-    _gear = _i1.createRelationTable(
+    _gear = _i2.createRelationTable(
       relationFieldName: 'gear',
       field: GearFloatbag.t.gearId,
-      foreignField: _i2.Gear.t.id,
+      foreignField: _i3.Gear.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i2.GearTable(tableRelation: foreignTableRelation),
+          _i3.GearTable(tableRelation: foreignTableRelation),
     );
     return _gear!;
   }
 
   @override
-  List<_i1.Column> get columns => [
+  List<_i2.Column> get columns => [
         id,
         gearId,
         volume,
       ];
 
   @override
-  _i1.Table? getRelationTable(String relationField) {
+  _i2.Table? getRelationTable(String relationField) {
     if (relationField == 'gear') {
       return gear;
     }
@@ -199,23 +201,23 @@ class GearFloatbagTable extends _i1.Table<int?> {
   }
 }
 
-class GearFloatbagInclude extends _i1.IncludeObject {
-  GearFloatbagInclude._({_i2.GearInclude? gear}) {
+class GearFloatbagInclude extends _i2.IncludeObject {
+  GearFloatbagInclude._({_i3.GearInclude? gear}) {
     _gear = gear;
   }
 
-  _i2.GearInclude? _gear;
+  _i3.GearInclude? _gear;
 
   @override
-  Map<String, _i1.Include?> get includes => {'gear': _gear};
+  Map<String, _i2.Include?> get includes => {'gear': _gear};
 
   @override
-  _i1.Table<int?> get table => GearFloatbag.t;
+  _i2.Table<int?> get table => GearFloatbag.t;
 }
 
-class GearFloatbagIncludeList extends _i1.IncludeList {
+class GearFloatbagIncludeList extends _i2.IncludeList {
   GearFloatbagIncludeList._({
-    _i1.WhereExpressionBuilder<GearFloatbagTable>? where,
+    _i2.WhereExpressionBuilder<GearFloatbagTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -227,10 +229,10 @@ class GearFloatbagIncludeList extends _i1.IncludeList {
   }
 
   @override
-  Map<String, _i1.Include?> get includes => include?.includes ?? {};
+  Map<String, _i2.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table<int?> get table => GearFloatbag.t;
+  _i2.Table<int?> get table => GearFloatbag.t;
 }
 
 class GearFloatbagRepository {
@@ -261,14 +263,14 @@ class GearFloatbagRepository {
   /// );
   /// ```
   Future<List<GearFloatbag>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearFloatbagTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearFloatbagTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearFloatbagTable>? orderBy,
+    _i2.OrderByBuilder<GearFloatbagTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearFloatbagTable>? orderByList,
-    _i1.Transaction? transaction,
+    _i2.OrderByListBuilder<GearFloatbagTable>? orderByList,
+    _i2.Transaction? transaction,
     GearFloatbagInclude? include,
   }) async {
     return session.db.find<GearFloatbag>(
@@ -301,13 +303,13 @@ class GearFloatbagRepository {
   /// );
   /// ```
   Future<GearFloatbag?> findFirstRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearFloatbagTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearFloatbagTable>? where,
     int? offset,
-    _i1.OrderByBuilder<GearFloatbagTable>? orderBy,
+    _i2.OrderByBuilder<GearFloatbagTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearFloatbagTable>? orderByList,
-    _i1.Transaction? transaction,
+    _i2.OrderByListBuilder<GearFloatbagTable>? orderByList,
+    _i2.Transaction? transaction,
     GearFloatbagInclude? include,
   }) async {
     return session.db.findFirstRow<GearFloatbag>(
@@ -323,9 +325,9 @@ class GearFloatbagRepository {
 
   /// Finds a single [GearFloatbag] by its [id] or null if no such row exists.
   Future<GearFloatbag?> findById(
-    _i1.Session session,
+    _i2.Session session,
     int id, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
     GearFloatbagInclude? include,
   }) async {
     return session.db.findById<GearFloatbag>(
@@ -342,9 +344,9 @@ class GearFloatbagRepository {
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// insert, none of the rows will be inserted.
   Future<List<GearFloatbag>> insert(
-    _i1.Session session,
+    _i2.Session session,
     List<GearFloatbag> rows, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.insert<GearFloatbag>(
       rows,
@@ -356,9 +358,9 @@ class GearFloatbagRepository {
   ///
   /// The returned [GearFloatbag] will have its `id` field set.
   Future<GearFloatbag> insertRow(
-    _i1.Session session,
+    _i2.Session session,
     GearFloatbag row, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.insertRow<GearFloatbag>(
       row,
@@ -372,10 +374,10 @@ class GearFloatbagRepository {
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// update, none of the rows will be updated.
   Future<List<GearFloatbag>> update(
-    _i1.Session session,
+    _i2.Session session,
     List<GearFloatbag> rows, {
-    _i1.ColumnSelections<GearFloatbagTable>? columns,
-    _i1.Transaction? transaction,
+    _i2.ColumnSelections<GearFloatbagTable>? columns,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.update<GearFloatbag>(
       rows,
@@ -388,10 +390,10 @@ class GearFloatbagRepository {
   /// Optionally, a list of [columns] can be provided to only update those
   /// columns. Defaults to all columns.
   Future<GearFloatbag> updateRow(
-    _i1.Session session,
+    _i2.Session session,
     GearFloatbag row, {
-    _i1.ColumnSelections<GearFloatbagTable>? columns,
-    _i1.Transaction? transaction,
+    _i2.ColumnSelections<GearFloatbagTable>? columns,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.updateRow<GearFloatbag>(
       row,
@@ -404,9 +406,9 @@ class GearFloatbagRepository {
   /// This is an atomic operation, meaning that if one of the rows fail to
   /// be deleted, none of the rows will be deleted.
   Future<List<GearFloatbag>> delete(
-    _i1.Session session,
+    _i2.Session session,
     List<GearFloatbag> rows, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.delete<GearFloatbag>(
       rows,
@@ -416,9 +418,9 @@ class GearFloatbagRepository {
 
   /// Deletes a single [GearFloatbag].
   Future<GearFloatbag> deleteRow(
-    _i1.Session session,
+    _i2.Session session,
     GearFloatbag row, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.deleteRow<GearFloatbag>(
       row,
@@ -428,9 +430,9 @@ class GearFloatbagRepository {
 
   /// Deletes all rows matching the [where] expression.
   Future<List<GearFloatbag>> deleteWhere(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<GearFloatbagTable> where,
-    _i1.Transaction? transaction,
+    _i2.Session session, {
+    required _i2.WhereExpressionBuilder<GearFloatbagTable> where,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.deleteWhere<GearFloatbag>(
       where: where(GearFloatbag.t),
@@ -441,10 +443,10 @@ class GearFloatbagRepository {
   /// Counts the number of rows matching the [where] expression. If omitted,
   /// will return the count of all rows in the table.
   Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearFloatbagTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearFloatbagTable>? where,
     int? limit,
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.count<GearFloatbag>(
       where: where?.call(GearFloatbag.t),
@@ -460,10 +462,10 @@ class GearFloatbagAttachRowRepository {
   /// Creates a relation between the given [GearFloatbag] and [Gear]
   /// by setting the [GearFloatbag]'s foreign key `gearId` to refer to the [Gear].
   Future<void> gear(
-    _i1.Session session,
+    _i2.Session session,
     GearFloatbag gearFloatbag,
-    _i2.Gear gear, {
-    _i1.Transaction? transaction,
+    _i3.Gear gear, {
+    _i2.Transaction? transaction,
   }) async {
     if (gearFloatbag.id == null) {
       throw ArgumentError.notNull('gearFloatbag.id');

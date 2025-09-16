@@ -1,5 +1,6 @@
 class: GearKayak
 table: gear_kayaks
+extends: GearExtra
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
   type: KayakType

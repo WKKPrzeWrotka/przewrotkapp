@@ -9,12 +9,13 @@
 // ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import '../gear/gear.dart' as _i2;
-import '../gear/generic_gear_size.dart' as _i3;
-import '../gear/pfd_type.dart' as _i4;
+import '../protocol.dart' as _i1;
+import 'package:serverpod_client/serverpod_client.dart' as _i2;
+import '../gear/gear.dart' as _i3;
+import '../gear/generic_gear_size.dart' as _i4;
+import '../gear/pfd_type.dart' as _i5;
 
-abstract class GearPfd implements _i1.SerializableModel {
+abstract class GearPfd extends _i1.GearExtra implements _i2.SerializableModel {
   GearPfd._({
     this.id,
     required this.gearId,
@@ -26,9 +27,9 @@ abstract class GearPfd implements _i1.SerializableModel {
   factory GearPfd({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
-    required _i3.GenericGearSize size,
-    required _i4.PfdType type,
+    _i3.Gear? gear,
+    required _i4.GenericGearSize size,
+    required _i5.PfdType type,
   }) = _GearPfdImpl;
 
   factory GearPfd.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -37,10 +38,10 @@ abstract class GearPfd implements _i1.SerializableModel {
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
-          : _i2.Gear.fromJson(
+          : _i3.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      size: _i3.GenericGearSize.fromJson((jsonSerialization['size'] as String)),
-      type: _i4.PfdType.fromJson((jsonSerialization['type'] as String)),
+      size: _i4.GenericGearSize.fromJson((jsonSerialization['size'] as String)),
+      type: _i5.PfdType.fromJson((jsonSerialization['type'] as String)),
     );
   }
 
@@ -51,21 +52,22 @@ abstract class GearPfd implements _i1.SerializableModel {
 
   int gearId;
 
-  _i2.Gear? gear;
+  _i3.Gear? gear;
 
-  _i3.GenericGearSize size;
+  _i4.GenericGearSize size;
 
-  _i4.PfdType type;
+  _i5.PfdType type;
 
   /// Returns a shallow copy of this [GearPfd]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @override
+  @_i2.useResult
   GearPfd copyWith({
     int? id,
     int? gearId,
-    _i2.Gear? gear,
-    _i3.GenericGearSize? size,
-    _i4.PfdType? type,
+    _i3.Gear? gear,
+    _i4.GenericGearSize? size,
+    _i5.PfdType? type,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -80,7 +82,7 @@ abstract class GearPfd implements _i1.SerializableModel {
 
   @override
   String toString() {
-    return _i1.SerializationManager.encode(this);
+    return _i2.SerializationManager.encode(this);
   }
 }
 
@@ -90,9 +92,9 @@ class _GearPfdImpl extends GearPfd {
   _GearPfdImpl({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
-    required _i3.GenericGearSize size,
-    required _i4.PfdType type,
+    _i3.Gear? gear,
+    required _i4.GenericGearSize size,
+    required _i5.PfdType type,
   }) : super._(
           id: id,
           gearId: gearId,
@@ -103,19 +105,19 @@ class _GearPfdImpl extends GearPfd {
 
   /// Returns a shallow copy of this [GearPfd]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @_i2.useResult
   @override
   GearPfd copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.GenericGearSize? size,
-    _i4.PfdType? type,
+    _i4.GenericGearSize? size,
+    _i5.PfdType? type,
   }) {
     return GearPfd(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
-      gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
+      gear: gear is _i3.Gear? ? gear : this.gear?.copyWith(),
       size: size ?? this.size,
       type: type ?? this.type,
     );

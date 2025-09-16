@@ -1,5 +1,6 @@
 class: GearBelt
 table: gear_belts
+extends: GearExtra
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
   length: double

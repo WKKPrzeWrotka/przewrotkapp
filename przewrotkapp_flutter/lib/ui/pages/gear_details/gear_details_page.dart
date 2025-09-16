@@ -31,22 +31,23 @@ class GearDetailsPage extends StatelessWidget {
         ],
       ),
       body: FutureBuilder(
-        future: getAllGearWithExtras(context.read<Client>())
-            .then((e) => e.firstWhere((e) => e.$1.id == gearId)),
+        future: context
+            .read<Future<List<GearPair>>>()
+            .then((e) => e.firstWhere((e) => e.gear.id == gearId)),
         builder: (context, snap) {
-          final gear = snap.data?.$1;
+          final gear = snap.data?.gear;
           return snap.hasData
               ? ListView(
                   padding: EdgeInsets.all(8),
                   children: [
-                    if (snap.data!.$1.photoUrls?.isNotEmpty ?? false)
+                    if (snap.data!.gear.photoUrls?.isNotEmpty ?? false)
                       SizedBox(
                         height: 192,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
                           children: [
-                            for (final uri in snap.data!.$1.photoUrls!)
+                            for (final uri in snap.data!.gear.photoUrls!)
                               Container(
                                 padding: EdgeInsets.all(4),
                                 child: ClipRRect(
@@ -56,7 +57,7 @@ class GearDetailsPage extends StatelessWidget {
                                   child: InkWell(
                                     onTap: () => context.push(
                                       '/gearDetails/$gearId/photos',
-                                      extra: snap.data!.$1.photoUrls!,
+                                      extra: snap.data!.gear.photoUrls!,
                                     ),
                                     child: Image.network(uri.toString()),
                                   ),

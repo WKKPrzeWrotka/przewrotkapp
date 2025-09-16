@@ -11,13 +11,14 @@
 // ignore_for_file: unnecessary_null_comparison
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:serverpod/serverpod.dart' as _i1;
-import '../gear/gear.dart' as _i2;
-import '../gear/generic_gear_size.dart' as _i3;
-import '../gear/pfd_type.dart' as _i4;
+import '../protocol.dart' as _i1;
+import 'package:serverpod/serverpod.dart' as _i2;
+import '../gear/gear.dart' as _i3;
+import '../gear/generic_gear_size.dart' as _i4;
+import '../gear/pfd_type.dart' as _i5;
 
-abstract class GearPfd
-    implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
+abstract class GearPfd extends _i1.GearExtra
+    implements _i2.TableRow<int?>, _i2.ProtocolSerialization {
   GearPfd._({
     this.id,
     required this.gearId,
@@ -29,9 +30,9 @@ abstract class GearPfd
   factory GearPfd({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
-    required _i3.GenericGearSize size,
-    required _i4.PfdType type,
+    _i3.Gear? gear,
+    required _i4.GenericGearSize size,
+    required _i5.PfdType type,
   }) = _GearPfdImpl;
 
   factory GearPfd.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -40,10 +41,10 @@ abstract class GearPfd
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
-          : _i2.Gear.fromJson(
+          : _i3.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      size: _i3.GenericGearSize.fromJson((jsonSerialization['size'] as String)),
-      type: _i4.PfdType.fromJson((jsonSerialization['type'] as String)),
+      size: _i4.GenericGearSize.fromJson((jsonSerialization['size'] as String)),
+      type: _i5.PfdType.fromJson((jsonSerialization['type'] as String)),
     );
   }
 
@@ -56,24 +57,25 @@ abstract class GearPfd
 
   int gearId;
 
-  _i2.Gear? gear;
+  _i3.Gear? gear;
 
-  _i3.GenericGearSize size;
+  _i4.GenericGearSize size;
 
-  _i4.PfdType type;
+  _i5.PfdType type;
 
   @override
-  _i1.Table<int?> get table => t;
+  _i2.Table<int?> get table => t;
 
   /// Returns a shallow copy of this [GearPfd]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @override
+  @_i2.useResult
   GearPfd copyWith({
     int? id,
     int? gearId,
-    _i2.Gear? gear,
-    _i3.GenericGearSize? size,
-    _i4.PfdType? type,
+    _i3.Gear? gear,
+    _i4.GenericGearSize? size,
+    _i5.PfdType? type,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -97,17 +99,17 @@ abstract class GearPfd
     };
   }
 
-  static GearPfdInclude include({_i2.GearInclude? gear}) {
+  static GearPfdInclude include({_i3.GearInclude? gear}) {
     return GearPfdInclude._(gear: gear);
   }
 
   static GearPfdIncludeList includeList({
-    _i1.WhereExpressionBuilder<GearPfdTable>? where,
+    _i2.WhereExpressionBuilder<GearPfdTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearPfdTable>? orderBy,
+    _i2.OrderByBuilder<GearPfdTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearPfdTable>? orderByList,
+    _i2.OrderByListBuilder<GearPfdTable>? orderByList,
     GearPfdInclude? include,
   }) {
     return GearPfdIncludeList._(
@@ -123,7 +125,7 @@ abstract class GearPfd
 
   @override
   String toString() {
-    return _i1.SerializationManager.encode(this);
+    return _i2.SerializationManager.encode(this);
   }
 }
 
@@ -133,9 +135,9 @@ class _GearPfdImpl extends GearPfd {
   _GearPfdImpl({
     int? id,
     required int gearId,
-    _i2.Gear? gear,
-    required _i3.GenericGearSize size,
-    required _i4.PfdType type,
+    _i3.Gear? gear,
+    required _i4.GenericGearSize size,
+    required _i5.PfdType type,
   }) : super._(
           id: id,
           gearId: gearId,
@@ -146,66 +148,66 @@ class _GearPfdImpl extends GearPfd {
 
   /// Returns a shallow copy of this [GearPfd]
   /// with some or all fields replaced by the given arguments.
-  @_i1.useResult
+  @_i2.useResult
   @override
   GearPfd copyWith({
     Object? id = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    _i3.GenericGearSize? size,
-    _i4.PfdType? type,
+    _i4.GenericGearSize? size,
+    _i5.PfdType? type,
   }) {
     return GearPfd(
       id: id is int? ? id : this.id,
       gearId: gearId ?? this.gearId,
-      gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
+      gear: gear is _i3.Gear? ? gear : this.gear?.copyWith(),
       size: size ?? this.size,
       type: type ?? this.type,
     );
   }
 }
 
-class GearPfdTable extends _i1.Table<int?> {
+class GearPfdTable extends _i2.Table<int?> {
   GearPfdTable({super.tableRelation}) : super(tableName: 'gear_pfds') {
-    gearId = _i1.ColumnInt(
+    gearId = _i2.ColumnInt(
       'gearId',
       this,
     );
-    size = _i1.ColumnEnum(
+    size = _i2.ColumnEnum(
       'size',
       this,
-      _i1.EnumSerialization.byName,
+      _i2.EnumSerialization.byName,
     );
-    type = _i1.ColumnEnum(
+    type = _i2.ColumnEnum(
       'type',
       this,
-      _i1.EnumSerialization.byName,
+      _i2.EnumSerialization.byName,
     );
   }
 
-  late final _i1.ColumnInt gearId;
+  late final _i2.ColumnInt gearId;
 
-  _i2.GearTable? _gear;
+  _i3.GearTable? _gear;
 
-  late final _i1.ColumnEnum<_i3.GenericGearSize> size;
+  late final _i2.ColumnEnum<_i4.GenericGearSize> size;
 
-  late final _i1.ColumnEnum<_i4.PfdType> type;
+  late final _i2.ColumnEnum<_i5.PfdType> type;
 
-  _i2.GearTable get gear {
+  _i3.GearTable get gear {
     if (_gear != null) return _gear!;
-    _gear = _i1.createRelationTable(
+    _gear = _i2.createRelationTable(
       relationFieldName: 'gear',
       field: GearPfd.t.gearId,
-      foreignField: _i2.Gear.t.id,
+      foreignField: _i3.Gear.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i2.GearTable(tableRelation: foreignTableRelation),
+          _i3.GearTable(tableRelation: foreignTableRelation),
     );
     return _gear!;
   }
 
   @override
-  List<_i1.Column> get columns => [
+  List<_i2.Column> get columns => [
         id,
         gearId,
         size,
@@ -213,7 +215,7 @@ class GearPfdTable extends _i1.Table<int?> {
       ];
 
   @override
-  _i1.Table? getRelationTable(String relationField) {
+  _i2.Table? getRelationTable(String relationField) {
     if (relationField == 'gear') {
       return gear;
     }
@@ -221,23 +223,23 @@ class GearPfdTable extends _i1.Table<int?> {
   }
 }
 
-class GearPfdInclude extends _i1.IncludeObject {
-  GearPfdInclude._({_i2.GearInclude? gear}) {
+class GearPfdInclude extends _i2.IncludeObject {
+  GearPfdInclude._({_i3.GearInclude? gear}) {
     _gear = gear;
   }
 
-  _i2.GearInclude? _gear;
+  _i3.GearInclude? _gear;
 
   @override
-  Map<String, _i1.Include?> get includes => {'gear': _gear};
+  Map<String, _i2.Include?> get includes => {'gear': _gear};
 
   @override
-  _i1.Table<int?> get table => GearPfd.t;
+  _i2.Table<int?> get table => GearPfd.t;
 }
 
-class GearPfdIncludeList extends _i1.IncludeList {
+class GearPfdIncludeList extends _i2.IncludeList {
   GearPfdIncludeList._({
-    _i1.WhereExpressionBuilder<GearPfdTable>? where,
+    _i2.WhereExpressionBuilder<GearPfdTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -249,10 +251,10 @@ class GearPfdIncludeList extends _i1.IncludeList {
   }
 
   @override
-  Map<String, _i1.Include?> get includes => include?.includes ?? {};
+  Map<String, _i2.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table<int?> get table => GearPfd.t;
+  _i2.Table<int?> get table => GearPfd.t;
 }
 
 class GearPfdRepository {
@@ -283,14 +285,14 @@ class GearPfdRepository {
   /// );
   /// ```
   Future<List<GearPfd>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearPfdTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearPfdTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<GearPfdTable>? orderBy,
+    _i2.OrderByBuilder<GearPfdTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearPfdTable>? orderByList,
-    _i1.Transaction? transaction,
+    _i2.OrderByListBuilder<GearPfdTable>? orderByList,
+    _i2.Transaction? transaction,
     GearPfdInclude? include,
   }) async {
     return session.db.find<GearPfd>(
@@ -323,13 +325,13 @@ class GearPfdRepository {
   /// );
   /// ```
   Future<GearPfd?> findFirstRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearPfdTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearPfdTable>? where,
     int? offset,
-    _i1.OrderByBuilder<GearPfdTable>? orderBy,
+    _i2.OrderByBuilder<GearPfdTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<GearPfdTable>? orderByList,
-    _i1.Transaction? transaction,
+    _i2.OrderByListBuilder<GearPfdTable>? orderByList,
+    _i2.Transaction? transaction,
     GearPfdInclude? include,
   }) async {
     return session.db.findFirstRow<GearPfd>(
@@ -345,9 +347,9 @@ class GearPfdRepository {
 
   /// Finds a single [GearPfd] by its [id] or null if no such row exists.
   Future<GearPfd?> findById(
-    _i1.Session session,
+    _i2.Session session,
     int id, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
     GearPfdInclude? include,
   }) async {
     return session.db.findById<GearPfd>(
@@ -364,9 +366,9 @@ class GearPfdRepository {
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// insert, none of the rows will be inserted.
   Future<List<GearPfd>> insert(
-    _i1.Session session,
+    _i2.Session session,
     List<GearPfd> rows, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.insert<GearPfd>(
       rows,
@@ -378,9 +380,9 @@ class GearPfdRepository {
   ///
   /// The returned [GearPfd] will have its `id` field set.
   Future<GearPfd> insertRow(
-    _i1.Session session,
+    _i2.Session session,
     GearPfd row, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.insertRow<GearPfd>(
       row,
@@ -394,10 +396,10 @@ class GearPfdRepository {
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// update, none of the rows will be updated.
   Future<List<GearPfd>> update(
-    _i1.Session session,
+    _i2.Session session,
     List<GearPfd> rows, {
-    _i1.ColumnSelections<GearPfdTable>? columns,
-    _i1.Transaction? transaction,
+    _i2.ColumnSelections<GearPfdTable>? columns,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.update<GearPfd>(
       rows,
@@ -410,10 +412,10 @@ class GearPfdRepository {
   /// Optionally, a list of [columns] can be provided to only update those
   /// columns. Defaults to all columns.
   Future<GearPfd> updateRow(
-    _i1.Session session,
+    _i2.Session session,
     GearPfd row, {
-    _i1.ColumnSelections<GearPfdTable>? columns,
-    _i1.Transaction? transaction,
+    _i2.ColumnSelections<GearPfdTable>? columns,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.updateRow<GearPfd>(
       row,
@@ -426,9 +428,9 @@ class GearPfdRepository {
   /// This is an atomic operation, meaning that if one of the rows fail to
   /// be deleted, none of the rows will be deleted.
   Future<List<GearPfd>> delete(
-    _i1.Session session,
+    _i2.Session session,
     List<GearPfd> rows, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.delete<GearPfd>(
       rows,
@@ -438,9 +440,9 @@ class GearPfdRepository {
 
   /// Deletes a single [GearPfd].
   Future<GearPfd> deleteRow(
-    _i1.Session session,
+    _i2.Session session,
     GearPfd row, {
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.deleteRow<GearPfd>(
       row,
@@ -450,9 +452,9 @@ class GearPfdRepository {
 
   /// Deletes all rows matching the [where] expression.
   Future<List<GearPfd>> deleteWhere(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<GearPfdTable> where,
-    _i1.Transaction? transaction,
+    _i2.Session session, {
+    required _i2.WhereExpressionBuilder<GearPfdTable> where,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.deleteWhere<GearPfd>(
       where: where(GearPfd.t),
@@ -463,10 +465,10 @@ class GearPfdRepository {
   /// Counts the number of rows matching the [where] expression. If omitted,
   /// will return the count of all rows in the table.
   Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<GearPfdTable>? where,
+    _i2.Session session, {
+    _i2.WhereExpressionBuilder<GearPfdTable>? where,
     int? limit,
-    _i1.Transaction? transaction,
+    _i2.Transaction? transaction,
   }) async {
     return session.db.count<GearPfd>(
       where: where?.call(GearPfd.t),
@@ -482,10 +484,10 @@ class GearPfdAttachRowRepository {
   /// Creates a relation between the given [GearPfd] and [Gear]
   /// by setting the [GearPfd]'s foreign key `gearId` to refer to the [Gear].
   Future<void> gear(
-    _i1.Session session,
+    _i2.Session session,
     GearPfd gearPfd,
-    _i2.Gear gear, {
-    _i1.Transaction? transaction,
+    _i3.Gear gear, {
+    _i2.Transaction? transaction,
   }) async {
     if (gearPfd.id == null) {
       throw ArgumentError.notNull('gearPfd.id');

@@ -1,5 +1,6 @@
 class: GearPaddle
 table: gear_paddles
+extends: GearExtra
 fields:
   gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
   type: PaddleType
