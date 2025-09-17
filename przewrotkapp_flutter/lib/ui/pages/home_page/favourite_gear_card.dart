@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
-import 'package:przewrotkapp_flutter/ui/common/utils.dart';
+import 'package:przewrotkapp_flutter/ui/common/gear_listing.dart';
 
 class FavouriteGearCard extends StatefulWidget {
   const FavouriteGearCard({super.key});
@@ -15,7 +15,17 @@ class _FavouriteGearCardState extends State<FavouriteGearCard> {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
+    final allGear = context.watch<List<GearPair>?>();
     final extraUser = context.watch<ExtraUserInfo?>();
+    final favGear = allGear
+        ?.where(
+          (g) =>
+              extraUser?.favouritesJunctions
+                  ?.map((e) => e.gearId)
+                  .contains(g.gear.id) ??
+              false,
+        )
+        .toList();
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -23,10 +33,8 @@ class _FavouriteGearCardState extends State<FavouriteGearCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Twój ulubiony sprzęt:", style: tt.headlineSmall),
-            for (final gear
-                in (extraUser?.favouritesJunctions ?? <FavouritesJunction>[])
-                    .map((e) => e.gear!))
-              Text(gear.displayName()),
+            for (final gear in favGear ?? <GearPair>[])
+              GearListing(gearPair: gear),
             ElevatedButton(
               onPressed: () {},
               child: Text("Przeglądaj cały sprzęt"),
