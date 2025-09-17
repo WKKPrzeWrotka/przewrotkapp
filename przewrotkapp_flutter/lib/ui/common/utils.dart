@@ -55,3 +55,12 @@ extension HumanGear on Gear {
         if (friendlyName != null) friendlyName,
       ].join(" ");
 }
+
+extension EasyUser on ExtraUserInfo {
+  // TODO: Maybe turn this into some cache way up in di.dart ?
+  List<GearPair>? favourites(List<GearPair>? sourceAllGear) => sourceAllGear
+      ?.where((g) => favouritesIds()?.contains(g.gear.id) ?? false)
+      .toList();
+
+  Iterable<int>? favouritesIds() => favouritesJunctions?.map((e) => e.gearId);
+}

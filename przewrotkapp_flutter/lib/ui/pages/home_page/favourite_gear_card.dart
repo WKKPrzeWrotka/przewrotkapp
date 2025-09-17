@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_flutter/ui/common/gear_listing.dart';
+import 'package:przewrotkapp_flutter/ui/common/utils.dart';
 
 class FavouriteGearCard extends StatefulWidget {
   const FavouriteGearCard({super.key});
@@ -17,15 +18,7 @@ class _FavouriteGearCardState extends State<FavouriteGearCard> {
     final tt = t.textTheme;
     final allGear = context.watch<List<GearPair>?>();
     final extraUser = context.watch<ExtraUserInfo?>();
-    final favGear = allGear
-        ?.where(
-          (g) =>
-              extraUser?.favouritesJunctions
-                  ?.map((e) => e.gearId)
-                  .contains(g.gear.id) ??
-              false,
-        )
-        .toList();
+    final favGear = extraUser?.favourites(allGear);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),

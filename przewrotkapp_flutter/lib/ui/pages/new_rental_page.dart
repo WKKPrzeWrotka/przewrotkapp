@@ -36,6 +36,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
   final searchBarCtrl = TextEditingController();
   var gearSelection = <GearPair>[];
   final shoppingCart = <GearPair>{};
+  Iterable<int> favs = [];
 
   void filterGear() => gearSelection = sortGear(
         searchGear(
@@ -43,6 +44,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
           text: searchBarCtrl.text,
           types: {selectedGearType},
         ),
+        favs,
       );
 
   int hoursForGear(Set<GearPair> gear, DateTime from, DateTime to) {
@@ -61,6 +63,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
     final t = Theme.of(context);
     final tt = t.textTheme;
     allGear = context.watch<List<GearPair>?>();
+    favs = context.watch<ExtraUserInfo?>()?.favouritesIds() ?? <int>[];
     filterGear();
     return Scaffold(
       appBar: AppBar(title: Text("Wypożycz sprzęcior")),

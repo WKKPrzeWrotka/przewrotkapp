@@ -21,9 +21,18 @@ List<GearPair> searchGear(
   }).toList(growable: false);
 }
 
-List<GearPair> sortGear(List<GearPair> gear) {
+List<GearPair> sortGear(List<GearPair> gear, Iterable<int> favouritesIds) {
   return gear
     ..sort((a, b) {
+      final aFav = favouritesIds.contains(a.gear.id);
+      final bFav = favouritesIds.contains(b.gear.id);
+      final favCmp = switch ((aFav, bFav)) {
+        (true, true) => 0,
+        (false, false) => 0,
+        (true, false) => -1,
+        (false, true) => 1,
+      };
+      if (favCmp != 0) return favCmp;
       final l = a.gear.clubId.length.compareTo(b.gear.clubId.length);
       return l != 0 ? l : a.gear.clubId.compareTo(b.gear.clubId);
     });
