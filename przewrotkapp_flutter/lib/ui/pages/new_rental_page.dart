@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+import 'package:przewrotkapp_flutter/gear_search.dart';
 import 'package:przewrotkapp_flutter/ui/common/gear_listing.dart';
 import 'package:przewrotkapp_flutter/ui/common/utils.dart';
 import 'package:vibration/vibration.dart';
@@ -36,25 +37,13 @@ class _NewRentalPageState extends State<NewRentalPage> {
   var gearSelection = <GearPair>[];
   final shoppingCart = <GearPair>{};
 
-  void filterGear() async {
-    gearSelection = (allGear ?? []).where((e) {
-      if (e.gear.type != selectedGearType) return false;
-      final t = searchBarCtrl.text.toLowerCase();
-      if (t.isNotEmpty) {
-        final fullName = (e.gear.clubId.toLowerCase()) +
-            (e.gear.manufacturer?.toLowerCase() ?? "") +
-            (e.gear.model?.toLowerCase() ?? "") +
-            (e.gear.friendlyName?.toLowerCase() ?? "");
-        return fullName.contains(t);
-      }
-      return true;
-    }).toList()
-      ..sort((a, b) {
-        final l = a.gear.clubId.length.compareTo(b.gear.clubId.length);
-        return l != 0 ? l : a.gear.clubId.compareTo(b.gear.clubId);
-      });
-    setState(() {});
-  }
+  void filterGear() => gearSelection = sortGear(
+        searchGear(
+          allGear ?? [],
+          text: searchBarCtrl.text,
+          types: {selectedGearType},
+        ),
+      );
 
   int hoursForGear(Set<GearPair> gear, DateTime from, DateTime to) {
     return (gear.where((e) => e.gear.type == GearType.kayak).length +

@@ -47,4 +47,11 @@ extension HumanGear on Gear {
       ? friendlyName.toString()
       : '${manufacturer ?? ''} ${model ?? ''}'
           '${friendlyName != null ? ' ($friendlyName)' : ''}';
+
+  String fullName() => [
+        (clubId.toLowerCase()),
+        if (manufacturer != null) manufacturer,
+        if (model != null) model,
+        if (friendlyName != null) friendlyName,
+      ].join(" ");
 }
