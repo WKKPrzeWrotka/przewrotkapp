@@ -22,7 +22,7 @@ Future<void> initDi() async {
 
   _client = Client(
     serverUrl,
-    connectionTimeout: Duration(seconds: 1),
+    connectionTimeout: const Duration(seconds: 10),
     authenticationKeyManager: FlutterAuthenticationKeyManager(),
   )..connectivityMonitor = FlutterConnectivityMonitor();
   _sessionManager = SessionManager(caller: _client.modules.auth);
