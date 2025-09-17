@@ -5,6 +5,8 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_flutter/ui/common/copyable_text.dart';
 import 'package:przewrotkapp_flutter/ui/common/utils.dart';
 
+import '../../../data_types.dart';
+
 class GearDetailsPage extends StatelessWidget {
   final int gearId;
 
@@ -15,15 +17,13 @@ class GearDetailsPage extends StatelessWidget {
     final t = Theme.of(context);
     final tt = t.textTheme;
     final gear = context
-        .watch<List<GearPair>?>()
+        .watch<AllGearCache?>()
         ?.firstWhere((e) => e.gear.id == gearId)
         .gear;
 
     final client = context.read<Client>();
-    final extraUser = context.watch<ExtraUserInfo?>();
     final isFavourite =
-        extraUser?.favouritesJunctions?.any((e) => e.gear!.id == gearId) ??
-            false;
+        context.watch<UserFavourites?>()?.gearIds.contains(gearId) ?? false;
     return Scaffold(
       appBar: AppBar(
         title: Text("Szczegóły $gearId"),

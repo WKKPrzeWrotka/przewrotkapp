@@ -12,6 +12,8 @@ import 'package:przewrotkapp_flutter/ui/common/gear_listing.dart';
 import 'package:przewrotkapp_flutter/ui/common/utils.dart';
 import 'package:vibration/vibration.dart';
 
+import '../../data_types.dart';
+
 class NewRentalPage extends StatefulWidget {
   const NewRentalPage({super.key});
 
@@ -30,7 +32,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
   var rentingState = _RentingState.selecting;
 
   var selectedDates = <DateTime>[];
-  List<GearPair>? allGear;
+  AllGearCache? allGear;
   final cart = <GearPair>[];
   var selectedGearType = GearType.kayak;
   final searchBarCtrl = TextEditingController();
@@ -62,8 +64,8 @@ class _NewRentalPageState extends State<NewRentalPage> {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
-    allGear = context.watch<List<GearPair>?>();
-    favs = context.watch<ExtraUserInfo?>()?.favouritesIds() ?? <int>[];
+    allGear = context.watch<AllGearCache?>();
+    favs = context.watch<UserFavourites?>()?.gearIds ?? <int>[];
     filterGear();
     return Scaffold(
       appBar: AppBar(title: Text("Wypożycz sprzęcior")),

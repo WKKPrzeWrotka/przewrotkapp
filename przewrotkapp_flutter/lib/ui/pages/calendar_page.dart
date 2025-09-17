@@ -1,14 +1,15 @@
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+
+import '../../data_types.dart';
 
 class CalendarPage extends StatelessWidget {
   const CalendarPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final rentals = context.watch<List<Rental>?>();
+    final rentals = context.watch<FutureRentals?>();
     return rentals != null
         ? MonthView(
             controller: EventController()

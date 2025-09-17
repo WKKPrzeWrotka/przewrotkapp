@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_flutter/ui/common/utils.dart';
+
+import '../../../data_types.dart';
 
 class UpcomingTripsCard extends StatefulWidget {
   const UpcomingTripsCard({super.key});
@@ -16,7 +17,7 @@ class _UpcomingTripsCardState extends State<UpcomingTripsCard> {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
-    final rentals = context.watch<List<Rental>?>();
+    final rentals = context.watch<FutureRentals?>();
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),

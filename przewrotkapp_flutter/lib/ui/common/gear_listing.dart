@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_flutter/ui/common/utils.dart';
 
+import '../../data_types.dart';
+
 class GearListing extends StatelessWidget {
   final GearPair gearPair;
   final Widget? trailing;
@@ -16,10 +18,9 @@ class GearListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final extraUser = context.watch<ExtraUserInfo?>();
-    final isFavourite = extraUser != null
-        ? extraUser.favouritesIds()?.contains(gearPair.gear.id) ?? false
-        : false;
+    final isFavourite =
+        context.watch<UserFavourites?>()?.gearIds.contains(gearPair.gear.id) ??
+            false;
     return Card(
       child: ListTile(
         onTap: () => context.push('/gearDetails/${gearPair.gear.id!}'),
