@@ -13,8 +13,9 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import '../gear_read_endpoint.dart' as _i2;
 import '../rental_endpoint.dart' as _i3;
 import '../user_endpoint.dart' as _i4;
-import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i5;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i6;
+import 'package:przewrotkapp_server/src/generated/protocol.dart' as _i5;
+import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i6;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i7;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -43,16 +44,114 @@ class Endpoints extends _i1.EndpointDispatch {
       name: 'gearRead',
       endpoint: endpoints['gearRead']!,
       methodConnectors: {
-        'getAllGear': _i1.MethodConnector(
-          name: 'getAllGear',
+        'getAllBelts': _i1.MethodConnector(
+          name: 'getAllBelts',
           params: {},
           call: (
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
               (endpoints['gearRead'] as _i2.GearReadEndpoint)
-                  .getAllGear(session),
-        )
+                  .getAllBelts(session)
+                  .then((container) =>
+                      _i5.mapRecordContainingContainerToJson(container)),
+        ),
+        'getAllClothes': _i1.MethodConnector(
+          name: 'getAllClothes',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllClothes(session)
+                  .then((container) =>
+                      _i5.mapRecordContainingContainerToJson(container)),
+        ),
+        'getAllFloatbags': _i1.MethodConnector(
+          name: 'getAllFloatbags',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllFloatbags(session)
+                  .then((container) =>
+                      _i5.mapRecordContainingContainerToJson(container)),
+        ),
+        'getAllHelmets': _i1.MethodConnector(
+          name: 'getAllHelmets',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllHelmets(session)
+                  .then((container) =>
+                      _i5.mapRecordContainingContainerToJson(container)),
+        ),
+        'getAllKayaks': _i1.MethodConnector(
+          name: 'getAllKayaks',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllKayaks(session)
+                  .then((container) =>
+                      _i5.mapRecordContainingContainerToJson(container)),
+        ),
+        'getAllPaddles': _i1.MethodConnector(
+          name: 'getAllPaddles',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllPaddles(session)
+                  .then((container) =>
+                      _i5.mapRecordContainingContainerToJson(container)),
+        ),
+        'getAllPfds': _i1.MethodConnector(
+          name: 'getAllPfds',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllPfds(session)
+                  .then((container) =>
+                      _i5.mapRecordContainingContainerToJson(container)),
+        ),
+        'getAllSpraydecks': _i1.MethodConnector(
+          name: 'getAllSpraydecks',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllSpraydecks(session)
+                  .then((container) =>
+                      _i5.mapRecordContainingContainerToJson(container)),
+        ),
+        'getAllThrowbags': _i1.MethodConnector(
+          name: 'getAllThrowbags',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearRead'] as _i2.GearReadEndpoint)
+                  .getAllThrowbags(session)
+                  .then((container) =>
+                      _i5.mapRecordContainingContainerToJson(container)),
+        ),
       },
     );
     connectors['rental'] = _i1.EndpointConnector(
@@ -82,7 +181,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<List<_i5.Gear>>(),
+              type: _i1.getType<List<_i6.Gear>>(),
               nullable: false,
             ),
             'from': _i1.ParameterDescription(
@@ -175,7 +274,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<_i5.Gear>(),
+              type: _i1.getType<_i6.Gear>(),
               nullable: false,
             ),
             'isFavourite': _i1.ParameterDescription(
@@ -217,6 +316,6 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
-    modules['serverpod_auth'] = _i6.Endpoints()..initializeEndpoints(server);
+    modules['serverpod_auth'] = _i7.Endpoints()..initializeEndpoints(server);
   }
 }

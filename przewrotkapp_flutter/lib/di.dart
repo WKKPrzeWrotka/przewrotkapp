@@ -33,13 +33,68 @@ Future<void> initDi() async {
   }
 }
 
+class EverythingProvider extends StatelessWidget {
+  final Widget child;
+
+  const EverythingProvider({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        Provider<Client>(create: (_) => _client),
+        ChangeNotifierProvider<SessionManager>(create: (_) => _sessionManager),
+        // Maybe wrap it in some container class to indicate what it is
+        FutureProvider<List<GearPair>?>(
+          lazy: false,
+          initialData: null,
+          create: (_) => _retryFuture(() => getAllGear()),
+        ),
+        StreamProvider<List<Rental>?>(
+          lazy: false,
+          initialData: null,
+          create: (_) =>
+              _retryStream(() => _client.rental.watchRentals(past: false)),
+        ),
+        StreamProvider<ExtraUserInfo?>(
+          lazy: false,
+          initialData: null,
+          create: (_) => _retryStream(() => _client.user.watchExtraUserInfo()),
+        ),
+      ],
+      child: child,
+    );
+  }
+}
+
+// Yes, this is necessary because turns out that Serverpod doesn't really
+// understand it's own inheritance yet, and GearExtra was always empty and
+// didn't really contain actual subtype data
+Future<List<GearPair>> getAllGear() async {
+  final allLists = await Future.wait([
+    _client.gearRead.getAllBelts(),
+    _client.gearRead.getAllClothes(),
+    _client.gearRead.getAllFloatbags(),
+    _client.gearRead.getAllHelmets(),
+    _client.gearRead.getAllKayaks(),
+    _client.gearRead.getAllPaddles(),
+    _client.gearRead.getAllPfds(),
+    _client.gearRead.getAllSpraydecks(),
+    _client.gearRead.getAllThrowbags(),
+  ]);
+  return [
+    for (final list in allLists) ...list,
+  ].map((e) => GearPair(gear: e.$1, gearExtra: e.$2)).toList(growable: false);
+}
+
 Future<T> _retryFuture<T>(
   Future<T> Function() create, [
   Duration retryTime = const Duration(seconds: 1),
 ]) async {
   while (true) {
     try {
-      return await create();
+      final dupa = await create();
+      return dupa;
     } catch (e) {
       print(e);
       await Future.delayed(retryTime);
@@ -60,39 +115,5 @@ Stream<T> _retryStream<T>(
       print(e);
       await Future.delayed(retryTime);
     }
-  }
-}
-
-class EverythingProvider extends StatelessWidget {
-  final Widget child;
-
-  const EverythingProvider({super.key, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider<Client>(create: (_) => _client),
-        ChangeNotifierProvider<SessionManager>(create: (_) => _sessionManager),
-        // Maybe wrap it in some container class to indicate what it is
-        FutureProvider<List<GearPair>?>(
-          lazy: false,
-          initialData: null,
-          create: (_) => _retryFuture(() => _client.gearRead.getAllGear()),
-        ),
-        StreamProvider<List<Rental>?>(
-          lazy: false,
-          initialData: null,
-          create: (_) =>
-              _retryStream(() => _client.rental.watchRentals(past: false)),
-        ),
-        StreamProvider<ExtraUserInfo?>(
-          lazy: false,
-          initialData: null,
-          create: (_) => _retryStream(() => _client.user.watchExtraUserInfo()),
-        ),
-      ],
-      child: child,
-    );
   }
 }

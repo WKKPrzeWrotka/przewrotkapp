@@ -34,10 +34,22 @@ import 'rental/rental.dart' as _i22;
 import 'rental/rental_junction.dart' as _i23;
 import 'user/extra_user_info.dart' as _i24;
 import 'user/favourites.dart' as _i25;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_pair.dart' as _i26;
-import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i27;
-import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i28;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i29;
+import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i26;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_belt.dart' as _i27;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_clothing.dart'
+    as _i28;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_floatbag.dart'
+    as _i29;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_helmet.dart' as _i30;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_kayak.dart' as _i31;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_paddle.dart' as _i32;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_pfd.dart' as _i33;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_spraydeck.dart'
+    as _i34;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_throwbag.dart'
+    as _i35;
+import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i36;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i37;
 export 'exceptions/kayak_exception.dart';
 export 'gear/clothing_type.dart';
 export 'gear/gear.dart';
@@ -259,19 +271,168 @@ class Protocol extends _i1.SerializationManager {
               .toList()
           : null) as T;
     }
-    if (t == List<_i26.GearPair>) {
-      return (data as List).map((e) => deserialize<_i26.GearPair>(e)).toList()
+    if (t == List<(_i26.Gear, _i27.GearBelt)>) {
+      return (data as List)
+          .map((e) => deserialize<(_i26.Gear, _i27.GearBelt)>(e))
+          .toList() as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i27.GearBelt)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i27.GearBelt>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i27.GearBelt)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i27.GearBelt>(data['p'][1]),
+      ) as T;
+    }
+    if (t == List<(_i26.Gear, _i28.GearClothing)>) {
+      return (data as List)
+          .map((e) => deserialize<(_i26.Gear, _i28.GearClothing)>(e))
+          .toList() as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i28.GearClothing)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i28.GearClothing>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i28.GearClothing)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i28.GearClothing>(data['p'][1]),
+      ) as T;
+    }
+    if (t == List<(_i26.Gear, _i29.GearFloatbag)>) {
+      return (data as List)
+          .map((e) => deserialize<(_i26.Gear, _i29.GearFloatbag)>(e))
+          .toList() as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i29.GearFloatbag)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i29.GearFloatbag>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i29.GearFloatbag)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i29.GearFloatbag>(data['p'][1]),
+      ) as T;
+    }
+    if (t == List<(_i26.Gear, _i30.GearHelmet)>) {
+      return (data as List)
+          .map((e) => deserialize<(_i26.Gear, _i30.GearHelmet)>(e))
+          .toList() as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i30.GearHelmet)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i30.GearHelmet>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i30.GearHelmet)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i30.GearHelmet>(data['p'][1]),
+      ) as T;
+    }
+    if (t == List<(_i26.Gear, _i31.GearKayak)>) {
+      return (data as List)
+          .map((e) => deserialize<(_i26.Gear, _i31.GearKayak)>(e))
+          .toList() as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i31.GearKayak)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i31.GearKayak>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i31.GearKayak)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i31.GearKayak>(data['p'][1]),
+      ) as T;
+    }
+    if (t == List<(_i26.Gear, _i32.GearPaddle)>) {
+      return (data as List)
+          .map((e) => deserialize<(_i26.Gear, _i32.GearPaddle)>(e))
+          .toList() as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i32.GearPaddle)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i32.GearPaddle>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i32.GearPaddle)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i32.GearPaddle>(data['p'][1]),
+      ) as T;
+    }
+    if (t == List<(_i26.Gear, _i33.GearPfd)>) {
+      return (data as List)
+          .map((e) => deserialize<(_i26.Gear, _i33.GearPfd)>(e))
+          .toList() as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i33.GearPfd)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i33.GearPfd>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i33.GearPfd)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i33.GearPfd>(data['p'][1]),
+      ) as T;
+    }
+    if (t == List<(_i26.Gear, _i34.GearSpraydeck)>) {
+      return (data as List)
+          .map((e) => deserialize<(_i26.Gear, _i34.GearSpraydeck)>(e))
+          .toList() as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i34.GearSpraydeck)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i34.GearSpraydeck>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i34.GearSpraydeck)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i34.GearSpraydeck>(data['p'][1]),
+      ) as T;
+    }
+    if (t == List<(_i26.Gear, _i35.GearThrowbag)>) {
+      return (data as List)
+          .map((e) => deserialize<(_i26.Gear, _i35.GearThrowbag)>(e))
+          .toList() as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i35.GearThrowbag)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i35.GearThrowbag>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i26.Gear, _i35.GearThrowbag)>()) {
+      return (
+        deserialize<_i26.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i35.GearThrowbag>(data['p'][1]),
+      ) as T;
+    }
+    if (t == List<_i36.Rental>) {
+      return (data as List).map((e) => deserialize<_i36.Rental>(e)).toList()
           as T;
     }
-    if (t == List<_i27.Rental>) {
-      return (data as List).map((e) => deserialize<_i27.Rental>(e)).toList()
-          as T;
-    }
-    if (t == List<_i28.Gear>) {
-      return (data as List).map((e) => deserialize<_i28.Gear>(e)).toList() as T;
+    if (t == List<_i26.Gear>) {
+      return (data as List).map((e) => deserialize<_i26.Gear>(e)).toList() as T;
     }
     try {
-      return _i29.Protocol().deserialize<T>(data, t);
+      return _i37.Protocol().deserialize<T>(data, t);
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
@@ -352,11 +513,11 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i25.FavouritesJunction) {
       return 'FavouritesJunction';
     }
-    className = _i29.Protocol().getClassNameForObject(data);
+    className = _i37.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth.$className';
     }
-    if (data is List<_i27.Rental>) {
+    if (data is List<_i36.Rental>) {
       return 'List<Rental>';
     }
     return null;
@@ -442,11 +603,143 @@ class Protocol extends _i1.SerializationManager {
     }
     if (dataClassName.startsWith('serverpod_auth.')) {
       data['className'] = dataClassName.substring(15);
-      return _i29.Protocol().deserializeByClassName(data);
+      return _i37.Protocol().deserializeByClassName(data);
     }
     if (dataClassName == 'List<Rental>') {
-      return deserialize<List<_i27.Rental>>(data['data']);
+      return deserialize<List<_i36.Rental>>(data['data']);
     }
     return super.deserializeByClassName(data);
   }
+}
+
+/// Maps any `Record`s known to this [Protocol] to their JSON representation
+///
+/// Throws in case the record type is not known.
+///
+/// This method will return `null` (only) for `null` inputs.
+Map<String, dynamic>? mapRecordToJson(Record? record) {
+  if (record == null) {
+    return null;
+  }
+  if (record is (_i26.Gear, _i27.GearBelt)) {
+    return {
+      "p": [
+        record.$1,
+        record.$2,
+      ],
+    };
+  }
+  if (record is (_i26.Gear, _i28.GearClothing)) {
+    return {
+      "p": [
+        record.$1,
+        record.$2,
+      ],
+    };
+  }
+  if (record is (_i26.Gear, _i29.GearFloatbag)) {
+    return {
+      "p": [
+        record.$1,
+        record.$2,
+      ],
+    };
+  }
+  if (record is (_i26.Gear, _i30.GearHelmet)) {
+    return {
+      "p": [
+        record.$1,
+        record.$2,
+      ],
+    };
+  }
+  if (record is (_i26.Gear, _i31.GearKayak)) {
+    return {
+      "p": [
+        record.$1,
+        record.$2,
+      ],
+    };
+  }
+  if (record is (_i26.Gear, _i32.GearPaddle)) {
+    return {
+      "p": [
+        record.$1,
+        record.$2,
+      ],
+    };
+  }
+  if (record is (_i26.Gear, _i33.GearPfd)) {
+    return {
+      "p": [
+        record.$1,
+        record.$2,
+      ],
+    };
+  }
+  if (record is (_i26.Gear, _i34.GearSpraydeck)) {
+    return {
+      "p": [
+        record.$1,
+        record.$2,
+      ],
+    };
+  }
+  if (record is (_i26.Gear, _i35.GearThrowbag)) {
+    return {
+      "p": [
+        record.$1,
+        record.$2,
+      ],
+    };
+  }
+  throw Exception('Unsupported record type ${record.runtimeType}');
+}
+
+/// Maps container types (like [List], [Map], [Set]) containing [Record]s to their JSON representation.
+///
+/// It should not be called for [SerializableModel] types. These handle the "[Record] in container" mapping internally already.
+///
+/// It is only supposed to be called from generated protocol code.
+///
+/// Returns either a `List<dynamic>` (for List, Sets, and Maps with non-String keys) or a `Map<String, dynamic>` in case the input was a `Map<String, …>`.
+Object? mapRecordContainingContainerToJson(Object obj) {
+  if (obj is! Iterable && obj is! Map) {
+    throw ArgumentError.value(
+      obj,
+      'obj',
+      'The object to serialize should be of type List, Map, or Set',
+    );
+  }
+
+  dynamic mapIfNeeded(Object? obj) {
+    return switch (obj) {
+      Record record => mapRecordToJson(record),
+      Iterable iterable => mapRecordContainingContainerToJson(iterable),
+      Map map => mapRecordContainingContainerToJson(map),
+      Object? value => value,
+    };
+  }
+
+  switch (obj) {
+    case Map<String, dynamic>():
+      return {
+        for (var entry in obj.entries) entry.key: mapIfNeeded(entry.value),
+      };
+    case Map():
+      return [
+        for (var entry in obj.entries)
+          {
+            'k': mapIfNeeded(entry.key),
+            'v': mapIfNeeded(entry.value),
+          }
+      ];
+
+    case Iterable():
+      return [
+        for (var e in obj) mapIfNeeded(e),
+      ];
+  }
+
+  return obj;
 }
