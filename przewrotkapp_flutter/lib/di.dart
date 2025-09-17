@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -20,6 +22,7 @@ Future<void> initDi() async {
 
   _client = Client(
     serverUrl,
+    connectionTimeout: Duration(seconds: 1),
     authenticationKeyManager: FlutterAuthenticationKeyManager(),
   )..connectivityMonitor = FlutterConnectivityMonitor();
   _sessionManager = SessionManager(caller: _client.modules.auth);
@@ -27,6 +30,36 @@ Future<void> initDi() async {
 
   if (kIsWeb) {
     usePathUrlStrategy();
+  }
+}
+
+Future<T> _retryFuture<T>(
+  Future<T> Function() create, [
+  Duration retryTime = const Duration(seconds: 1),
+]) async {
+  while (true) {
+    try {
+      return await create();
+    } catch (e) {
+      print(e);
+      await Future.delayed(retryTime);
+    }
+  }
+}
+
+Stream<T> _retryStream<T>(
+  Stream<T> Function() create, [
+  Duration retryTime = const Duration(seconds: 3),
+]) async* {
+  while (true) {
+    try {
+      await for (final event in create()) {
+        yield event;
+      }
+    } catch (e) {
+      print(e);
+      await Future.delayed(retryTime);
+    }
   }
 }
 
@@ -43,19 +76,20 @@ class EverythingProvider extends StatelessWidget {
         ChangeNotifierProvider<SessionManager>(create: (_) => _sessionManager),
         // Maybe wrap it in some container class to indicate what it is
         FutureProvider<List<GearPair>?>(
+          lazy: false,
           initialData: null,
-          create: (_) {
-            // TODO: Retry on fail
-            return _client.gearRead.getAllGear();
-          },
+          create: (_) => _retryFuture(() => _client.gearRead.getAllGear()),
         ),
         StreamProvider<List<Rental>?>(
+          lazy: false,
           initialData: null,
-          create: (_) => _client.rental.watchRentals(past: false),
+          create: (_) =>
+              _retryStream(() => _client.rental.watchRentals(past: false)),
         ),
         StreamProvider<ExtraUserInfo?>(
+          lazy: false,
           initialData: null,
-          create: (_) => _client.user.watchExtraUserInfo(),
+          create: (_) => _retryStream(() => _client.user.watchExtraUserInfo()),
         ),
       ],
       child: child,
