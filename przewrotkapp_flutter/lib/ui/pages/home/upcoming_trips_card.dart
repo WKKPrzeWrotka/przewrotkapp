@@ -36,7 +36,7 @@ class _UpcomingTripsCardState extends State<UpcomingTripsCard> {
                 ),
             if (rentals == null) Text("Ładowanie..."),
             ElevatedButton(
-              onPressed: () => context.push('/newRental'),
+              onPressed: () => context.push('/rentals/new'),
               child: Text('Nowy wyjazd!'),
             ),
             ElevatedButton(onPressed: () {}, child: Text('Zobacz kalendarz')),
