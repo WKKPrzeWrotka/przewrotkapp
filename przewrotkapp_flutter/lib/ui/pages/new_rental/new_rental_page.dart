@@ -33,11 +33,9 @@ class _NewRentalPageState extends State<NewRentalPage> {
   var rentingState = _RentingState.selecting;
 
   var selectedDates = <DateTime>[];
-  AllGearCache? allGear;
+  var params = GearSearchParams.mainDefault;
   final cart = <GearPair>[];
-  var filteredGear = <GearPair>[];
   final shoppingCart = <GearPair>{};
-  Iterable<int> favs = [];
 
   int hoursForGear(Set<GearPair> gear, DateTime from, DateTime to) {
     return (gear.where((e) => e.gear.type == GearType.kayak).length +
@@ -54,8 +52,12 @@ class _NewRentalPageState extends State<NewRentalPage> {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
-    allGear = context.watch<AllGearCache?>();
-    favs = context.watch<UserFavourites?>()?.gearIds ?? <int>[];
+    final allGear = context.watch<AllGearCache?>();
+    final favs = context.watch<UserFavourites?>()?.gearIds;
+    final filteredGear = sortGear(
+      searchGear(allGear ?? [], params),
+      favs ?? [],
+    );
     return Scaffold(
       appBar: AppBar(title: Text("Wypożycz sprzęcior")),
       body: ListView(
@@ -85,8 +87,11 @@ class _NewRentalPageState extends State<NewRentalPage> {
           ),
           Text("Wybierz sprzęcior:", style: tt.headlineMedium),
           GearSearchFilters(
-            onFiltersChange: (params) {
-              filteredGear = sortGear(searchGear(allGear ?? [], params), favs);
+            // well, feels like i'm spinning in circle trying to keep this
+            // widget stateful...
+            initialParams: GearSearchParams.mainDefault,
+            onFiltersChange: (newParams) {
+              params = newParams;
               setState(() {});
             },
           ),

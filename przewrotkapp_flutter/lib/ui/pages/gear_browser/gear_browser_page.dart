@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../../data_types.dart';
 import '../../../gear_search.dart';
@@ -15,14 +14,13 @@ class GearBrowserPage extends StatefulWidget {
 }
 
 class _GearBrowserPageState extends State<GearBrowserPage> {
-  var filteredGear = <GearPair>[];
   var params = GearSearchParams.mainDefault;
 
   @override
   Widget build(BuildContext context) {
     final allGear = context.watch<AllGearCache?>();
     final favs = context.watch<UserFavourites?>()?.gearIds;
-    filteredGear = sortGear(
+    final filteredGear = sortGear(
       searchGear(allGear ?? [], params),
       favs ?? [],
     );
