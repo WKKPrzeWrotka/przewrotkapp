@@ -15,12 +15,11 @@ class CalendarPage extends StatefulWidget {
 
 class _CalendarPageState extends State<CalendarPage> {
   final calendarCtrl = CalendarController();
-  final eventsCtrl = DefaultEventsController();
 
   @override
   Widget build(BuildContext context) {
     final rentals = context.watch<FutureRentals?>();
-    eventsCtrl.clearEvents();
+    final eventsCtrl = DefaultEventsController();
     eventsCtrl.addEvents(
       [
         // TODO BIG: Whole rentals join by common date shannainan
@@ -78,12 +77,11 @@ class _CalendarPageState extends State<CalendarPage> {
           ),
         ),
         components: CalendarComponents(
-          monthComponents: MonthComponents(
-            headerComponents: MonthHeaderComponents(
-              weekDayHeaderBuilder: (day, style) => Text(DateFormat("E").format(day)),
-            )
-          )
-        ),
+            monthComponents: MonthComponents(
+                headerComponents: MonthHeaderComponents(
+          weekDayHeaderBuilder: (day, style) =>
+              Text(DateFormat("E").format(day)),
+        ))),
       ),
     );
   }
