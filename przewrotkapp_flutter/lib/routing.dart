@@ -33,12 +33,12 @@ final router = GoRouter(
       builder: (context, state) => GearBrowserPage(),
     ),
     GoRoute(
-      path: '/gearDetails/:clubId',
+      path: '/gear/:clubId',
       builder: (context, state) =>
           GearDetailsPage(clubId: state.pathParameters['clubId']!),
     ),
     GoRoute(
-      path: '/gearDetails/:clubId/photos',
+      path: '/gear/:clubId/photos',
       builder: (context, state) =>
           FullscreenPhotosPage(clubId: state.pathParameters['clubId']!),
     ),
@@ -55,7 +55,7 @@ final router = GoRouter(
       ),
     ),
     GoRoute(
-      path: '/newRental',
+      path: '/rentals/new',
       builder: (context, state) => NewRentalPage(),
     ),
     GoRoute(
