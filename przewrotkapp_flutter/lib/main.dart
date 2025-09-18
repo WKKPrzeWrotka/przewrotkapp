@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'di.dart';
 import 'routing.dart';
 
 void main() async {
   await initDi();
+  initRouter();
   runApp(const MyApp());
 }
 
