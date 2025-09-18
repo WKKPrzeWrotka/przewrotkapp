@@ -23,7 +23,7 @@ class GearListing extends StatelessWidget {
             false;
     return Card(
       child: ListTile(
-        onTap: () => context.push('/gearDetails/${gearPair.gear.id!}'),
+        onTap: () => context.push('/gearDetails/${gearPair.gear.clubId}'),
         leading: AspectRatio(
           aspectRatio: 1.777,
           child: gearPair.gear.photoUrls?.firstOrNull != null

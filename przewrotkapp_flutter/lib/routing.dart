@@ -33,16 +33,14 @@ final router = GoRouter(
       builder: (context, state) => GearBrowserPage(),
     ),
     GoRoute(
-      path: '/gearDetails/:gearId',
-      builder: (context, state) => GearDetailsPage(
-        gearId: int.parse(state.pathParameters['gearId']!),
-      ),
+      path: '/gearDetails/:clubId',
+      builder: (context, state) =>
+          GearDetailsPage(clubId: state.pathParameters['clubId']!),
     ),
     GoRoute(
-      path: '/gearDetails/:gearId/photos',
-      builder: (context, state) => FullscreenPhotosPage(
-        imageUrls: state.extra as List<Uri>,
-      ),
+      path: '/gearDetails/:clubId/photos',
+      builder: (context, state) =>
+          FullscreenPhotosPage(clubId: state.pathParameters['clubId']!),
     ),
     GoRoute(
       path: '/calendar',

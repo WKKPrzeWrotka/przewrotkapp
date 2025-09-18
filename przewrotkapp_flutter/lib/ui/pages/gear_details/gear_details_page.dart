@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+
+import '../../../data_types.dart';
 import '../../common/copyable_text.dart';
 import '../../common/utils.dart';
 
-import '../../../data_types.dart';
-
 class GearDetailsPage extends StatelessWidget {
-  final int gearId;
+  final String clubId;
 
-  const GearDetailsPage({super.key, required this.gearId});
+  const GearDetailsPage({super.key, required this.clubId});
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +18,15 @@ class GearDetailsPage extends StatelessWidget {
     final tt = t.textTheme;
     final gear = context
         .watch<AllGearCache?>()
-        ?.firstWhere((e) => e.gear.id == gearId)
+        ?.firstWhere((e) => e.gear.clubId == clubId)
         .gear;
 
     final client = context.read<Client>();
     final isFavourite =
-        context.watch<UserFavourites?>()?.gearIds.contains(gearId) ?? false;
+        context.watch<UserFavourites?>()?.gearIds.contains(gear?.id) ?? false;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Szczegóły $gearId"),
+        title: Text("Szczegóły $clubId"),
         actions: [
           IconButton(
             onPressed: gear != null
@@ -70,7 +70,7 @@ class GearDetailsPage extends StatelessWidget {
                               // this doesn't actually splash... but okay...
                               child: InkWell(
                                 onTap: () => context.push(
-                                  '/gearDetails/$gearId/photos',
+                                  '/gearDetails/$clubId/photos',
                                   extra: gear.photoUrls!,
                                 ),
                                 child: Image.network(uri.toString()),
