@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_flutter/gear_search.dart';
 import 'package:przewrotkapp_flutter/ui/common/gear_listing.dart';
+import 'package:przewrotkapp_flutter/ui/common/gear_search_filters.dart';
 import 'package:przewrotkapp_flutter/ui/common/utils.dart';
 import 'package:vibration/vibration.dart';
 
@@ -34,20 +35,9 @@ class _NewRentalPageState extends State<NewRentalPage> {
   var selectedDates = <DateTime>[];
   AllGearCache? allGear;
   final cart = <GearPair>[];
-  var selectedGearType = GearType.kayak;
-  final searchBarCtrl = TextEditingController();
-  var gearSelection = <GearPair>[];
+  var filteredGear = <GearPair>[];
   final shoppingCart = <GearPair>{};
   Iterable<int> favs = [];
-
-  void filterGear() => gearSelection = sortGear(
-        searchGear(
-          allGear ?? [],
-          text: searchBarCtrl.text,
-          types: {selectedGearType},
-        ),
-        favs,
-      );
 
   int hoursForGear(Set<GearPair> gear, DateTime from, DateTime to) {
     return (gear.where((e) => e.gear.type == GearType.kayak).length +
@@ -66,7 +56,6 @@ class _NewRentalPageState extends State<NewRentalPage> {
     final tt = t.textTheme;
     allGear = context.watch<AllGearCache?>();
     favs = context.watch<UserFavourites?>()?.gearIds ?? <int>[];
-    filterGear();
     return Scaffold(
       appBar: AppBar(title: Text("Wypożycz sprzęcior")),
       body: ListView(
@@ -95,35 +84,16 @@ class _NewRentalPageState extends State<NewRentalPage> {
             "${selectedDates.elementAtOrNull(1)?.toStringDate() ?? "-"}",
           ),
           Text("Wybierz sprzęcior:", style: tt.headlineMedium),
-          Wrap(
-            spacing: 4,
-            runSpacing: 4,
-            children: [
-              for (final type in GearType.values)
-                ChoiceChip(
-                  label: Text(type.toDisplayString()),
-                  selected: selectedGearType == type,
-                  onSelected: (v) {
-                    if (v) selectedGearType = type;
-                    setState(() {});
-                  },
+          GearSearchFilters(
+            onFiltersChange: ({text, types}) {
+              filteredGear = sortGear(
+                searchGear(
+                  allGear ?? [],
+                  text: text,
+                  types: types,
                 ),
-            ],
-          ),
-          SearchBar(
-            controller: searchBarCtrl,
-            leading: Icon(Icons.search),
-            trailing: [
-              if (searchBarCtrl.text.isNotEmpty)
-                IconButton(
-                  onPressed: () {
-                    searchBarCtrl.clear();
-                    setState(() {});
-                  },
-                  icon: Icon(Icons.clear),
-                ),
-            ],
-            onSubmitted: (v) {
+                favs,
+              );
               setState(() {});
             },
           ),
@@ -136,7 +106,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
             child: allGear != null
                 ? ListView(
                     children: [
-                      for (final gear in gearSelection)
+                      for (final gear in filteredGear)
                         GearListing(
                           gearPair: gear,
                           trailing: IconButton(

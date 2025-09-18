@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 String gearTypeToEmoji(GearType type) => switch (type) {
@@ -63,4 +65,22 @@ extension EasyUser on ExtraUserInfo {
       .toList();
 
   Iterable<int>? favouritesIds() => favouritesJunctions?.map((e) => e.gearId);
+}
+
+extension StreamGodDamnit<T> on ValueListenable<T> {
+  Stream<T> toStream() {
+    late final StreamController<T> controller;
+
+    void listener() {
+      controller.add(value);
+    }
+
+    controller = StreamController<T>(
+      onListen: () => addListener(listener),
+      onPause: () => removeListener(listener),
+      onResume: () => addListener(listener),
+      onCancel: () => removeListener(listener),
+    );
+    return controller.stream;
+  }
 }

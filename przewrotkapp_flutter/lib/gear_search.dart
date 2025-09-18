@@ -3,17 +3,17 @@ import 'package:przewrotkapp_flutter/ui/common/utils.dart';
 
 List<GearPair> searchGear(
   List<GearPair> gear, {
-  String text = "",
+  String? text,
   Set<GearType>? types,
 }) {
-  text = text.trim().toLowerCase();
+  text = text?.trim().toLowerCase() ?? "";
   types ??= GearType.values.toSet();
   return gear.where((g) {
     final gear = g.gear;
     // Type check
     if (!types!.contains(gear.type)) return false;
     // Search text check
-    if (text.isNotEmpty && !gear.fullName().toLowerCase().contains(text)) {
+    if (text!.isNotEmpty && !gear.fullName().toLowerCase().contains(text)) {
       return false;
     }
     // Well, you passed
