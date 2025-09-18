@@ -28,7 +28,7 @@ class _GearBrowserPageState extends State<GearBrowserPage> {
             floating: true,
             pinned: true,
             snap: false,
-            expandedHeight: 300,
+            expandedHeight: 400,
             title: Text("Cały sprzęt"),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
