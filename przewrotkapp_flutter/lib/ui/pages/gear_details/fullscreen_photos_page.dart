@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 
@@ -7,8 +8,9 @@ import '../../../data_types.dart';
 
 class FullscreenPhotosPage extends StatelessWidget {
   final String clubId;
+  final ctrl = PageController();
 
-  const FullscreenPhotosPage({super.key, required this.clubId});
+  FullscreenPhotosPage({super.key, required this.clubId});
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +26,31 @@ class FullscreenPhotosPage extends StatelessWidget {
         backgroundColor: Colors.black.withAlpha(100),
         foregroundColor: Colors.white,
       ),
-      body: PageView.builder(
-        itemCount: imageUrls?.length ?? 0,
-        itemBuilder: (context, i) => PhotoViewGestureDetectorScope(
-          axis: Axis.horizontal,
-          child: PhotoView(
-            minScale: PhotoViewComputedScale.contained,
-            imageProvider: NetworkImage(imageUrls![i].toString()),
+      body: KeyboardListener(
+        focusNode: FocusNode(),
+        onKeyEvent: (event) {
+          if (imageUrls == null ||
+              ctrl.page == null ||
+              event is! KeyDownEvent) {
+            return;
+          }
+          if (event.logicalKey == LogicalKeyboardKey.arrowRight &&
+              ctrl.page!.toInt() != imageUrls.length - 1) {
+            ctrl.jumpToPage(ctrl.page!.toInt() + 1);
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowLeft &&
+              ctrl.page!.toInt() != 0) {
+            ctrl.jumpToPage(ctrl.page!.toInt() - 1);
+          }
+        },
+        child: PageView.builder(
+          controller: ctrl,
+          itemCount: imageUrls?.length ?? 0,
+          itemBuilder: (context, i) => PhotoViewGestureDetectorScope(
+            axis: Axis.horizontal,
+            child: PhotoView(
+              minScale: PhotoViewComputedScale.contained,
+              imageProvider: NetworkImage(imageUrls![i].toString()),
+            ),
           ),
         ),
       ),

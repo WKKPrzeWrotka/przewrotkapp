@@ -9,8 +9,9 @@ import '../../common/utils.dart';
 
 class GearDetailsPage extends StatelessWidget {
   final String clubId;
+  final ScrollController photosCtrl = ScrollController();
 
-  const GearDetailsPage({super.key, required this.clubId});
+  GearDetailsPage({super.key, required this.clubId});
 
   @override
   Widget build(BuildContext context) {
@@ -58,26 +59,33 @@ class GearDetailsPage extends StatelessWidget {
                 if (gear.photoUrls?.isNotEmpty ?? false)
                   SizedBox(
                     height: 192,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      children: [
-                        for (final uri in gear.photoUrls!)
-                          Container(
-                            padding: EdgeInsets.all(4),
-                            child: ClipRRect(
-                              borderRadius: BorderRadiusGeometry.circular(8),
-                              // this doesn't actually splash... but okay...
-                              child: InkWell(
-                                onTap: () => context.push(
-                                  '/gear/$clubId/photos',
-                                  extra: gear.photoUrls!,
+                    child: Scrollbar(
+                      controller: photosCtrl,
+                      thumbVisibility: true,
+                      trackVisibility: true,
+                      thickness: 10,
+                      child: ListView(
+                        controller: photosCtrl,
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        children: [
+                          for (final uri in gear.photoUrls!)
+                            Container(
+                              padding: EdgeInsets.all(4),
+                              child: ClipRRect(
+                                borderRadius: BorderRadiusGeometry.circular(8),
+                                // this doesn't actually splash... but okay...
+                                child: InkWell(
+                                  onTap: () => context.push(
+                                    '/gear/$clubId/photos',
+                                    extra: gear.photoUrls!,
+                                  ),
+                                  child: Image.network(uri.toString()),
                                 ),
-                                child: Image.network(uri.toString()),
                               ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ListTile(
