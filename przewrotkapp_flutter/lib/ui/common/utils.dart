@@ -79,7 +79,10 @@ extension StreamGodDamnit<T> on ValueListenable<T> {
       onListen: () => addListener(listener),
       onPause: () => removeListener(listener),
       onResume: () => addListener(listener),
-      onCancel: () => removeListener(listener),
+      onCancel: () {
+        removeListener(listener);
+        controller.close();
+      },
     );
     return controller.stream;
   }
