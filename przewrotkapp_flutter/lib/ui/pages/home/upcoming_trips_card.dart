@@ -39,7 +39,10 @@ class _UpcomingTripsCardState extends State<UpcomingTripsCard> {
               onPressed: () => context.push('/rentals/new'),
               child: Text('Nowe wypożyczenie'),
             ),
-            ElevatedButton(onPressed: () {}, child: Text('Zobacz kalendarz')),
+            ElevatedButton(
+              onPressed: () => context.push('/calendar'),
+              child: Text('Zobacz kalendarz'),
+            ),
           ],
         ),
       ),

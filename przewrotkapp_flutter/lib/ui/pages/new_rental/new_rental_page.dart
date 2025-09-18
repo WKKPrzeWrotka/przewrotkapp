@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +44,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
                 ..remove(GearType.other))
                 gear.where((e) => e.gear.type == type).length
             ].reduce(max)) *
-        (to.getDayDifference(from) + 1);
+        (to.difference(from).inDays + 1);
   }
 
   @override
