@@ -28,6 +28,7 @@ class _FavouriteGearCardState extends State<FavouriteGearCard> {
             Text("Twój ulubiony sprzęt:", style: tt.headlineSmall),
             for (final gear in favGear ?? <GearPair>[])
               GearListing(gearPair: gear),
+            SizedBox(height: 4),
             ElevatedButton(
               onPressed: () => context.push('/gear'),
               child: Text("Przeglądaj cały sprzęt"),

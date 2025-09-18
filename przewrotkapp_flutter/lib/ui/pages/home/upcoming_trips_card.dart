@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../../common/utils.dart';
 
 import '../../../data_types.dart';
+import '../../common/utils.dart';
 
 class UpcomingTripsCard extends StatefulWidget {
   const UpcomingTripsCard({super.key});
@@ -25,7 +25,7 @@ class _UpcomingTripsCardState extends State<UpcomingTripsCard> {
         // Actually, StreamBuilders everywhere...
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 2,
+          spacing: 4,
           children: [
             Text("Najbliższe wyjazdy:", style: tt.headlineSmall),
             if (rentals != null)
@@ -35,9 +35,9 @@ class _UpcomingTripsCardState extends State<UpcomingTripsCard> {
                   "${rental.to.toStringDate(showYear: false)}",
                 ),
             if (rentals == null) Text("Ładowanie..."),
-            ElevatedButton(
+            FilledButton(
               onPressed: () => context.push('/rentals/new'),
-              child: Text('Nowy wyjazd!'),
+              child: Text('Nowe wypożyczenie'),
             ),
             ElevatedButton(onPressed: () {}, child: Text('Zobacz kalendarz')),
           ],
