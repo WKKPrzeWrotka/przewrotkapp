@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
-import 'package:przewrotkapp_flutter/gear_search.dart';
-import 'package:przewrotkapp_flutter/ui/common/gear_listing.dart';
-import 'package:przewrotkapp_flutter/ui/common/gear_search_filters.dart';
-import 'package:przewrotkapp_flutter/ui/common/utils.dart';
+import '../../../gear_search.dart';
+import '../../common/gear_listing.dart';
+import '../../common/gear_search_filters.dart';
+import '../../common/utils.dart';
 import 'package:vibration/vibration.dart';
 
 import '../../../data_types.dart';

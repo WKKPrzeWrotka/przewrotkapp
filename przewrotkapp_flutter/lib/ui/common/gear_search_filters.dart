@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
-import 'package:przewrotkapp_flutter/ui/common/utils.dart';
+import 'utils.dart';
 import 'package:rxdart/rxdart.dart';
 
 class GearSearchFilters extends StatefulWidget {

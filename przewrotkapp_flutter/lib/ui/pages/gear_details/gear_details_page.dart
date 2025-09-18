@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
-import 'package:przewrotkapp_flutter/ui/common/copyable_text.dart';
-import 'package:przewrotkapp_flutter/ui/common/utils.dart';
+import '../../common/copyable_text.dart';
+import '../../common/utils.dart';
 
 import '../../../data_types.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
-import 'package:przewrotkapp_flutter/ui/common/gear_listing.dart';
+import '../../common/gear_listing.dart';
 
 import '../../../data_types.dart';
 

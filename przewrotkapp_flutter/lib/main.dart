@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:przewrotkapp_flutter/di.dart';
-import 'package:przewrotkapp_flutter/routing.dart';
+import 'di.dart';
+import 'routing.dart';
 
 void main() async {
   await initDi();

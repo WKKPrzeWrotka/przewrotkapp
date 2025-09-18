@@ -33,7 +33,10 @@ class _UserPageState extends State<UserPage> {
     final sm = context.watch<SessionManager>();
     final isYou = sm.signedInUser?.id == widget.userId;
     return Scaffold(
-      appBar: AppBar(title: Text('User page :>'), automaticallyImplyLeading: true,),
+      appBar: AppBar(
+        title: Text('User page :>'),
+        automaticallyImplyLeading: true,
+      ),
       body: FutureBuilder(
         future: _userCmpl.future,
         builder: (context, snap) {
@@ -45,7 +48,8 @@ class _UserPageState extends State<UserPage> {
                   ? SizedBox(
                       width: 128,
                       height: 128,
-                      child: UserImageButton(sessionManager: sm, compact: false),
+                      child:
+                          UserImageButton(sessionManager: sm, compact: false),
                     )
                   : CircularUserImage(
                       userInfoPublic: user,

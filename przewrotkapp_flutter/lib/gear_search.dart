@@ -1,5 +1,5 @@
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
-import 'package:przewrotkapp_flutter/ui/common/utils.dart';
+import 'ui/common/utils.dart';
 
 List<GearPair> searchGear(
   List<GearPair> gear, {

@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:przewrotkapp_flutter/ui/pages/gear_details/fullscreen_photos_page.dart';
-import 'package:przewrotkapp_flutter/ui/pages/gear_details/gear_details_page.dart';
-import 'package:przewrotkapp_flutter/ui/pages/new_rental/new_rental_page.dart';
+import 'ui/pages/gear_details/fullscreen_photos_page.dart';
+import 'ui/pages/gear_details/gear_details_page.dart';
+import 'ui/pages/new_rental/new_rental_page.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 import 'ui/pages/calendar/calendar_page.dart';
