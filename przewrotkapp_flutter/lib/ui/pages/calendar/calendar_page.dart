@@ -2,7 +2,7 @@ import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../data_types.dart';
+import '../../../data_types.dart';
 
 class CalendarPage extends StatelessWidget {
   const CalendarPage({super.key});

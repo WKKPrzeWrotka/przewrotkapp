@@ -13,7 +13,7 @@ import 'package:przewrotkapp_flutter/ui/common/gear_search_filters.dart';
 import 'package:przewrotkapp_flutter/ui/common/utils.dart';
 import 'package:vibration/vibration.dart';
 
-import '../../data_types.dart';
+import '../../../data_types.dart';
 
 class NewRentalPage extends StatefulWidget {
   const NewRentalPage({super.key});
