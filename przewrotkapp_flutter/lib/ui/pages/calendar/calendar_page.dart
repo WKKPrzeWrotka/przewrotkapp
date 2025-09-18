@@ -20,7 +20,7 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     final rentals = context.watch<FutureRentals?>();
-    eventsCtrl.removeWhere((_, __) => true);
+    eventsCtrl.clearEvents();
     eventsCtrl.addEvents(
       [
         // TODO BIG: Whole rentals join by common date shannainan
@@ -76,6 +76,13 @@ class _CalendarPageState extends State<CalendarPage> {
               print('huurra! $event');
             },
           ),
+        ),
+        components: CalendarComponents(
+          monthComponents: MonthComponents(
+            headerComponents: MonthHeaderComponents(
+              weekDayHeaderBuilder: (day, style) => Text(DateFormat("E").format(day)),
+            )
+          )
         ),
       ),
     );
