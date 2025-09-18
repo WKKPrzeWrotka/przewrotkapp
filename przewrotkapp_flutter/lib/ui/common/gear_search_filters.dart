@@ -20,7 +20,8 @@ class GearSearchFilters extends StatefulWidget {
 }
 
 class _GearSearchFiltersState extends State<GearSearchFilters> {
-  final searchCtrl = TextEditingController();
+  late final TextEditingController searchCtrl;
+
   var selectedGearType = GearType.kayak;
 
   void filters() => widget.onFiltersChange(GearSearchParams(
@@ -31,7 +32,7 @@ class _GearSearchFiltersState extends State<GearSearchFilters> {
   @override
   void initState() {
     super.initState();
-    searchCtrl.text = widget.initialParams.text ?? "";
+    searchCtrl = TextEditingController(text: widget.initialParams.text);
     selectedGearType = widget.initialParams.types?.first ?? GearType.kayak;
     searchCtrl
         .toStream()
