@@ -37,6 +37,7 @@ class _GearSearchFiltersState extends State<GearSearchFilters> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      spacing: 8,
       children: [
         Wrap(
           spacing: 4,
