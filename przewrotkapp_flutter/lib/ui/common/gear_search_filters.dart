@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../../data_types.dart';
 import 'utils.dart';
@@ -32,6 +33,10 @@ class _GearSearchFiltersState extends State<GearSearchFilters> {
     super.initState();
     searchCtrl.text = widget.initialParams.text ?? "";
     selectedGearType = widget.initialParams.types?.first ?? GearType.kayak;
+    searchCtrl
+        .toStream()
+        .debounceTime(Duration(milliseconds: 250))
+        .listen((_) => filters());
   }
 
   @override
