@@ -16,11 +16,16 @@ class GearBrowserPage extends StatefulWidget {
 
 class _GearBrowserPageState extends State<GearBrowserPage> {
   var filteredGear = <GearPair>[];
+  var params = GearSearchParams.mainDefault;
 
   @override
   Widget build(BuildContext context) {
     final allGear = context.watch<AllGearCache?>();
-    final favs = context.watch<UserFavourites?>()?.gearIds ?? [];
+    final favs = context.watch<UserFavourites?>()?.gearIds;
+    filteredGear = sortGear(
+      searchGear(allGear ?? [], params),
+      favs ?? [],
+    );
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -36,11 +41,10 @@ class _GearBrowserPageState extends State<GearBrowserPage> {
                   EdgeInsets.only(top: kToolbarHeight, left: 8, right: 8),
               expandedTitleScale: 1,
               title: GearSearchFilters(
-                onFiltersChange: ({text, types}) {
-                  filteredGear = sortGear(
-                    searchGear(allGear ?? [], text: text, types: types),
-                    favs,
-                  );
+                // set this same as var params = ...
+                initialParams: GearSearchParams.mainDefault,
+                onFiltersChange: (newParams) {
+                  params = newParams;
                   setState(() {});
                 },
               ),

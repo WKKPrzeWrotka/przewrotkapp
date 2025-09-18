@@ -14,3 +14,15 @@ typedef FutureRentals = List<Rental>;
 typedef SelfExtraUserInfo = ExtraUserInfo;
 
 typedef UserFavourites = ({List<GearPair> gearPairs, List<int> gearIds});
+
+class GearSearchParams {
+  final String? text;
+  final Set<GearType>? types;
+
+  const GearSearchParams({this.text, this.types});
+
+  static const GearSearchParams mainDefault = GearSearchParams(
+    text: null,
+    types: {GearType.kayak},
+  );
+}

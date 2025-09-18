@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+
+import '../../data_types.dart';
 import 'utils.dart';
-import 'package:rxdart/rxdart.dart';
 
 class GearSearchFilters extends StatefulWidget {
-  final void Function({
-    String? text,
-    Set<GearType>? types,
-  }) onFiltersChange;
+  final GearSearchParams initialParams;
+  final void Function(GearSearchParams params) onFiltersChange;
 
-  const GearSearchFilters({super.key, required this.onFiltersChange});
+  const GearSearchFilters({
+    super.key,
+    this.initialParams = GearSearchParams.mainDefault,
+    required this.onFiltersChange,
+  });
 
   @override
   State<GearSearchFilters> createState() => _GearSearchFiltersState();
@@ -19,19 +22,16 @@ class _GearSearchFiltersState extends State<GearSearchFilters> {
   final searchCtrl = TextEditingController();
   var selectedGearType = GearType.kayak;
 
-  void filters() => widget.onFiltersChange(
+  void filters() => widget.onFiltersChange(GearSearchParams(
         text: searchCtrl.text,
         types: {selectedGearType},
-      );
+      ));
 
   @override
   void initState() {
     super.initState();
-    searchCtrl
-        .toStream()
-        .debounceTime(Duration(milliseconds: 250))
-        .listen((_) => filters());
-    Future.microtask(() => filters());
+    searchCtrl.text = widget.initialParams.text ?? "";
+    selectedGearType = widget.initialParams.types?.first ?? GearType.kayak;
   }
 
   @override

@@ -7,13 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+import 'package:vibration/vibration.dart';
+
+import '../../../data_types.dart';
 import '../../../gear_search.dart';
 import '../../common/gear_listing.dart';
 import '../../common/gear_search_filters.dart';
 import '../../common/utils.dart';
-import 'package:vibration/vibration.dart';
-
-import '../../../data_types.dart';
 
 class NewRentalPage extends StatefulWidget {
   const NewRentalPage({super.key});
@@ -85,15 +85,8 @@ class _NewRentalPageState extends State<NewRentalPage> {
           ),
           Text("Wybierz sprzęcior:", style: tt.headlineMedium),
           GearSearchFilters(
-            onFiltersChange: ({text, types}) {
-              filteredGear = sortGear(
-                searchGear(
-                  allGear ?? [],
-                  text: text,
-                  types: types,
-                ),
-                favs,
-              );
+            onFiltersChange: (params) {
+              filteredGear = sortGear(searchGear(allGear ?? [], params), favs);
               setState(() {});
             },
           ),

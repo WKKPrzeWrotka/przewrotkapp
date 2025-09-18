@@ -1,11 +1,11 @@
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+
+import 'data_types.dart';
 import 'ui/common/utils.dart';
 
-List<GearPair> searchGear(
-  List<GearPair> gear, {
-  String? text,
-  Set<GearType>? types,
-}) {
+List<GearPair> searchGear(List<GearPair> gear, GearSearchParams params) {
+  var text = params.text;
+  var types = params.types;
   text = text?.trim().toLowerCase() ?? "";
   types ??= GearType.values.toSet();
   return gear.where((g) {
