@@ -173,7 +173,6 @@ class _NewRentalPageState extends State<NewRentalPage> {
             "Koszt: ${range != null ? hoursForGear(shoppingCart, range!) : "?"}h",
             style: tt.headlineMedium,
           ),
-          // TODO: Warning if there is no already-rented-check
           SizedBox(
             height: 64,
             child: FilledButton(

@@ -7,49 +7,50 @@ import 'package:kalender/kalender.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 String gearTypeToEmoji(GearType type) => switch (type) {
-      GearType.belt => '🪢',
-      GearType.clothing => '👕',
-      GearType.floatbag => '🎈',
-      GearType.helmet => '🪖',
-      GearType.kayak => '🛶',
-      GearType.paddle => '🪏',
-      GearType.pfd => '🛟',
-      GearType.spraydeck => '👗',
-      GearType.throwbag => '🤾',
-      GearType.other => '❓',
-    };
+  GearType.belt => '🪢',
+  GearType.clothing => '👕',
+  GearType.floatbag => '🎈',
+  GearType.helmet => '🪖',
+  GearType.kayak => '🛶',
+  GearType.paddle => '🪏',
+  GearType.pfd => '🛟',
+  GearType.spraydeck => '👗',
+  GearType.throwbag => '🤾',
+  GearType.other => '❓',
+};
 
 extension Pretty on DateTime {
-  String toStringDate({bool showYear = true}) => "${showYear ? "$year-" : ""}"
+  String toStringDate({bool showYear = true}) =>
+      "${showYear ? "$year-" : ""}"
       "${month.toString().padLeft(2, '0')}-"
       "${day.toString().padLeft(2, '0')}";
 }
 
 extension Defaults on DateTime {
   DateTime withDefaultRentalFromTime() => copyWith(
-        hour: 4,
-        minute: 0,
-        second: 0,
-        millisecond: 0,
-        microsecond: 0,
-        isUtc: true,
-      );
+    hour: 4,
+    minute: 0,
+    second: 0,
+    millisecond: 0,
+    microsecond: 0,
+    isUtc: true,
+  );
 
   DateTime withDefaultRentalToTime() => copyWith(
-        hour: 21,
-        minute: 0,
-        second: 0,
-        millisecond: 0,
-        microsecond: 0,
-        isUtc: true,
-      );
+    hour: 21,
+    minute: 0,
+    second: 0,
+    millisecond: 0,
+    microsecond: 0,
+    isUtc: true,
+  );
 }
 
 extension Logic on DateTimeRange {
   DateTimeRange withDefaultRentalTimes() => DateTimeRange(
-        start: start.withDefaultRentalFromTime(),
-        end: end.withDefaultRentalToTime(),
-      );
+    start: start.withDefaultRentalFromTime(),
+    end: end.withDefaultRentalToTime(),
+  );
 
   bool isSameDayRange(DateTimeRange other) =>
       toUtc().start.isSameDay(other.toUtc().start) &&
@@ -58,17 +59,17 @@ extension Logic on DateTimeRange {
 
 extension Human on GearType {
   String toHumanString() => switch (this) {
-        GearType.belt => "Pasy transportowe",
-        GearType.clothing => "Ubrania",
-        GearType.floatbag => "Komory",
-        GearType.helmet => "Kaski",
-        GearType.kayak => "Kajaki",
-        GearType.paddle => "Wiosła",
-        GearType.pfd => "Kamizelki",
-        GearType.spraydeck => "Fartuchy",
-        GearType.throwbag => "Rzutki",
-        GearType.other => "Inne",
-      };
+    GearType.belt => "Pasy transportowe",
+    GearType.clothing => "Ubrania",
+    GearType.floatbag => "Komory",
+    GearType.helmet => "Kaski",
+    GearType.kayak => "Kajaki",
+    GearType.paddle => "Wiosła",
+    GearType.pfd => "Kamizelki",
+    GearType.spraydeck => "Fartuchy",
+    GearType.throwbag => "Rzutki",
+    GearType.other => "Inne",
+  };
 
   String toDisplayString() => gearTypeToEmoji(this) + toHumanString();
 }
@@ -81,14 +82,14 @@ extension HumanGear on Gear {
   String displayName() => (manufacturer == null && model == null)
       ? friendlyName.toString()
       : '${manufacturer ?? ''} ${model ?? ''}'
-          '${friendlyName != null ? ' ($friendlyName)' : ''}';
+            '${friendlyName != null ? ' ($friendlyName)' : ''}';
 
   String fullName() => [
-        (clubId.toLowerCase()),
-        if (manufacturer != null) manufacturer,
-        if (model != null) model,
-        if (friendlyName != null) friendlyName,
-      ].join(" ");
+    (clubId.toLowerCase()),
+    if (manufacturer != null) manufacturer,
+    if (model != null) model,
+    if (friendlyName != null) friendlyName,
+  ].join(" ");
 }
 
 extension HandyRental on Rental {
@@ -97,15 +98,6 @@ extension HandyRental on Rental {
   List<GearPair> gearPairs(List<GearPair> allGearSource) => allGearSource
       .where((p) => gear.map((g) => g.id).contains(p.gear.id))
       .toList();
-}
-
-extension EasyUser on ExtraUserInfo {
-  // TODO: Maybe turn this into some cache way up in di.dart ?
-  List<GearPair>? favourites(List<GearPair>? sourceAllGear) => sourceAllGear
-      ?.where((g) => favouritesIds()?.contains(g.gear.id) ?? false)
-      .toList();
-
-  Iterable<int>? favouritesIds() => favouritesJunctions?.map((e) => e.gearId);
 }
 
 extension StreamGodDamnit<T> on ValueListenable<T> {
