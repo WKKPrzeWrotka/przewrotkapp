@@ -20,8 +20,8 @@ Future<void> initDi() async {
   const serverUrlFromEnv = String.fromEnvironment('SERVER_URL');
   serverUrl = serverUrlFromEnv.isEmpty
       ? kReleaseMode
-          ? 'https://api.app.przewrotka.lastgimbus.com/'
-          : 'http://localhost:8080/'
+            ? 'https://api.app.przewrotka.lastgimbus.com/'
+            : 'http://localhost:8080/'
       : serverUrlFromEnv;
 
   _client = Client(
@@ -70,18 +70,19 @@ class EverythingProvider extends StatelessWidget {
           lazy: false,
           initialData: null,
           create: (_) =>
-              _retryFuture(() => _client.events.getDiscordEvents(past: false))
-                  .then(
-            (e) => e
-                .map(
-                  (event) => (
-                    name: event.name,
-                    from: event.from.toUtc(),
-                    to: event.to.toUtc(),
-                  ),
-                )
-                .toList(),
-          ),
+              _retryFuture(
+                () => _client.events.getDiscordEvents(past: false),
+              ).then(
+                (e) => e
+                    .map(
+                      (event) => (
+                        name: event.name,
+                        from: event.from.toUtc(),
+                        to: event.to.toUtc(),
+                      ),
+                    )
+                    .toList(),
+              ),
         ),
         StreamProvider<SelfExtraUserInfo?>(
           lazy: false,
@@ -93,19 +94,24 @@ class EverythingProvider extends StatelessWidget {
           create: (_) => null,
           update:
               (_, AllGearCache? allGearCache, ExtraUserInfo? extraUser, __) {
-            if (allGearCache == null ||
-                extraUser?.favouritesJunctions == null) {
-              return null;
-            }
-            final favIds =
-                extraUser!.favouritesJunctions!.map((e) => e.gearId).toList();
-            final gear =
-                allGearCache.where((g) => favIds.contains(g.gear.id)).toList();
-            return (gearPairs: gear, gearIds: favIds);
-          },
+                if (allGearCache == null ||
+                    extraUser?.favouritesJunctions == null) {
+                  return null;
+                }
+                final favIds = extraUser!.favouritesJunctions!
+                    .map((e) => e.gearId)
+                    .toList();
+                final gear = allGearCache
+                    .where((g) => favIds.contains(g.gear.id))
+                    .toList();
+                return (gearPairs: gear, gearIds: favIds);
+              },
         ),
-        ProxyProvider2<FutureRentals?, FutureDiscordEvents?,
-            FutureRentalGroups?>(
+        ProxyProvider2<
+          FutureRentals?,
+          FutureDiscordEvents?,
+          FutureRentalGroups?
+        >(
           lazy: false,
           create: (_) => null,
           update: (_, rentals, dcEvents, __) {
@@ -113,31 +119,36 @@ class EverythingProvider extends StatelessWidget {
             if (rentals == null || dcEvents == null) return null;
             final dcEventsCopy = dcEvents.toList();
             return rentals
-                .groupListsBy((r) => DateTimeRange(start: r.from, end: r.to)
-                    .withDefaultRentalTimes())
-                .entries
-                .map(
-                  (e) {
-                    final dcEvent = dcEvents.firstWhereOrNull(
-                      (dcEv) => DateTimeRange(start: dcEv.from, end: dcEv.to)
-                          .withDefaultRentalTimes()
-                          .isSameDayRange(e.key),
-                    );
-                    dcEventsCopy.remove(dcEvent);
-                    return RentalGroup(
-                      name: dcEvent?.name,
-                      range: e.key,
-                      rentals: e.value,
-                    );
-                  },
+                .groupListsBy(
+                  (r) => DateTimeRange(
+                    start: r.from,
+                    end: r.to,
+                  ).withDefaultRentalTimes(),
                 )
+                .entries
+                .map((e) {
+                  final dcEvent = dcEvents.firstWhereOrNull(
+                    (dcEv) => DateTimeRange(
+                      start: dcEv.from,
+                      end: dcEv.to,
+                    ).withDefaultRentalTimes().isSameDayRange(e.key),
+                  );
+                  dcEventsCopy.remove(dcEvent);
+                  return RentalGroup(
+                    name: dcEvent?.name,
+                    range: e.key,
+                    rentals: e.value,
+                  );
+                })
                 .toList() // this is important because or .remove() above
                 .followedBy(
                   dcEventsCopy.map(
                     (e) => RentalGroup(
                       name: e.name,
-                      range: DateTimeRange(start: e.from, end: e.to)
-                          .withDefaultRentalTimes(),
+                      range: DateTimeRange(
+                        start: e.from,
+                        end: e.to,
+                      ).withDefaultRentalTimes(),
                       rentals: [],
                     ),
                   ),

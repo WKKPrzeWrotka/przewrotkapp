@@ -23,23 +23,17 @@ class HomePage extends StatelessWidget {
             child: IconButton(
               iconSize: 48,
               padding: EdgeInsets.all(2),
-              onPressed:
-                  user == null ? null : () => context.push('/user/${user.id!}'),
-              icon: CircularUserImage(
-                userInfo: user,
-                size: 48,
-              ),
+              onPressed: user == null
+                  ? null
+                  : () => context.push('/user/${user.id!}'),
+              icon: CircularUserImage(userInfo: user, size: 48),
             ),
           ),
         ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(8),
-        children: [
-          HoursCard(),
-          UpcomingTripsCard(),
-          FavouriteGearCard(),
-        ],
+        children: [HoursCard(), UpcomingTripsCard(), FavouriteGearCard()],
       ),
     );
   }

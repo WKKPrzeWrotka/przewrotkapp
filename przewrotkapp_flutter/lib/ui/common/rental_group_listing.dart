@@ -28,8 +28,9 @@ class RentalGroupListing extends StatelessWidget {
                 spacing: 4,
                 children: [
                   Text("Jadą:"),
-                  for (final user
-                      in rentalGroup.rentals.map((r) => r.userInfo!))
+                  for (final user in rentalGroup.rentals.map(
+                    (r) => r.userInfo!,
+                  ))
                     CircularUserImage(userInfo: user),
                 ],
               )

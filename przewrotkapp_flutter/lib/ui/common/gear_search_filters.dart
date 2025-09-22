@@ -24,10 +24,9 @@ class _GearSearchFiltersState extends State<GearSearchFilters> {
 
   var selectedGearType = GearType.kayak;
 
-  void filters() => widget.onFiltersChange(GearSearchParams(
-        text: searchCtrl.text,
-        types: {selectedGearType},
-      ));
+  void filters() => widget.onFiltersChange(
+    GearSearchParams(text: searchCtrl.text, types: {selectedGearType}),
+  );
 
   @override
   void initState() {

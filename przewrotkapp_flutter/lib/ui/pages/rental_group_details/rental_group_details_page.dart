@@ -10,25 +10,23 @@ import '../../common/utils.dart';
 class RentalGroupDetailsPage extends StatelessWidget {
   final DateTimeRange range;
 
-  const RentalGroupDetailsPage({
-    super.key,
-    required this.range,
-  });
+  const RentalGroupDetailsPage({super.key, required this.range});
 
   @override
   Widget build(BuildContext context) {
     final allGroups = context.watch<FutureRentalGroups?>();
-    final group =
-        allGroups?.firstWhereOrNull((g) => g.range.isSameDayRange(range));
+    final group = allGroups?.firstWhereOrNull(
+      (g) => g.range.isSameDayRange(range),
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(
           allGroups == null
               ? "Ładowanie..."
               : group != null
-                  ? "${group.range.start.toStringDate(showYear: false)} ~ "
-                      "${group.range.end.toStringDate(showYear: false)} ${group.name}"
-                  : "Nie znalezionow :(",
+              ? "${group.range.start.toStringDate(showYear: false)} ~ "
+                    "${group.range.end.toStringDate(showYear: false)} ${group.name}"
+              : "Nie znalezionow :(",
         ),
       ),
       body: ListView(

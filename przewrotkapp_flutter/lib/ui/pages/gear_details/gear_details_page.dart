@@ -28,8 +28,9 @@ class GearDetailsPage extends StatelessWidget {
         context.watch<UserFavourites?>()?.gearIds.contains(gear?.id) ?? false;
     final rentals = context.watch<FutureRentals?>();
     final thisRentals = gear != null
-        ? rentals
-            ?.where((r) => r.junctions!.map((j) => j.gearId).contains(gear.id))
+        ? rentals?.where(
+            (r) => r.junctions!.map((j) => j.gearId).contains(gear.id),
+          )
         : null;
     return Scaffold(
       appBar: AppBar(
@@ -52,9 +53,7 @@ class GearDetailsPage extends StatelessWidget {
                     );
                   }
                 : null,
-            icon: Icon(
-              isFavourite ? Icons.favorite : Icons.favorite_outline,
-            ),
+            icon: Icon(isFavourite ? Icons.favorite : Icons.favorite_outline),
           ),
         ],
       ),
@@ -83,7 +82,8 @@ class GearDetailsPage extends StatelessWidget {
                                 // this doesn't actually splash... but okay...
                                 child: InkWell(
                                   onTap: () => context.push(
-                                      '/gear/$clubId/photos?initialIndex=${gear.photoUrls!.indexOf(uri)}'),
+                                    '/gear/$clubId/photos?initialIndex=${gear.photoUrls!.indexOf(uri)}',
+                                  ),
                                   child: Image.network(uri.toString()),
                                 ),
                               ),
@@ -94,21 +94,15 @@ class GearDetailsPage extends StatelessWidget {
                   ),
                 ListTile(
                   title: CopyableText(
-                    child: Text(
-                      gear.displayName(),
-                      style: tt.headlineMedium,
-                    ),
+                    child: Text(gear.displayName(), style: tt.headlineMedium),
                   ),
                   trailing: CopyableText(
-                    child: Text(
-                      gear.clubId,
-                      style: tt.bodyLarge,
-                    ),
+                    child: Text(gear.clubId, style: tt.bodyLarge),
                   ),
                 ),
                 Text("Nadchodządce wypożyczenia", style: tt.headlineMedium),
                 for (final rental in thisRentals ?? <Rental>[])
-                  RentalListing(rental: rental)
+                  RentalListing(rental: rental),
               ],
             )
           : Placeholder(),

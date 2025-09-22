@@ -20,22 +20,21 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     final rentals = context.watch<FutureRentals?>();
     final eventsCtrl = DefaultEventsController();
-    eventsCtrl.addEvents(
-      [
-        // TODO BIG: Whole rentals join by common date shannainan
-        for (final rental in rentals ?? <Rental>[])
-          CalendarEvent(
-            canModify: false,
-            data: rental,
-            dateTimeRange: DateTimeRange(start: rental.from, end: rental.to),
-          ),
-      ],
-    );
+    eventsCtrl.addEvents([
+      // TODO BIG: Whole rentals join by common date shannainan
+      for (final rental in rentals ?? <Rental>[])
+        CalendarEvent(
+          canModify: false,
+          data: rental,
+          dateTimeRange: DateTimeRange(start: rental.from, end: rental.to),
+        ),
+    ]);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          DateFormat("MMMM").format(
-              calendarCtrl.visibleDateTimeRange.value.dominantMonthDate),
+          DateFormat(
+            "MMMM",
+          ).format(calendarCtrl.visibleDateTimeRange.value.dominantMonthDate),
         ),
         actions: [
           IconButton(
@@ -62,8 +61,7 @@ class _CalendarPageState extends State<CalendarPage> {
             tileBuilder: (event, range) => Container(
               color: Colors.blue,
               child: Text(
-                (event.data as Rental)
-                    .junctions!
+                (event.data as Rental).junctions!
                     .map((e) => e.gear!.clubId)
                     .join(", "),
               ),
@@ -77,11 +75,13 @@ class _CalendarPageState extends State<CalendarPage> {
           ),
         ),
         components: CalendarComponents(
-            monthComponents: MonthComponents(
-                headerComponents: MonthHeaderComponents(
-          weekDayHeaderBuilder: (day, style) =>
-              Text(DateFormat("E").format(day)),
-        ))),
+          monthComponents: MonthComponents(
+            headerComponents: MonthHeaderComponents(
+              weekDayHeaderBuilder: (day, style) =>
+                  Text(DateFormat("E").format(day)),
+            ),
+          ),
+        ),
       ),
     );
   }

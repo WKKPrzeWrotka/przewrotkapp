@@ -22,11 +22,7 @@ typedef SelfExtraUserInfo = ExtraUserInfo;
 typedef UserFavourites = ({List<GearPair> gearPairs, List<int> gearIds});
 
 // maybe separate class some day, but now it's enough
-typedef DiscordEvent = ({
-  String name,
-  DateTime from,
-  DateTime to,
-});
+typedef DiscordEvent = ({String name, DateTime from, DateTime to});
 
 typedef FutureDiscordEvents = List<DiscordEvent>;
 
@@ -47,18 +43,15 @@ class RentalGroup {
   final DateTimeRange range;
   final List<Rental> rentals;
 
-  const RentalGroup({
-    this.name,
-    required this.range,
-    required this.rentals,
-  });
+  const RentalGroup({this.name, required this.range, required this.rentals});
 }
 
 extension DateTimeRangeParsing on DateTimeRange {
   static final dateFormat = DateFormat("y-MM-dd");
   static const dateSeparator = "~";
 
-  String dateRangeString() => '${dateFormat.format(start)}'
+  String dateRangeString() =>
+      '${dateFormat.format(start)}'
       '$dateSeparator'
       '${dateFormat.format(end)}';
 

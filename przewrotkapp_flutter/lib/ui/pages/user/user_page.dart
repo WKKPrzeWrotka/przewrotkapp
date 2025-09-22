@@ -48,15 +48,15 @@ class _UserPageState extends State<UserPage> {
                   ? SizedBox(
                       width: 128,
                       height: 128,
-                      child:
-                          UserImageButton(sessionManager: sm, compact: false),
+                      child: UserImageButton(
+                        sessionManager: sm,
+                        compact: false,
+                      ),
                     )
-                  : CircularUserImage(
-                      userInfoPublic: user,
-                      size: 128,
-                    ),
+                  : CircularUserImage(userInfoPublic: user, size: 128),
               Text(
-                  '${user.userName ?? 'null'}${user.fullName != null ? '(${user.fullName})' : ''}'),
+                '${user.userName ?? 'null'}${user.fullName != null ? '(${user.fullName})' : ''}',
+              ),
             ],
           );
         },

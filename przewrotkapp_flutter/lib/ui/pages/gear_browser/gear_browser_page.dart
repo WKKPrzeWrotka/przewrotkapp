@@ -35,8 +35,11 @@ class _GearBrowserPageState extends State<GearBrowserPage> {
             title: Text("Cały sprzęt"),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
-              titlePadding:
-                  EdgeInsets.only(top: kToolbarHeight, left: 8, right: 8),
+              titlePadding: EdgeInsets.only(
+                top: kToolbarHeight,
+                left: 8,
+                right: 8,
+              ),
               expandedTitleScale: 1,
               title: GearSearchFilters(
                 // set this same as var params = ...

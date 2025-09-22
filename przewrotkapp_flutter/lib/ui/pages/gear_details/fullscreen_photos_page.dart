@@ -10,8 +10,11 @@ class FullscreenPhotosPage extends StatefulWidget {
   final String clubId;
   final int? initialIndex;
 
-  const FullscreenPhotosPage(
-      {super.key, required this.clubId, this.initialIndex});
+  const FullscreenPhotosPage({
+    super.key,
+    required this.clubId,
+    this.initialIndex,
+  });
 
   @override
   State<FullscreenPhotosPage> createState() => _FullscreenPhotosPageState();

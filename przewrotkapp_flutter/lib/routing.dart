@@ -26,14 +26,8 @@ final router = GoRouter(
     }
   },
   routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const HomePage(),
-    ),
-    GoRoute(
-      path: '/gear',
-      builder: (context, state) => GearBrowserPage(),
-    ),
+    GoRoute(path: '/', builder: (context, state) => const HomePage()),
+    GoRoute(path: '/gear', builder: (context, state) => GearBrowserPage()),
     GoRoute(
       path: '/gear/:clubId',
       builder: (context, state) =>
@@ -43,28 +37,24 @@ final router = GoRouter(
       path: '/gear/:clubId/photos',
       builder: (context, state) => FullscreenPhotosPage(
         clubId: state.pathParameters['clubId']!,
-        initialIndex:
-            int.tryParse(state.uri.queryParameters['initialIndex'] ?? ""),
-      ),
-    ),
-    GoRoute(
-      path: '/calendar',
-      builder: (context, state) => CalendarPage(),
-    ),
-    GoRoute(
-      path: '/user/:userId',
-      builder: (context, state) => UserPage(
-        userId: int.parse(
-          state.pathParameters['userId']!,
+        initialIndex: int.tryParse(
+          state.uri.queryParameters['initialIndex'] ?? "",
         ),
       ),
+    ),
+    GoRoute(path: '/calendar', builder: (context, state) => CalendarPage()),
+    GoRoute(
+      path: '/user/:userId',
+      builder: (context, state) =>
+          UserPage(userId: int.parse(state.pathParameters['userId']!)),
     ),
     GoRoute(
       path: '/rentals/new',
       builder: (context, state) {
         final init = state.uri.queryParameters.containsKey('initialRange')
             ? DateTimeRangeParsing.parseDateRangeString(
-                state.uri.queryParameters['initialRange']!)
+                state.uri.queryParameters['initialRange']!,
+              )
             : null;
         return NewRentalPage(initialRange: init);
       },
@@ -74,7 +64,8 @@ final router = GoRouter(
       builder: (context, state) {
         return RentalGroupDetailsPage(
           range: DateTimeRangeParsing.parseDateRangeString(
-              state.pathParameters['range']!),
+            state.pathParameters['range']!,
+          ),
         );
       },
     ),
