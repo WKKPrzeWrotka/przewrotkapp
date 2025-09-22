@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
-import 'utils.dart';
 
 import '../../data_types.dart';
+import 'utils.dart';
 
 class GearListing extends StatelessWidget {
   final GearPair gearPair;
   final Widget? trailing;
+  final Color? color;
 
   const GearListing({
     super.key,
     required this.gearPair,
     this.trailing,
+    this.color,
   });
 
   @override
@@ -22,6 +24,7 @@ class GearListing extends StatelessWidget {
         context.watch<UserFavourites?>()?.gearIds.contains(gearPair.gear.id) ??
             false;
     return Card(
+      color: color,
       child: ListTile(
         onTap: () => context.push('/gear/${gearPair.gear.clubId}'),
         leading: AspectRatio(

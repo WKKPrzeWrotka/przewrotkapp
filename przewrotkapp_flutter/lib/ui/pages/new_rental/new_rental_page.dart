@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kalender/kalender.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:vibration/vibration.dart';
@@ -57,6 +58,20 @@ class _NewRentalPageState extends State<NewRentalPage> {
       searchGear(allGear ?? [], params),
       favs ?? [],
     );
+    final otherRentals = context.watch<FutureRentals?>();
+    final selectedRange = selectedDates.length == 2
+        ? DateTimeRange(start: selectedDates[0], end: selectedDates[1])
+        : null;
+    final overlappingRentals = selectedRange != null
+        ? otherRentals?.where(
+            (r) =>
+                DateTimeRange(start: r.from, end: r.to).overlaps(selectedRange),
+          )
+        : null;
+    final rentedGearIds = overlappingRentals?.fold(
+      <int>[],
+      (l, r) => l..addAll(r.junctions!.map((j) => j.gearId)),
+    );
     return Scaffold(
       appBar: AppBar(title: Text("Wypożycz sprzęcior")),
       body: ListView(
@@ -101,9 +116,16 @@ class _NewRentalPageState extends State<NewRentalPage> {
                     children: [
                       for (final gear in filteredGear)
                         GearListing(
+                          color:
+                              (rentedGearIds?.contains(gear.gear.id) ?? false)
+                                  ? Colors.red.shade700
+                                  : null,
                           gearPair: gear,
                           trailing: IconButton(
-                            onPressed: shoppingCart.contains(gear)
+                            // TODO: Allow force-rent on long press
+                            onPressed: shoppingCart.contains(gear) ||
+                                    (rentedGearIds?.contains(gear.gear.id) ??
+                                        false)
                                 ? null
                                 : () {
                                     shoppingCart.add(gear);
@@ -121,6 +143,9 @@ class _NewRentalPageState extends State<NewRentalPage> {
             children: [
               for (final gear in shoppingCart)
                 GearListing(
+                  color: (rentedGearIds?.contains(gear.gear.id) ?? false)
+                      ? Colors.red.shade700
+                      : null,
                   gearPair: gear,
                   trailing: IconButton(
                     color: Colors.red,
@@ -135,12 +160,13 @@ class _NewRentalPageState extends State<NewRentalPage> {
           ),
           Text(
             "Od ${selectedDates.elementAtOrNull(0)?.toStringDate() ?? "-"} do "
-                "${selectedDates.elementAtOrNull(1)?.toStringDate() ?? "-"}",
+            "${selectedDates.elementAtOrNull(1)?.toStringDate() ?? "-"}",
           ),
           Text(
             "Koszt: ${selectedDates.length == 2 ? hoursForGear(shoppingCart, selectedDates[0], selectedDates[1]) : "?"}h",
             style: tt.headlineMedium,
           ),
+          // TODO: Warning if there is no already-rented-check
           SizedBox(
             height: 64,
             child: FilledButton(

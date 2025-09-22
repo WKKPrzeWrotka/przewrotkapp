@@ -25,6 +25,11 @@ class GearDetailsPage extends StatelessWidget {
     final client = context.read<Client>();
     final isFavourite =
         context.watch<UserFavourites?>()?.gearIds.contains(gear?.id) ?? false;
+    final rentals = context.watch<FutureRentals?>();
+    final thisRentals = gear != null
+        ? rentals
+            ?.where((r) => r.junctions!.map((j) => j.gearId).contains(gear.id))
+        : null;
     return Scaffold(
       appBar: AppBar(
         title: Text("Szczegóły $clubId"),
@@ -102,6 +107,11 @@ class GearDetailsPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                Text("Nadchodządce wypożyczenia", style: tt.headlineMedium),
+                for (final rental in thisRentals ?? <Rental>[])
+                  // TODO RentalListing()
+                  Text(
+                      "${rental.from.toStringDate()} - ${rental.to.toStringDate()}")
                 // TODO: All details of the gear and other crazy shit
               ],
             )
