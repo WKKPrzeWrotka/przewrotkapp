@@ -62,7 +62,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
       body: ListView(
         padding: EdgeInsets.all(16),
         children: [
-          Text('Wybierz termin:', style: tt.headlineMedium),
+          Text('Wybierz termin', style: tt.headlineMedium),
           CalendarDatePicker2(
             config: CalendarDatePicker2Config(
               calendarType: CalendarDatePicker2Type.range,
@@ -80,11 +80,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
               setState(() {});
             },
           ),
-          Text(
-            "Od ${selectedDates.elementAtOrNull(0)?.toStringDate() ?? "-"} do "
-            "${selectedDates.elementAtOrNull(1)?.toStringDate() ?? "-"}",
-          ),
-          Text("Wybierz sprzęcior:", style: tt.headlineMedium),
+          Text("Wybierz sprzęcior", style: tt.headlineMedium),
           GearSearchFilters(
             // well, feels like i'm spinning in circle trying to keep this
             // widget stateful...
@@ -136,6 +132,10 @@ class _NewRentalPageState extends State<NewRentalPage> {
                   ),
                 ),
             ],
+          ),
+          Text(
+            "Od ${selectedDates.elementAtOrNull(0)?.toStringDate() ?? "-"} do "
+                "${selectedDates.elementAtOrNull(1)?.toStringDate() ?? "-"}",
           ),
           Text(
             "Koszt: ${selectedDates.length == 2 ? hoursForGear(shoppingCart, selectedDates[0], selectedDates[1]) : "?"}h",
