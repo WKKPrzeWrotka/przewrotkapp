@@ -4,12 +4,14 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:kalender/kalender.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
 import 'data_types.dart';
+import 'ui/common/utils.dart';
 
 late String serverUrl;
 late Client _client;
@@ -65,6 +67,23 @@ class EverythingProvider extends StatelessWidget {
           create: (_) =>
               _retryStream(() => _client.rental.watchRentals(past: false)),
         ),
+        FutureProvider<List<DiscordEvent>?>(
+          lazy: false,
+          initialData: null,
+          create: (_) =>
+              _retryFuture(() => _client.events.getDiscordEvents(past: false))
+                  .then(
+            (e) => e
+                .map(
+                  (event) => (
+                    name: event.name,
+                    from: event.from.toUtc(),
+                    to: event.to.toUtc(),
+                  ),
+                )
+                .toList(),
+          ),
+        ),
         StreamProvider<SelfExtraUserInfo?>(
           lazy: false,
           initialData: null,
@@ -86,19 +105,42 @@ class EverythingProvider extends StatelessWidget {
             return (gearPairs: gear, gearIds: favIds);
           },
         ),
-        ProxyProvider<FutureRentals?, FutureRentalGroups?>(
+        ProxyProvider2<FutureRentals?, FutureDiscordEvents?,
+            FutureRentalGroups?>(
           lazy: false,
           create: (_) => null,
-          update: (_, rentals, __) {
-            if (rentals == null) return null;
+          update: (_, rentals, dcEvents, __) {
+            // should i await dc too?
+            if (rentals == null || dcEvents == null) return null;
+            final dcEventsCopy = dcEvents.toList();
             return rentals
-                .groupListsBy((r) => DateTimeRange(start: r.from, end: r.to))
+                .groupListsBy(
+                    (r) => DateTimeRange(start: r.from, end: r.to).toUtc())
                 .entries
                 .map(
-                  (e) => RentalGroup(
-                    from: e.key.start,
-                    to: e.key.end,
-                    rentals: e.value,
+                  (e) {
+                    final dcEvent = dcEvents.firstWhereOrNull(
+                      (dcEv) => DateTimeRange(start: dcEv.from, end: dcEv.to)
+                          .isSameDayRange(e.key),
+                    );
+                    dcEventsCopy.remove(dcEvent);
+                    return RentalGroup(
+                      name: dcEvent?.name,
+                      from: e.key.start,
+                      to: e.key.end,
+                      rentals: e.value,
+                    );
+                  },
+                )
+                .toList() // this is important because or .remove() above
+                .followedBy(
+                  dcEventsCopy.map(
+                    (e) => RentalGroup(
+                      name: e.name,
+                      from: e.from.withDefaultRentalFromTime(),
+                      to: e.to.withDefaultRentalToTime(),
+                      rentals: [],
+                    ),
                   ),
                 )
                 .toList();

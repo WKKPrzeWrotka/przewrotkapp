@@ -271,6 +271,26 @@ class Protocol extends _i1.SerializationManager {
               .toList()
           : null) as T;
     }
+    if (t == List<({DateTime from, String name, DateTime to})>) {
+      return (data as List)
+          .map((e) =>
+              deserialize<({DateTime from, String name, DateTime to})>(e))
+          .toList() as T;
+    }
+    if (t == _i1.getType<({DateTime from, String name, DateTime to})>()) {
+      return (
+        from: deserialize<DateTime>(((data as Map)['n'] as Map)['from']),
+        name: deserialize<String>(data['n']['name']),
+        to: deserialize<DateTime>(data['n']['to']),
+      ) as T;
+    }
+    if (t == _i1.getType<({DateTime from, String name, DateTime to})>()) {
+      return (
+        from: deserialize<DateTime>(((data as Map)['n'] as Map)['from']),
+        name: deserialize<String>(data['n']['name']),
+        to: deserialize<DateTime>(data['n']['to']),
+      ) as T;
+    }
     if (t == List<(_i26.Gear, _i27.GearBelt)>) {
       return (data as List)
           .map((e) => deserialize<(_i26.Gear, _i27.GearBelt)>(e))
@@ -620,6 +640,15 @@ class Protocol extends _i1.SerializationManager {
 Map<String, dynamic>? mapRecordToJson(Record? record) {
   if (record == null) {
     return null;
+  }
+  if (record is ({DateTime from, String name, DateTime to})) {
+    return {
+      "n": {
+        "from": record.from,
+        "name": record.name,
+        "to": record.to,
+      },
+    };
   }
   if (record is (_i26.Gear, _i27.GearBelt)) {
     return {

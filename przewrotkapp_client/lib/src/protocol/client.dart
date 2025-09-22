@@ -32,6 +32,22 @@ import 'package:przewrotkapp_client/src/protocol/user/extra_user_info.dart'
 import 'protocol.dart' as _i16;
 
 /// {@category Endpoint}
+class EndpointEvents extends _i1.EndpointRef {
+  EndpointEvents(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'events';
+
+  _i2.Future<List<({DateTime from, String name, DateTime to})>>
+      getDiscordEvents({required bool past}) => caller.callServerEndpoint<
+              List<({DateTime from, String name, DateTime to})>>(
+            'events',
+            'getDiscordEvents',
+            {'past': past},
+          );
+}
+
+/// {@category Endpoint}
 class EndpointGearRead extends _i1.EndpointRef {
   EndpointGearRead(_i1.EndpointCaller caller) : super(caller);
 
@@ -219,11 +235,14 @@ class Client extends _i1.ServerpodClientShared {
           disconnectStreamsOnLostInternetConnection:
               disconnectStreamsOnLostInternetConnection,
         ) {
+    events = EndpointEvents(this);
     gearRead = EndpointGearRead(this);
     rental = EndpointRental(this);
     user = EndpointUser(this);
     modules = Modules(this);
   }
+
+  late final EndpointEvents events;
 
   late final EndpointGearRead gearRead;
 
@@ -235,6 +254,7 @@ class Client extends _i1.ServerpodClientShared {
 
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
+        'events': events,
         'gearRead': gearRead,
         'rental': rental,
         'user': user,

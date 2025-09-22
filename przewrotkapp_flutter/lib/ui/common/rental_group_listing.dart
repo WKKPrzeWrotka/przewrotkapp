@@ -19,8 +19,9 @@ class RentalGroupListing extends StatelessWidget {
           '${RentalGroup.dateRangeString(rentalGroup.from, rentalGroup.to)}',
         ),
         title: Text(
-          "${rentalGroup.from.toStringDate(showYear: false)} do "
-          "${rentalGroup.to.toStringDate(showYear: false)}",
+          "${rentalGroup.from.toStringDate(showYear: false)} ~ "
+          "${rentalGroup.to.toStringDate(showYear: false)}"
+          " ${rentalGroup.name ?? ""}",
         ),
         subtitle: Row(
           spacing: 4,

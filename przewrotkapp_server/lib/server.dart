@@ -1,5 +1,6 @@
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
+import 'package:przewrotkapp_server/src/events_endpoint.dart';
 import 'package:przewrotkapp_server/src/web/routes/root.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as auth;
@@ -81,4 +82,8 @@ void run(List<String> args) async {
 
   // Start the server.
   await pod.start();
+
+  final dcEvents = DiscordEventsFutureCall();
+  pod.registerFutureCall(dcEvents, dcEvents.name);
+  await DiscordEventsFutureCall.schedule(pod, delay: Duration(seconds: 5));
 }

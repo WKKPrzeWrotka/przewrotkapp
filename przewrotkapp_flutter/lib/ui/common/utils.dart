@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:kalender/kalender.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 String gearTypeToEmoji(GearType type) => switch (type) {
@@ -24,10 +26,17 @@ extension Pretty on DateTime {
 }
 
 extension Defaults on DateTime {
-  DateTime withDefaultRentalFromTime() =>
-      copyWith(hour: 6, minute: 0, second: 0, millisecond: 0, microsecond: 0);
-  DateTime withDefaultRentalToTime() =>
-      copyWith(hour: 23, minute: 0, second: 0, millisecond: 0, microsecond: 0);
+  DateTime withDefaultRentalFromTime() => toUtc()
+      .copyWith(hour: 4, minute: 0, second: 0, millisecond: 0, microsecond: 0);
+
+  DateTime withDefaultRentalToTime() => toUtc()
+      .copyWith(hour: 21, minute: 0, second: 0, millisecond: 0, microsecond: 0);
+}
+
+extension Logic on DateTimeRange {
+  bool isSameDayRange(DateTimeRange other) =>
+      toUtc().start.isSameDay(other.toUtc().start) &&
+      toUtc().end.isSameDay(other.toUtc().end);
 }
 
 extension Human on GearType {

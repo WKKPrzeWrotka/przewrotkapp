@@ -1,3 +1,5 @@
+events:
+  - getDiscordEvents:
 gearRead:
   - getAllBelts:
   - getAllClothes:

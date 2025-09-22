@@ -20,6 +20,15 @@ typedef SelfExtraUserInfo = ExtraUserInfo;
 
 typedef UserFavourites = ({List<GearPair> gearPairs, List<int> gearIds});
 
+// maybe separate class some day, but now it's enough
+typedef DiscordEvent = ({
+  String name,
+  DateTime from,
+  DateTime to,
+});
+
+typedef FutureDiscordEvents = List<DiscordEvent>;
+
 class GearSearchParams {
   final String? text;
   final Set<GearType>? types;
@@ -33,11 +42,13 @@ class GearSearchParams {
 }
 
 class RentalGroup {
+  final String? name;
   final DateTime from;
   final DateTime to;
   final List<Rental> rentals;
 
   const RentalGroup({
+    this.name,
     required this.from,
     required this.to,
     required this.rentals,
