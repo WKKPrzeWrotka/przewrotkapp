@@ -23,14 +23,17 @@ class RentalGroupListing extends StatelessWidget {
           "${rentalGroup.range.end.toStringDate(showYear: false)}"
           " ${rentalGroup.name ?? ""}",
         ),
-        subtitle: Row(
-          spacing: 4,
-          children: [
-            Text("Jadą:"),
-            for (final user in rentalGroup.rentals.map((r) => r.userInfo!))
-              CircularUserImage(userInfo: user),
-          ],
-        ),
+        subtitle: rentalGroup.rentals.isNotEmpty
+            ? Row(
+                spacing: 4,
+                children: [
+                  Text("Jadą:"),
+                  for (final user
+                      in rentalGroup.rentals.map((r) => r.userInfo!))
+                    CircularUserImage(userInfo: user),
+                ],
+              )
+            : null,
         trailing: TextButton(
           onPressed: () => context.push(
             '/rentals/new?initialRange='
