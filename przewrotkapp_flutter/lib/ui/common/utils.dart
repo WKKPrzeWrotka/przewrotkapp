@@ -26,14 +26,31 @@ extension Pretty on DateTime {
 }
 
 extension Defaults on DateTime {
-  DateTime withDefaultRentalFromTime() => toUtc()
-      .copyWith(hour: 4, minute: 0, second: 0, millisecond: 0, microsecond: 0);
+  DateTime withDefaultRentalFromTime() => copyWith(
+        hour: 4,
+        minute: 0,
+        second: 0,
+        millisecond: 0,
+        microsecond: 0,
+        isUtc: true,
+      );
 
-  DateTime withDefaultRentalToTime() => toUtc()
-      .copyWith(hour: 21, minute: 0, second: 0, millisecond: 0, microsecond: 0);
+  DateTime withDefaultRentalToTime() => copyWith(
+        hour: 21,
+        minute: 0,
+        second: 0,
+        millisecond: 0,
+        microsecond: 0,
+        isUtc: true,
+      );
 }
 
 extension Logic on DateTimeRange {
+  DateTimeRange withDefaultRentalTimes() => DateTimeRange(
+        start: start.withDefaultRentalFromTime(),
+        end: end.withDefaultRentalToTime(),
+      );
+
   bool isSameDayRange(DateTimeRange other) =>
       toUtc().start.isSameDay(other.toUtc().start) &&
       toUtc().end.isSameDay(other.toUtc().end);

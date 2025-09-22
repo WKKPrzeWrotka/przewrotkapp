@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:nyxx/nyxx.dart';
+import 'package:przewrotkapp_server/src/utils.dart';
 import 'package:serverpod/serverpod.dart';
 
 typedef DiscordEvent = ({
@@ -45,8 +46,15 @@ class DiscordEventsFutureCall extends FutureCall {
           .map(
             (e) => (
               name: e.name,
-              from: e.scheduledStartTime,
-              to: e.scheduledEndTime ?? e.scheduledStartTime
+              // The .toLocal() is important because Karolina sometimes creates
+              // events that end at 00:00 midnight, and Discord API then serves
+              // them at 22:00 previous day.
+              // So, first, convert them to local, force-set time to 04:00 and
+              // mark *that* as utc 😌
+              from: e.scheduledStartTime.toLocal().withDefaultRentalFromTime(),
+              to: (e.scheduledEndTime?.toLocal() ??
+                      e.scheduledStartTime.toLocal())
+                  .withDefaultRentalToTime()
             ),
           )
           // Last 30 days max

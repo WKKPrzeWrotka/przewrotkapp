@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:kalender/kalender.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
@@ -114,13 +113,14 @@ class EverythingProvider extends StatelessWidget {
             if (rentals == null || dcEvents == null) return null;
             final dcEventsCopy = dcEvents.toList();
             return rentals
-                .groupListsBy(
-                    (r) => DateTimeRange(start: r.from, end: r.to).toUtc())
+                .groupListsBy((r) => DateTimeRange(start: r.from, end: r.to)
+                    .withDefaultRentalTimes())
                 .entries
                 .map(
                   (e) {
                     final dcEvent = dcEvents.firstWhereOrNull(
                       (dcEv) => DateTimeRange(start: dcEv.from, end: dcEv.to)
+                          .withDefaultRentalTimes()
                           .isSameDayRange(e.key),
                     );
                     dcEventsCopy.remove(dcEvent);
@@ -136,7 +136,8 @@ class EverythingProvider extends StatelessWidget {
                   dcEventsCopy.map(
                     (e) => RentalGroup(
                       name: e.name,
-                      range: DateTimeRange(start: e.from, end: e.to).toUtc(),
+                      range: DateTimeRange(start: e.from, end: e.to)
+                          .withDefaultRentalTimes(),
                       rentals: [],
                     ),
                   ),

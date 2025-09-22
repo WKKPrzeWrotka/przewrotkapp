@@ -91,6 +91,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
           CalendarDatePicker2(
             config: CalendarDatePicker2Config(
               calendarType: CalendarDatePicker2Type.range,
+              firstDayOfWeek: DateTime.monday,
             ),
             value: selectedDates,
             onValueChanged: (newDates) {
