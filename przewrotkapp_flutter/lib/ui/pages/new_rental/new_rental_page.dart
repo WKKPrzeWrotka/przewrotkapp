@@ -24,30 +24,36 @@ class NewRentalPage extends StatefulWidget {
   State<NewRentalPage> createState() => _NewRentalPageState();
 }
 
-enum _RentingState {
-  selecting,
-  loading,
-  success,
-  error,
-}
+enum _RentingState { selecting, loading, success, error }
 
 class _NewRentalPageState extends State<NewRentalPage> {
   var rentingState = _RentingState.selecting;
 
+  // This is only for UI. Use range below
   var selectedDates = <DateTime>[];
   var params = GearSearchParams.mainDefault;
   final cart = <GearPair>[];
   final shoppingCart = <GearPair>{};
 
-  int hoursForGear(Set<GearPair> gear, DateTime from, DateTime to) {
+  DateTimeRange? get range => selectedDates.isNotEmpty
+      ? DateTimeRange(
+          // The default times are very important!!
+          start: selectedDates[0].withDefaultRentalFromTime(),
+          end: (selectedDates.elementAtOrNull(1) ?? selectedDates[0])
+              .withDefaultRentalToTime(),
+        )
+      : null;
+
+  int hoursForGear(Set<GearPair> gear, DateTimeRange range) {
     return (gear.where((e) => e.gear.type == GearType.kayak).length +
             [
-              for (final type in GearType.values.toList()
-                ..remove(GearType.kayak)
-                ..remove(GearType.other))
-                gear.where((e) => e.gear.type == type).length
+              for (final type
+                  in GearType.values.toList()
+                    ..remove(GearType.kayak)
+                    ..remove(GearType.other))
+                gear.where((e) => e.gear.type == type).length,
             ].reduce(max)) *
-        (to.difference(from).inDays + 1);
+        (range.duration.inDays + 1);
   }
 
   @override
@@ -69,13 +75,9 @@ class _NewRentalPageState extends State<NewRentalPage> {
       favs ?? [],
     );
     final otherRentals = context.watch<FutureRentals?>();
-    final selectedRange = selectedDates.length == 2
-        ? DateTimeRange(start: selectedDates[0], end: selectedDates[1])
-        : null;
-    final overlappingRentals = selectedRange != null
+    final overlappingRentals = range != null
         ? otherRentals?.where(
-            (r) =>
-                DateTimeRange(start: r.from, end: r.to).overlaps(selectedRange),
+            (r) => DateTimeRange(start: r.from, end: r.to).overlaps(range!),
           )
         : null;
     final rentedGearIds = overlappingRentals?.fold(
@@ -96,13 +98,6 @@ class _NewRentalPageState extends State<NewRentalPage> {
             value: selectedDates,
             onValueChanged: (newDates) {
               selectedDates = newDates;
-              // THIS IS VERY IMPORTANT !!
-              if (selectedDates.isNotEmpty) {
-                selectedDates[0] = selectedDates[0].withDefaultRentalFromTime();
-              }
-              if (selectedDates.length == 2) {
-                selectedDates[1] = selectedDates[1].withDefaultRentalToTime();
-              }
               setState(() {});
             },
           ),
@@ -129,11 +124,12 @@ class _NewRentalPageState extends State<NewRentalPage> {
                         GearListing(
                           color:
                               (rentedGearIds?.contains(gear.gear.id) ?? false)
-                                  ? Colors.red.shade700
-                                  : null,
+                              ? Colors.red.shade700
+                              : null,
                           gearPair: gear,
                           trailing: IconButton(
-                            onPressed: shoppingCart.contains(gear) ||
+                            onPressed:
+                                shoppingCart.contains(gear) ||
                                     (rentedGearIds?.contains(gear.gear.id) ??
                                         false)
                                 ? null
@@ -143,7 +139,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
                                   },
                             icon: Icon(Icons.add_shopping_cart),
                           ),
-                        )
+                        ),
                     ],
                   )
                 : Placeholder(),
@@ -169,11 +165,12 @@ class _NewRentalPageState extends State<NewRentalPage> {
             ],
           ),
           Text(
-            "Od ${selectedDates.elementAtOrNull(0)?.toStringDate() ?? "-"} do "
-            "${selectedDates.elementAtOrNull(1)?.toStringDate() ?? "-"}",
+            range != null
+                ? "${range!.dateRangeString()} (${range!.duration.inDays + 1} dni)"
+                : "Nie wybrano daty",
           ),
           Text(
-            "Koszt: ${selectedDates.length == 2 ? hoursForGear(shoppingCart, selectedDates[0], selectedDates[1]) : "?"}h",
+            "Koszt: ${range != null ? hoursForGear(shoppingCart, range!) : "?"}h",
             style: tt.headlineMedium,
           ),
           // TODO: Warning if there is no already-rented-check
@@ -181,9 +178,9 @@ class _NewRentalPageState extends State<NewRentalPage> {
             height: 64,
             child: FilledButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Przytrzymaj :)")),
-                );
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text("Przytrzymaj :)")));
               },
               onLongPress: () async {
                 try {
@@ -191,22 +188,60 @@ class _NewRentalPageState extends State<NewRentalPage> {
                 } catch (e) {
                   // nothing, dont care
                 }
+                if (range == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      duration: Duration(seconds: 5),
+                      backgroundColor: Colors.deepOrange,
+                      content: Text("Nie wybrałeś żadnej daty!"),
+                    ),
+                  );
+                  return;
+                }
+                if (rentedGearIds == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      duration: Duration(seconds: 5),
+                      backgroundColor: Colors.deepOrange,
+                      content: Text(
+                        "Nie mam danych o innych wypożyczeniach! "
+                        "Spróbuj za chwile albo odśwież czy coś...",
+                      ),
+                    ),
+                  );
+                  return;
+                }
+                if (shoppingCart.any(
+                  (g) => rentedGearIds.contains(g.gear.id),
+                )) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      duration: Duration(seconds: 5),
+                      backgroundColor: Colors.red.shade700,
+                      content: Text(
+                        "O nie nie, twój sprzęt jest już wzięty "
+                        "przez kogoś w tym terminie - znajdź sobie inny!",
+                      ),
+                    ),
+                  );
+                  return;
+                }
                 rentingState = _RentingState.loading;
                 setState(() {});
                 try {
                   await context.read<Client>().rental.rentGear(
-                        shoppingCart.map((e) => e.gear).toList(),
-                        selectedDates[0],
-                        selectedDates[1],
-                      );
+                    shoppingCart.map((e) => e.gear).toList(),
+                    range!.start,
+                    range!.end,
+                  );
                   rentingState = _RentingState.success;
                   setState(() {});
                   await Future.delayed(Duration(milliseconds: 500));
                   context.pop();
                 } catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Error! $e")),
-                  );
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text("Error! $e")));
                   rentingState = _RentingState.selecting;
                   setState(() {});
                 }
