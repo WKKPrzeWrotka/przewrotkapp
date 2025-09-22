@@ -2,12 +2,14 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
+import 'ui/common/utils.dart';
 import 'ui/pages/calendar/calendar_page.dart';
 import 'ui/pages/gear_browser/gear_browser_page.dart';
 import 'ui/pages/gear_details/fullscreen_photos_page.dart';
 import 'ui/pages/gear_details/gear_details_page.dart';
 import 'ui/pages/home/home_page.dart';
 import 'ui/pages/new_rental/new_rental_page.dart';
+import 'ui/pages/rental_group_details/rental_group_details_page.dart';
 import 'ui/pages/sign_in/sign_in_page.dart';
 import 'ui/pages/user/user_page.dart';
 
@@ -60,6 +62,19 @@ final router = GoRouter(
     GoRoute(
       path: '/rentals/new',
       builder: (context, state) => NewRentalPage(),
+    ),
+    GoRoute(
+      path: '/rentals/group/:range',
+      builder: (context, state) {
+        final dates = state.pathParameters['range']!
+            .split(RentalGroupDetailsPage.dateSeparator)
+            .map((e) => RentalGroupDetailsPage.dateFormat.parse(e))
+            .toList();
+        return RentalGroupDetailsPage(
+          from: dates[0].withDefaultRentalFromTime(),
+          to: dates[1].withDefaultRentalToTime(),
+        );
+      },
     ),
     GoRoute(
       path: '/signin',

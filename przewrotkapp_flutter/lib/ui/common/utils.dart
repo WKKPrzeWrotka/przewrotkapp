@@ -23,6 +23,13 @@ extension Pretty on DateTime {
       "${day.toString().padLeft(2, '0')}";
 }
 
+extension Defaults on DateTime {
+  DateTime withDefaultRentalFromTime() =>
+      copyWith(hour: 6, minute: 0, second: 0, millisecond: 0, microsecond: 0);
+  DateTime withDefaultRentalToTime() =>
+      copyWith(hour: 23, minute: 0, second: 0, millisecond: 0, microsecond: 0);
+}
+
 extension Human on GearType {
   String toHumanString() => switch (this) {
         GearType.belt => "Pasy transportowe",

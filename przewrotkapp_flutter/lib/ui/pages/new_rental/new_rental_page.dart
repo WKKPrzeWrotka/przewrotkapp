@@ -87,10 +87,10 @@ class _NewRentalPageState extends State<NewRentalPage> {
               selectedDates = newDates;
               // THIS IS VERY IMPORTANT !!
               if (selectedDates.isNotEmpty) {
-                selectedDates[0] = selectedDates[0].copyWith(hour: 6);
+                selectedDates[0] = selectedDates[0].withDefaultRentalFromTime();
               }
               if (selectedDates.length == 2) {
-                selectedDates[1] = selectedDates[1].copyWith(hour: 23);
+                selectedDates[1] = selectedDates[1].withDefaultRentalToTime();
               }
               setState(() {});
             },
