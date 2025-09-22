@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data_types.dart';
-import '../../common/rental_listing.dart';
+import '../../common/rental_group_listing.dart';
 import '../../common/utils.dart';
 
 class UpcomingTripsCard extends StatefulWidget {
@@ -18,21 +18,19 @@ class _UpcomingTripsCardState extends State<UpcomingTripsCard> {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
-    final rentals = context.watch<FutureRentals?>();
+    final rentGroups = context.watch<FutureRentalGroups?>();
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        // TODO: StreamBuilder.
-        // Actually, StreamBuilders everywhere...
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 2,
           children: [
             Text("Najbliższe wyjazdy:", style: tt.headlineSmall),
-            if (rentals != null)
-              for (final rental in rentals.limit(10))
-                RentalListing(rental: rental),
-            if (rentals == null) Text("Ładowanie..."),
+            if (rentGroups != null)
+              for (final rental in rentGroups.limit(10))
+                RentalGroupListing(rentalGroup: rental),
+            if (rentGroups == null) Text("Ładowanie..."),
             FilledButton(
               onPressed: () => context.push('/rentals/new'),
               child: Text('Nowe wypożyczenie'),

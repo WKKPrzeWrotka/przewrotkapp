@@ -11,6 +11,8 @@ typedef AllGearCache = List<GearPair>;
 
 typedef FutureRentals = List<Rental>;
 
+typedef FutureRentalGroups = List<RentalGroup>;
+
 typedef SelfExtraUserInfo = ExtraUserInfo;
 
 typedef UserFavourites = ({List<GearPair> gearPairs, List<int> gearIds});
@@ -25,4 +27,16 @@ class GearSearchParams {
     text: null,
     types: {GearType.kayak},
   );
+}
+
+class RentalGroup {
+  final DateTime from;
+  final DateTime to;
+  final List<Rental> rentals;
+
+  const RentalGroup({
+    required this.from,
+    required this.to,
+    required this.rentals,
+  });
 }

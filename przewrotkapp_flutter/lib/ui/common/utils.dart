@@ -58,6 +58,14 @@ extension HumanGear on Gear {
       ].join(" ");
 }
 
+extension HandyRental on Rental {
+  List<Gear> get gear => junctions!.map((j) => j.gear!).toList();
+
+  List<GearPair> gearPairs(List<GearPair> allGearSource) => allGearSource
+      .where((p) => gear.map((g) => g.id).contains(p.gear.id))
+      .toList();
+}
+
 extension EasyUser on ExtraUserInfo {
   // TODO: Maybe turn this into some cache way up in di.dart ?
   List<GearPair>? favourites(List<GearPair>? sourceAllGear) => sourceAllGear

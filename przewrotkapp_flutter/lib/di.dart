@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -83,6 +84,24 @@ class EverythingProvider extends StatelessWidget {
             final gear =
                 allGearCache.where((g) => favIds.contains(g.gear.id)).toList();
             return (gearPairs: gear, gearIds: favIds);
+          },
+        ),
+        ProxyProvider<FutureRentals?, FutureRentalGroups?>(
+          lazy: false,
+          create: (_) => null,
+          update: (_, rentals, __) {
+            if (rentals == null) return null;
+            return rentals
+                .groupListsBy((r) => DateTimeRange(start: r.from, end: r.to))
+                .entries
+                .map(
+                  (e) => RentalGroup(
+                    from: e.key.start,
+                    to: e.key.end,
+                    rentals: e.value,
+                  ),
+                )
+                .toList();
           },
         ),
       ],
