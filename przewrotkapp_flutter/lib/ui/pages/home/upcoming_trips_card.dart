@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data_types.dart';
+import '../../common/rental_listing.dart';
 import '../../common/utils.dart';
 
 class UpcomingTripsCard extends StatefulWidget {
@@ -25,15 +26,12 @@ class _UpcomingTripsCardState extends State<UpcomingTripsCard> {
         // Actually, StreamBuilders everywhere...
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 4,
+          spacing: 2,
           children: [
             Text("Najbliższe wyjazdy:", style: tt.headlineSmall),
             if (rentals != null)
               for (final rental in rentals.limit(10))
-                Text(
-                  "- ${rental.from.toStringDate(showYear: false)} - "
-                  "${rental.to.toStringDate(showYear: false)}",
-                ),
+                RentalListing(rental: rental),
             if (rentals == null) Text("Ładowanie..."),
             FilledButton(
               onPressed: () => context.push('/rentals/new'),

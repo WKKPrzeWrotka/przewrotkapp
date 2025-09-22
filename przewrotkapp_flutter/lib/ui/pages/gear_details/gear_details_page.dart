@@ -5,6 +5,7 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../../data_types.dart';
 import '../../common/copyable_text.dart';
+import '../../common/rental_listing.dart';
 import '../../common/utils.dart';
 
 class GearDetailsPage extends StatelessWidget {
@@ -109,10 +110,7 @@ class GearDetailsPage extends StatelessWidget {
                 ),
                 Text("Nadchodządce wypożyczenia", style: tt.headlineMedium),
                 for (final rental in thisRentals ?? <Rental>[])
-                  // TODO RentalListing()
-                  Text(
-                      "${rental.from.toStringDate()} - ${rental.to.toStringDate()}")
-                // TODO: All details of the gear and other crazy shit
+                  RentalListing(rental: rental)
               ],
             )
           : Placeholder(),

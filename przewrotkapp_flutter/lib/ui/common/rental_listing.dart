@@ -1,0 +1,25 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+
+import 'utils.dart';
+
+class RentalListing extends StatelessWidget {
+  final Rental rental;
+
+  const RentalListing({super.key, required this.rental});
+
+  @override
+  Widget build(BuildContext context) {
+    // THIS IS UGLY AS FUCk
+    // TODO: All RentalGroup stuff
+    return Card(
+      child: ListTile(
+        onTap: () => context.push('/user/${rental.userInfoId}'),
+        title: Text("${rental.from.toStringDate(showYear: false)} do "
+            "${rental.to.toStringDate(showYear: false)}"),
+        subtitle: Text(rental.userInfo!.userName ?? ""),
+      ),
+    );
+  }
+}
