@@ -122,7 +122,6 @@ class _NewRentalPageState extends State<NewRentalPage> {
                                   : null,
                           gearPair: gear,
                           trailing: IconButton(
-                            // TODO: Allow force-rent on long press
                             onPressed: shoppingCart.contains(gear) ||
                                     (rentedGearIds?.contains(gear.gear.id) ??
                                         false)
