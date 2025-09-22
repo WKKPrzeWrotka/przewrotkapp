@@ -6,17 +6,31 @@ import 'package:provider/provider.dart';
 
 import '../../../data_types.dart';
 
-class FullscreenPhotosPage extends StatelessWidget {
+class FullscreenPhotosPage extends StatefulWidget {
   final String clubId;
-  final ctrl = PageController();
+  final int? initialIndex;
 
-  FullscreenPhotosPage({super.key, required this.clubId});
+  const FullscreenPhotosPage(
+      {super.key, required this.clubId, this.initialIndex});
+
+  @override
+  State<FullscreenPhotosPage> createState() => _FullscreenPhotosPageState();
+}
+
+class _FullscreenPhotosPageState extends State<FullscreenPhotosPage> {
+  late final PageController ctrl;
+
+  @override
+  void initState() {
+    super.initState();
+    ctrl = PageController(initialPage: widget.initialIndex ?? 0);
+  }
 
   @override
   Widget build(BuildContext context) {
     final imageUrls = context
         .watch<AllGearCache?>()
-        ?.firstWhereOrNull((g) => g.gear.clubId == clubId)
+        ?.firstWhereOrNull((g) => g.gear.clubId == widget.clubId)
         ?.gear
         .photoUrls;
     return Scaffold(

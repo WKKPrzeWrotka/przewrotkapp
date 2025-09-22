@@ -39,8 +39,11 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/gear/:clubId/photos',
-      builder: (context, state) =>
-          FullscreenPhotosPage(clubId: state.pathParameters['clubId']!),
+      builder: (context, state) => FullscreenPhotosPage(
+        clubId: state.pathParameters['clubId']!,
+        initialIndex:
+            int.tryParse(state.uri.queryParameters['initialIndex'] ?? ""),
+      ),
     ),
     GoRoute(
       path: '/calendar',

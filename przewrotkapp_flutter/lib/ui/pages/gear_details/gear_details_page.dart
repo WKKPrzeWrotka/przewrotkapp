@@ -83,9 +83,7 @@ class GearDetailsPage extends StatelessWidget {
                                 // this doesn't actually splash... but okay...
                                 child: InkWell(
                                   onTap: () => context.push(
-                                    '/gear/$clubId/photos',
-                                    extra: gear.photoUrls!,
-                                  ),
+                                      '/gear/$clubId/photos?initialIndex=${gear.photoUrls!.indexOf(uri)}'),
                                   child: Image.network(uri.toString()),
                                 ),
                               ),
