@@ -35,10 +35,11 @@ class _UpcomingTripsCardState extends State<UpcomingTripsCard> {
               onPressed: () => context.push('/rentals/new'),
               child: Text('Nowe wypożyczenie'),
             ),
-            ElevatedButton(
-              onPressed: () => context.push('/calendar'),
-              child: Text('Zobacz kalendarz'),
-            ),
+            // gtfo with this fucking caledar jezus chirst
+            // ElevatedButton(
+            //   onPressed: () => context.push('/calendar'),
+            //   child: Text('Zobacz kalendarz'),
+            // ),
           ],
         ),
       ),
