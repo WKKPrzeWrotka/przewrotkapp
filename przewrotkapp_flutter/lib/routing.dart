@@ -62,18 +62,20 @@ final router = GoRouter(
     GoRoute(
       path: '/rentals/new',
       builder: (context, state) {
-        final init = state.uri.queryParameters['initialRange'];
-        final dates =
-            init != null ? RentalGroup.parseDateRangeString(init) : null;
-        return NewRentalPage(initialFrom: dates?.$1, initialTo: dates?.$2);
+        final init = state.uri.queryParameters.containsKey('initialRange')
+            ? DateTimeRangeParsing.parseDateRangeString(
+                state.uri.queryParameters['initialRange']!)
+            : null;
+        return NewRentalPage(initialRange: init);
       },
     ),
     GoRoute(
       path: '/rentals/group/:range',
       builder: (context, state) {
-        final dates =
-            RentalGroup.parseDateRangeString(state.pathParameters['range']!);
-        return RentalGroupDetailsPage(from: dates.$1, to: dates.$2);
+        return RentalGroupDetailsPage(
+          range: DateTimeRangeParsing.parseDateRangeString(
+              state.pathParameters['range']!),
+        );
       },
     ),
     GoRoute(

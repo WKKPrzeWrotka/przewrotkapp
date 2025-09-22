@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:kalender/kalender.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
@@ -9,29 +8,26 @@ import '../../common/rental_listing.dart';
 import '../../common/utils.dart';
 
 class RentalGroupDetailsPage extends StatelessWidget {
-  final DateTime from;
-  final DateTime to;
+  final DateTimeRange range;
 
   const RentalGroupDetailsPage({
     super.key,
-    required this.from,
-    required this.to,
+    required this.range,
   });
 
   @override
   Widget build(BuildContext context) {
     final allGroups = context.watch<FutureRentalGroups?>();
-    final group = allGroups?.firstWhereOrNull(
-      (g) => g.from.isSameDay(from) && g.to.isSameDay(to),
-    );
+    final group =
+        allGroups?.firstWhereOrNull((g) => g.range.isSameDayRange(range));
     return Scaffold(
       appBar: AppBar(
         title: Text(
           allGroups == null
               ? "Ładowanie..."
               : group != null
-                  ? "Wyjazd ${group.from.toStringDate(showYear: false)} - "
-                      "${group.to.toStringDate(showYear: false)}"
+                  ? "Wyjazd ${group.range.start.toStringDate(showYear: false)} - "
+                      "${group.range.end.toStringDate(showYear: false)}"
                   : "Nie znalezionow :(",
         ),
       ),

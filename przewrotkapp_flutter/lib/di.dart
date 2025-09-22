@@ -126,8 +126,7 @@ class EverythingProvider extends StatelessWidget {
                     dcEventsCopy.remove(dcEvent);
                     return RentalGroup(
                       name: dcEvent?.name,
-                      from: e.key.start,
-                      to: e.key.end,
+                      range: e.key,
                       rentals: e.value,
                     );
                   },
@@ -137,8 +136,7 @@ class EverythingProvider extends StatelessWidget {
                   dcEventsCopy.map(
                     (e) => RentalGroup(
                       name: e.name,
-                      from: e.from.withDefaultRentalFromTime(),
-                      to: e.to.withDefaultRentalToTime(),
+                      range: DateTimeRange(start: e.from, end: e.to).toUtc(),
                       rentals: [],
                     ),
                   ),

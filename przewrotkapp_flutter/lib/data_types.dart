@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
@@ -43,34 +44,32 @@ class GearSearchParams {
 
 class RentalGroup {
   final String? name;
-  final DateTime from;
-  final DateTime to;
+  final DateTimeRange range;
   final List<Rental> rentals;
 
   const RentalGroup({
     this.name,
-    required this.from,
-    required this.to,
+    required this.range,
     required this.rentals,
   });
+}
 
-  // TODO-maybe: change this all to DateTimeRange extension?
+extension DateTimeRangeParsing on DateTimeRange {
   static final dateFormat = DateFormat("y-MM-dd");
   static const dateSeparator = "~";
 
-  static String dateRangeString(DateTime from, DateTime to) =>
-      '${dateFormat.format(from)}'
+  String dateRangeString() => '${dateFormat.format(start)}'
       '$dateSeparator'
-      '${dateFormat.format(to)}';
+      '${dateFormat.format(end)}';
 
-  static (DateTime from, DateTime to) parseDateRangeString(String string) {
+  static DateTimeRange parseDateRangeString(String string) {
     final list = string
-        .split(RentalGroup.dateSeparator)
-        .map((e) => RentalGroup.dateFormat.parse(e))
+        .split(dateSeparator)
+        .map((e) => dateFormat.parse(e, true))
         .toList();
-    return (
-      list[0].withDefaultRentalFromTime(),
-      list[1].withDefaultRentalToTime()
+    return DateTimeRange(
+      start: list[0].withDefaultRentalFromTime(),
+      end: list[1].withDefaultRentalToTime(),
     );
   }
 }

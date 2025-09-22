@@ -16,10 +16,9 @@ import '../../common/gear_search_filters.dart';
 import '../../common/utils.dart';
 
 class NewRentalPage extends StatefulWidget {
-  final DateTime? initialFrom;
-  final DateTime? initialTo;
+  final DateTimeRange? initialRange;
 
-  const NewRentalPage({super.key, this.initialFrom, this.initialTo});
+  const NewRentalPage({super.key, this.initialRange});
 
   @override
   State<NewRentalPage> createState() => _NewRentalPageState();
@@ -54,8 +53,8 @@ class _NewRentalPageState extends State<NewRentalPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.initialFrom != null && widget.initialFrom != null) {
-      selectedDates = [widget.initialFrom!, widget.initialTo!];
+    if (widget.initialRange != null) {
+      selectedDates = [widget.initialRange!.start, widget.initialRange!.end];
     }
   }
 

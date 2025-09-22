@@ -16,11 +16,11 @@ class RentalGroupListing extends StatelessWidget {
       child: ListTile(
         onTap: () => context.push(
           '/rentals/group/'
-          '${RentalGroup.dateRangeString(rentalGroup.from, rentalGroup.to)}',
+          '${rentalGroup.range.dateRangeString()}',
         ),
         title: Text(
-          "${rentalGroup.from.toStringDate(showYear: false)} ~ "
-          "${rentalGroup.to.toStringDate(showYear: false)}"
+          "${rentalGroup.range.start.toStringDate(showYear: false)} ~ "
+          "${rentalGroup.range.end.toStringDate(showYear: false)}"
           " ${rentalGroup.name ?? ""}",
         ),
         subtitle: Row(
@@ -34,7 +34,7 @@ class RentalGroupListing extends StatelessWidget {
         trailing: TextButton(
           onPressed: () => context.push(
             '/rentals/new?initialRange='
-            '${RentalGroup.dateRangeString(rentalGroup.from, rentalGroup.to)}',
+            '${rentalGroup.range.dateRangeString()}',
           ),
           child: Text("Jedź!"),
         ),
