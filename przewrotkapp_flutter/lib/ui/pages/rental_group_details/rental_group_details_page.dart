@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:kalender/kalender.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
@@ -10,9 +9,6 @@ import '../../common/rental_listing.dart';
 import '../../common/utils.dart';
 
 class RentalGroupDetailsPage extends StatelessWidget {
-  static final dateFormat = DateFormat("y-MM-dd");
-  static const dateSeparator = "~";
-
   final DateTime from;
   final DateTime to;
 

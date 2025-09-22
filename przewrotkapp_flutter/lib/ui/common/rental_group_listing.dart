@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 import '../../data_types.dart';
-import '../pages/rental_group_details/rental_group_details_page.dart';
 import 'utils.dart';
 
 class RentalGroupListing extends StatelessWidget {
@@ -17,9 +16,7 @@ class RentalGroupListing extends StatelessWidget {
       child: ListTile(
         onTap: () => context.push(
           '/rentals/group/'
-          '${RentalGroupDetailsPage.dateFormat.format(rentalGroup.from)}'
-          '${RentalGroupDetailsPage.dateSeparator}'
-          '${RentalGroupDetailsPage.dateFormat.format(rentalGroup.to)}',
+          '${RentalGroup.dateRangeString(rentalGroup.from, rentalGroup.to)}',
         ),
         title: Text(
           "${rentalGroup.from.toStringDate(showYear: false)} do "
@@ -33,8 +30,13 @@ class RentalGroupListing extends StatelessWidget {
               CircularUserImage(userInfo: user),
           ],
         ),
-        // TODO:
-        // trailing: TextButton(onPressed: () => context.push('/rentals/new'), child: Text("Jedź!")),
+        trailing: TextButton(
+          onPressed: () => context.push(
+            '/rentals/new?initialRange='
+            '${RentalGroup.dateRangeString(rentalGroup.from, rentalGroup.to)}',
+          ),
+          child: Text("Jedź!"),
+        ),
       ),
     );
   }

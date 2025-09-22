@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
-import 'ui/common/utils.dart';
+import 'data_types.dart';
 import 'ui/pages/calendar/calendar_page.dart';
 import 'ui/pages/gear_browser/gear_browser_page.dart';
 import 'ui/pages/gear_details/fullscreen_photos_page.dart';
@@ -61,19 +61,19 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/rentals/new',
-      builder: (context, state) => NewRentalPage(),
+      builder: (context, state) {
+        final init = state.uri.queryParameters['initialRange'];
+        final dates =
+            init != null ? RentalGroup.parseDateRangeString(init) : null;
+        return NewRentalPage(initialFrom: dates?.$1, initialTo: dates?.$2);
+      },
     ),
     GoRoute(
       path: '/rentals/group/:range',
       builder: (context, state) {
-        final dates = state.pathParameters['range']!
-            .split(RentalGroupDetailsPage.dateSeparator)
-            .map((e) => RentalGroupDetailsPage.dateFormat.parse(e))
-            .toList();
-        return RentalGroupDetailsPage(
-          from: dates[0].withDefaultRentalFromTime(),
-          to: dates[1].withDefaultRentalToTime(),
-        );
+        final dates =
+            RentalGroup.parseDateRangeString(state.pathParameters['range']!);
+        return RentalGroupDetailsPage(from: dates.$1, to: dates.$2);
       },
     ),
     GoRoute(
