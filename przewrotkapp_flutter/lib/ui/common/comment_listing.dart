@@ -16,7 +16,14 @@ class CommentListing extends StatelessWidget {
         CommentType.broken => Colors.red.shade700,
       },
       child: ListTile(
-        title: Text(comment.text),
+        title: Text(
+          switch (comment.type) {
+                CommentType.neutral => 'ℹ️',
+                CommentType.warning => '⚠️',
+                CommentType.broken => '🚨',
+              } +
+              comment.text,
+        ),
         subtitle: Row(
           children: [
             Text("Autor: "),
