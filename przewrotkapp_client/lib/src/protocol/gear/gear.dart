@@ -13,6 +13,7 @@ import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import '../gear/gear_type.dart' as _i2;
 import '../rental/rental_junction.dart' as _i3;
 import '../user/favourites.dart' as _i4;
+import '../gear/comment.dart' as _i5;
 
 abstract class Gear implements _i1.SerializableModel {
   Gear._({
@@ -25,6 +26,7 @@ abstract class Gear implements _i1.SerializableModel {
     this.photoUrls,
     this.junctions,
     this.favouritesJunctions,
+    this.comments,
   });
 
   factory Gear({
@@ -37,6 +39,7 @@ abstract class Gear implements _i1.SerializableModel {
     List<Uri>? photoUrls,
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
+    List<_i5.Comment>? comments,
   }) = _GearImpl;
 
   factory Gear.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -56,6 +59,9 @@ abstract class Gear implements _i1.SerializableModel {
       favouritesJunctions: (jsonSerialization['favouritesJunctions'] as List?)
           ?.map((e) =>
               _i4.FavouritesJunction.fromJson((e as Map<String, dynamic>)))
+          .toList(),
+      comments: (jsonSerialization['comments'] as List?)
+          ?.map((e) => _i5.Comment.fromJson((e as Map<String, dynamic>)))
           .toList(),
     );
   }
@@ -81,6 +87,8 @@ abstract class Gear implements _i1.SerializableModel {
 
   List<_i4.FavouritesJunction>? favouritesJunctions;
 
+  List<_i5.Comment>? comments;
+
   /// Returns a shallow copy of this [Gear]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
@@ -94,6 +102,7 @@ abstract class Gear implements _i1.SerializableModel {
     List<Uri>? photoUrls,
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
+    List<_i5.Comment>? comments,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -111,6 +120,8 @@ abstract class Gear implements _i1.SerializableModel {
       if (favouritesJunctions != null)
         'favouritesJunctions':
             favouritesJunctions?.toJson(valueToJson: (v) => v.toJson()),
+      if (comments != null)
+        'comments': comments?.toJson(valueToJson: (v) => v.toJson()),
     };
   }
 
@@ -133,6 +144,7 @@ class _GearImpl extends Gear {
     List<Uri>? photoUrls,
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
+    List<_i5.Comment>? comments,
   }) : super._(
           id: id,
           clubId: clubId,
@@ -143,6 +155,7 @@ class _GearImpl extends Gear {
           photoUrls: photoUrls,
           junctions: junctions,
           favouritesJunctions: favouritesJunctions,
+          comments: comments,
         );
 
   /// Returns a shallow copy of this [Gear]
@@ -159,6 +172,7 @@ class _GearImpl extends Gear {
     Object? photoUrls = _Undefined,
     Object? junctions = _Undefined,
     Object? favouritesJunctions = _Undefined,
+    Object? comments = _Undefined,
   }) {
     return Gear(
       id: id is int? ? id : this.id,
@@ -176,6 +190,9 @@ class _GearImpl extends Gear {
       favouritesJunctions: favouritesJunctions is List<_i4.FavouritesJunction>?
           ? favouritesJunctions
           : this.favouritesJunctions?.map((e0) => e0.copyWith()).toList(),
+      comments: comments is List<_i5.Comment>?
+          ? comments
+          : this.comments?.map((e0) => e0.copyWith()).toList(),
     );
   }
 }

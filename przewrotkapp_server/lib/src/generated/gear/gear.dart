@@ -15,6 +15,7 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import '../gear/gear_type.dart' as _i2;
 import '../rental/rental_junction.dart' as _i3;
 import '../user/favourites.dart' as _i4;
+import '../gear/comment.dart' as _i5;
 
 abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
   Gear._({
@@ -27,6 +28,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     this.photoUrls,
     this.junctions,
     this.favouritesJunctions,
+    this.comments,
   });
 
   factory Gear({
@@ -39,6 +41,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     List<Uri>? photoUrls,
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
+    List<_i5.Comment>? comments,
   }) = _GearImpl;
 
   factory Gear.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -58,6 +61,9 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
       favouritesJunctions: (jsonSerialization['favouritesJunctions'] as List?)
           ?.map((e) =>
               _i4.FavouritesJunction.fromJson((e as Map<String, dynamic>)))
+          .toList(),
+      comments: (jsonSerialization['comments'] as List?)
+          ?.map((e) => _i5.Comment.fromJson((e as Map<String, dynamic>)))
           .toList(),
     );
   }
@@ -85,6 +91,8 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
 
   List<_i4.FavouritesJunction>? favouritesJunctions;
 
+  List<_i5.Comment>? comments;
+
   @override
   _i1.Table<int?> get table => t;
 
@@ -101,6 +109,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     List<Uri>? photoUrls,
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
+    List<_i5.Comment>? comments,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -118,6 +127,8 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
       if (favouritesJunctions != null)
         'favouritesJunctions':
             favouritesJunctions?.toJson(valueToJson: (v) => v.toJson()),
+      if (comments != null)
+        'comments': comments?.toJson(valueToJson: (v) => v.toJson()),
     };
   }
 
@@ -138,16 +149,20 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
       if (favouritesJunctions != null)
         'favouritesJunctions': favouritesJunctions?.toJson(
             valueToJson: (v) => v.toJsonForProtocol()),
+      if (comments != null)
+        'comments': comments?.toJson(valueToJson: (v) => v.toJsonForProtocol()),
     };
   }
 
   static GearInclude include({
     _i3.RentalJunctionIncludeList? junctions,
     _i4.FavouritesJunctionIncludeList? favouritesJunctions,
+    _i5.CommentIncludeList? comments,
   }) {
     return GearInclude._(
       junctions: junctions,
       favouritesJunctions: favouritesJunctions,
+      comments: comments,
     );
   }
 
@@ -190,6 +205,7 @@ class _GearImpl extends Gear {
     List<Uri>? photoUrls,
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
+    List<_i5.Comment>? comments,
   }) : super._(
           id: id,
           clubId: clubId,
@@ -200,6 +216,7 @@ class _GearImpl extends Gear {
           photoUrls: photoUrls,
           junctions: junctions,
           favouritesJunctions: favouritesJunctions,
+          comments: comments,
         );
 
   /// Returns a shallow copy of this [Gear]
@@ -216,6 +233,7 @@ class _GearImpl extends Gear {
     Object? photoUrls = _Undefined,
     Object? junctions = _Undefined,
     Object? favouritesJunctions = _Undefined,
+    Object? comments = _Undefined,
   }) {
     return Gear(
       id: id is int? ? id : this.id,
@@ -233,6 +251,9 @@ class _GearImpl extends Gear {
       favouritesJunctions: favouritesJunctions is List<_i4.FavouritesJunction>?
           ? favouritesJunctions
           : this.favouritesJunctions?.map((e0) => e0.copyWith()).toList(),
+      comments: comments is List<_i5.Comment>?
+          ? comments
+          : this.comments?.map((e0) => e0.copyWith()).toList(),
     );
   }
 }
@@ -286,6 +307,10 @@ class GearTable extends _i1.Table<int?> {
 
   _i1.ManyRelation<_i4.FavouritesJunctionTable>? _favouritesJunctions;
 
+  _i5.CommentTable? ___comments;
+
+  _i1.ManyRelation<_i5.CommentTable>? _comments;
+
   _i3.RentalJunctionTable get __junctions {
     if (___junctions != null) return ___junctions!;
     ___junctions = _i1.createRelationTable(
@@ -310,6 +335,19 @@ class GearTable extends _i1.Table<int?> {
           _i4.FavouritesJunctionTable(tableRelation: foreignTableRelation),
     );
     return ___favouritesJunctions!;
+  }
+
+  _i5.CommentTable get __comments {
+    if (___comments != null) return ___comments!;
+    ___comments = _i1.createRelationTable(
+      relationFieldName: '__comments',
+      field: Gear.t.id,
+      foreignField: _i5.Comment.t.gearId,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i5.CommentTable(tableRelation: foreignTableRelation),
+    );
+    return ___comments!;
   }
 
   _i1.ManyRelation<_i3.RentalJunctionTable> get junctions {
@@ -348,6 +386,24 @@ class GearTable extends _i1.Table<int?> {
     return _favouritesJunctions!;
   }
 
+  _i1.ManyRelation<_i5.CommentTable> get comments {
+    if (_comments != null) return _comments!;
+    var relationTable = _i1.createRelationTable(
+      relationFieldName: 'comments',
+      field: Gear.t.id,
+      foreignField: _i5.Comment.t.gearId,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i5.CommentTable(tableRelation: foreignTableRelation),
+    );
+    _comments = _i1.ManyRelation<_i5.CommentTable>(
+      tableWithRelations: relationTable,
+      table: _i5.CommentTable(
+          tableRelation: relationTable.tableRelation!.lastRelation),
+    );
+    return _comments!;
+  }
+
   @override
   List<_i1.Column> get columns => [
         id,
@@ -367,6 +423,9 @@ class GearTable extends _i1.Table<int?> {
     if (relationField == 'favouritesJunctions') {
       return __favouritesJunctions;
     }
+    if (relationField == 'comments') {
+      return __comments;
+    }
     return null;
   }
 }
@@ -375,19 +434,24 @@ class GearInclude extends _i1.IncludeObject {
   GearInclude._({
     _i3.RentalJunctionIncludeList? junctions,
     _i4.FavouritesJunctionIncludeList? favouritesJunctions,
+    _i5.CommentIncludeList? comments,
   }) {
     _junctions = junctions;
     _favouritesJunctions = favouritesJunctions;
+    _comments = comments;
   }
 
   _i3.RentalJunctionIncludeList? _junctions;
 
   _i4.FavouritesJunctionIncludeList? _favouritesJunctions;
 
+  _i5.CommentIncludeList? _comments;
+
   @override
   Map<String, _i1.Include?> get includes => {
         'junctions': _junctions,
         'favouritesJunctions': _favouritesJunctions,
+        'comments': _comments,
       };
 
   @override
@@ -691,6 +755,29 @@ class GearAttachRepository {
       transaction: transaction,
     );
   }
+
+  /// Creates a relation between this [Gear] and the given [Comment]s
+  /// by setting each [Comment]'s foreign key `gearId` to refer to this [Gear].
+  Future<void> comments(
+    _i1.Session session,
+    Gear gear,
+    List<_i5.Comment> comment, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (comment.any((e) => e.id == null)) {
+      throw ArgumentError.notNull('comment.id');
+    }
+    if (gear.id == null) {
+      throw ArgumentError.notNull('gear.id');
+    }
+
+    var $comment = comment.map((e) => e.copyWith(gearId: gear.id)).toList();
+    await session.db.update<_i5.Comment>(
+      $comment,
+      columns: [_i5.Comment.t.gearId],
+      transaction: transaction,
+    );
+  }
 }
 
 class GearAttachRowRepository {
@@ -738,6 +825,29 @@ class GearAttachRowRepository {
     await session.db.updateRow<_i4.FavouritesJunction>(
       $favouritesJunction,
       columns: [_i4.FavouritesJunction.t.gearId],
+      transaction: transaction,
+    );
+  }
+
+  /// Creates a relation between this [Gear] and the given [Comment]
+  /// by setting the [Comment]'s foreign key `gearId` to refer to this [Gear].
+  Future<void> comments(
+    _i1.Session session,
+    Gear gear,
+    _i5.Comment comment, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (comment.id == null) {
+      throw ArgumentError.notNull('comment.id');
+    }
+    if (gear.id == null) {
+      throw ArgumentError.notNull('gear.id');
+    }
+
+    var $comment = comment.copyWith(gearId: gear.id);
+    await session.db.updateRow<_i5.Comment>(
+      $comment,
+      columns: [_i5.Comment.t.gearId],
       transaction: transaction,
     );
   }
@@ -791,6 +901,28 @@ class GearDetachRepository {
       transaction: transaction,
     );
   }
+
+  /// Detaches the relation between this [Gear] and the given [Comment]
+  /// by setting the [Comment]'s foreign key `gearId` to `null`.
+  ///
+  /// This removes the association between the two models without deleting
+  /// the related record.
+  Future<void> comments(
+    _i1.Session session,
+    List<_i5.Comment> comment, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (comment.any((e) => e.id == null)) {
+      throw ArgumentError.notNull('comment.id');
+    }
+
+    var $comment = comment.map((e) => e.copyWith(gearId: null)).toList();
+    await session.db.update<_i5.Comment>(
+      $comment,
+      columns: [_i5.Comment.t.gearId],
+      transaction: transaction,
+    );
+  }
 }
 
 class GearDetachRowRepository {
@@ -836,6 +968,28 @@ class GearDetachRowRepository {
     await session.db.updateRow<_i4.FavouritesJunction>(
       $favouritesJunction,
       columns: [_i4.FavouritesJunction.t.gearId],
+      transaction: transaction,
+    );
+  }
+
+  /// Detaches the relation between this [Gear] and the given [Comment]
+  /// by setting the [Comment]'s foreign key `gearId` to `null`.
+  ///
+  /// This removes the association between the two models without deleting
+  /// the related record.
+  Future<void> comments(
+    _i1.Session session,
+    _i5.Comment comment, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (comment.id == null) {
+      throw ArgumentError.notNull('comment.id');
+    }
+
+    var $comment = comment.copyWith(gearId: null);
+    await session.db.updateRow<_i5.Comment>(
+      $comment,
+      columns: [_i5.Comment.t.gearId],
       transaction: transaction,
     );
   }

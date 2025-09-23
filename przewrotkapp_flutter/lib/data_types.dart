@@ -26,6 +26,8 @@ typedef DiscordEvent = ({String name, DateTime from, DateTime to});
 
 typedef FutureDiscordEvents = List<DiscordEvent>;
 
+typedef UnresolvedComments = List<Comment>;
+
 class GearSearchParams {
   final String? text;
   final Set<GearType>? types;

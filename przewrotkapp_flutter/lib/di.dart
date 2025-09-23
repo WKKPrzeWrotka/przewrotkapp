@@ -156,6 +156,13 @@ class EverythingProvider extends StatelessWidget {
                 .toList();
           },
         ),
+        StreamProvider<UnresolvedComments?>(
+          lazy: false,
+          initialData: null,
+          create: (_) => _retryStream(
+            () => _client.comments.watchComments(resolved: false),
+          ),
+        ),
       ],
       child: child,
     );
