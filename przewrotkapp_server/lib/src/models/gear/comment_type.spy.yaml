@@ -1,0 +1,11 @@
+enum: CommentType
+serialized: byName
+# Let's see if no default makes any problems or not
+#default: zwalkowy
+values:
+  ### Nothing huge, still swim-able
+  - neutral
+  ### User should watch out and think again if they want to take it
+  - warning
+  ### Makes gear non-usable or unsafe
+  - broken

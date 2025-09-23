@@ -1,0 +1,20 @@
+class: Comment
+table: comments
+fields:
+  by: module:auth:UserInfo?, relation(onDelete=NoAction)
+  gear: Gear?, relation(optional, onUpdate=NoAction, onDelete=cascade)
+  type: CommentType
+  text: String
+  hoursForResolving: int?
+  resolved: bool, default=false
+  resolvedBy: module:auth:UserInfo?, relation(optional, onDelete=NoAction)
+indexes:
+  comment_by_idx:
+    fields: byId
+    unique: false
+  comment_gear_idx:
+    fields: gearId
+    unique: false
+  comment_resolved_by_idx:
+    fields: resolvedById
+    unique: false
