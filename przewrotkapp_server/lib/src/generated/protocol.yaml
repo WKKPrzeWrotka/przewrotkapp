@@ -5,14 +5,23 @@ events:
   - getDiscordEvents:
 gearRead:
   - getAllBelts:
+  - watchAllBelts:
   - getAllClothes:
+  - watchAllClothes:
   - getAllFloatbags:
+  - watchAllFloatbags:
   - getAllHelmets:
+  - watchAllHelmets:
   - getAllKayaks:
+  - watchAllKayaks:
   - getAllPaddles:
+  - watchAllPaddles:
   - getAllPfds:
+  - watchAllPfds:
   - getAllSpraydecks:
+  - watchAllSpraydecks:
   - getAllThrowbags:
+  - watchAllThrowbags:
 rental:
   - getRentals:
   - watchRentals:

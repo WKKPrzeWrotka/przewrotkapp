@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
@@ -55,10 +56,10 @@ class EverythingProvider extends StatelessWidget {
         Provider<Client>(create: (_) => _client),
         ChangeNotifierProvider<SessionManager>(create: (_) => _sessionManager),
         // Maybe wrap it in some container class to indicate what it is
-        FutureProvider<AllGearCache?>(
+        StreamProvider<AllGearCache?>(
           lazy: false,
           initialData: null,
-          create: (_) => _retryFuture(() => getAllGear()),
+          create: (_) => _retryStream(() => watchAllGear()),
         ),
         StreamProvider<FutureRentals?>(
           lazy: false,
@@ -167,6 +168,26 @@ class EverythingProvider extends StatelessWidget {
       child: child,
     );
   }
+}
+
+Stream<List<GearPair>> watchAllGear() {
+  return CombineLatestStream.list([
+        _client.gearRead.watchAllBelts(),
+        _client.gearRead.watchAllClothes(),
+        _client.gearRead.watchAllFloatbags(),
+        _client.gearRead.watchAllHelmets(),
+        _client.gearRead.watchAllKayaks(),
+        _client.gearRead.watchAllPaddles(),
+        _client.gearRead.watchAllPfds(),
+        _client.gearRead.watchAllSpraydecks(),
+        _client.gearRead.watchAllThrowbags(),
+      ])
+      .debounceTime(Duration(milliseconds: 50))
+      .map(
+        (e) => e.flattenedToList
+            .map((e) => GearPair(gear: e.$1, gearExtra: e.$2))
+            .toList(),
+      );
 }
 
 // Yes, this is necessary because turns out that Serverpod doesn't really

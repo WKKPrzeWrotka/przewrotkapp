@@ -320,6 +320,37 @@ class _GearReadEndpoint {
     });
   }
 
+  _i3.Stream<List<(_i6.Gear, _i7.GearBelt)>> watchAllBelts(
+      _i1.TestSessionBuilder sessionBuilder) {
+    var _localTestStreamManager =
+        _i1.TestStreamManager<List<(_i6.Gear, _i7.GearBelt)>>();
+    _i1.callStreamFunctionAndHandleExceptions(
+      () async {
+        var _localUniqueSession =
+            (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+          endpoint: 'gearRead',
+          method: 'watchAllBelts',
+        );
+        var _localCallContext =
+            await _endpointDispatch.getMethodStreamCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'gearRead',
+          methodName: 'watchAllBelts',
+          arguments: {},
+          requestedInputStreams: [],
+          serializationManager: _serializationManager,
+        );
+        await _localTestStreamManager.callStreamMethod(
+          _localCallContext,
+          _localUniqueSession,
+          {},
+        );
+      },
+      _localTestStreamManager.outputStreamController,
+    );
+    return _localTestStreamManager.outputStreamController.stream;
+  }
+
   _i3.Future<List<(_i6.Gear, _i8.GearClothing)>> getAllClothes(
       _i1.TestSessionBuilder sessionBuilder) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
@@ -348,6 +379,37 @@ class _GearReadEndpoint {
         await _localUniqueSession.close();
       }
     });
+  }
+
+  _i3.Stream<List<(_i6.Gear, _i8.GearClothing)>> watchAllClothes(
+      _i1.TestSessionBuilder sessionBuilder) {
+    var _localTestStreamManager =
+        _i1.TestStreamManager<List<(_i6.Gear, _i8.GearClothing)>>();
+    _i1.callStreamFunctionAndHandleExceptions(
+      () async {
+        var _localUniqueSession =
+            (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+          endpoint: 'gearRead',
+          method: 'watchAllClothes',
+        );
+        var _localCallContext =
+            await _endpointDispatch.getMethodStreamCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'gearRead',
+          methodName: 'watchAllClothes',
+          arguments: {},
+          requestedInputStreams: [],
+          serializationManager: _serializationManager,
+        );
+        await _localTestStreamManager.callStreamMethod(
+          _localCallContext,
+          _localUniqueSession,
+          {},
+        );
+      },
+      _localTestStreamManager.outputStreamController,
+    );
+    return _localTestStreamManager.outputStreamController.stream;
   }
 
   _i3.Future<List<(_i6.Gear, _i9.GearFloatbag)>> getAllFloatbags(
@@ -380,6 +442,37 @@ class _GearReadEndpoint {
     });
   }
 
+  _i3.Stream<List<(_i6.Gear, _i9.GearFloatbag)>> watchAllFloatbags(
+      _i1.TestSessionBuilder sessionBuilder) {
+    var _localTestStreamManager =
+        _i1.TestStreamManager<List<(_i6.Gear, _i9.GearFloatbag)>>();
+    _i1.callStreamFunctionAndHandleExceptions(
+      () async {
+        var _localUniqueSession =
+            (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+          endpoint: 'gearRead',
+          method: 'watchAllFloatbags',
+        );
+        var _localCallContext =
+            await _endpointDispatch.getMethodStreamCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'gearRead',
+          methodName: 'watchAllFloatbags',
+          arguments: {},
+          requestedInputStreams: [],
+          serializationManager: _serializationManager,
+        );
+        await _localTestStreamManager.callStreamMethod(
+          _localCallContext,
+          _localUniqueSession,
+          {},
+        );
+      },
+      _localTestStreamManager.outputStreamController,
+    );
+    return _localTestStreamManager.outputStreamController.stream;
+  }
+
   _i3.Future<List<(_i6.Gear, _i10.GearHelmet)>> getAllHelmets(
       _i1.TestSessionBuilder sessionBuilder) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
@@ -408,6 +501,37 @@ class _GearReadEndpoint {
         await _localUniqueSession.close();
       }
     });
+  }
+
+  _i3.Stream<List<(_i6.Gear, _i10.GearHelmet)>> watchAllHelmets(
+      _i1.TestSessionBuilder sessionBuilder) {
+    var _localTestStreamManager =
+        _i1.TestStreamManager<List<(_i6.Gear, _i10.GearHelmet)>>();
+    _i1.callStreamFunctionAndHandleExceptions(
+      () async {
+        var _localUniqueSession =
+            (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+          endpoint: 'gearRead',
+          method: 'watchAllHelmets',
+        );
+        var _localCallContext =
+            await _endpointDispatch.getMethodStreamCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'gearRead',
+          methodName: 'watchAllHelmets',
+          arguments: {},
+          requestedInputStreams: [],
+          serializationManager: _serializationManager,
+        );
+        await _localTestStreamManager.callStreamMethod(
+          _localCallContext,
+          _localUniqueSession,
+          {},
+        );
+      },
+      _localTestStreamManager.outputStreamController,
+    );
+    return _localTestStreamManager.outputStreamController.stream;
   }
 
   _i3.Future<List<(_i6.Gear, _i11.GearKayak)>> getAllKayaks(
@@ -440,6 +564,37 @@ class _GearReadEndpoint {
     });
   }
 
+  _i3.Stream<List<(_i6.Gear, _i11.GearKayak)>> watchAllKayaks(
+      _i1.TestSessionBuilder sessionBuilder) {
+    var _localTestStreamManager =
+        _i1.TestStreamManager<List<(_i6.Gear, _i11.GearKayak)>>();
+    _i1.callStreamFunctionAndHandleExceptions(
+      () async {
+        var _localUniqueSession =
+            (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+          endpoint: 'gearRead',
+          method: 'watchAllKayaks',
+        );
+        var _localCallContext =
+            await _endpointDispatch.getMethodStreamCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'gearRead',
+          methodName: 'watchAllKayaks',
+          arguments: {},
+          requestedInputStreams: [],
+          serializationManager: _serializationManager,
+        );
+        await _localTestStreamManager.callStreamMethod(
+          _localCallContext,
+          _localUniqueSession,
+          {},
+        );
+      },
+      _localTestStreamManager.outputStreamController,
+    );
+    return _localTestStreamManager.outputStreamController.stream;
+  }
+
   _i3.Future<List<(_i6.Gear, _i12.GearPaddle)>> getAllPaddles(
       _i1.TestSessionBuilder sessionBuilder) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
@@ -468,6 +623,37 @@ class _GearReadEndpoint {
         await _localUniqueSession.close();
       }
     });
+  }
+
+  _i3.Stream<List<(_i6.Gear, _i12.GearPaddle)>> watchAllPaddles(
+      _i1.TestSessionBuilder sessionBuilder) {
+    var _localTestStreamManager =
+        _i1.TestStreamManager<List<(_i6.Gear, _i12.GearPaddle)>>();
+    _i1.callStreamFunctionAndHandleExceptions(
+      () async {
+        var _localUniqueSession =
+            (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+          endpoint: 'gearRead',
+          method: 'watchAllPaddles',
+        );
+        var _localCallContext =
+            await _endpointDispatch.getMethodStreamCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'gearRead',
+          methodName: 'watchAllPaddles',
+          arguments: {},
+          requestedInputStreams: [],
+          serializationManager: _serializationManager,
+        );
+        await _localTestStreamManager.callStreamMethod(
+          _localCallContext,
+          _localUniqueSession,
+          {},
+        );
+      },
+      _localTestStreamManager.outputStreamController,
+    );
+    return _localTestStreamManager.outputStreamController.stream;
   }
 
   _i3.Future<List<(_i6.Gear, _i13.GearPfd)>> getAllPfds(
@@ -500,6 +686,37 @@ class _GearReadEndpoint {
     });
   }
 
+  _i3.Stream<List<(_i6.Gear, _i13.GearPfd)>> watchAllPfds(
+      _i1.TestSessionBuilder sessionBuilder) {
+    var _localTestStreamManager =
+        _i1.TestStreamManager<List<(_i6.Gear, _i13.GearPfd)>>();
+    _i1.callStreamFunctionAndHandleExceptions(
+      () async {
+        var _localUniqueSession =
+            (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+          endpoint: 'gearRead',
+          method: 'watchAllPfds',
+        );
+        var _localCallContext =
+            await _endpointDispatch.getMethodStreamCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'gearRead',
+          methodName: 'watchAllPfds',
+          arguments: {},
+          requestedInputStreams: [],
+          serializationManager: _serializationManager,
+        );
+        await _localTestStreamManager.callStreamMethod(
+          _localCallContext,
+          _localUniqueSession,
+          {},
+        );
+      },
+      _localTestStreamManager.outputStreamController,
+    );
+    return _localTestStreamManager.outputStreamController.stream;
+  }
+
   _i3.Future<List<(_i6.Gear, _i14.GearSpraydeck)>> getAllSpraydecks(
       _i1.TestSessionBuilder sessionBuilder) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
@@ -530,6 +747,37 @@ class _GearReadEndpoint {
     });
   }
 
+  _i3.Stream<List<(_i6.Gear, _i14.GearSpraydeck)>> watchAllSpraydecks(
+      _i1.TestSessionBuilder sessionBuilder) {
+    var _localTestStreamManager =
+        _i1.TestStreamManager<List<(_i6.Gear, _i14.GearSpraydeck)>>();
+    _i1.callStreamFunctionAndHandleExceptions(
+      () async {
+        var _localUniqueSession =
+            (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+          endpoint: 'gearRead',
+          method: 'watchAllSpraydecks',
+        );
+        var _localCallContext =
+            await _endpointDispatch.getMethodStreamCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'gearRead',
+          methodName: 'watchAllSpraydecks',
+          arguments: {},
+          requestedInputStreams: [],
+          serializationManager: _serializationManager,
+        );
+        await _localTestStreamManager.callStreamMethod(
+          _localCallContext,
+          _localUniqueSession,
+          {},
+        );
+      },
+      _localTestStreamManager.outputStreamController,
+    );
+    return _localTestStreamManager.outputStreamController.stream;
+  }
+
   _i3.Future<List<(_i6.Gear, _i15.GearThrowbag)>> getAllThrowbags(
       _i1.TestSessionBuilder sessionBuilder) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
@@ -558,6 +806,37 @@ class _GearReadEndpoint {
         await _localUniqueSession.close();
       }
     });
+  }
+
+  _i3.Stream<List<(_i6.Gear, _i15.GearThrowbag)>> watchAllThrowbags(
+      _i1.TestSessionBuilder sessionBuilder) {
+    var _localTestStreamManager =
+        _i1.TestStreamManager<List<(_i6.Gear, _i15.GearThrowbag)>>();
+    _i1.callStreamFunctionAndHandleExceptions(
+      () async {
+        var _localUniqueSession =
+            (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+          endpoint: 'gearRead',
+          method: 'watchAllThrowbags',
+        );
+        var _localCallContext =
+            await _endpointDispatch.getMethodStreamCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'gearRead',
+          methodName: 'watchAllThrowbags',
+          arguments: {},
+          requestedInputStreams: [],
+          serializationManager: _serializationManager,
+        );
+        await _localTestStreamManager.callStreamMethod(
+          _localCallContext,
+          _localUniqueSession,
+          {},
+        );
+      },
+      _localTestStreamManager.outputStreamController,
+    );
+    return _localTestStreamManager.outputStreamController.stream;
   }
 }
 

@@ -17,3 +17,10 @@ extension Defaults on DateTime {
         isUtc: true,
       );
 }
+
+Stream<T> watchX<T>(Future<T> Function() getX, Stream updateStream) async* {
+  yield await getX();
+  await for (final _ in updateStream) {
+    yield await getX();
+  }
+}

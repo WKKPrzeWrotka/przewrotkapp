@@ -86,10 +86,30 @@ class EndpointGearRead extends _i1.EndpointRef {
         {},
       );
 
+  _i2.Stream<List<(_i4.Gear, _i5.GearBelt)>> watchAllBelts() =>
+      caller.callStreamingServerEndpoint<
+          _i2.Stream<List<(_i4.Gear, _i5.GearBelt)>>,
+          List<(_i4.Gear, _i5.GearBelt)>>(
+        'gearRead',
+        'watchAllBelts',
+        {},
+        {},
+      );
+
   _i2.Future<List<(_i4.Gear, _i6.GearClothing)>> getAllClothes() =>
       caller.callServerEndpoint<List<(_i4.Gear, _i6.GearClothing)>>(
         'gearRead',
         'getAllClothes',
+        {},
+      );
+
+  _i2.Stream<List<(_i4.Gear, _i6.GearClothing)>> watchAllClothes() =>
+      caller.callStreamingServerEndpoint<
+          _i2.Stream<List<(_i4.Gear, _i6.GearClothing)>>,
+          List<(_i4.Gear, _i6.GearClothing)>>(
+        'gearRead',
+        'watchAllClothes',
+        {},
         {},
       );
 
@@ -100,10 +120,30 @@ class EndpointGearRead extends _i1.EndpointRef {
         {},
       );
 
+  _i2.Stream<List<(_i4.Gear, _i7.GearFloatbag)>> watchAllFloatbags() =>
+      caller.callStreamingServerEndpoint<
+          _i2.Stream<List<(_i4.Gear, _i7.GearFloatbag)>>,
+          List<(_i4.Gear, _i7.GearFloatbag)>>(
+        'gearRead',
+        'watchAllFloatbags',
+        {},
+        {},
+      );
+
   _i2.Future<List<(_i4.Gear, _i8.GearHelmet)>> getAllHelmets() =>
       caller.callServerEndpoint<List<(_i4.Gear, _i8.GearHelmet)>>(
         'gearRead',
         'getAllHelmets',
+        {},
+      );
+
+  _i2.Stream<List<(_i4.Gear, _i8.GearHelmet)>> watchAllHelmets() =>
+      caller.callStreamingServerEndpoint<
+          _i2.Stream<List<(_i4.Gear, _i8.GearHelmet)>>,
+          List<(_i4.Gear, _i8.GearHelmet)>>(
+        'gearRead',
+        'watchAllHelmets',
+        {},
         {},
       );
 
@@ -114,10 +154,30 @@ class EndpointGearRead extends _i1.EndpointRef {
         {},
       );
 
+  _i2.Stream<List<(_i4.Gear, _i9.GearKayak)>> watchAllKayaks() =>
+      caller.callStreamingServerEndpoint<
+          _i2.Stream<List<(_i4.Gear, _i9.GearKayak)>>,
+          List<(_i4.Gear, _i9.GearKayak)>>(
+        'gearRead',
+        'watchAllKayaks',
+        {},
+        {},
+      );
+
   _i2.Future<List<(_i4.Gear, _i10.GearPaddle)>> getAllPaddles() =>
       caller.callServerEndpoint<List<(_i4.Gear, _i10.GearPaddle)>>(
         'gearRead',
         'getAllPaddles',
+        {},
+      );
+
+  _i2.Stream<List<(_i4.Gear, _i10.GearPaddle)>> watchAllPaddles() =>
+      caller.callStreamingServerEndpoint<
+          _i2.Stream<List<(_i4.Gear, _i10.GearPaddle)>>,
+          List<(_i4.Gear, _i10.GearPaddle)>>(
+        'gearRead',
+        'watchAllPaddles',
+        {},
         {},
       );
 
@@ -128,6 +188,16 @@ class EndpointGearRead extends _i1.EndpointRef {
         {},
       );
 
+  _i2.Stream<List<(_i4.Gear, _i11.GearPfd)>> watchAllPfds() =>
+      caller.callStreamingServerEndpoint<
+          _i2.Stream<List<(_i4.Gear, _i11.GearPfd)>>,
+          List<(_i4.Gear, _i11.GearPfd)>>(
+        'gearRead',
+        'watchAllPfds',
+        {},
+        {},
+      );
+
   _i2.Future<List<(_i4.Gear, _i12.GearSpraydeck)>> getAllSpraydecks() =>
       caller.callServerEndpoint<List<(_i4.Gear, _i12.GearSpraydeck)>>(
         'gearRead',
@@ -135,10 +205,30 @@ class EndpointGearRead extends _i1.EndpointRef {
         {},
       );
 
+  _i2.Stream<List<(_i4.Gear, _i12.GearSpraydeck)>> watchAllSpraydecks() =>
+      caller.callStreamingServerEndpoint<
+          _i2.Stream<List<(_i4.Gear, _i12.GearSpraydeck)>>,
+          List<(_i4.Gear, _i12.GearSpraydeck)>>(
+        'gearRead',
+        'watchAllSpraydecks',
+        {},
+        {},
+      );
+
   _i2.Future<List<(_i4.Gear, _i13.GearThrowbag)>> getAllThrowbags() =>
       caller.callServerEndpoint<List<(_i4.Gear, _i13.GearThrowbag)>>(
         'gearRead',
         'getAllThrowbags',
+        {},
+      );
+
+  _i2.Stream<List<(_i4.Gear, _i13.GearThrowbag)>> watchAllThrowbags() =>
+      caller.callStreamingServerEndpoint<
+          _i2.Stream<List<(_i4.Gear, _i13.GearThrowbag)>>,
+          List<(_i4.Gear, _i13.GearThrowbag)>>(
+        'gearRead',
+        'watchAllThrowbags',
+        {},
         {},
       );
 }

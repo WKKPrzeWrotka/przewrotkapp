@@ -238,6 +238,123 @@ class Endpoints extends _i1.EndpointDispatch {
                   .then((container) =>
                       _i7.mapRecordContainingContainerToJson(container)),
         ),
+        'watchAllBelts': _i1.MethodStreamConnector(
+          name: 'watchAllBelts',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['gearRead'] as _i4.GearReadEndpoint)
+                  .watchAllBelts(session),
+        ),
+        'watchAllClothes': _i1.MethodStreamConnector(
+          name: 'watchAllClothes',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['gearRead'] as _i4.GearReadEndpoint)
+                  .watchAllClothes(session),
+        ),
+        'watchAllFloatbags': _i1.MethodStreamConnector(
+          name: 'watchAllFloatbags',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['gearRead'] as _i4.GearReadEndpoint)
+                  .watchAllFloatbags(session),
+        ),
+        'watchAllHelmets': _i1.MethodStreamConnector(
+          name: 'watchAllHelmets',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['gearRead'] as _i4.GearReadEndpoint)
+                  .watchAllHelmets(session),
+        ),
+        'watchAllKayaks': _i1.MethodStreamConnector(
+          name: 'watchAllKayaks',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['gearRead'] as _i4.GearReadEndpoint)
+                  .watchAllKayaks(session),
+        ),
+        'watchAllPaddles': _i1.MethodStreamConnector(
+          name: 'watchAllPaddles',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['gearRead'] as _i4.GearReadEndpoint)
+                  .watchAllPaddles(session),
+        ),
+        'watchAllPfds': _i1.MethodStreamConnector(
+          name: 'watchAllPfds',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['gearRead'] as _i4.GearReadEndpoint)
+                  .watchAllPfds(session),
+        ),
+        'watchAllSpraydecks': _i1.MethodStreamConnector(
+          name: 'watchAllSpraydecks',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['gearRead'] as _i4.GearReadEndpoint)
+                  .watchAllSpraydecks(session),
+        ),
+        'watchAllThrowbags': _i1.MethodStreamConnector(
+          name: 'watchAllThrowbags',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['gearRead'] as _i4.GearReadEndpoint)
+                  .watchAllThrowbags(session),
+        ),
       },
     );
     connectors['rental'] = _i1.EndpointConnector(

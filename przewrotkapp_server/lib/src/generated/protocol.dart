@@ -1706,6 +1706,60 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == List<_i31.Gear>) {
       return (data as List).map((e) => deserialize<_i31.Gear>(e)).toList() as T;
     }
+    if (t == _i1.getType<(_i31.Gear, _i32.GearBelt)>()) {
+      return (
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i32.GearBelt>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i31.Gear, _i33.GearClothing)>()) {
+      return (
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i33.GearClothing>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i31.Gear, _i34.GearFloatbag)>()) {
+      return (
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i34.GearFloatbag>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i31.Gear, _i35.GearHelmet)>()) {
+      return (
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i35.GearHelmet>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i31.Gear, _i36.GearKayak)>()) {
+      return (
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i36.GearKayak>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i31.Gear, _i37.GearPaddle)>()) {
+      return (
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i37.GearPaddle>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i31.Gear, _i38.GearPfd)>()) {
+      return (
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i38.GearPfd>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i31.Gear, _i39.GearSpraydeck)>()) {
+      return (
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i39.GearSpraydeck>(data['p'][1]),
+      ) as T;
+    }
+    if (t == _i1.getType<(_i31.Gear, _i40.GearThrowbag)>()) {
+      return (
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i40.GearThrowbag>(data['p'][1]),
+      ) as T;
+    }
     try {
       return _i3.Protocol().deserialize<T>(data, t);
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
@@ -1808,6 +1862,33 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is List<_i30.Comment>) {
       return 'List<Comment>';
     }
+    if (data is List<(_i31.Gear, _i32.GearBelt)>) {
+      return 'List<(Gear,GearBelt)>';
+    }
+    if (data is List<(_i31.Gear, _i33.GearClothing)>) {
+      return 'List<(Gear,GearClothing)>';
+    }
+    if (data is List<(_i31.Gear, _i34.GearFloatbag)>) {
+      return 'List<(Gear,GearFloatbag)>';
+    }
+    if (data is List<(_i31.Gear, _i35.GearHelmet)>) {
+      return 'List<(Gear,GearHelmet)>';
+    }
+    if (data is List<(_i31.Gear, _i36.GearKayak)>) {
+      return 'List<(Gear,GearKayak)>';
+    }
+    if (data is List<(_i31.Gear, _i37.GearPaddle)>) {
+      return 'List<(Gear,GearPaddle)>';
+    }
+    if (data is List<(_i31.Gear, _i38.GearPfd)>) {
+      return 'List<(Gear,GearPfd)>';
+    }
+    if (data is List<(_i31.Gear, _i39.GearSpraydeck)>) {
+      return 'List<(Gear,GearSpraydeck)>';
+    }
+    if (data is List<(_i31.Gear, _i40.GearThrowbag)>) {
+      return 'List<(Gear,GearThrowbag)>';
+    }
     if (data is List<_i41.Rental>) {
       return 'List<Rental>';
     }
@@ -1909,6 +1990,33 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName == 'List<Comment>') {
       return deserialize<List<_i30.Comment>>(data['data']);
     }
+    if (dataClassName == 'List<(Gear,GearBelt)>') {
+      return deserialize<List<(_i31.Gear, _i32.GearBelt)>>(data['data']);
+    }
+    if (dataClassName == 'List<(Gear,GearClothing)>') {
+      return deserialize<List<(_i31.Gear, _i33.GearClothing)>>(data['data']);
+    }
+    if (dataClassName == 'List<(Gear,GearFloatbag)>') {
+      return deserialize<List<(_i31.Gear, _i34.GearFloatbag)>>(data['data']);
+    }
+    if (dataClassName == 'List<(Gear,GearHelmet)>') {
+      return deserialize<List<(_i31.Gear, _i35.GearHelmet)>>(data['data']);
+    }
+    if (dataClassName == 'List<(Gear,GearKayak)>') {
+      return deserialize<List<(_i31.Gear, _i36.GearKayak)>>(data['data']);
+    }
+    if (dataClassName == 'List<(Gear,GearPaddle)>') {
+      return deserialize<List<(_i31.Gear, _i37.GearPaddle)>>(data['data']);
+    }
+    if (dataClassName == 'List<(Gear,GearPfd)>') {
+      return deserialize<List<(_i31.Gear, _i38.GearPfd)>>(data['data']);
+    }
+    if (dataClassName == 'List<(Gear,GearSpraydeck)>') {
+      return deserialize<List<(_i31.Gear, _i39.GearSpraydeck)>>(data['data']);
+    }
+    if (dataClassName == 'List<(Gear,GearThrowbag)>') {
+      return deserialize<List<(_i31.Gear, _i40.GearThrowbag)>>(data['data']);
+    }
     if (dataClassName == 'List<Rental>') {
       return deserialize<List<_i41.Rental>>(data['data']);
     }
@@ -1970,6 +2078,28 @@ class Protocol extends _i1.SerializationManagerServer {
 
   @override
   String getModuleName() => 'przewrotkapp';
+
+  /// Wraps serialized data with its class name so that it can be deserialized
+  /// with [deserializeByClassName].
+  ///
+  /// Records and containers containing records will be return in their JSON representation in the returned map.
+  @override
+  Map<String, dynamic> wrapWithClassName(Object? data) {
+    /// In case the value (to be streamed) contains a record, we need to map it before it reaches the underlying JSON encode
+    if (data is Iterable || data is Map) {
+      return {
+        'className': getClassNameForObject(data)!,
+        'data': mapRecordContainingContainerToJson(data!),
+      };
+    } else if (data is Record) {
+      return {
+        'className': getClassNameForObject(data)!,
+        'data': mapRecordToJson(data),
+      };
+    }
+
+    return super.wrapWithClassName(data);
+  }
 }
 
 /// Maps any `Record`s known to this [Protocol] to their JSON representation
