@@ -41,7 +41,7 @@ class GearDetailsPage extends StatelessWidget {
             onPressed: gear != null
                 ? () async {
                     final newState = !isFavourite;
-                    client.user.updateGearFavourite(gear, newState);
+                    await client.user.updateGearFavourite(gear, newState);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         duration: Duration(seconds: 1),
