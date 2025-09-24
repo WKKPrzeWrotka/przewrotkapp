@@ -5,7 +5,7 @@ P-03,TNP,,zwalkowe,155,0
 P-04,TNP,,zwalkowe,155,0
 P-05,,Łopata,pagaj,155,0
 P-06,,,pagaj,140,0
-WK-01,TNP,,zwalkowe,190,60
+WK-01,TNP,Składane,zwalkowe,190,60
 WK-02,Dr Kayak,,zwalkowe,195,60
 WK-03,Dr Kayak,,zwalkowe,195,60
 WK-04,Dr Kayak,,zwalkowe,185,60
@@ -40,13 +40,13 @@ WK-32,TNP,Rapa,nizinne,179,0
 WK-33,TNP,Rapa,gorskie,195,60
 WK-34,Schlegel,Duralen,gorskie,192,60
 WK-35,,,nizinne,197,60
-WK-36,,,nizinne,197,-45
+WK-36,,Składane,nizinne,197,-45
 WK-37,,,nizinne,203,90
 WK-38,Dr Kayak,Allaround,zwalkowe,195,60
 WK-39,TNP,Rapa,gorskie,195,30
 WD-01,Dr Kayak,,zwalkowe,210,60
 WD-02,Dr Kayak,,zwalkowe,215,60
-WD-03,Dr Kayak,,zwalkowe,225,60
+WD-03,Dr Kayak,Niby składane,zwalkowe,225,60
 WD-04,TNP,,zwalkowe,240,60
 WD-05,Dr Kayak,,zwalkowe,220,60
 WD-06,,,gorskie,220,60
@@ -64,4 +64,4 @@ WD-17,Ainsworth,ABS100 all round,nizinne,220,60
 WD-18,Ainsworth,ABS100 all round,nizinne,220,60
 WD-19,Ainsworth,ABS102 assy,nizinne,225,60
 WD-20,Ainsworth,ABS102 assy,nizinne,225,60
-WD-24,Swat,Egalis,gorskie,220,-60
+WD-24,Swat,Egalis(Składane),gorskie,220,-60
