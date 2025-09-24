@@ -101,7 +101,8 @@ class GearDetailsPage extends StatelessWidget {
                     child: Text(gear.clubId, style: tt.bodyLarge),
                   ),
                 ),
-                Text("Nadchodządce wypożyczenia", style: tt.headlineMedium),
+                if (thisRentals?.isNotEmpty ?? false)
+                  Text("Nadchodządce wypożyczenia", style: tt.headlineMedium),
                 for (final rental in thisRentals ?? <Rental>[])
                   RentalListing(rental: rental),
                 if (gear.comments?.isNotEmpty ?? false)
