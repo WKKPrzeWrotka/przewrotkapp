@@ -60,6 +60,8 @@ class DiscordEventsFutureCall extends FutureCall {
           // Last 30 days max
           .where((e) => e.to.difference(DateTime.now()).inDays > -30)
           .toList();
+    } catch (e) {
+      session.log(e.toString(), level: LogLevel.error);
     } finally {
       await schedule(session.serverpod);
     }
