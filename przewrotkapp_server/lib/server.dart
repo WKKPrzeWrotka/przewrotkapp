@@ -63,10 +63,38 @@ void run(List<String> args) async {
       validationCodeLength: 4,
       minPasswordLength: 6,
       onUserCreated: (session, userInfo) async {
-        await ExtraUserInfo.db.insertRow(
-          session,
-          ExtraUserInfo(userInfoId: userInfo.id!, socialLinks: {}),
-        );
+        try {
+          await ExtraUserInfo.db.insertRow(
+            session,
+            ExtraUserInfo(
+                userInfoId: userInfo.id!, socialLinks: <String, Uri>{}),
+          );
+        } catch (e, s) {
+          session.log(
+            "FAILED TO CREATE EXTRA USER!! UserInfo: $userInfo ; Session: $session",
+            level: LogLevel.error,
+            exception: e,
+            stackTrace: s,
+          );
+          session.log(
+            "DELETING USERINFO STUFF BECAUSE OF FAILED EXTRA!",
+            level: LogLevel.error,
+          );
+          await auth.UserInfo.db.deleteRow(session, userInfo);
+          await ExtraUserInfo.db.deleteWhere(
+            session,
+            where: (e) => e.userInfoId.equals(userInfo.id),
+          );
+          await auth.EmailAuth.db.deleteWhere(
+            session,
+            where: (e) => e.userId.equals(userInfo.id),
+          );
+          await auth.UserImage.db.deleteWhere(
+            session,
+            where: (e) => e.userId.equals(userInfo.id),
+          );
+          rethrow;
+        }
       },
     ),
   );
