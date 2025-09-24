@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:csv/csv.dart';
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
 import 'package:serverpod/server.dart';
+import 'package:serverpod_auth_server/module.dart';
 
 const _root = 'lib/src/excel_migration';
 
@@ -210,6 +211,38 @@ Future<void> importFloatbagsFromExcel({Session? session}) async {
   }
 }
 
-void main() {
-  importKayaksFromExcel();
+Future<void> importComments(
+    {Session? session, required int authorUserId}) async {
+  final commentsCsv = File("$_root/komentarze-chatgpt.csv");
+  // this one uses lib because it has a lot of "strings"
+  final commentsData = CsvToListConverter()
+      .convert(
+        (await commentsCsv.readAsLines()).join("\n"),
+        shouldParseNumbers: false,
+        convertEmptyTo: '',
+        eol: '\n',
+      )
+      .map((e) => e.cast<String>())
+      .toList();
+  final user = await UserInfo.db.findById(session!, authorUserId);
+  user!;
+  await session.db.transaction((t) async {
+    for (final line in commentsData.sublist(1).cast<List<String>>()) {
+      print(line);
+      final gear = await Gear.db.findFirstRow(session,
+          where: (g) => g.clubId.equals(line[0]), transaction: t);
+      await Comment.db.insertRow(
+        session,
+        Comment(
+          byId: user.id!,
+          gearId: gear!.id,
+          type: CommentType.fromJson(line[2]),
+          text: line[1],
+        ),
+        transaction: t,
+      );
+    }
+  });
 }
+
+void main() {}
