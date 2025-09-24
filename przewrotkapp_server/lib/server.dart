@@ -85,5 +85,5 @@ void run(List<String> args) async {
 
   final dcEvents = DiscordEventsFutureCall();
   pod.registerFutureCall(dcEvents, dcEvents.name);
-  await DiscordEventsFutureCall.schedule(pod, delay: Duration(seconds: 5));
+  await DiscordEventsFutureCall.schedule(pod, delay: Duration(milliseconds: 1));
 }

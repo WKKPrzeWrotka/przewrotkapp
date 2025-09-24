@@ -60,13 +60,12 @@ class DiscordEventsFutureCall extends FutureCall {
           // Last 30 days max
           .where((e) => e.to.difference(DateTime.now()).inDays > -30)
           .toList();
+    } finally {
       await schedule(session.serverpod);
-    } catch (e) {
-      await schedule(session.serverpod, delay: Duration(minutes: 1));
     }
   }
 
   static Future<void> schedule(Serverpod pod,
-          {Duration delay = const Duration(minutes: 5)}) =>
+          {Duration delay = const Duration(minutes: 15)}) =>
       pod.futureCallWithDelay(callName, null, delay);
 }
