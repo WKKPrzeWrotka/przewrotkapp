@@ -62,12 +62,11 @@ class DiscordEventsFutureCall extends FutureCall {
           .toList();
     } catch (e) {
       session.log(e.toString(), level: LogLevel.error);
-    } finally {
-      await schedule(session.serverpod);
     }
+    await schedule(session.serverpod);
   }
 
   static Future<void> schedule(Serverpod pod,
-          {Duration delay = const Duration(minutes: 15)}) =>
+          {Duration delay = const Duration(minutes: 30)}) =>
       pod.futureCallWithDelay(callName, null, delay);
 }

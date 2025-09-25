@@ -111,7 +111,10 @@ void run(List<String> args) async {
   // Start the server.
   await pod.start();
 
-  final dcEvents = DiscordEventsFutureCall();
-  pod.registerFutureCall(dcEvents, dcEvents.name);
-  await DiscordEventsFutureCall.schedule(pod, delay: Duration(milliseconds: 1));
+  if (pod.runMode == ServerpodRunMode.production) {
+    final dcEvents = DiscordEventsFutureCall();
+    pod.registerFutureCall(dcEvents, dcEvents.name);
+    await DiscordEventsFutureCall.schedule(pod,
+        delay: Duration(milliseconds: 1));
+  }
 }
