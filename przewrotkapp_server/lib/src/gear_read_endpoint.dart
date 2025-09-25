@@ -17,8 +17,6 @@ class GearReadEndpoint extends Endpoint {
         resolvedBy: UserInfo.include(),
       ),
     ),
-    photos: GearPhoto.includeList(),
-    thumbnail: GearPhoto.include(),
   );
 
   Future<List<(Gear, GearBelt)>> getAllBelts(Session session) async {
