@@ -16,6 +16,13 @@ with lib;
         Useful for developing
       '';
     };
+    dbBackups = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = ''
+        Run pg_dump everyday at 2am
+      '';
+    };
   };
 
   config = mkIf config.services.przewrotkapp.enable {
@@ -65,6 +72,19 @@ with lib;
           };
         }
       ];
+    };
+
+    przewrotkappBackups = mkIf config.services.przewrotkapp.enable {
+      systemd.services.przewrotkapp-backups = {
+        serviceConfig.User = "przewrotkapp";
+        path  = [ pkgs.postgresql ];
+        script = ''
+        pg_dump przewrotkapp > "przewrotkapp-db_$(date '+%Y-%m-%d_%H-%M-%S').sql"
+        # leave only 7 latest, delete the rest
+        ls -1t | tail -n +8 | xargs -d '\n' rm --
+        '';
+        startAt = "*-*-* 02:00:00";
+      };
     };
   };
 }
