@@ -34,6 +34,7 @@ with lib;
       description = "PrzeWrotkApp server";
       wantedBy = [ "multi-user.target" ];
       after = [ "postgresql.service" ];
+      path = with pkgs; [ dart ];
       serviceConfig = {
         User = "przewrotkapp";
         WorkingDirectory = "/var/lib/przewrotkapp/przewrotkapp/przewrotkapp_server";
@@ -41,7 +42,7 @@ with lib;
           if config.services.przewrotkapp.compile then
             "${lib.getExe pkgs.pwa} --mode production --apply-migrations"
           else
-            "dart run bin/main.dart --mode production --apply-migrations";
+            "${pkgs.dart} run bin/main.dart --mode production --apply-migrations";
         Restart = "always";
         RestartSec = "5";
       };
