@@ -45,6 +45,8 @@ dependencies:
   kalender: ^0.13.0
   calendar_date_picker2: ^2.0.1
   photo_view: ^0.15.0
+  octo_image: ^2.1.0
+  flutter_blurhash: ^0.9.1
 
   serverpod_auth_client: any
 dev_dependencies:

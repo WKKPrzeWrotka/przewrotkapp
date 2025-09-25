@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:octo_image/octo_image.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../../data_types.dart';
 import '../../common/comment_listing.dart';
 import '../../common/copyable_text.dart';
+import '../../common/octo_blurhash.dart';
 import '../../common/rental_listing.dart';
 import '../../common/utils.dart';
 
@@ -85,7 +87,27 @@ class GearDetailsPage extends StatelessWidget {
                                   onTap: () => context.push(
                                     '/gear/$clubId/photos?initialIndex=${gear.photoUrls!.indexOf(uri)}',
                                   ),
-                                  child: Image.network(uri.toString()),
+                                  child: OctoImage(
+                                    image: NetworkImage(uri.toString()),
+                                    fadeInDuration: Duration(milliseconds: 250),
+                                    fadeOutDuration: Duration(
+                                      milliseconds: 250,
+                                    ),
+                                    placeholderBuilder:
+                                        uri.queryParameters['blurhash'] != null
+                                        ? blurHashPlaceholderBuilder(
+                                            uri.queryParameters['blurhash']!,
+                                            width: int.tryParse(
+                                              uri.queryParameters['width'] ??
+                                                  '',
+                                            ),
+                                            height: int.tryParse(
+                                              uri.queryParameters['height'] ??
+                                                  '',
+                                            ),
+                                          )
+                                        : null,
+                                  ),
                                 ),
                               ),
                             ),
