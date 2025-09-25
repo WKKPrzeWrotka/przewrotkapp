@@ -26,6 +26,7 @@ with lib;
       isSystemUser = true;
       group = "przewrotkapp";
       shell = "/run/current-system/sw/bin/fish";
+      packages = with pkgs; [ dart flutter fish ];
     };
     users.groups.przewrotkapp = { };
 
