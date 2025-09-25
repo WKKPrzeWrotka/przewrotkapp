@@ -8,17 +8,38 @@ with lib;
 {
   options.services.przewrotkapp = {
     enable = lib.mkEnableOption "PrzeWrotkApp server";
+    compile = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = ''
+        Whether to use pre-compiled version or directly run dart run bin/main.dart
+        Useful for developing
+      '';
+    };
   };
 
   config = mkIf config.services.przewrotkapp.enable {
+    users.users.przewrotkapp = {
+      description = "PrzeWrotkApp server service user";
+      home = "/var/lib/przewrotkapp";
+      createHome = true;
+      isSystemUser = true;
+      group = "przewrotkapp";
+    };
+    users.groups.przewrotkapp = { };
+
     systemd.services.przewrotkapp = {
       description = "PrzeWrotkApp server";
       wantedBy = [ "multi-user.target" ];
       after = [ "postgresql.service" ];
       serviceConfig = {
-        User = "matiii";
-        WorkingDirectory = "/home/matiii/przewrotkapp/przewrotkapp_server";
-          ExecStart = "${lib.getExe pkgs.pwa} --mode production --apply-migrations";
+        User = "przewrotkapp";
+        WorkingDirectory = "/var/lib/przewrotkapp/przewrotkapp/przewrotkapp_server";
+        ExecStart =
+          if config.services.przewrotkapp.compile then
+            "${lib.getExe pkgs.pwa} --mode production --apply-migrations"
+          else
+            "dart run bin/main.dart --mode production --apply-migrations";
         Restart = "always";
         RestartSec = "5";
       };
