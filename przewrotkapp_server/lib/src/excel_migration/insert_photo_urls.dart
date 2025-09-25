@@ -35,7 +35,7 @@ Future<void> insertPhotoUrls(
       final (ogWidth, ogHeight) = (image.width, image.height);
       img.resize(
         image,
-        height: 64,
+        height: 128,
         interpolation: img.Interpolation.cubic,
       );
       final hash = BlurHash.encode(image, numCompX: 4, numCompY: 4);
@@ -45,7 +45,7 @@ Future<void> insertPhotoUrls(
           storageId: 'public',
           path: path,
           byteData: ByteData.sublistView(
-            img.encodeJpg(image, quality: 40, chroma: img.JpegChroma.yuv420),
+            img.encodeJpg(image, quality: 60, chroma: img.JpegChroma.yuv420),
           ),
         );
         final pubUrl =
