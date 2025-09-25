@@ -38,7 +38,7 @@ Future<void> insertPhotoUrls(
         height: 128,
         interpolation: img.Interpolation.cubic,
       );
-      final hash = BlurHash.encode(image, numCompX: 6, numCompY: 6);
+      final hash = BlurHash.encode(image, numCompX: 4, numCompY: 4);
       if (first) {
         final path = '/$clubId/thumbnail.jpg';
         await session.storage.storeFile(
