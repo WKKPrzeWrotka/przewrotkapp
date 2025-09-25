@@ -39,9 +39,7 @@ class GearListing extends StatelessWidget {
               ? ClipRRect(
                   borderRadius: BorderRadiusGeometry.circular(6),
                   child: OctoImage(
-                    image: NetworkImage(
-                      gearPair.gear.photoUrls!.first.toString(),
-                    ),
+                    image: NetworkImage(thumbnailUrl.toString()),
                     fadeInDuration: Duration(milliseconds: 250),
                     fadeOutDuration: Duration(milliseconds: 250),
                     placeholderBuilder: blurhash != null
