@@ -78,6 +78,7 @@ with lib;
       serviceConfig.User = "przewrotkapp";
       path  = [ pkgs.postgresql ];
       script = ''
+      cd /var/lib/przewrotkapp/db-backups
       pg_dump przewrotkapp > "przewrotkapp-db_$(date '+%Y-%m-%d_%H-%M-%S').sql"
       # leave only 7 latest, delete the rest
       ls -1t | tail -n +8 | xargs -d '\n' rm --
