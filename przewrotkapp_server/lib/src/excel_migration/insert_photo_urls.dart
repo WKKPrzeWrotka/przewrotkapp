@@ -35,7 +35,7 @@ Future<void> insertPhotoUrls(
       final (ogWidth, ogHeight) = (image.width, image.height);
       img.resize(
         image,
-        height: 128,
+        height: 64,
         interpolation: img.Interpolation.cubic,
       );
       final hash = BlurHash.encode(image, numCompX: 4, numCompY: 4);
