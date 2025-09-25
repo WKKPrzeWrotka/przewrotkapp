@@ -38,11 +38,16 @@ with lib;
       serviceConfig = {
         User = "przewrotkapp";
         WorkingDirectory = "/var/lib/przewrotkapp/przewrotkapp/przewrotkapp_server";
+        ExecStartPre =
+          if (config.services.przewrotkapp.compile == false) then
+            "${pkgs.dart}/bin/dart pub get"
+          else
+            "true";
         ExecStart =
           if config.services.przewrotkapp.compile then
             "${lib.getExe pkgs.pwa} --mode production --apply-migrations"
           else
-            "${pkgs.dart}/bin/dart pub get && ${pkgs.dart}/bin/dart run bin/main.dart --mode production --apply-migrations";
+            "${pkgs.dart}/bin/dart run bin/main.dart --mode production --apply-migrations";
         Restart = "always";
         RestartSec = "5";
       };
