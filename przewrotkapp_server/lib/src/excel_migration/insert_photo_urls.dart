@@ -44,7 +44,9 @@ Future<void> insertPhotoUrls(
         await session.storage.storeFile(
           storageId: 'public',
           path: path,
-          byteData: ByteData.sublistView(img.encodeJpg(image, quality: 60)),
+          byteData: ByteData.sublistView(
+            img.encodeJpg(image, quality: 40, chroma: img.JpegChroma.yuv420),
+          ),
         );
         final pubUrl =
             await session.storage.getPublicUrl(storageId: 'public', path: path);
