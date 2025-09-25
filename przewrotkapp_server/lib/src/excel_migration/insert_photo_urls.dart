@@ -1,6 +1,9 @@
 // ignore_for_file: avoid_print
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:blurhash_dart/blurhash_dart.dart';
+import 'package:image/image.dart' as img;
 import 'package:przewrotkapp_server/src/generated/gear/gear.dart';
 import 'package:serverpod/serverpod.dart';
 
@@ -21,11 +24,52 @@ Future<void> insertPhotoUrls(
       print('Did not find $clubId');
       continue;
     }
-    final List<Uri> uris = (folder.listSync().whereType<File>().toList()
-          ..sort((a, b) => basename(a.path).compareTo(basename(b.path))))
-        .map((f) => urlBase.resolve('$clubId/${basename(f.path)}'))
-        .toList();
-    print('URIs for $clubId: $uris');
-    await Gear.db.updateRow(session, gear.copyWith(photoUrls: uris));
+    final urls = <Uri>[];
+    Uri? thumbUrl;
+    var first = true;
+    for (final file in folder.listSync().whereType<File>().toList()
+      ..sort((a, b) => basename(a.path).compareTo(basename(b.path)))) {
+      print(file);
+      final bytes = await file.readAsBytes();
+      final image = img.decodeJpg(bytes)!;
+      final (ogWidth, ogHeight) = (image.width, image.height);
+      img.resize(
+        image,
+        height: 128,
+        interpolation: img.Interpolation.cubic,
+      );
+      final hash = BlurHash.encode(image, numCompX: 6, numCompY: 6);
+      if (first) {
+        final path = '/$clubId/thumbnail.jpg';
+        await session.storage.storeFile(
+          storageId: 'public',
+          path: path,
+          byteData: ByteData.sublistView(img.encodeJpg(image, quality: 60)),
+        );
+        final pubUrl =
+            await session.storage.getPublicUrl(storageId: 'public', path: path);
+        final params = Map<String, String>.from(pubUrl!.queryParameters);
+        params['width'] = image.width.toString();
+        params['height'] = image.height.toString();
+        params['blurhash'] = hash.hash;
+        thumbUrl = pubUrl.replace(queryParameters: params);
+        first = false;
+      }
+      final path = '/$clubId/${basename(file.path)}';
+      await session.storage.storeFile(
+          storageId: 'public',
+          path: path,
+          byteData: ByteData.sublistView(bytes));
+      final pubUrl =
+          await session.storage.getPublicUrl(storageId: 'public', path: path);
+      final params = Map<String, String>.from(pubUrl!.queryParameters);
+      params['width'] = ogWidth.toString();
+      params['height'] = ogHeight.toString();
+      params['blurhash'] = hash.hash;
+      urls.add(pubUrl.replace(queryParameters: params));
+    }
+    await Gear.db.updateRow(
+        session, gear.copyWith(photoUrls: urls, thumbnailUrl: thumbUrl));
   }
+  print("Photos done!");
 }

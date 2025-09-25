@@ -14,6 +14,8 @@ dependencies:
   serverpod_auth_server: 2.9.1
   mailer: ^6.5.0
   nyxx: ^6.7.0
+  image: ^4.5.4
+  blurhash_dart: ^1.2.1
 
 dev_dependencies:
   lints: '>=3.0.0 <7.0.0'
