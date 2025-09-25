@@ -25,6 +25,7 @@ with lib;
       createHome = true;
       isSystemUser = true;
       group = "przewrotkapp";
+      shell = "/run/current-system/sw/bin/fish";
     };
     users.groups.przewrotkapp = { };
 
