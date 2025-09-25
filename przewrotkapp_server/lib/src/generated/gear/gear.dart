@@ -16,6 +16,7 @@ import '../gear/gear_type.dart' as _i2;
 import '../rental/rental_junction.dart' as _i3;
 import '../user/favourites.dart' as _i4;
 import '../gear/comment.dart' as _i5;
+import '../gear_photo.dart' as _i6;
 
 abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
   Gear._({
@@ -29,6 +30,9 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     this.junctions,
     this.favouritesJunctions,
     this.comments,
+    this.photos,
+    this.thumbnailId,
+    this.thumbnail,
   });
 
   factory Gear({
@@ -42,6 +46,9 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
     List<_i5.Comment>? comments,
+    List<_i6.GearPhoto>? photos,
+    int? thumbnailId,
+    _i6.GearPhoto? thumbnail,
   }) = _GearImpl;
 
   factory Gear.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -65,6 +72,14 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
       comments: (jsonSerialization['comments'] as List?)
           ?.map((e) => _i5.Comment.fromJson((e as Map<String, dynamic>)))
           .toList(),
+      photos: (jsonSerialization['photos'] as List?)
+          ?.map((e) => _i6.GearPhoto.fromJson((e as Map<String, dynamic>)))
+          .toList(),
+      thumbnailId: jsonSerialization['thumbnailId'] as int?,
+      thumbnail: jsonSerialization['thumbnail'] == null
+          ? null
+          : _i6.GearPhoto.fromJson(
+              (jsonSerialization['thumbnail'] as Map<String, dynamic>)),
     );
   }
 
@@ -93,6 +108,12 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
 
   List<_i5.Comment>? comments;
 
+  List<_i6.GearPhoto>? photos;
+
+  int? thumbnailId;
+
+  _i6.GearPhoto? thumbnail;
+
   @override
   _i1.Table<int?> get table => t;
 
@@ -110,6 +131,9 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
     List<_i5.Comment>? comments,
+    List<_i6.GearPhoto>? photos,
+    int? thumbnailId,
+    _i6.GearPhoto? thumbnail,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -129,6 +153,10 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
             favouritesJunctions?.toJson(valueToJson: (v) => v.toJson()),
       if (comments != null)
         'comments': comments?.toJson(valueToJson: (v) => v.toJson()),
+      if (photos != null)
+        'photos': photos?.toJson(valueToJson: (v) => v.toJson()),
+      if (thumbnailId != null) 'thumbnailId': thumbnailId,
+      if (thumbnail != null) 'thumbnail': thumbnail?.toJson(),
     };
   }
 
@@ -151,6 +179,10 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
             valueToJson: (v) => v.toJsonForProtocol()),
       if (comments != null)
         'comments': comments?.toJson(valueToJson: (v) => v.toJsonForProtocol()),
+      if (photos != null)
+        'photos': photos?.toJson(valueToJson: (v) => v.toJsonForProtocol()),
+      if (thumbnailId != null) 'thumbnailId': thumbnailId,
+      if (thumbnail != null) 'thumbnail': thumbnail?.toJsonForProtocol(),
     };
   }
 
@@ -158,11 +190,15 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     _i3.RentalJunctionIncludeList? junctions,
     _i4.FavouritesJunctionIncludeList? favouritesJunctions,
     _i5.CommentIncludeList? comments,
+    _i6.GearPhotoIncludeList? photos,
+    _i6.GearPhotoInclude? thumbnail,
   }) {
     return GearInclude._(
       junctions: junctions,
       favouritesJunctions: favouritesJunctions,
       comments: comments,
+      photos: photos,
+      thumbnail: thumbnail,
     );
   }
 
@@ -206,6 +242,9 @@ class _GearImpl extends Gear {
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
     List<_i5.Comment>? comments,
+    List<_i6.GearPhoto>? photos,
+    int? thumbnailId,
+    _i6.GearPhoto? thumbnail,
   }) : super._(
           id: id,
           clubId: clubId,
@@ -217,6 +256,9 @@ class _GearImpl extends Gear {
           junctions: junctions,
           favouritesJunctions: favouritesJunctions,
           comments: comments,
+          photos: photos,
+          thumbnailId: thumbnailId,
+          thumbnail: thumbnail,
         );
 
   /// Returns a shallow copy of this [Gear]
@@ -234,6 +276,9 @@ class _GearImpl extends Gear {
     Object? junctions = _Undefined,
     Object? favouritesJunctions = _Undefined,
     Object? comments = _Undefined,
+    Object? photos = _Undefined,
+    Object? thumbnailId = _Undefined,
+    Object? thumbnail = _Undefined,
   }) {
     return Gear(
       id: id is int? ? id : this.id,
@@ -254,6 +299,12 @@ class _GearImpl extends Gear {
       comments: comments is List<_i5.Comment>?
           ? comments
           : this.comments?.map((e0) => e0.copyWith()).toList(),
+      photos: photos is List<_i6.GearPhoto>?
+          ? photos
+          : this.photos?.map((e0) => e0.copyWith()).toList(),
+      thumbnailId: thumbnailId is int? ? thumbnailId : this.thumbnailId,
+      thumbnail:
+          thumbnail is _i6.GearPhoto? ? thumbnail : this.thumbnail?.copyWith(),
     );
   }
 }
@@ -285,6 +336,10 @@ class GearTable extends _i1.Table<int?> {
       'photoUrls',
       this,
     );
+    thumbnailId = _i1.ColumnInt(
+      'thumbnailId',
+      this,
+    );
   }
 
   late final _i1.ColumnString clubId;
@@ -310,6 +365,14 @@ class GearTable extends _i1.Table<int?> {
   _i5.CommentTable? ___comments;
 
   _i1.ManyRelation<_i5.CommentTable>? _comments;
+
+  _i6.GearPhotoTable? ___photos;
+
+  _i1.ManyRelation<_i6.GearPhotoTable>? _photos;
+
+  late final _i1.ColumnInt thumbnailId;
+
+  _i6.GearPhotoTable? _thumbnail;
 
   _i3.RentalJunctionTable get __junctions {
     if (___junctions != null) return ___junctions!;
@@ -348,6 +411,32 @@ class GearTable extends _i1.Table<int?> {
           _i5.CommentTable(tableRelation: foreignTableRelation),
     );
     return ___comments!;
+  }
+
+  _i6.GearPhotoTable get __photos {
+    if (___photos != null) return ___photos!;
+    ___photos = _i1.createRelationTable(
+      relationFieldName: '__photos',
+      field: Gear.t.id,
+      foreignField: _i6.GearPhoto.t.gearId,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i6.GearPhotoTable(tableRelation: foreignTableRelation),
+    );
+    return ___photos!;
+  }
+
+  _i6.GearPhotoTable get thumbnail {
+    if (_thumbnail != null) return _thumbnail!;
+    _thumbnail = _i1.createRelationTable(
+      relationFieldName: 'thumbnail',
+      field: Gear.t.thumbnailId,
+      foreignField: _i6.GearPhoto.t.id,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i6.GearPhotoTable(tableRelation: foreignTableRelation),
+    );
+    return _thumbnail!;
   }
 
   _i1.ManyRelation<_i3.RentalJunctionTable> get junctions {
@@ -404,6 +493,24 @@ class GearTable extends _i1.Table<int?> {
     return _comments!;
   }
 
+  _i1.ManyRelation<_i6.GearPhotoTable> get photos {
+    if (_photos != null) return _photos!;
+    var relationTable = _i1.createRelationTable(
+      relationFieldName: 'photos',
+      field: Gear.t.id,
+      foreignField: _i6.GearPhoto.t.gearId,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i6.GearPhotoTable(tableRelation: foreignTableRelation),
+    );
+    _photos = _i1.ManyRelation<_i6.GearPhotoTable>(
+      tableWithRelations: relationTable,
+      table: _i6.GearPhotoTable(
+          tableRelation: relationTable.tableRelation!.lastRelation),
+    );
+    return _photos!;
+  }
+
   @override
   List<_i1.Column> get columns => [
         id,
@@ -413,6 +520,7 @@ class GearTable extends _i1.Table<int?> {
         model,
         friendlyName,
         photoUrls,
+        thumbnailId,
       ];
 
   @override
@@ -426,6 +534,12 @@ class GearTable extends _i1.Table<int?> {
     if (relationField == 'comments') {
       return __comments;
     }
+    if (relationField == 'photos') {
+      return __photos;
+    }
+    if (relationField == 'thumbnail') {
+      return thumbnail;
+    }
     return null;
   }
 }
@@ -435,10 +549,14 @@ class GearInclude extends _i1.IncludeObject {
     _i3.RentalJunctionIncludeList? junctions,
     _i4.FavouritesJunctionIncludeList? favouritesJunctions,
     _i5.CommentIncludeList? comments,
+    _i6.GearPhotoIncludeList? photos,
+    _i6.GearPhotoInclude? thumbnail,
   }) {
     _junctions = junctions;
     _favouritesJunctions = favouritesJunctions;
     _comments = comments;
+    _photos = photos;
+    _thumbnail = thumbnail;
   }
 
   _i3.RentalJunctionIncludeList? _junctions;
@@ -447,11 +565,17 @@ class GearInclude extends _i1.IncludeObject {
 
   _i5.CommentIncludeList? _comments;
 
+  _i6.GearPhotoIncludeList? _photos;
+
+  _i6.GearPhotoInclude? _thumbnail;
+
   @override
   Map<String, _i1.Include?> get includes => {
         'junctions': _junctions,
         'favouritesJunctions': _favouritesJunctions,
         'comments': _comments,
+        'photos': _photos,
+        'thumbnail': _thumbnail,
       };
 
   @override
@@ -778,10 +902,56 @@ class GearAttachRepository {
       transaction: transaction,
     );
   }
+
+  /// Creates a relation between this [Gear] and the given [GearPhoto]s
+  /// by setting each [GearPhoto]'s foreign key `gearId` to refer to this [Gear].
+  Future<void> photos(
+    _i1.Session session,
+    Gear gear,
+    List<_i6.GearPhoto> gearPhoto, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (gearPhoto.any((e) => e.id == null)) {
+      throw ArgumentError.notNull('gearPhoto.id');
+    }
+    if (gear.id == null) {
+      throw ArgumentError.notNull('gear.id');
+    }
+
+    var $gearPhoto = gearPhoto.map((e) => e.copyWith(gearId: gear.id)).toList();
+    await session.db.update<_i6.GearPhoto>(
+      $gearPhoto,
+      columns: [_i6.GearPhoto.t.gearId],
+      transaction: transaction,
+    );
+  }
 }
 
 class GearAttachRowRepository {
   const GearAttachRowRepository._();
+
+  /// Creates a relation between the given [Gear] and [GearPhoto]
+  /// by setting the [Gear]'s foreign key `thumbnailId` to refer to the [GearPhoto].
+  Future<void> thumbnail(
+    _i1.Session session,
+    Gear gear,
+    _i6.GearPhoto thumbnail, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (gear.id == null) {
+      throw ArgumentError.notNull('gear.id');
+    }
+    if (thumbnail.id == null) {
+      throw ArgumentError.notNull('thumbnail.id');
+    }
+
+    var $gear = gear.copyWith(thumbnailId: thumbnail.id);
+    await session.db.updateRow<Gear>(
+      $gear,
+      columns: [Gear.t.thumbnailId],
+      transaction: transaction,
+    );
+  }
 
   /// Creates a relation between this [Gear] and the given [RentalJunction]
   /// by setting the [RentalJunction]'s foreign key `gearId` to refer to this [Gear].
@@ -848,6 +1018,29 @@ class GearAttachRowRepository {
     await session.db.updateRow<_i5.Comment>(
       $comment,
       columns: [_i5.Comment.t.gearId],
+      transaction: transaction,
+    );
+  }
+
+  /// Creates a relation between this [Gear] and the given [GearPhoto]
+  /// by setting the [GearPhoto]'s foreign key `gearId` to refer to this [Gear].
+  Future<void> photos(
+    _i1.Session session,
+    Gear gear,
+    _i6.GearPhoto gearPhoto, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (gearPhoto.id == null) {
+      throw ArgumentError.notNull('gearPhoto.id');
+    }
+    if (gear.id == null) {
+      throw ArgumentError.notNull('gear.id');
+    }
+
+    var $gearPhoto = gearPhoto.copyWith(gearId: gear.id);
+    await session.db.updateRow<_i6.GearPhoto>(
+      $gearPhoto,
+      columns: [_i6.GearPhoto.t.gearId],
       transaction: transaction,
     );
   }
@@ -923,10 +1116,54 @@ class GearDetachRepository {
       transaction: transaction,
     );
   }
+
+  /// Detaches the relation between this [Gear] and the given [GearPhoto]
+  /// by setting the [GearPhoto]'s foreign key `gearId` to `null`.
+  ///
+  /// This removes the association between the two models without deleting
+  /// the related record.
+  Future<void> photos(
+    _i1.Session session,
+    List<_i6.GearPhoto> gearPhoto, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (gearPhoto.any((e) => e.id == null)) {
+      throw ArgumentError.notNull('gearPhoto.id');
+    }
+
+    var $gearPhoto = gearPhoto.map((e) => e.copyWith(gearId: null)).toList();
+    await session.db.update<_i6.GearPhoto>(
+      $gearPhoto,
+      columns: [_i6.GearPhoto.t.gearId],
+      transaction: transaction,
+    );
+  }
 }
 
 class GearDetachRowRepository {
   const GearDetachRowRepository._();
+
+  /// Detaches the relation between this [Gear] and the [GearPhoto] set in `thumbnail`
+  /// by setting the [Gear]'s foreign key `thumbnailId` to `null`.
+  ///
+  /// This removes the association between the two models without deleting
+  /// the related record.
+  Future<void> thumbnail(
+    _i1.Session session,
+    Gear gear, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (gear.id == null) {
+      throw ArgumentError.notNull('gear.id');
+    }
+
+    var $gear = gear.copyWith(thumbnailId: null);
+    await session.db.updateRow<Gear>(
+      $gear,
+      columns: [Gear.t.thumbnailId],
+      transaction: transaction,
+    );
+  }
 
   /// Detaches the relation between this [Gear] and the given [RentalJunction]
   /// by setting the [RentalJunction]'s foreign key `gearId` to `null`.
@@ -990,6 +1227,28 @@ class GearDetachRowRepository {
     await session.db.updateRow<_i5.Comment>(
       $comment,
       columns: [_i5.Comment.t.gearId],
+      transaction: transaction,
+    );
+  }
+
+  /// Detaches the relation between this [Gear] and the given [GearPhoto]
+  /// by setting the [GearPhoto]'s foreign key `gearId` to `null`.
+  ///
+  /// This removes the association between the two models without deleting
+  /// the related record.
+  Future<void> photos(
+    _i1.Session session,
+    _i6.GearPhoto gearPhoto, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (gearPhoto.id == null) {
+      throw ArgumentError.notNull('gearPhoto.id');
+    }
+
+    var $gearPhoto = gearPhoto.copyWith(gearId: null);
+    await session.db.updateRow<_i6.GearPhoto>(
+      $gearPhoto,
+      columns: [_i6.GearPhoto.t.gearId],
       transaction: transaction,
     );
   }

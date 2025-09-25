@@ -14,6 +14,8 @@ fields:
   junctions: List<RentalJunction>?, relation(name=gear_junctions)
   favouritesJunctions: List<FavouritesJunction>?, relation(name=gear_favourites_junctions)
   comments: List<Comment>?, relation(name=gear_comments)
+  photos: List<GearPhoto>?, relation(name=gear_photos)
+  thumbnail: GearPhoto?, relation(optional)
 indexes:
   gear_club_id_idx:
     fields: clubId

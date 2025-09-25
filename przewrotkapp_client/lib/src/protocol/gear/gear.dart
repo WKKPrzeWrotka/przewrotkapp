@@ -14,6 +14,7 @@ import '../gear/gear_type.dart' as _i2;
 import '../rental/rental_junction.dart' as _i3;
 import '../user/favourites.dart' as _i4;
 import '../gear/comment.dart' as _i5;
+import '../gear_photo.dart' as _i6;
 
 abstract class Gear implements _i1.SerializableModel {
   Gear._({
@@ -27,6 +28,9 @@ abstract class Gear implements _i1.SerializableModel {
     this.junctions,
     this.favouritesJunctions,
     this.comments,
+    this.photos,
+    this.thumbnailId,
+    this.thumbnail,
   });
 
   factory Gear({
@@ -40,6 +44,9 @@ abstract class Gear implements _i1.SerializableModel {
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
     List<_i5.Comment>? comments,
+    List<_i6.GearPhoto>? photos,
+    int? thumbnailId,
+    _i6.GearPhoto? thumbnail,
   }) = _GearImpl;
 
   factory Gear.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -63,6 +70,14 @@ abstract class Gear implements _i1.SerializableModel {
       comments: (jsonSerialization['comments'] as List?)
           ?.map((e) => _i5.Comment.fromJson((e as Map<String, dynamic>)))
           .toList(),
+      photos: (jsonSerialization['photos'] as List?)
+          ?.map((e) => _i6.GearPhoto.fromJson((e as Map<String, dynamic>)))
+          .toList(),
+      thumbnailId: jsonSerialization['thumbnailId'] as int?,
+      thumbnail: jsonSerialization['thumbnail'] == null
+          ? null
+          : _i6.GearPhoto.fromJson(
+              (jsonSerialization['thumbnail'] as Map<String, dynamic>)),
     );
   }
 
@@ -89,6 +104,12 @@ abstract class Gear implements _i1.SerializableModel {
 
   List<_i5.Comment>? comments;
 
+  List<_i6.GearPhoto>? photos;
+
+  int? thumbnailId;
+
+  _i6.GearPhoto? thumbnail;
+
   /// Returns a shallow copy of this [Gear]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
@@ -103,6 +124,9 @@ abstract class Gear implements _i1.SerializableModel {
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
     List<_i5.Comment>? comments,
+    List<_i6.GearPhoto>? photos,
+    int? thumbnailId,
+    _i6.GearPhoto? thumbnail,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -122,6 +146,10 @@ abstract class Gear implements _i1.SerializableModel {
             favouritesJunctions?.toJson(valueToJson: (v) => v.toJson()),
       if (comments != null)
         'comments': comments?.toJson(valueToJson: (v) => v.toJson()),
+      if (photos != null)
+        'photos': photos?.toJson(valueToJson: (v) => v.toJson()),
+      if (thumbnailId != null) 'thumbnailId': thumbnailId,
+      if (thumbnail != null) 'thumbnail': thumbnail?.toJson(),
     };
   }
 
@@ -145,6 +173,9 @@ class _GearImpl extends Gear {
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
     List<_i5.Comment>? comments,
+    List<_i6.GearPhoto>? photos,
+    int? thumbnailId,
+    _i6.GearPhoto? thumbnail,
   }) : super._(
           id: id,
           clubId: clubId,
@@ -156,6 +187,9 @@ class _GearImpl extends Gear {
           junctions: junctions,
           favouritesJunctions: favouritesJunctions,
           comments: comments,
+          photos: photos,
+          thumbnailId: thumbnailId,
+          thumbnail: thumbnail,
         );
 
   /// Returns a shallow copy of this [Gear]
@@ -173,6 +207,9 @@ class _GearImpl extends Gear {
     Object? junctions = _Undefined,
     Object? favouritesJunctions = _Undefined,
     Object? comments = _Undefined,
+    Object? photos = _Undefined,
+    Object? thumbnailId = _Undefined,
+    Object? thumbnail = _Undefined,
   }) {
     return Gear(
       id: id is int? ? id : this.id,
@@ -193,6 +230,12 @@ class _GearImpl extends Gear {
       comments: comments is List<_i5.Comment>?
           ? comments
           : this.comments?.map((e0) => e0.copyWith()).toList(),
+      photos: photos is List<_i6.GearPhoto>?
+          ? photos
+          : this.photos?.map((e0) => e0.copyWith()).toList(),
+      thumbnailId: thumbnailId is int? ? thumbnailId : this.thumbnailId,
+      thumbnail:
+          thumbnail is _i6.GearPhoto? ? thumbnail : this.thumbnail?.copyWith(),
     );
   }
 }
