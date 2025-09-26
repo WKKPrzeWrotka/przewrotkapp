@@ -14,7 +14,9 @@ import 'ui/pages/sign_in/sign_in_page.dart';
 import 'ui/pages/user/user_page.dart';
 
 void initRouter() {
-  GoRouter.optionURLReflectsImperativeAPIs = true;
+  // Yeah this broke some stuff
+  // May think about it in future
+  // GoRouter.optionURLReflectsImperativeAPIs = true;
 }
 
 final router = GoRouter(
