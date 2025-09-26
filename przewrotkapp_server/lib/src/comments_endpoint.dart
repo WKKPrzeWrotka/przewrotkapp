@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:przewrotkapp_server/src/utils.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
 
@@ -23,10 +24,6 @@ class CommentsEndpoint extends Endpoint {
   Stream<List<Comment>> watchComments(
     Session session, {
     bool resolved = false,
-  }) async* {
-    yield await getComments(session, resolved: resolved);
-    await for (final _ in _commentsUpdateCtrl.stream) {
-      yield await getComments(session, resolved: resolved);
-    }
-  }
+  }) =>
+      watchX(() => getComments(session, resolved: resolved), _commentsUpdateCtrl.stream);
 }

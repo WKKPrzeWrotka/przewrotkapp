@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
+import 'package:przewrotkapp_server/src/utils.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
 
@@ -28,11 +29,8 @@ class UserEndpoint extends Endpoint {
   Stream<ExtraUserInfo> watchExtraUserInfo(Session session,
       [int? userId]) async* {
     final id = userId ?? (await session.authenticated)!.userId;
-    yield await getExtraUserInfo(session, userId);
-    await for (final updatedId in _userUpdateCtrl.stream) {
-      if (updatedId != id) continue;
-      yield await getExtraUserInfo(session, userId);
-    }
+    yield* watchX(() => getExtraUserInfo(session, id),
+        _userUpdateCtrl.stream.where((e) => e == id));
   }
 
   Future<void> updateGearFavourite(

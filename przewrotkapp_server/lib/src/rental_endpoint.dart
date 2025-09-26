@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
+import 'package:przewrotkapp_server/src/utils.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
 
@@ -34,12 +35,8 @@ class RentalEndpoint extends Endpoint {
   Stream<List<Rental>> watchRentals(
     Session session, {
     bool past = false,
-  }) async* {
-    yield await getRentals(session, past: past);
-    await for (final _ in _rentalsUpdateCtrl.stream) {
-      yield await getRentals(session, past: past);
-    }
-  }
+  }) =>
+      watchX(() => getRentals(session, past: past), _rentalsUpdateCtrl.stream);
 
   Future<void> rentGear(
       Session session, List<Gear> gear, DateTime from, DateTime to) async {
