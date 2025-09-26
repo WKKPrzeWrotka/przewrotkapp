@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
+import '../../../data_types.dart';
+import '../../common/rental_listing.dart';
 import '../../common/utils.dart';
 import 'social_links.dart';
 
@@ -21,6 +23,7 @@ class _UserPageState extends State<UserPage> {
     final t = Theme.of(context);
     final tt = t.textTheme;
     final sm = context.watch<SessionManager>();
+    final rentals = context.watch<FutureRentals?>();
     final isYou = sm.signedInUser?.id == widget.userId;
     return StreamBuilder(
       stream: context.read<Client>().user.watchExtraUserInfo(widget.userId),
@@ -75,6 +78,15 @@ class _UserPageState extends State<UserPage> {
               Divider(height: 32),
               if (extraUser != null) SocialLinks(extraUser: extraUser),
               Divider(height: 32),
+              if (rentals?.isNotEmpty ?? false)
+                Text("Najbliższe wypożyczenia:", style: tt.headlineMedium),
+              if (rentals != null)
+                for (final rental in rentals.where(
+                  (r) => r.userInfoId == extraUser?.userInfoId,
+                ))
+                  RentalListing(rental: rental)
+              else
+                Text("🟠 Ładowanie wypożyczeń..."),
             ],
           ),
         );
