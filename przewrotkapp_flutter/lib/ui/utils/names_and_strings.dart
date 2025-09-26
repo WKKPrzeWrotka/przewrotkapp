@@ -31,6 +31,81 @@ extension GearTypeNamesAndStuff on GearType {
   String toDisplayString() => emoji + humanName;
 }
 
+extension ClothingTypeNamesAndStuff on ClothingType {
+  String get humanName => switch (this) {
+    ClothingType.jacket => 'Kurtka',
+    ClothingType.neopreneFoam => 'Pianka',
+  };
+}
+
+extension KayakTypeNamesAndStuff on KayakType {
+  String get humanName => switch (this) {
+    KayakType.creek => 'Creek',
+    KayakType.riverRunner => 'RiverRunner',
+    KayakType.halfSlice => 'Half-slice',
+    KayakType.fullSlice => 'Full-slice',
+    KayakType.playboat => 'Playboat',
+    KayakType.zwalkowy => 'Zwałkowy',
+    KayakType.dwuOsobowy => 'Dwuosobowy',
+    KayakType.kanadyjka => 'Kanadyjka',
+  };
+}
+
+extension PaddleTypeNamesAndStuff on PaddleType {
+  String get humanName => switch (this) {
+    PaddleType.gorskie => 'Górskie',
+    PaddleType.nizinne => 'Nizinne',
+    PaddleType.zwalkowe => 'Zwałkowe',
+    PaddleType.pagaj => 'Pagaj',
+  };
+}
+
+extension PfdTypeNamesAndStuff on PfdType {
+  String get humanName => switch (this) {
+    PfdType.gorska => 'Górska',
+    PfdType.freestyle => 'Freestyle',
+    PfdType.nizinna => 'Nizinna',
+  };
+}
+
+extension GenericGearSizeNamesAndStuff on GenericGearSize {
+  String get humanName =>
+      name.replaceAll('kids', 'Dziecięce ').replaceAll('Or', '/').toUpperCase();
+}
+
+extension SpraydeckDeckSizeNamesAndStuff on SpraydeckDeckSize {
+  String get humanName => switch (this) {
+    SpraydeckDeckSize.huge => 'Huge deck',
+    SpraydeckDeckSize.big => 'Big deck',
+    SpraydeckDeckSize.small => 'Small deck',
+  };
+}
+
+extension GearExtraHumanInfo on GearExtra {
+  String? get extraHumanInfo => switch (this) {
+    GearBelt belt => "${belt.length}m",
+    GearClothing clothing =>
+      "${clothing.type.humanName}${clothing.typeDescription != null ? ", ${clothing.typeDescription}" : ""}",
+    GearFloatbag floatbag =>
+      floatbag.volume != null ? "${floatbag.volume}L" : null,
+    GearHelmet helmet => helmet.size.humanName,
+    GearKayak kayak =>
+      '${kayak.type.humanName}${switch ((kayak.minWeight, kayak.maxWeight)) {
+        (int min, int max) => ', $min~$max kg',
+        (int min, int? _) => ', Od $min kg w góre',
+        (int? _, int max) => ', Do $max kg',
+        (_, _) => '',
+      }}',
+    GearPaddle paddle =>
+      '${paddle.length.toString().replaceFirst(".0", "")}cm, ${paddle.rotation < 0 ? 'regulowane do ${-paddle.rotation}' : '${paddle.rotation}'}°, ${paddle.type.humanName}',
+    GearPfd pfd => "${pfd.type.humanName}, ${pfd.size.humanName}",
+    GearSpraydeck spraydeck =>
+      "${spraydeck.deckSize.humanName}, pas ${spraydeck.waistSize.humanName}",
+    GearThrowbag throwbag => "${throwbag.length}m",
+    _ => null,
+  };
+}
+
 extension UserInfoNaming on UserInfo {
   String get name =>
       userName ?? fullName?.split(' ').firstOrNull ?? '-nieznany-';

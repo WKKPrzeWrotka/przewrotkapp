@@ -24,6 +24,7 @@ class GearListing extends StatelessWidget {
     final isFavourite =
         context.watch<UserFavourites?>()?.gearIds.contains(gearPair.gear.id) ??
         false;
+    final extraStr = gearPair.gearExtra.extraHumanInfo;
     return Card(
       color: color,
       child: ListTile(
@@ -36,23 +37,7 @@ class GearListing extends StatelessWidget {
           ),
         ),
         title: Text(gearPair.gear.displayName),
-        subtitle: Text(switch (gearPair.gearExtra) {
-          GearBelt belt => "${belt.length}m",
-          GearClothing clothing =>
-            "${clothing.type}${clothing.typeDescription != null ? ", ${clothing.typeDescription}" : ""}",
-          GearFloatbag floatbag =>
-            floatbag.volume != null ? "${floatbag.volume}L" : "",
-          GearHelmet helmet => "${helmet.size}",
-          GearKayak kayak =>
-            '${kayak.type}, ${kayak.minWeight}-${kayak.maxWeight}kg',
-          GearPaddle paddle =>
-            '${paddle.length.toString().replaceFirst(".0", "")}cm, ${paddle.rotation}°, ${paddle.type}',
-          GearPfd pfd => "${pfd.type}, ${pfd.size}",
-          GearSpraydeck spraydeck =>
-            "${spraydeck.deckSize}, ${spraydeck.waistSize}",
-          GearThrowbag throwbag => "${throwbag.length}m",
-          _ => 'to jest dupa',
-        }),
+        subtitle: extraStr != null ? Text(extraStr) : null,
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
