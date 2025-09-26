@@ -21,7 +21,7 @@ class _FavouriteGearCardState extends State<FavouriteGearCard> {
     final favGear = context.watch<UserFavourites?>()?.gearPairs;
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(4.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

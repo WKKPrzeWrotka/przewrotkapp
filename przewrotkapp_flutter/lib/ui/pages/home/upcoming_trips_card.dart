@@ -21,7 +21,7 @@ class _UpcomingTripsCardState extends State<UpcomingTripsCard> {
     final rentGroups = context.watch<FutureRentalGroups?>();
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(6.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 2,

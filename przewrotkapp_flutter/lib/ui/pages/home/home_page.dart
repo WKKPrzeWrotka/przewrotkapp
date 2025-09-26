@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: ListView(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(6),
         children: [HoursCard(), UpcomingTripsCard(), FavouriteGearCard()],
       ),
     );

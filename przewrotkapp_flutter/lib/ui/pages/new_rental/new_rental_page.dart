@@ -87,7 +87,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
     return Scaffold(
       appBar: AppBar(title: Text("Wypożycz sprzęcior")),
       body: ListView(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(8),
         children: [
           Text('Wybierz termin', style: tt.headlineMedium),
           CalendarDatePicker2(
