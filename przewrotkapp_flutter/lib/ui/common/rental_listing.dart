@@ -5,7 +5,7 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 import '../../data_types.dart';
-import 'gear_listing.dart';
+import 'gear_chip.dart';
 import 'utils.dart';
 
 class RentalListing extends StatelessWidget {
@@ -19,6 +19,7 @@ class RentalListing extends StatelessWidget {
     // THIS IS UGLY AS FUCk
     return Card(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
             onTap: () => context.push('/user/${rental.userInfoId}'),
@@ -34,9 +35,18 @@ class RentalListing extends StatelessWidget {
               ],
             ),
           ),
-          if (allGear != null)
-            for (final gear in rental.gearPairs(allGear))
-              GearListing(gearPair: gear),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: [
+                if (allGear != null)
+                  for (final gear in rental.gearPairs(allGear))
+                    GearChip(gearPair: gear),
+              ],
+            ),
+          ),
         ],
       ),
     );

@@ -92,6 +92,14 @@ extension HumanGear on Gear {
   ].join(" ");
 }
 
+extension HandyGear on Gear {
+  Uri? get thumbnailOrFist => thumbnailUrl ?? photoUrls?.firstOrNull;
+}
+
+extension SlyUri on Uri {
+  String? get blurhash => queryParameters['blurhash'];
+}
+
 extension HandyRental on Rental {
   List<Gear> get gear => junctions!.map((j) => j.gear!).toList();
 
