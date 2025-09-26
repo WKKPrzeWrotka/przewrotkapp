@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:octo_image/octo_image.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../data_types.dart';
-import 'octo_blurhash.dart';
+import 'gear_thumbnail.dart';
 import 'utils.dart';
 
 class GearListing extends StatelessWidget {
@@ -25,38 +24,16 @@ class GearListing extends StatelessWidget {
     final isFavourite =
         context.watch<UserFavourites?>()?.gearIds.contains(gearPair.gear.id) ??
         false;
-    final thumbnailUrl =
-        gearPair.gear.thumbnailUrl ?? gearPair.gear.photoUrls?.first;
-    final blurhash = thumbnailUrl?.queryParameters['blurhash'];
-
     return Card(
       color: color,
       child: ListTile(
         onTap: () => context.push('/gear/${gearPair.gear.clubId}'),
         leading: AspectRatio(
           aspectRatio: 1,
-          child: thumbnailUrl != null
-              ? ClipRRect(
-                  borderRadius: BorderRadiusGeometry.circular(6),
-                  child: OctoImage(
-                    image: NetworkImage(thumbnailUrl.toString()),
-                    fadeInDuration: Duration(milliseconds: 250),
-                    fadeOutDuration: Duration(milliseconds: 250),
-                    placeholderBuilder: blurhash != null
-                        ? blurHashPlaceholderBuilder(
-                            blurhash,
-                            width: int.tryParse(
-                              thumbnailUrl.queryParameters['width'] ?? '',
-                            ),
-                            height: int.tryParse(
-                              thumbnailUrl.queryParameters['height'] ?? '',
-                            ),
-                          )
-                        : null,
-                  ),
-                )
-              // TODO: Type-specific emoji here
-              : Icon(Icons.kayaking),
+          child: ClipRRect(
+            borderRadius: BorderRadiusGeometry.circular(6),
+            child: GearThumbnail(gearPair: gearPair),
+          ),
         ),
         title: Text(gearPair.gear.displayName()),
         subtitle: Text(switch (gearPair.gearExtra) {
@@ -86,7 +63,6 @@ class GearListing extends StatelessWidget {
             if (trailing != null) trailing!,
           ],
         ),
-        // tileColor: Colors.red,
       ),
     );
   }

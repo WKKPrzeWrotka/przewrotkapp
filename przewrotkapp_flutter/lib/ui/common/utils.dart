@@ -98,6 +98,10 @@ extension HandyGear on Gear {
 
 extension SlyUri on Uri {
   String? get blurhash => queryParameters['blurhash'];
+
+  int? get width => int.tryParse(queryParameters['width'] ?? '');
+
+  int? get height => int.tryParse(queryParameters['height'] ?? '');
 }
 
 extension HandyRental on Rental {

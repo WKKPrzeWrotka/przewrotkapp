@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:octo_image/octo_image.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
-import 'octo_blurhash.dart';
-import 'utils.dart';
+import 'gear_thumbnail.dart';
 
 class GearChip extends StatelessWidget {
   final GearPair gearPair;
@@ -20,17 +18,7 @@ class GearChip extends StatelessWidget {
       avatar: Container(
         decoration: BoxDecoration(shape: BoxShape.circle),
         clipBehavior: Clip.antiAlias,
-        child: g.thumbnailOrFist != null
-            ? OctoImage(
-                width: 64,
-                height: 64,
-                fit: BoxFit.cover,
-                image: NetworkImage(g.thumbnailOrFist.toString()),
-                placeholderBuilder: g.thumbnailUrl?.blurhash != null
-                    ? blurHashPlaceholderBuilder(g.thumbnailUrl!.blurhash!)
-                    : null,
-              )
-            : Text(gearTypeToEmoji(g.type)),
+        child: GearThumbnail(gearPair: gearPair, width: 64, height: 64, fit: BoxFit.cover,),
       ),
       label: Text(gearPair.gear.clubId),
     );
