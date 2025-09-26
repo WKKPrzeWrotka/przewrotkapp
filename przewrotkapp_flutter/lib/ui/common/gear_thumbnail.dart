@@ -3,8 +3,8 @@ import 'package:octo_image/octo_image.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../utils/names_and_strings.dart';
+import '../utils/ui_ux_stuff.dart';
 import 'octo_blurhash.dart';
-import 'utils.dart';
 
 class GearThumbnail extends StatelessWidget {
   final GearPair gearPair;

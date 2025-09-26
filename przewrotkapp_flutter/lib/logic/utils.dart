@@ -1,12 +1,12 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:kalender/kalender.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
-extension Defaults on DateTime {
+extension DateTimeRentalDefaults on DateTime {
   DateTime withDefaultRentalFromTime() => copyWith(
     hour: 4,
     minute: 0,
@@ -26,7 +26,7 @@ extension Defaults on DateTime {
   );
 }
 
-extension Logic on DateTimeRange {
+extension DateTimeRangeRentalLogic on DateTimeRange {
   DateTimeRange withDefaultRentalTimes() => DateTimeRange(
     start: start.withDefaultRentalFromTime(),
     end: end.withDefaultRentalToTime(),
@@ -37,28 +37,25 @@ extension Logic on DateTimeRange {
       toUtc().end.isSameDay(other.toUtc().end);
 }
 
-extension Handy<E> on List<E> {
-  List<E> limit(int size) => sublist(0, min(length, size));
-}
+extension DateTimeRangeParsing on DateTimeRange {
+  static final dateFormat = DateFormat("y-MM-dd");
+  static const dateSeparator = "~";
 
-extension HandyGear on Gear {
-  Uri? get thumbnailOrFist => thumbnailUrl ?? photoUrls?.firstOrNull;
-}
+  String dateRangeString() =>
+      '${dateFormat.format(start)}'
+      '$dateSeparator'
+      '${dateFormat.format(end)}';
 
-extension SlyUri on Uri {
-  String? get blurhash => queryParameters['blurhash'];
-
-  int? get width => int.tryParse(queryParameters['width'] ?? '');
-
-  int? get height => int.tryParse(queryParameters['height'] ?? '');
-}
-
-extension HandyRental on Rental {
-  List<Gear> get gear => junctions!.map((j) => j.gear!).toList();
-
-  List<GearPair> gearPairs(List<GearPair> allGearSource) => allGearSource
-      .where((p) => gear.map((g) => g.id).contains(p.gear.id))
-      .toList();
+  static DateTimeRange parseDateRangeString(String string) {
+    final list = string
+        .split(dateSeparator)
+        .map((e) => dateFormat.parse(e, true))
+        .toList();
+    return DateTimeRange(
+      start: list[0].withDefaultRentalFromTime(),
+      end: list[1].withDefaultRentalToTime(),
+    );
+  }
 }
 
 extension StreamGodDamnit<T> on ValueListenable<T> {
@@ -80,4 +77,12 @@ extension StreamGodDamnit<T> on ValueListenable<T> {
     );
     return controller.stream;
   }
+}
+
+extension RentalHandy on Rental {
+  List<Gear> get gear => junctions!.map((j) => j.gear!).toList();
+
+  List<GearPair> gearPairs(List<GearPair> allGearSource) => allGearSource
+      .where((p) => gear.map((g) => g.id).contains(p.gear.id))
+      .toList();
 }

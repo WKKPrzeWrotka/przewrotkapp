@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
-
-import 'ui/common/utils.dart';
 
 // WARNING: Different typedefs are recognized as equal if their actual types
 // are equal!! That means, if you will make a provider here for
@@ -46,25 +43,4 @@ class RentalGroup {
   final List<Rental> rentals;
 
   const RentalGroup({this.name, required this.range, required this.rentals});
-}
-
-extension DateTimeRangeParsing on DateTimeRange {
-  static final dateFormat = DateFormat("y-MM-dd");
-  static const dateSeparator = "~";
-
-  String dateRangeString() =>
-      '${dateFormat.format(start)}'
-      '$dateSeparator'
-      '${dateFormat.format(end)}';
-
-  static DateTimeRange parseDateRangeString(String string) {
-    final list = string
-        .split(dateSeparator)
-        .map((e) => dateFormat.parse(e, true))
-        .toList();
-    return DateTimeRange(
-      start: list[0].withDefaultRentalFromTime(),
-      end: list[1].withDefaultRentalToTime(),
-    );
-  }
 }

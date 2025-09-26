@@ -11,9 +11,9 @@ import 'package:vibration/vibration.dart';
 
 import '../../../data_types.dart';
 import '../../../gear_search.dart';
+import '../../../logic/utils.dart';
 import '../../common/gear_listing.dart';
 import '../../common/gear_search_filters.dart';
-import '../../common/utils.dart';
 
 class NewRentalPage extends StatefulWidget {
   final DateTimeRange? initialRange;

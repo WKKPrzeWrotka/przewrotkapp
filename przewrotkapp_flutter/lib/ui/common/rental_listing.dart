@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../data_types.dart';
+import '../../logic/utils.dart';
 import '../utils/names_and_strings.dart';
 import 'gear_chip.dart';
 import 'user_chip.dart';
-import 'utils.dart';
 
 class RentalListing extends StatelessWidget {
   final Rental rental;

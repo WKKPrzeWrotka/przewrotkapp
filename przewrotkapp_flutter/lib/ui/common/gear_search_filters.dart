@@ -3,8 +3,8 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../data_types.dart';
+import '../../logic/utils.dart';
 import '../utils/names_and_strings.dart';
-import 'utils.dart';
 
 class GearSearchFilters extends StatefulWidget {
   final GearSearchParams initialParams;

@@ -1,10 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../data_types.dart';
 import '../../common/rental_group_listing.dart';
-import '../../common/utils.dart';
 
 class UpcomingTripsCard extends StatefulWidget {
   const UpcomingTripsCard({super.key});
@@ -28,7 +29,11 @@ class _UpcomingTripsCardState extends State<UpcomingTripsCard> {
           children: [
             Text("Najbliższe wyjazdy:", style: tt.headlineSmall),
             if (rentGroups != null)
-              for (final rental in rentGroups.limit(10))
+              for (final rental in rentGroups.sublist(
+                0,
+                // TODO: Replace that with ListView
+                min(rentGroups.length, 10),
+              ))
                 RentalGroupListing(rentalGroup: rental),
             if (rentGroups == null) Text("Ładowanie..."),
             FilledButton(
