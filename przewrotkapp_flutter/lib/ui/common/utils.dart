@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kalender/kalender.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+import 'package:serverpod_auth_client/serverpod_auth_client.dart';
 
 String gearTypeToEmoji(GearType type) => switch (type) {
   GearType.belt => '🪢',
@@ -131,4 +132,9 @@ extension StreamGodDamnit<T> on ValueListenable<T> {
     );
     return controller.stream;
   }
+}
+
+extension Naming on UserInfo {
+  String get name =>
+      userName ?? fullName?.split(' ').firstOrNull ?? '-nieznany-';
 }
