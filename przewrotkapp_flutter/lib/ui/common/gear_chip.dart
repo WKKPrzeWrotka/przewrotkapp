@@ -18,7 +18,12 @@ class GearChip extends StatelessWidget {
       avatar: Container(
         decoration: BoxDecoration(shape: BoxShape.circle),
         clipBehavior: Clip.antiAlias,
-        child: GearThumbnail(gearPair: gearPair, width: 64, height: 64, fit: BoxFit.cover,),
+        child: GearThumbnail(
+          gearPair: gearPair,
+          width: 64,
+          height: 64,
+          fit: BoxFit.cover,
+        ),
       ),
       label: Text(gearPair.gear.clubId),
     );

@@ -9,7 +9,7 @@ import '../../common/comment_listing.dart';
 import '../../common/copyable_text.dart';
 import '../../common/octo_blurhash.dart';
 import '../../common/rental_listing.dart';
-import '../../common/utils.dart';
+import '../../utils/names_and_strings.dart';
 
 class GearDetailsPage extends StatelessWidget {
   final String clubId;
@@ -117,7 +117,7 @@ class GearDetailsPage extends StatelessWidget {
                   ),
                 ListTile(
                   title: CopyableText(
-                    child: Text(gear.displayName(), style: tt.headlineMedium),
+                    child: Text(gear.displayName, style: tt.headlineMedium),
                   ),
                   trailing: CopyableText(
                     child: Text(gear.clubId, style: tt.bodyLarge),

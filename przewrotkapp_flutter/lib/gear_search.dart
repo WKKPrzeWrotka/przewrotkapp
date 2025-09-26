@@ -1,7 +1,7 @@
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import 'data_types.dart';
-import 'ui/common/utils.dart';
+import 'ui/utils/names_and_strings.dart';
 
 List<GearPair> searchGear(List<GearPair> gear, GearSearchParams params) {
   var text = params.text;
@@ -14,7 +14,7 @@ List<GearPair> searchGear(List<GearPair> gear, GearSearchParams params) {
         // Type check
         if (!types!.contains(gear.type)) return false;
         // Search text check
-        if (text!.isNotEmpty && !gear.fullName().toLowerCase().contains(text)) {
+        if (text!.isNotEmpty && !gear.fullName.toLowerCase().contains(text)) {
           return false;
         }
         // Well, you passed

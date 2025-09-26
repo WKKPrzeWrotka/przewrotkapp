@@ -6,6 +6,7 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import '../../../data_types.dart';
 import '../../common/rental_listing.dart';
 import '../../common/utils.dart';
+import '../../utils/names_and_strings.dart';
 
 class RentalGroupDetailsPage extends StatelessWidget {
   final DateTimeRange range;

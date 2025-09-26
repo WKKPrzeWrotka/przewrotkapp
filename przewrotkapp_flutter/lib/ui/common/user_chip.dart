@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:serverpod_auth_client/module.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
-import 'utils.dart';
+import '../utils/names_and_strings.dart';
 
 class UserChip extends StatelessWidget {
   final UserInfo userInfo;

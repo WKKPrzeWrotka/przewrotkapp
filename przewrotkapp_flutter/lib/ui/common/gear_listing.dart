@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../data_types.dart';
+import '../utils/names_and_strings.dart';
 import 'gear_thumbnail.dart';
-import 'utils.dart';
 
 class GearListing extends StatelessWidget {
   final GearPair gearPair;
@@ -35,7 +35,7 @@ class GearListing extends StatelessWidget {
             child: GearThumbnail(gearPair: gearPair),
           ),
         ),
-        title: Text(gearPair.gear.displayName()),
+        title: Text(gearPair.gear.displayName),
         subtitle: Text(switch (gearPair.gearExtra) {
           GearBelt belt => "${belt.length}m",
           GearClothing clothing =>

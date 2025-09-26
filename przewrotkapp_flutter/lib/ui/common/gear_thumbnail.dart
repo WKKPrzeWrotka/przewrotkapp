@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
+import '../utils/names_and_strings.dart';
 import 'octo_blurhash.dart';
 import 'utils.dart';
 
@@ -47,7 +48,7 @@ class GearThumbnail extends StatelessWidget {
               child: FittedBox(
                 fit: BoxFit.contain,
                 child: Text(
-                  gearTypeToEmoji(g.type),
+                  g.type.emoji,
                   style: tt.displayLarge!.copyWith(fontSize: 128),
                 ),
               ),
