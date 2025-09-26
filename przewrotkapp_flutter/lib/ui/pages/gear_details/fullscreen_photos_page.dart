@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data_types.dart';
+import '../../../logic/data_types.dart';
 
 class FullscreenPhotosPage extends StatefulWidget {
   final String clubId;

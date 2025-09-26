@@ -4,7 +4,7 @@ import 'package:octo_image/octo_image.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
-import '../../../data_types.dart';
+import '../../../logic/data_types.dart';
 import '../../common/comment_listing.dart';
 import '../../common/copyable_text.dart';
 import '../../common/octo_blurhash.dart';

@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
-import '../../../data_types.dart';
+import '../../../logic/data_types.dart';
 import 'favourite_gear_card.dart';
 import 'hours_card.dart';
 import 'upcoming_trips_card.dart';

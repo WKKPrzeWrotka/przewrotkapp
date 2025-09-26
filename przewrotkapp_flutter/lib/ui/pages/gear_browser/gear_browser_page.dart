@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data_types.dart';
-import '../../../gear_search.dart';
+import '../../../logic/data_types.dart';
+import '../../../logic/gear_search.dart';
 import '../../common/gear_listing.dart';
 import '../../common/gear_search_filters.dart';
 

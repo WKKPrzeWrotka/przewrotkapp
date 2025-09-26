@@ -10,7 +10,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
-import 'data_types.dart';
+import 'logic/data_types.dart';
 import 'logic/utils.dart';
 
 late String serverUrl;

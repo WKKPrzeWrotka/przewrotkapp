@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../data_types.dart';
+import '../../../logic/data_types.dart';
 import '../../common/rental_group_listing.dart';
 
 class UpcomingTripsCard extends StatefulWidget {

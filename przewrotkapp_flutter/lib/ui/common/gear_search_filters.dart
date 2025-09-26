@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../data_types.dart';
+import '../../logic/data_types.dart';
 import '../../logic/utils.dart';
 import '../utils/names_and_strings.dart';
 

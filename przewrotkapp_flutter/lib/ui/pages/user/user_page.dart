@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
-import '../../../data_types.dart';
+import '../../../logic/data_types.dart';
 import '../../common/rental_listing.dart';
 import '../../utils/names_and_strings.dart';
 import 'social_links.dart';

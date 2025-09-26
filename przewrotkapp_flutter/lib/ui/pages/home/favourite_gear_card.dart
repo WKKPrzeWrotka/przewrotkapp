@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
-import '../../../data_types.dart';
+import '../../../logic/data_types.dart';
 import '../../common/gear_listing.dart';
 
 class FavouriteGearCard extends StatefulWidget {

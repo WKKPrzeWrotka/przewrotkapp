@@ -9,8 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:vibration/vibration.dart';
 
-import '../../../data_types.dart';
-import '../../../gear_search.dart';
+import '../../../logic/data_types.dart';
+import '../../../logic/gear_search.dart';
 import '../../../logic/utils.dart';
 import '../../common/gear_listing.dart';
 import '../../common/gear_search_filters.dart';

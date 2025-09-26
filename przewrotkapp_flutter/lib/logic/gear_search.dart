@@ -1,7 +1,7 @@
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
+import '../ui/utils/names_and_strings.dart';
 import 'data_types.dart';
-import 'ui/utils/names_and_strings.dart';
 
 List<GearPair> searchGear(List<GearPair> gear, GearSearchParams params) {
   var text = params.text;
