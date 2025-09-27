@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:octo_image/octo_image.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../../logic/data_types.dart';
 import '../../common/comment_listing.dart';
 import '../../common/copyable_text.dart';
-import '../../common/octo_blurhash.dart';
 import '../../common/rental_listing.dart';
 import '../../utils/names_and_strings.dart';
+import 'gear_horizontal_photos.dart';
 
 class GearDetailsPage extends StatelessWidget {
   final String clubId;
-  final ScrollController photosCtrl = ScrollController();
 
-  GearDetailsPage({super.key, required this.clubId});
+  const GearDetailsPage({super.key, required this.clubId});
 
   @override
   Widget build(BuildContext context) {
@@ -67,52 +64,7 @@ class GearDetailsPage extends StatelessWidget {
         padding: EdgeInsets.all(8),
         children: [
           if (gear?.photoUrls?.isNotEmpty ?? false)
-            SizedBox(
-              height: 192,
-              child: Scrollbar(
-                controller: photosCtrl,
-                thumbVisibility: true,
-                trackVisibility: true,
-                thickness: 10,
-                child: ListView(
-                  controller: photosCtrl,
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  children: [
-                    for (final uri in gear!.photoUrls!)
-                      Container(
-                        padding: EdgeInsets.all(4),
-                        child: ClipRRect(
-                          borderRadius: BorderRadiusGeometry.circular(8),
-                          // this doesn't actually splash... but okay...
-                          child: InkWell(
-                            onTap: () => context.push(
-                              '/gear/$clubId/photos?initialIndex=${gear.photoUrls!.indexOf(uri)}',
-                            ),
-                            child: OctoImage(
-                              image: NetworkImage(uri.toString()),
-                              fadeInDuration: Duration(milliseconds: 250),
-                              fadeOutDuration: Duration(milliseconds: 250),
-                              placeholderBuilder:
-                                  uri.queryParameters['blurhash'] != null
-                                  ? blurHashPlaceholderBuilder(
-                                      uri.queryParameters['blurhash']!,
-                                      width: int.tryParse(
-                                        uri.queryParameters['width'] ?? '',
-                                      ),
-                                      height: int.tryParse(
-                                        uri.queryParameters['height'] ?? '',
-                                      ),
-                                    )
-                                  : null,
-                            ),
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
+            GearHorizontalPhotos(gearPair: gearPair!),
           if (gear != null)
             ListTile(
               title: CopyableText(
