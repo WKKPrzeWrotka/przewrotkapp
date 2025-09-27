@@ -15,20 +15,34 @@ extension GearTypeNamesAndStuff on GearType {
     GearType.other => '❓',
   };
 
-  String get humanName => switch (this) {
-    GearType.belt => "Pasy transportowe",
-    GearType.clothing => "Ubrania",
-    GearType.floatbag => "Komory",
-    GearType.helmet => "Kaski",
-    GearType.kayak => "Kajaki",
-    GearType.paddle => "Wiosła",
-    GearType.pfd => "Kamizelki",
-    GearType.spraydeck => "Fartuchy",
-    GearType.throwbag => "Rzutki",
-    GearType.other => "Inne",
-  };
+  String humanName({bool plural = true}) => plural
+      ? switch (this) {
+          GearType.belt => "Pasy transportowe",
+          GearType.clothing => "Ubrania",
+          GearType.floatbag => "Komory",
+          GearType.helmet => "Kaski",
+          GearType.kayak => "Kajaki",
+          GearType.paddle => "Wiosła",
+          GearType.pfd => "Kamizelki",
+          GearType.spraydeck => "Fartuchy",
+          GearType.throwbag => "Rzutki",
+          GearType.other => "Inne",
+        }
+      : switch (this) {
+          GearType.belt => "Pas transportowy",
+          GearType.clothing => "Ubranie",
+          GearType.floatbag => "Komora",
+          GearType.helmet => "Kask",
+          GearType.kayak => "Kajak",
+          GearType.paddle => "Wiosło",
+          GearType.pfd => "Kamizelka",
+          GearType.spraydeck => "Fartuch",
+          GearType.throwbag => "Rzutka",
+          GearType.other => "Inne",
+        };
 
-  String toDisplayString() => emoji + humanName;
+  String toDisplayString({bool plural = true}) =>
+      emoji + humanName(plural: plural);
 }
 
 extension ClothingTypeNamesAndStuff on ClothingType {

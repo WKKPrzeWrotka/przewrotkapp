@@ -21,11 +21,12 @@ class GearDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
-    final gear = context
-        .watch<AllGearCache?>()
-        ?.firstWhere((e) => e.gear.clubId == clubId)
-        .gear;
-
+    // WARN: no error handling here if it's not found
+    // todo?
+    final gearPair = context.watch<AllGearCache?>()?.firstWhere(
+      (e) => e.gear.clubId == clubId,
+    );
+    final gear = gearPair?.gear;
     final client = context.read<Client>();
     final isFavourite =
         context.watch<UserFavourites?>()?.gearIds.contains(gear?.id) ?? false;
@@ -37,7 +38,9 @@ class GearDetailsPage extends StatelessWidget {
         : null;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Szczegóły $clubId"),
+        title: Text(
+          "${gear != null ? gear.type.toDisplayString(plural: false) : ''} $clubId",
+        ),
         actions: [
           IconButton(
             onPressed: gear != null
@@ -60,81 +63,77 @@ class GearDetailsPage extends StatelessWidget {
           ),
         ],
       ),
-      body: gear != null
-          ? ListView(
-              padding: EdgeInsets.all(8),
-              children: [
-                if (gear.photoUrls?.isNotEmpty ?? false)
-                  SizedBox(
-                    height: 192,
-                    child: Scrollbar(
-                      controller: photosCtrl,
-                      thumbVisibility: true,
-                      trackVisibility: true,
-                      thickness: 10,
-                      child: ListView(
-                        controller: photosCtrl,
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        children: [
-                          for (final uri in gear.photoUrls!)
-                            Container(
-                              padding: EdgeInsets.all(4),
-                              child: ClipRRect(
-                                borderRadius: BorderRadiusGeometry.circular(8),
-                                // this doesn't actually splash... but okay...
-                                child: InkWell(
-                                  onTap: () => context.push(
-                                    '/gear/$clubId/photos?initialIndex=${gear.photoUrls!.indexOf(uri)}',
-                                  ),
-                                  child: OctoImage(
-                                    image: NetworkImage(uri.toString()),
-                                    fadeInDuration: Duration(milliseconds: 250),
-                                    fadeOutDuration: Duration(
-                                      milliseconds: 250,
-                                    ),
-                                    placeholderBuilder:
-                                        uri.queryParameters['blurhash'] != null
-                                        ? blurHashPlaceholderBuilder(
-                                            uri.queryParameters['blurhash']!,
-                                            width: int.tryParse(
-                                              uri.queryParameters['width'] ??
-                                                  '',
-                                            ),
-                                            height: int.tryParse(
-                                              uri.queryParameters['height'] ??
-                                                  '',
-                                            ),
-                                          )
-                                        : null,
-                                  ),
-                                ),
-                              ),
+      body: ListView(
+        padding: EdgeInsets.all(8),
+        children: [
+          if (gear?.photoUrls?.isNotEmpty ?? false)
+            SizedBox(
+              height: 192,
+              child: Scrollbar(
+                controller: photosCtrl,
+                thumbVisibility: true,
+                trackVisibility: true,
+                thickness: 10,
+                child: ListView(
+                  controller: photosCtrl,
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  children: [
+                    for (final uri in gear!.photoUrls!)
+                      Container(
+                        padding: EdgeInsets.all(4),
+                        child: ClipRRect(
+                          borderRadius: BorderRadiusGeometry.circular(8),
+                          // this doesn't actually splash... but okay...
+                          child: InkWell(
+                            onTap: () => context.push(
+                              '/gear/$clubId/photos?initialIndex=${gear.photoUrls!.indexOf(uri)}',
                             ),
-                        ],
+                            child: OctoImage(
+                              image: NetworkImage(uri.toString()),
+                              fadeInDuration: Duration(milliseconds: 250),
+                              fadeOutDuration: Duration(milliseconds: 250),
+                              placeholderBuilder:
+                                  uri.queryParameters['blurhash'] != null
+                                  ? blurHashPlaceholderBuilder(
+                                      uri.queryParameters['blurhash']!,
+                                      width: int.tryParse(
+                                        uri.queryParameters['width'] ?? '',
+                                      ),
+                                      height: int.tryParse(
+                                        uri.queryParameters['height'] ?? '',
+                                      ),
+                                    )
+                                  : null,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ListTile(
-                  title: CopyableText(
-                    child: Text(gear.displayName, style: tt.headlineMedium),
-                  ),
-                  trailing: CopyableText(
-                    child: Text(gear.clubId, style: tt.bodyLarge),
-                  ),
+                  ],
                 ),
-                if (thisRentals?.isNotEmpty ?? false)
-                  Text("Nadchodządce wypożyczenia", style: tt.headlineMedium),
-                for (final rental in thisRentals ?? <Rental>[])
-                  RentalListing(rental: rental),
-                if (gear.comments?.isNotEmpty ?? false)
-                  Text("Komentarze", style: tt.headlineMedium),
-                for (final comment in gear.comments ?? <Comment>[])
-                  CommentListing(comment: comment),
-                // TODO: Adding comments
-              ],
-            )
-          : Placeholder(),
+              ),
+            ),
+          if (gear != null)
+            ListTile(
+              title: CopyableText(
+                child: Text(gear.displayName, style: tt.headlineMedium),
+              ),
+              trailing: CopyableText(
+                child: Text(gear.clubId, style: tt.bodyLarge),
+              ),
+            ),
+          Divider(),
+          if (thisRentals?.isNotEmpty ?? false)
+            Text("Nadchodządce wypożyczenia", style: tt.headlineMedium),
+          for (final rental in thisRentals ?? <Rental>[])
+            RentalListing(rental: rental),
+          if (gear?.comments?.isNotEmpty ?? false)
+            Text("Komentarze", style: tt.headlineMedium),
+          for (final comment in gear?.comments ?? <Comment>[])
+            CommentListing(comment: comment),
+          // // TODO: Adding comments
+        ],
+      ),
     );
   }
 }
