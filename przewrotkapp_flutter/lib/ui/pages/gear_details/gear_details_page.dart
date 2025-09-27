@@ -44,16 +44,18 @@ class GearDetailsPage extends StatelessWidget {
                 ? () async {
                     final newState = !isFavourite;
                     await client.user.updateGearFavourite(gear, newState);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        duration: Duration(seconds: 1),
-                        content: Text(
-                          newState
-                              ? "Dodano do ulubionych!"
-                              : "Usunięto z ulubionych :(",
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          duration: Duration(seconds: 1),
+                          content: Text(
+                            newState
+                                ? "Dodano do ulubionych!"
+                                : "Usunięto z ulubionych :(",
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    }
                   }
                 : null,
             icon: Icon(isFavourite ? Icons.favorite : Icons.favorite_outline),
