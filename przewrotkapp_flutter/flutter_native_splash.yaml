@@ -1,5 +1,0 @@
-# WARNING: Launch this with care because I had to do some manual <progress> stuff in index.html
-flutter_native_splash:
-  color: "#ffffff"
-  image: "assets/logo-black-transparent.png"
-  web_image_mode: contain
