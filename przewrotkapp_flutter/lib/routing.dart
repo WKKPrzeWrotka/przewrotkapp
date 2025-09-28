@@ -73,7 +73,7 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/signin',
-      redirect: (context, __) {
+      redirect: (context, _) {
         if (context.read<SessionManager>().isSignedIn) {
           return '/';
         } else {

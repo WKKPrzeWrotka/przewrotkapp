@@ -94,7 +94,7 @@ class EverythingProvider extends StatelessWidget {
           lazy: false,
           create: (_) => null,
           update:
-              (_, AllGearCache? allGearCache, ExtraUserInfo? extraUser, __) {
+              (_, AllGearCache? allGearCache, ExtraUserInfo? extraUser, _) {
                 if (allGearCache == null ||
                     extraUser?.favouritesJunctions == null) {
                   return null;
@@ -115,7 +115,7 @@ class EverythingProvider extends StatelessWidget {
         >(
           lazy: false,
           create: (_) => null,
-          update: (_, rentals, dcEvents, __) {
+          update: (_, rentals, dcEvents, _) {
             // should i await dc too?
             if (rentals == null || dcEvents == null) return null;
             final dcEventsCopy = dcEvents.toList();

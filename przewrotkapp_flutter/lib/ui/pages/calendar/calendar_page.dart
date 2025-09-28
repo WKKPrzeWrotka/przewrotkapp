@@ -69,9 +69,7 @@ class _CalendarPageState extends State<CalendarPage> {
           ),
           callbacks: CalendarCallbacks(
             onPageChanged: (_) => setState(() {}),
-            onEventTapped: (event, _) {
-              print('huurra! $event');
-            },
+            onEventTapped: (event, _) {},
           ),
         ),
         components: CalendarComponents(

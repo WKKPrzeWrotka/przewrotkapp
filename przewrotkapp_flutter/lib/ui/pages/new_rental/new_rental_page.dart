@@ -236,13 +236,15 @@ class _NewRentalPageState extends State<NewRentalPage> {
                   rentingState = _RentingState.success;
                   setState(() {});
                   await Future.delayed(Duration(milliseconds: 500));
-                  context.pop();
+                  if (context.mounted) context.pop();
                 } catch (e) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text("Error! $e")));
-                  rentingState = _RentingState.selecting;
-                  setState(() {});
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text("Error! $e")));
+                    rentingState = _RentingState.selecting;
+                    setState(() {});
+                  }
                 }
               },
               child: switch (rentingState) {
