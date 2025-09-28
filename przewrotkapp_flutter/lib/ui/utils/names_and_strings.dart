@@ -96,27 +96,110 @@ extension SpraydeckDeckSizeNamesAndStuff on SpraydeckDeckSize {
 }
 
 extension GearExtraHumanInfo on GearExtra {
-  String? get extraHumanInfo => switch (this) {
-    GearBelt belt => "${belt.length}m",
-    GearClothing clothing =>
-      "${clothing.type.humanName}${clothing.typeDescription != null ? ", ${clothing.typeDescription}" : ""}",
-    GearFloatbag floatbag =>
-      floatbag.volume != null ? "${floatbag.volume}L" : null,
-    GearHelmet helmet => helmet.size.humanName,
-    GearKayak kayak =>
-      '${kayak.type.humanName}${switch ((kayak.minWeight, kayak.maxWeight)) {
-        (int min, int max) => ', $min~$max kg',
-        (int min, int? _) => ', Od $min kg w góre',
-        (int? _, int max) => ', Do $max kg',
-        (_, _) => '',
-      }}',
-    GearPaddle paddle =>
-      '${paddle.length.toString().replaceFirst(".0", "")}cm, ${paddle.rotation < 0 ? 'regulowane do ${-paddle.rotation}' : '${paddle.rotation}'}°, ${paddle.type.humanName}',
-    GearPfd pfd => "${pfd.type.humanName}, ${pfd.size.humanName}",
-    GearSpraydeck spraydeck =>
-      "${spraydeck.deckSize.humanName}, pas ${spraydeck.waistSize.humanName}",
-    GearThrowbag throwbag => "${throwbag.length}m",
-    _ => null,
+  List<({String fieldName, String value, String? tip})>
+  get extraHumanInfo => switch (this) {
+    GearBelt belt => [
+      (fieldName: "Długość", value: "${belt.length}m", tip: null),
+    ],
+    GearClothing clothing => [
+      (
+        fieldName: "Typ",
+        value: clothing.type.humanName,
+        tip: switch (clothing.type) {
+          ClothingType.jacket => "<TU WYPEŁNIĆ>",
+          ClothingType.neopreneFoam => "<TU WYPEŁNIĆ>",
+        },
+      ),
+      if (clothing.typeDescription != null)
+        (fieldName: "Opis", value: clothing.typeDescription!, tip: null),
+    ],
+    GearFloatbag floatbag => [
+      if (floatbag.volume != null)
+        (
+          fieldName: "Objętość",
+          value: "${floatbag.volume}L",
+          tip: "<TU WYPEŁNIĆ>",
+        ),
+    ],
+    GearHelmet helmet => [
+      (
+        fieldName: "Rozmiar",
+        value: helmet.size.humanName,
+        tip: "<TU WYPEŁNIĆ>",
+      ),
+    ],
+    GearKayak kayak => [
+      (
+        fieldName: "Typ",
+        value: kayak.type.humanName,
+        tip: switch (kayak.type) {
+          KayakType.creek => "<TU WYPEŁNIĆ>",
+          KayakType.riverRunner => "<TU WYPEŁNIĆ>",
+          KayakType.halfSlice => "<TU WYPEŁNIĆ>",
+          KayakType.fullSlice => "<TU WYPEŁNIĆ>",
+          KayakType.playboat => "<TU WYPEŁNIĆ>",
+          KayakType.zwalkowy => "<TU WYPEŁNIĆ>",
+          KayakType.dwuOsobowy => "<TU WYPEŁNIĆ>",
+          KayakType.kanadyjka => "<TU WYPEŁNIĆ>",
+        },
+      ),
+      (
+        fieldName: "Zakres wagowy",
+        value: switch ((kayak.minWeight, kayak.maxWeight)) {
+          (int min, int max) => '$min~$max kg',
+          (int min, int? _) => 'Od $min kg w góre',
+          (int? _, int max) => 'Do $max kg',
+          (_, _) => '',
+        },
+        tip: "<TU WYPEŁNIĆ>",
+      ),
+    ],
+    GearPaddle paddle => [
+      (
+        fieldName: "Długość",
+        value: '${paddle.length.toString().replaceFirst(".0", "")}cm',
+        tip: "<TU WYPEŁNIĆ>",
+      ),
+      (
+        fieldName: "Skręt pióra",
+        value:
+            '${paddle.rotation < 0 ? 'Regulowane do ${-paddle.rotation}' : '${paddle.rotation}'}°',
+        tip: "<TU WYPEŁNIĆ>",
+      ),
+      (fieldName: "Typ", value: paddle.type.humanName, tip: null),
+    ],
+    GearPfd pfd => [
+      (
+        fieldName: "Typ",
+        value: pfd.type.humanName,
+        tip: switch (pfd.type) {
+          PfdType.gorska => "<TU WYPEŁNIĆ>",
+          PfdType.freestyle => "<TU WYPEŁNIĆ>",
+          PfdType.nizinna => "<TU WYPEŁNIĆ>",
+        },
+      ),
+      (fieldName: "Rozmiar", value: pfd.size.humanName, tip: null),
+    ],
+    GearSpraydeck spraydeck => [
+      (
+        fieldName: "Rozmiar kokpitu",
+        value: spraydeck.deckSize.humanName,
+        tip: "<TU WYPEŁNIĆ>",
+      ),
+      (
+        fieldName: "Rozmiar w pasie",
+        value: spraydeck.waistSize.humanName,
+        tip: "<TU WYPEŁNIĆ>",
+      ),
+    ],
+    GearThrowbag throwbag => [
+      (
+        fieldName: "Długość",
+        value: "${throwbag.length}m",
+        tip: "<TU WYPEŁNIĆ>",
+      ),
+    ],
+    _ => [],
   };
 }
 

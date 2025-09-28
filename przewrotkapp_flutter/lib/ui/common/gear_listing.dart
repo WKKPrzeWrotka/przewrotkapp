@@ -24,7 +24,9 @@ class GearListing extends StatelessWidget {
     final isFavourite =
         context.watch<UserFavourites?>()?.gearIds.contains(gearPair.gear.id) ??
         false;
-    final extraStr = gearPair.gearExtra.extraHumanInfo;
+    final extraStr = gearPair.gearExtra.extraHumanInfo
+        .map((e) => e.value)
+        .join(", ");
     return Card(
       color: color,
       child: ListTile(
@@ -37,7 +39,7 @@ class GearListing extends StatelessWidget {
           ),
         ),
         title: Text(gearPair.gear.displayName),
-        subtitle: extraStr != null ? Text(extraStr) : null,
+        subtitle: extraStr.isNotEmpty ? Text(extraStr) : null,
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

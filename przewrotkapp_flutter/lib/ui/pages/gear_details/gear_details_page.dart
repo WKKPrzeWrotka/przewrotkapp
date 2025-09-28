@@ -4,9 +4,9 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../../logic/data_types.dart';
 import '../../common/comment_listing.dart';
-import '../../common/copyable_text.dart';
 import '../../common/rental_listing.dart';
 import '../../utils/names_and_strings.dart';
+import 'gear_details_parameters.dart';
 import 'gear_horizontal_photos.dart';
 
 class GearDetailsPage extends StatelessWidget {
@@ -67,15 +67,7 @@ class GearDetailsPage extends StatelessWidget {
         children: [
           if (gear?.photoUrls?.isNotEmpty ?? false)
             GearHorizontalPhotos(gearPair: gearPair!),
-          if (gear != null)
-            ListTile(
-              title: CopyableText(
-                child: Text(gear.displayName, style: tt.headlineMedium),
-              ),
-              trailing: CopyableText(
-                child: Text(gear.clubId, style: tt.bodyLarge),
-              ),
-            ),
+          if (gearPair != null) GearDetailsParameters(gearPair: gearPair),
           Divider(),
           if (thisRentals?.isNotEmpty ?? false)
             Text("Nadchodządce wypożyczenia", style: tt.headlineMedium),
