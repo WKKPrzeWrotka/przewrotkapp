@@ -1,5 +1,6 @@
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+
+import '../utils/ui_ux_stuff.dart';
 
 class CopyableText extends StatelessWidget {
   final Widget child;
@@ -15,18 +16,7 @@ class CopyableText extends StatelessWidget {
     }
     assert(t != null);
     return GestureDetector(
-      onLongPress: () {
-        FlutterClipboard.copy(t!);
-        final msg = ScaffoldMessenger.maybeOf(context);
-        if (msg != null) {
-          msg.showSnackBar(
-            SnackBar(
-              content: Text("Copied to clipboard!"),
-              duration: Duration(seconds: 1),
-            ),
-          );
-        }
-      },
+      onLongPress: () => copyText(t!, context),
       child: child,
     );
   }
