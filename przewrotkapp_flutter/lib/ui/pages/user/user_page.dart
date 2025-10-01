@@ -39,7 +39,7 @@ class _UserPageState extends State<UserPage> {
           body: ListView(
             padding: EdgeInsets.all(6),
             children: [
-              Row(
+              Wrap(
                 spacing: 6,
                 children: [
                   isYou
