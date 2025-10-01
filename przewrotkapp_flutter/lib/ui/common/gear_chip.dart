@@ -14,7 +14,7 @@ class GearChip extends StatelessWidget {
     final g = gearPair.gear;
     return ActionChip(
       onPressed: () => context.push('/gear/${g.clubId}'),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       avatar: Container(
         decoration: BoxDecoration(shape: BoxShape.circle),
         clipBehavior: Clip.antiAlias,
