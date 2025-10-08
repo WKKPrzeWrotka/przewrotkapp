@@ -93,20 +93,19 @@ class EverythingProvider extends StatelessWidget {
         ProxyProvider2<AllGearCache?, SelfExtraUserInfo?, UserFavourites?>(
           lazy: false,
           create: (_) => null,
-          update:
-              (_, AllGearCache? allGearCache, ExtraUserInfo? extraUser, _) {
-                if (allGearCache == null ||
-                    extraUser?.favouritesJunctions == null) {
-                  return null;
-                }
-                final favIds = extraUser!.favouritesJunctions!
-                    .map((e) => e.gearId)
-                    .toList();
-                final gear = allGearCache
-                    .where((g) => favIds.contains(g.gear.id))
-                    .toList();
-                return (gearPairs: gear, gearIds: favIds);
-              },
+          update: (_, AllGearCache? allGearCache, ExtraUserInfo? extraUser, _) {
+            if (allGearCache == null ||
+                extraUser?.favouritesJunctions == null) {
+              return null;
+            }
+            final favIds = extraUser!.favouritesJunctions!
+                .map((e) => e.gearId)
+                .toList();
+            final gear = allGearCache
+                .where((g) => favIds.contains(g.gear.id))
+                .toList();
+            return (gearPairs: gear, gearIds: favIds);
+          },
         ),
         ProxyProvider2<
           FutureRentals?,
