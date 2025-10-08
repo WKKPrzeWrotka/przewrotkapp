@@ -314,6 +314,13 @@ class EndpointUser extends _i1.EndpointRef {
           'isFavourite': isFavourite,
         },
       );
+
+  _i2.Future<void> updateUser(_i16.ExtraUserInfo extraUser) =>
+      caller.callServerEndpoint<void>(
+        'user',
+        'updateUser',
+        {'extraUser': extraUser},
+      );
 }
 
 class Modules {

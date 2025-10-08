@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
@@ -35,6 +36,17 @@ class _UserPageState extends State<UserPage> {
               extraUser != null ? extraUser.userInfo!.name : '🟠 Ładowanie...',
             ),
             automaticallyImplyLeading: true,
+            actions: isYou
+                ? [
+                    IconButton(
+                      onPressed: () => context.push(
+                        '/user/${widget.userId}/edit',
+                        extra: extraUser!,
+                      ),
+                      icon: Icon(Icons.edit),
+                    ),
+                  ]
+                : null,
           ),
           body: ListView(
             padding: EdgeInsets.all(6),

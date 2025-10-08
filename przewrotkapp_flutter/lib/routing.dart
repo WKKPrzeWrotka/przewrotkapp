@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 import 'logic/utils.dart';
@@ -11,6 +12,7 @@ import 'ui/pages/home/home_page.dart';
 import 'ui/pages/new_rental/new_rental_page.dart';
 import 'ui/pages/rental_group_details/rental_group_details_page.dart';
 import 'ui/pages/sign_in/sign_in_page.dart';
+import 'ui/pages/user/user_edit_page.dart';
 import 'ui/pages/user/user_page.dart';
 
 void initRouter() {
@@ -49,6 +51,11 @@ final router = GoRouter(
       path: '/user/:userId',
       builder: (context, state) =>
           UserPage(userId: int.parse(state.pathParameters['userId']!)),
+    ),
+    GoRoute(
+      path: '/user/:userId/edit',
+      builder: (context, state) =>
+          UserEditPage(extraUser: state.extra as ExtraUserInfo),
     ),
     GoRoute(
       path: '/rentals/new',

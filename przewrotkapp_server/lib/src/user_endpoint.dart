@@ -56,4 +56,29 @@ class UserEndpoint extends Endpoint {
       _userUpdateCtrl.add(id);
     }
   }
+
+  Future<void> updateUser(Session session, ExtraUserInfo extraUser) async {
+    final id = (await session.authenticated)!.userId;
+    final newUser = extraUser.userInfo!;
+    if (id != extraUser.userInfoId) throw "Can't update user other than you";
+    if (newUser.userName != null) {
+      await Users.changeUserName(session, id, newUser.userName!);
+    }
+    if (newUser.fullName != null) {
+      await Users.changeFullName(session, id, newUser.fullName!);
+    }
+    await session.db.transaction((t) async {
+      final currExtra = await ExtraUserInfo.db.findFirstRow(session,
+          where: (e) => e.userInfoId.equals(id), transaction: t);
+      await ExtraUserInfo.db.updateRow(
+        session,
+        // i do this manually to make sure user doesn't edit their ids etc
+        currExtra!.copyWith(
+          phoneNumber: extraUser.phoneNumber,
+          socialLinks: extraUser.socialLinks,
+        ),
+        transaction: t,
+      );
+    });
+  }
 }

@@ -31,3 +31,4 @@ user:
   - getExtraUserInfo:
   - watchExtraUserInfo:
   - updateGearFavourite:
+  - updateUser:
