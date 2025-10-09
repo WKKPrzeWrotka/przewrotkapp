@@ -7,7 +7,7 @@ executables:
   pwa: main
 
 environment:
-  sdk: '>=3.5.0 <4.0.0'
+  sdk: '>=3.9.0 <4.0.0'
 
 dependencies:
   serverpod: 2.9.1
