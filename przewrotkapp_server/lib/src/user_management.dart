@@ -63,8 +63,8 @@ Future<void> createNewSkladkaUsers(
             '@matiii3i na Discordzie<br>'
             '+48 577 294 391'
             '</p>'
-            '<h2><a href="https://app.przewrotka.lastgimbus.com/">'
-            'https://app.przewrotka.lastgimbus.com/'
+            '<h2><a href="https://app.przewrotka.org/">'
+            'https://app.przewrotka.org/'
             '</a></h2>',
       );
     } catch (e, s) {

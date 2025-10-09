@@ -21,7 +21,7 @@ Future<void> initDi() async {
   const serverUrlFromEnv = String.fromEnvironment('SERVER_URL');
   serverUrl = serverUrlFromEnv.isEmpty
       ? kReleaseMode
-            ? 'https://api.app.przewrotka.lastgimbus.com/'
+            ? 'https://api.app.przewrotka.org/'
             : 'http://localhost:8080/'
       : serverUrlFromEnv;
 
