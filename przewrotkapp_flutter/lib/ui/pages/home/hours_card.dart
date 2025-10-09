@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HoursCard extends StatefulWidget {
   const HoursCard({super.key});
@@ -19,7 +20,7 @@ class _HoursCardState extends State<HoursCard> {
           children: [
             Text('Twoje godzinki:'),
             Text('69h', style: tt.displayMedium),
-            ElevatedButton(onPressed: () {}, child: Text("Zarób!")),
+            ElevatedButton(onPressed: () => context.push('/comments'), child: Text("Zarób!")),
           ],
         ),
       ),

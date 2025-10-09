@@ -5,6 +5,7 @@ import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart
 
 import 'logic/utils.dart';
 import 'ui/pages/calendar/calendar_page.dart';
+import 'ui/pages/comments_browser/comments_browser_page.dart';
 import 'ui/pages/gear_browser/gear_browser_page.dart';
 import 'ui/pages/gear_details/fullscreen_photos_page.dart';
 import 'ui/pages/gear_details/gear_details_page.dart';
@@ -78,6 +79,7 @@ final router = GoRouter(
         );
       },
     ),
+    GoRoute(path: '/comments', builder: (_, _) => CommentsBrowserPage()),
     GoRoute(
       path: '/signin',
       redirect: (context, _) {
