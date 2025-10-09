@@ -26,7 +26,11 @@ void run(List<String> args) async {
     Serverpod.instance.getPassword('serverEmailPassword') ?? '',
   );
   Future<bool> sendEmail(
-      Session session, String email, String subject, String text) async {
+    Session session,
+    String email,
+    String subject,
+    String text,
+  ) async {
     final message = Message()
       ..from = Address(Serverpod.instance.getPassword('serverEmail')!)
       ..recipients.add(email)
@@ -67,7 +71,9 @@ void run(List<String> args) async {
           await ExtraUserInfo.db.insertRow(
             session,
             ExtraUserInfo(
-                userInfoId: userInfo.id!, socialLinks: <String, Uri>{}),
+              userInfoId: userInfo.id!,
+              socialLinks: <String, Uri>{},
+            ),
           );
         } catch (e, s) {
           session.log(
@@ -114,7 +120,9 @@ void run(List<String> args) async {
   if (pod.runMode == ServerpodRunMode.production) {
     final dcEvents = DiscordEventsFutureCall();
     pod.registerFutureCall(dcEvents, dcEvents.name);
-    await DiscordEventsFutureCall.schedule(pod,
-        delay: Duration(milliseconds: 1));
+    await DiscordEventsFutureCall.schedule(
+      pod,
+      delay: Duration(milliseconds: 1),
+    );
   }
 }

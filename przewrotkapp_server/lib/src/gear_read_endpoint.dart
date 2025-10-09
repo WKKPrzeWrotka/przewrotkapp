@@ -24,9 +24,7 @@ class GearReadEndpoint extends Endpoint {
       session,
       orderBy: (t) => t.gear.clubId,
       include: GearBelt.include(gear: _defaultGearInclude),
-    ))
-        .map((g) => (g.gear!, g))
-        .toList();
+    )).map((g) => (g.gear!, g)).toList();
   }
 
   Stream<List<(Gear, GearBelt)>> watchAllBelts(Session session) =>
@@ -37,9 +35,7 @@ class GearReadEndpoint extends Endpoint {
       session,
       orderBy: (t) => t.gear.clubId,
       include: GearClothing.include(gear: _defaultGearInclude),
-    ))
-        .map((g) => (g.gear!, g))
-        .toList();
+    )).map((g) => (g.gear!, g)).toList();
   }
 
   Stream<List<(Gear, GearClothing)>> watchAllClothes(Session session) =>
@@ -50,9 +46,7 @@ class GearReadEndpoint extends Endpoint {
       session,
       orderBy: (t) => t.gear.clubId,
       include: GearFloatbag.include(gear: _defaultGearInclude),
-    ))
-        .map((g) => (g.gear!, g))
-        .toList();
+    )).map((g) => (g.gear!, g)).toList();
   }
 
   Stream<List<(Gear, GearFloatbag)>> watchAllFloatbags(Session session) =>
@@ -63,9 +57,7 @@ class GearReadEndpoint extends Endpoint {
       session,
       orderBy: (t) => t.gear.clubId,
       include: GearHelmet.include(gear: _defaultGearInclude),
-    ))
-        .map((g) => (g.gear!, g))
-        .toList();
+    )).map((g) => (g.gear!, g)).toList();
   }
 
   Stream<List<(Gear, GearHelmet)>> watchAllHelmets(Session session) =>
@@ -76,9 +68,7 @@ class GearReadEndpoint extends Endpoint {
       session,
       orderBy: (t) => t.gear.clubId,
       include: GearKayak.include(gear: _defaultGearInclude),
-    ))
-        .map((g) => (g.gear!, g))
-        .toList();
+    )).map((g) => (g.gear!, g)).toList();
   }
 
   Stream<List<(Gear, GearKayak)>> watchAllKayaks(Session session) =>
@@ -89,9 +79,7 @@ class GearReadEndpoint extends Endpoint {
       session,
       orderBy: (t) => t.gear.clubId,
       include: GearPaddle.include(gear: _defaultGearInclude),
-    ))
-        .map((g) => (g.gear!, g))
-        .toList();
+    )).map((g) => (g.gear!, g)).toList();
   }
 
   Stream<List<(Gear, GearPaddle)>> watchAllPaddles(Session session) =>
@@ -102,9 +90,7 @@ class GearReadEndpoint extends Endpoint {
       session,
       orderBy: (t) => t.gear.clubId,
       include: GearPfd.include(gear: _defaultGearInclude),
-    ))
-        .map((g) => (g.gear!, g))
-        .toList();
+    )).map((g) => (g.gear!, g)).toList();
   }
 
   Stream<List<(Gear, GearPfd)>> watchAllPfds(Session session) =>
@@ -115,9 +101,7 @@ class GearReadEndpoint extends Endpoint {
       session,
       orderBy: (t) => t.gear.clubId,
       include: GearSpraydeck.include(gear: _defaultGearInclude),
-    ))
-        .map((g) => (g.gear!, g))
-        .toList();
+    )).map((g) => (g.gear!, g)).toList();
   }
 
   Stream<List<(Gear, GearSpraydeck)>> watchAllSpraydecks(Session session) =>
@@ -128,9 +112,7 @@ class GearReadEndpoint extends Endpoint {
       session,
       orderBy: (t) => t.gear.clubId,
       include: GearThrowbag.include(gear: _defaultGearInclude),
-    ))
-        .map((g) => (g.gear!, g))
-        .toList();
+    )).map((g) => (g.gear!, g)).toList();
   }
 
   Stream<List<(Gear, GearThrowbag)>> watchAllThrowbags(Session session) =>

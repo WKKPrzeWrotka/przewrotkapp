@@ -26,15 +26,22 @@ class UserEndpoint extends Endpoint {
     ))!;
   }
 
-  Stream<ExtraUserInfo> watchExtraUserInfo(Session session,
-      [int? userId]) async* {
+  Stream<ExtraUserInfo> watchExtraUserInfo(
+    Session session, [
+    int? userId,
+  ]) async* {
     final id = userId ?? (await session.authenticated)!.userId;
-    yield* watchX(() => getExtraUserInfo(session, id),
-        _userUpdateCtrl.stream.where((e) => e == id));
+    yield* watchX(
+      () => getExtraUserInfo(session, id),
+      _userUpdateCtrl.stream.where((e) => e == id),
+    );
   }
 
   Future<void> updateGearFavourite(
-      Session session, Gear gear, bool isFavourite) async {
+    Session session,
+    Gear gear,
+    bool isFavourite,
+  ) async {
     final id = (await session.authenticated)!.userId;
     final extraUser = await getExtraUserInfo(session, id);
     try {
@@ -68,8 +75,11 @@ class UserEndpoint extends Endpoint {
       await Users.changeFullName(session, id, newUser.fullName!);
     }
     await session.db.transaction((t) async {
-      final currExtra = await ExtraUserInfo.db.findFirstRow(session,
-          where: (e) => e.userInfoId.equals(id), transaction: t);
+      final currExtra = await ExtraUserInfo.db.findFirstRow(
+        session,
+        where: (e) => e.userInfoId.equals(id),
+        transaction: t,
+      );
       await ExtraUserInfo.db.updateRow(
         session,
         // i do this manually to make sure user doesn't edit their ids etc

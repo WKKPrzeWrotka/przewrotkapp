@@ -4,18 +4,15 @@ import 'package:nyxx/nyxx.dart';
 import 'package:przewrotkapp_server/src/utils.dart';
 import 'package:serverpod/serverpod.dart';
 
-typedef DiscordEvent = ({
-  String name,
-  DateTime from,
-  DateTime to,
-});
+typedef DiscordEvent = ({String name, DateTime from, DateTime to});
 
 var discordEventsCache = <DiscordEvent>[];
 
 class Events extends Endpoint {
-  Future<List<DiscordEvent>> getDiscordEvents(Session session,
-          {bool past = false}) async =>
-      discordEventsCache;
+  Future<List<DiscordEvent>> getDiscordEvents(
+    Session session, {
+    bool past = false,
+  }) async => discordEventsCache;
 }
 
 class DiscordEventsFutureCall extends FutureCall {
@@ -52,9 +49,10 @@ class DiscordEventsFutureCall extends FutureCall {
               // So, first, convert them to local, force-set time to 04:00 and
               // mark *that* as utc 😌
               from: e.scheduledStartTime.toLocal().withDefaultRentalFromTime(),
-              to: (e.scheduledEndTime?.toLocal() ??
-                      e.scheduledStartTime.toLocal())
-                  .withDefaultRentalToTime()
+              to:
+                  (e.scheduledEndTime?.toLocal() ??
+                          e.scheduledStartTime.toLocal())
+                      .withDefaultRentalToTime(),
             ),
           )
           // Last 30 days max
@@ -66,7 +64,8 @@ class DiscordEventsFutureCall extends FutureCall {
     await schedule(session.serverpod);
   }
 
-  static Future<void> schedule(Serverpod pod,
-          {Duration delay = const Duration(minutes: 30)}) =>
-      pod.futureCallWithDelay(callName, null, delay);
+  static Future<void> schedule(
+    Serverpod pod, {
+    Duration delay = const Duration(minutes: 30),
+  }) => pod.futureCallWithDelay(callName, null, delay);
 }

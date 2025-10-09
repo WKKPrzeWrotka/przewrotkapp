@@ -14,16 +14,16 @@ class RentalEndpoint extends Endpoint {
         where: past
             ? null
             : (r) => r.to.notBetween(
-                  DateTime(1970),
-                  // This value (30 days) is very randomly chosen by my anxiety
-                  // right now. It should be smaller (preferably, 0).
-                  // maybe a week?
-                  // maybe consider this option, and all streams used with it,
-                  // to be usable only for tasks like making a new rental
-                  // and every calendar page or whatever will have to use
-                  // some pagination
-                  DateTime.now().subtract(Duration(days: 30)),
-                ),
+                DateTime(1970),
+                // This value (30 days) is very randomly chosen by my anxiety
+                // right now. It should be smaller (preferably, 0).
+                // maybe a week?
+                // maybe consider this option, and all streams used with it,
+                // to be usable only for tasks like making a new rental
+                // and every calendar page or whatever will have to use
+                // some pagination
+                DateTime.now().subtract(Duration(days: 30)),
+              ),
         include: Rental.include(
           userInfo: UserInfo.include(),
           junctions: RentalJunction.includeList(
@@ -32,27 +32,29 @@ class RentalEndpoint extends Endpoint {
         ),
       );
 
-  Stream<List<Rental>> watchRentals(
-    Session session, {
-    bool past = false,
-  }) =>
+  Stream<List<Rental>> watchRentals(Session session, {bool past = false}) =>
       watchX(() => getRentals(session, past: past), _rentalsUpdateCtrl.stream);
 
   Future<void> rentGear(
-      Session session, List<Gear> gear, DateTime from, DateTime to) async {
+    Session session,
+    List<Gear> gear,
+    DateTime from,
+    DateTime to,
+  ) async {
     final auth = await session.authenticated;
     // TODO BIG: Check if given gear is rented for this range
     await session.db.transaction((t) async {
       final newRental = await Rental.db.insertRow(
-          session,
-          Rental(
-            userInfoId: auth!.userId,
-            created: DateTime.now(),
-            lastModified: DateTime.now(),
-            from: from,
-            to: to,
-          ),
-          transaction: t);
+        session,
+        Rental(
+          userInfoId: auth!.userId,
+          created: DateTime.now(),
+          lastModified: DateTime.now(),
+          from: from,
+          to: to,
+        ),
+        transaction: t,
+      );
       await RentalJunction.db.insert(
         session,
         gear

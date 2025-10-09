@@ -24,7 +24,8 @@ class CommentsEndpoint extends Endpoint {
   Stream<List<Comment>> watchComments(
     Session session, {
     bool resolved = false,
-  }) =>
-      watchX(() => getComments(session, resolved: resolved),
-          _commentsUpdateCtrl.stream);
+  }) => watchX(
+    () => getComments(session, resolved: resolved),
+    _commentsUpdateCtrl.stream,
+  );
 }

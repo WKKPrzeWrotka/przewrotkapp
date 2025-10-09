@@ -11,9 +11,9 @@ const _root = 'lib/src/excel_migration';
 
 Future<void> importKayaksFromExcel({Session? session}) async {
   final kajakiCsv = File('$_root/kajaki.csv');
-  final kajakiData = await kajakiCsv
-      .readAsLines()
-      .then((lines) => lines.map((line) => line.split(',')).toList());
+  final kajakiData = await kajakiCsv.readAsLines().then(
+    (lines) => lines.map((line) => line.split(',')).toList(),
+  );
   for (final line in kajakiData.sublist(1)) {
     // print(line);
     final gear = Gear(
@@ -37,9 +37,9 @@ Future<void> importKayaksFromExcel({Session? session}) async {
 
 Future<void> importPaddlesFromExcel({Session? session}) async {
   final paddlesCsv = File('$_root/paddles.csv');
-  final paddlesData = await paddlesCsv
-      .readAsLines()
-      .then((lines) => lines.map((line) => line.split(',')).toList());
+  final paddlesData = await paddlesCsv.readAsLines().then(
+    (lines) => lines.map((line) => line.split(',')).toList(),
+  );
   for (final line in paddlesData.sublist(1)) {
     final gear = Gear(
       clubId: line[0],
@@ -60,9 +60,9 @@ Future<void> importPaddlesFromExcel({Session? session}) async {
 
 Future<void> importSpraydecksFromExcel({Session? session}) async {
   final spraydecksCsv = File('$_root/spraydecks.csv');
-  final spraydecksData = await spraydecksCsv
-      .readAsLines()
-      .then((lines) => lines.map((line) => line.split(',')).toList());
+  final spraydecksData = await spraydecksCsv.readAsLines().then(
+    (lines) => lines.map((line) => line.split(',')).toList(),
+  );
   for (final line in spraydecksData.sublist(1)) {
     final gear = Gear(
       clubId: line[0],
@@ -76,16 +76,18 @@ Future<void> importSpraydecksFromExcel({Session? session}) async {
       waistSize: GenericGearSize.fromJson(line[4]),
     );
     final newGear = await Gear.db.insertRow(session!, gear);
-    await GearSpraydeck.db
-        .insertRow(session, spraydeck.copyWith(gearId: newGear.id));
+    await GearSpraydeck.db.insertRow(
+      session,
+      spraydeck.copyWith(gearId: newGear.id),
+    );
   }
 }
 
 Future<void> importPfdsFromExcel({Session? session}) async {
   final pfdsCsv = File('$_root/pfds.csv');
-  final pfdsData = await pfdsCsv
-      .readAsLines()
-      .then((lines) => lines.map((line) => line.split(',')).toList());
+  final pfdsData = await pfdsCsv.readAsLines().then(
+    (lines) => lines.map((line) => line.split(',')).toList(),
+  );
   for (final line in pfdsData.sublist(1)) {
     final gear = Gear(
       clubId: line[0],
@@ -106,9 +108,9 @@ Future<void> importPfdsFromExcel({Session? session}) async {
 
 Future<void> importHelmetsFromExcel({Session? session}) async {
   final helmetsCsv = File('$_root/helmets.csv');
-  final helmetsData = await helmetsCsv
-      .readAsLines()
-      .then((lines) => lines.map((line) => line.split(',')).toList());
+  final helmetsData = await helmetsCsv.readAsLines().then(
+    (lines) => lines.map((line) => line.split(',')).toList(),
+  );
   for (final line in helmetsData.sublist(1)) {
     final gear = Gear(
       clubId: line[0],
@@ -127,9 +129,9 @@ Future<void> importHelmetsFromExcel({Session? session}) async {
 
 Future<void> importThrowbagsFromExcel({Session? session}) async {
   final throwbagsCsv = File('$_root/throwbags.csv');
-  final throwbagsData = await throwbagsCsv
-      .readAsLines()
-      .then((lines) => lines.map((line) => line.split(',')).toList());
+  final throwbagsData = await throwbagsCsv.readAsLines().then(
+    (lines) => lines.map((line) => line.split(',')).toList(),
+  );
   for (final line in throwbagsData.sublist(1)) {
     final gear = Gear(
       clubId: line[0],
@@ -140,16 +142,18 @@ Future<void> importThrowbagsFromExcel({Session? session}) async {
     );
     final throwbag = GearThrowbag(gearId: 0, length: int.parse(line[4]));
     final newGear = await Gear.db.insertRow(session!, gear);
-    await GearThrowbag.db
-        .insertRow(session, throwbag.copyWith(gearId: newGear.id));
+    await GearThrowbag.db.insertRow(
+      session,
+      throwbag.copyWith(gearId: newGear.id),
+    );
   }
 }
 
 Future<void> importClothesFromExcel({Session? session}) async {
   final clothesCsv = File('$_root/clothes.csv');
-  final clothesData = await clothesCsv
-      .readAsLines()
-      .then((lines) => lines.map((line) => line.split(',')).toList());
+  final clothesData = await clothesCsv.readAsLines().then(
+    (lines) => lines.map((line) => line.split(',')).toList(),
+  );
   for (final line in clothesData.sublist(1)) {
     final gear = Gear(
       clubId: line[0].trim(),
@@ -158,13 +162,16 @@ Future<void> importClothesFromExcel({Session? session}) async {
       model: line[2].trim().isEmpty ? null : line[2].trim(),
     );
     final clothing = GearClothing(
-        gearId: 0,
-        size: GenericGearSize.fromJson(line[3]),
-        type: ClothingType.fromJson(line[4]),
-        typeDescription: line[5].trim());
+      gearId: 0,
+      size: GenericGearSize.fromJson(line[3]),
+      type: ClothingType.fromJson(line[4]),
+      typeDescription: line[5].trim(),
+    );
     final newGear = await Gear.db.insertRow(session!, gear);
-    await GearClothing.db
-        .insertRow(session, clothing.copyWith(gearId: newGear.id));
+    await GearClothing.db.insertRow(
+      session,
+      clothing.copyWith(gearId: newGear.id),
+    );
   }
 }
 
@@ -194,9 +201,9 @@ Future<void> importBeltsFromExcel({Session? session}) async {
 
 Future<void> importFloatbagsFromExcel({Session? session}) async {
   final floatbagsCsv = File('$_root/floatbags.csv');
-  final floatbagsData = await floatbagsCsv
-      .readAsLines()
-      .then((lines) => lines.map((line) => line.split(',')).toList());
+  final floatbagsData = await floatbagsCsv.readAsLines().then(
+    (lines) => lines.map((line) => line.split(',')).toList(),
+  );
   for (final line in floatbagsData.sublist(1)) {
     final gear = Gear(
       clubId: line[0].trim(),
@@ -207,13 +214,17 @@ Future<void> importFloatbagsFromExcel({Session? session}) async {
     );
     final floatbag = GearFloatbag(gearId: 0, volume: null);
     final newGear = await Gear.db.insertRow(session!, gear);
-    await GearFloatbag.db
-        .insertRow(session, floatbag.copyWith(gearId: newGear.id));
+    await GearFloatbag.db.insertRow(
+      session,
+      floatbag.copyWith(gearId: newGear.id),
+    );
   }
 }
 
-Future<void> importComments(
-    {Session? session, required int authorUserId}) async {
+Future<void> importComments({
+  Session? session,
+  required int authorUserId,
+}) async {
   final commentsCsv = File("$_root/komentarze-chatgpt.csv");
   // this one uses lib because it has a lot of "strings"
   final commentsData = CsvToListConverter()
@@ -230,8 +241,11 @@ Future<void> importComments(
   await session.db.transaction((t) async {
     for (final line in commentsData.sublist(1).cast<List<String>>()) {
       print(line);
-      final gear = await Gear.db.findFirstRow(session,
-          where: (g) => g.clubId.equals(line[0]), transaction: t);
+      final gear = await Gear.db.findFirstRow(
+        session,
+        where: (g) => g.clubId.equals(line[0]),
+        transaction: t,
+      );
       await Comment.db.insertRow(
         session,
         Comment(

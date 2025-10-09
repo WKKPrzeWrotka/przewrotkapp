@@ -27,17 +27,14 @@ Future<void> insertPhotoUrls(
     final urls = <Uri>[];
     Uri? thumbUrl;
     var first = true;
-    for (final file in folder.listSync().whereType<File>().toList()
-      ..sort((a, b) => basename(a.path).compareTo(basename(b.path)))) {
+    for (final file
+        in folder.listSync().whereType<File>().toList()
+          ..sort((a, b) => basename(a.path).compareTo(basename(b.path)))) {
       print(file);
       final bytes = await file.readAsBytes();
       final image = img.decodeJpg(bytes)!;
       final (ogWidth, ogHeight) = (image.width, image.height);
-      img.resize(
-        image,
-        height: 128,
-        interpolation: img.Interpolation.cubic,
-      );
+      img.resize(image, height: 128, interpolation: img.Interpolation.cubic);
       final hash = BlurHash.encode(image, numCompX: 4, numCompY: 4);
       if (first) {
         final path = '/$clubId/thumbnail.jpg';
@@ -48,8 +45,10 @@ Future<void> insertPhotoUrls(
             img.encodeJpg(image, quality: 60, chroma: img.JpegChroma.yuv420),
           ),
         );
-        final pubUrl =
-            await session.storage.getPublicUrl(storageId: 'public', path: path);
+        final pubUrl = await session.storage.getPublicUrl(
+          storageId: 'public',
+          path: path,
+        );
         final params = Map<String, String>.from(pubUrl!.queryParameters);
         params['width'] = image.width.toString();
         params['height'] = image.height.toString();
@@ -59,11 +58,14 @@ Future<void> insertPhotoUrls(
       }
       final path = '/$clubId/${basename(file.path)}';
       await session.storage.storeFile(
-          storageId: 'public',
-          path: path,
-          byteData: ByteData.sublistView(bytes));
-      final pubUrl =
-          await session.storage.getPublicUrl(storageId: 'public', path: path);
+        storageId: 'public',
+        path: path,
+        byteData: ByteData.sublistView(bytes),
+      );
+      final pubUrl = await session.storage.getPublicUrl(
+        storageId: 'public',
+        path: path,
+      );
       final params = Map<String, String>.from(pubUrl!.queryParameters);
       params['width'] = ogWidth.toString();
       params['height'] = ogHeight.toString();
@@ -71,7 +73,9 @@ Future<void> insertPhotoUrls(
       urls.add(pubUrl.replace(queryParameters: params));
     }
     await Gear.db.updateRow(
-        session, gear.copyWith(photoUrls: urls, thumbnailUrl: thumbUrl));
+      session,
+      gear.copyWith(photoUrls: urls, thumbnailUrl: thumbUrl),
+    );
   }
   print("Photos done!");
 }
