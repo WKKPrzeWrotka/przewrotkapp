@@ -1,5 +1,3 @@
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
 import 'package:przewrotkapp_server/src/events_endpoint.dart';
 import 'package:przewrotkapp_server/src/web/routes/root.dart';
 import 'package:serverpod/serverpod.dart';
@@ -7,6 +5,7 @@ import 'package:serverpod_auth_server/serverpod_auth_server.dart' as auth;
 
 import 'src/generated/endpoints.dart';
 import 'src/generated/protocol.dart';
+import 'src/utils.dart';
 
 // This is the starting point of your Serverpod server. In most cases, you will
 // only need to make additions to this file if you add future calls,  are
@@ -20,34 +19,6 @@ void run(List<String> args) async {
     Endpoints(),
     authenticationHandler: auth.authenticationHandler,
   );
-
-  final smtpServer = gmail(
-    Serverpod.instance.getPassword('serverEmail') ?? '',
-    Serverpod.instance.getPassword('serverEmailPassword') ?? '',
-  );
-  Future<bool> sendEmail(
-    Session session,
-    String email,
-    String subject,
-    String text,
-  ) async {
-    final message = Message()
-      ..from = Address(Serverpod.instance.getPassword('serverEmail')!)
-      ..recipients.add(email)
-      ..subject = subject
-      ..text = text;
-    try {
-      final sendReport = await send(message, smtpServer);
-      session.log('Email message sent: $sendReport');
-      return true;
-    } on MailerException catch (e) {
-      session.log('Message not sent: $e', level: LogLevel.error);
-      for (var p in e.problems) {
-        session.log('Problem: ${p.code}: ${p.msg}', level: LogLevel.error);
-      }
-    }
-    return false;
-  }
 
   auth.AuthConfig.set(
     auth.AuthConfig(

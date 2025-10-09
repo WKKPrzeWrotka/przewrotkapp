@@ -99,6 +99,21 @@ class _UserPageState extends State<UserPage> {
                   RentalListing(rental: rental)
               else
                 Text("🟠 Ładowanie wypożyczeń..."),
+              ElevatedButton(
+                onPressed: () async {
+                  await sm.signOutDevice();
+                  if (context.mounted) {
+                    while (context.canPop()) {
+                      context.pop();
+                    }
+                    context.pushReplacement('/signin');
+                  }
+                },
+                child: Text(
+                  "Wyloguj",
+                  style: tt.bodyMedium?.copyWith(color: Colors.red),
+                ),
+              ),
             ],
           ),
         );
