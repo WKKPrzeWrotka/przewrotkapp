@@ -3,6 +3,16 @@ comments:
   - watchComments:
 events:
   - getDiscordEvents:
+gearManage:
+  - createOrUpdateBelt:
+  - createOrUpdateClothing:
+  - createOrUpdateFloatbag:
+  - createOrUpdateHelmet:
+  - createOrUpdateKayak:
+  - createOrUpdatePaddle:
+  - createOrUpdatePfd:
+  - createOrUpdateSpraydeck:
+  - createOrUpdateThrowbag:
 gearRead:
   - getAllBelts:
   - watchAllBelts:

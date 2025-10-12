@@ -50,8 +50,10 @@ final router = GoRouter(
     ),
     GoRoute(
       path: '/gear/:clubId/edit',
-      builder: (_, state) =>
-          GearEditPage(clubId: state.pathParameters['clubId']!),
+      builder: (_, state) => GearEditPage(
+        clubId: state.pathParameters['clubId']!,
+        gearPair: state.extra as GearPair,
+      ),
     ),
     GoRoute(path: '/calendar', builder: (context, state) => CalendarPage()),
     GoRoute(

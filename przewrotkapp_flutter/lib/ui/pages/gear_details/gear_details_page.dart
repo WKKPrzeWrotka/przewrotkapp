@@ -48,7 +48,8 @@ class GearDetailsPage extends StatelessWidget {
               ) ??
               false)
             IconButton(
-              onPressed: () => context.push('/gear/$clubId/edit'),
+              onPressed: () =>
+                  context.push('/gear/$clubId/edit', extra: gearPair!),
               icon: Icon(Icons.edit),
             ),
           IconButton(

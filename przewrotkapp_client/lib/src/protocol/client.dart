@@ -73,6 +73,131 @@ class EndpointEvents extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
+class EndpointGearManage extends _i1.EndpointRef {
+  EndpointGearManage(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'gearManage';
+
+  _i2.Future<void> createOrUpdateBelt(
+    _i4.Gear gear,
+    _i5.GearBelt belt,
+  ) =>
+      caller.callServerEndpoint<void>(
+        'gearManage',
+        'createOrUpdateBelt',
+        {
+          'gear': gear,
+          'belt': belt,
+        },
+      );
+
+  _i2.Future<void> createOrUpdateClothing(
+    _i4.Gear gear,
+    _i6.GearClothing clothing,
+  ) =>
+      caller.callServerEndpoint<void>(
+        'gearManage',
+        'createOrUpdateClothing',
+        {
+          'gear': gear,
+          'clothing': clothing,
+        },
+      );
+
+  _i2.Future<void> createOrUpdateFloatbag(
+    _i4.Gear gear,
+    _i7.GearFloatbag floatbag,
+  ) =>
+      caller.callServerEndpoint<void>(
+        'gearManage',
+        'createOrUpdateFloatbag',
+        {
+          'gear': gear,
+          'floatbag': floatbag,
+        },
+      );
+
+  _i2.Future<void> createOrUpdateHelmet(
+    _i4.Gear gear,
+    _i8.GearHelmet helmet,
+  ) =>
+      caller.callServerEndpoint<void>(
+        'gearManage',
+        'createOrUpdateHelmet',
+        {
+          'gear': gear,
+          'helmet': helmet,
+        },
+      );
+
+  _i2.Future<void> createOrUpdateKayak(
+    _i4.Gear gear,
+    _i9.GearKayak kayak,
+  ) =>
+      caller.callServerEndpoint<void>(
+        'gearManage',
+        'createOrUpdateKayak',
+        {
+          'gear': gear,
+          'kayak': kayak,
+        },
+      );
+
+  _i2.Future<void> createOrUpdatePaddle(
+    _i4.Gear gear,
+    _i10.GearPaddle paddle,
+  ) =>
+      caller.callServerEndpoint<void>(
+        'gearManage',
+        'createOrUpdatePaddle',
+        {
+          'gear': gear,
+          'paddle': paddle,
+        },
+      );
+
+  _i2.Future<void> createOrUpdatePfd(
+    _i4.Gear gear,
+    _i11.GearPfd pfd,
+  ) =>
+      caller.callServerEndpoint<void>(
+        'gearManage',
+        'createOrUpdatePfd',
+        {
+          'gear': gear,
+          'pfd': pfd,
+        },
+      );
+
+  _i2.Future<void> createOrUpdateSpraydeck(
+    _i4.Gear gear,
+    _i12.GearSpraydeck spraydeck,
+  ) =>
+      caller.callServerEndpoint<void>(
+        'gearManage',
+        'createOrUpdateSpraydeck',
+        {
+          'gear': gear,
+          'spraydeck': spraydeck,
+        },
+      );
+
+  _i2.Future<void> createOrUpdateThrowbag(
+    _i4.Gear gear,
+    _i13.GearThrowbag throwbag,
+  ) =>
+      caller.callServerEndpoint<void>(
+        'gearManage',
+        'createOrUpdateThrowbag',
+        {
+          'gear': gear,
+          'throwbag': throwbag,
+        },
+      );
+}
+
+/// {@category Endpoint}
 class EndpointGearRead extends _i1.EndpointRef {
   EndpointGearRead(_i1.EndpointCaller caller) : super(caller);
 
@@ -359,6 +484,7 @@ class Client extends _i1.ServerpodClientShared {
         ) {
     comments = EndpointComments(this);
     events = EndpointEvents(this);
+    gearManage = EndpointGearManage(this);
     gearRead = EndpointGearRead(this);
     rental = EndpointRental(this);
     user = EndpointUser(this);
@@ -368,6 +494,8 @@ class Client extends _i1.ServerpodClientShared {
   late final EndpointComments comments;
 
   late final EndpointEvents events;
+
+  late final EndpointGearManage gearManage;
 
   late final EndpointGearRead gearRead;
 
@@ -381,6 +509,7 @@ class Client extends _i1.ServerpodClientShared {
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'comments': comments,
         'events': events,
+        'gearManage': gearManage,
         'gearRead': gearRead,
         'rental': rental,
         'user': user,
