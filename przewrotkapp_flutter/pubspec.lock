@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  buffer:
+    dependency: transitive
+    description:
+      name: buffer
+      sha256: "389da2ec2c16283c8787e0adaede82b1842102f8c8aae2f49003a766c5c6b3d1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.3"
   cached_network_image:
     dependency: transitive
     description:
@@ -78,6 +86,14 @@ packages:
     description:
       name: characters
       sha256: f71061c654a3380576a52b451dd5532377954cf9dbd272a78fc8479606670803
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
+  charcode:
+    dependency: transitive
+    description:
+      name: charcode
+      sha256: fb0f1107cac15a5ea6ef0a6ef71a807b9e4267c713bb93e00e92d737cc8dbd8a
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
@@ -318,6 +334,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.30"
+  flutter_reorderable_grid_view:
+    dependency: transitive
+    description:
+      name: flutter_reorderable_grid_view
+      sha256: bbaea92595e3d3a08313aea21540723bd383006fdb86ef4b6b92c453c04dc3b8
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.5.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -393,7 +417,7 @@ packages:
     source: hosted
     version: "7.2.0"
   image_picker:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image_picker
       sha256: "736eb56a911cf24d1859315ad09ddec0b66104bc41a7f8c5b96b4e2620cf5041"
@@ -552,6 +576,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  multi_image_picker_view:
+    dependency: "direct main"
+    description:
+      name: multi_image_picker_view
+      sha256: aa9f81fcbb27762193da659fde9c035a9d6f10828cf688d2fd45fdd012c884b5
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
+  mustache_template:
+    dependency: transitive
+    description:
+      name: mustache_template
+      sha256: d9aa84d114368b7f1727b7014b85bb0b234daeafe1518824c82d32703b3964f6
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   nested:
     dependency: transitive
     description:
@@ -664,6 +704,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  pool:
+    dependency: transitive
+    description:
+      name: pool
+      sha256: "978783255c543aa3586a1b3c21f6e9d720eb315376a915872c61ef8b5c20177d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.2"
   posix:
     dependency: transitive
     description:
@@ -672,6 +720,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.3"
+  postgres:
+    dependency: transitive
+    description:
+      name: postgres
+      sha256: "96d7f40e079b96cdbfed13d71c64668cfd79c35bc17223c6b3ac0ca63bff72f0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.5.8"
   provider:
     dependency: "direct main"
     description:
@@ -687,6 +743,22 @@ packages:
       relative: true
     source: path
     version: "0.0.0"
+  redis:
+    dependency: transitive
+    description:
+      name: redis
+      sha256: "4a8218ef7b0642ff499147c7a105591208259e2f55f07db0101ace7f82f66cf9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
+  retry:
+    dependency: transitive
+    description:
+      name: retry
+      sha256: "822e118d5b3aafed083109c72d5f484c6dc66707885e07c0fbcb8b986bba7efc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.2"
   rxdart:
     dependency: "direct main"
     description:
@@ -703,6 +775,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.8"
+  serverpod:
+    dependency: transitive
+    description:
+      name: serverpod
+      sha256: ffb358e9ff84bf546ee612b4b5a5f5556bd9840e4a8f06d825efb77a4dd3009e
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.9.1"
   serverpod_auth_client:
     dependency: "direct main"
     description:
@@ -748,6 +828,14 @@ packages:
     description:
       name: serverpod_serialization
       sha256: c301a5e45610c062e51e1ba580f51f3257c3404ce2dd2f7e216dccbd93869502
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.9.1"
+  serverpod_shared:
+    dependency: transitive
+    description:
+      name: serverpod_shared
+      sha256: "4c88ca57d90138a01d70a5e28f206c86f9ec43a9215de06ee6a5d0c95049d519"
       url: "https://pub.dev"
     source: hosted
     version: "2.9.1"
@@ -892,6 +980,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
+  super_string:
+    dependency: transitive
+    description:
+      name: super_string
+      sha256: ba41acf9fbb318b3fc0d57c9235779100394d85d83f45ab533615df1f3146ea7
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
   synchronized:
     dependency: transitive
     description:
@@ -900,6 +996,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.4.0"
+  system_resources:
+    dependency: transitive
+    description:
+      name: system_resources
+      sha256: "7e78cf8ef224c1e0b6bf4462322b6739fea2274fef928cbcbf21ae5e5a8272d8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.6.0"
   term_glyph:
     dependency: transitive
     description:

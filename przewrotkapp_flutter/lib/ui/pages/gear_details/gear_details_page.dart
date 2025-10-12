@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+import 'package:przewrotkapp_client/scopes.dart';
+import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 import '../../../logic/data_types.dart';
 import '../../common/comment_listing.dart';
@@ -25,6 +28,7 @@ class GearDetailsPage extends StatelessWidget {
     );
     final gear = gearPair?.gear;
     final client = context.read<Client>();
+    final sm = context.read<SessionManager>();
     final isFavourite =
         context.watch<UserFavourites?>()?.gearIds.contains(gear?.id) ?? false;
     final rentals = context.watch<FutureRentals?>();
@@ -39,6 +43,14 @@ class GearDetailsPage extends StatelessWidget {
           "${gear != null ? gear.type.toDisplayString(plural: false) : ''} $clubId",
         ),
         actions: [
+          if (sm.signedInUser?.scopeNames.contains(
+                PrzeScope.sprzetowiec.name,
+              ) ??
+              false)
+            IconButton(
+              onPressed: () => context.push('/gear/$clubId/edit'),
+              icon: Icon(Icons.edit),
+            ),
           IconButton(
             onPressed: gear != null
                 ? () async {

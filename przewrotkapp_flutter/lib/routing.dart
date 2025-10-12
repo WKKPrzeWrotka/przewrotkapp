@@ -9,6 +9,7 @@ import 'ui/pages/comments_browser/comments_browser_page.dart';
 import 'ui/pages/gear_browser/gear_browser_page.dart';
 import 'ui/pages/gear_details/fullscreen_photos_page.dart';
 import 'ui/pages/gear_details/gear_details_page.dart';
+import 'ui/pages/gear_details/gear_edit_page.dart';
 import 'ui/pages/home/home_page.dart';
 import 'ui/pages/new_rental/new_rental_page.dart';
 import 'ui/pages/rental_group_details/rental_group_details_page.dart';
@@ -46,6 +47,11 @@ final router = GoRouter(
           state.uri.queryParameters['initialIndex'] ?? "",
         ),
       ),
+    ),
+    GoRoute(
+      path: '/gear/:clubId/edit',
+      builder: (_, state) =>
+          GearEditPage(clubId: state.pathParameters['clubId']!),
     ),
     GoRoute(path: '/calendar', builder: (context, state) => CalendarPage()),
     GoRoute(
