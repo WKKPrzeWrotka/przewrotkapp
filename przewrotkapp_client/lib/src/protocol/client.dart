@@ -12,25 +12,26 @@
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:przewrotkapp_client/src/protocol/gear/comment.dart' as _i3;
-import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i4;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_belt.dart' as _i5;
+import 'dart:typed_data' as _i4;
+import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i5;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_belt.dart' as _i6;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_clothing.dart'
-    as _i6;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_floatbag.dart'
     as _i7;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_helmet.dart' as _i8;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_kayak.dart' as _i9;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_paddle.dart' as _i10;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_pfd.dart' as _i11;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_floatbag.dart'
+    as _i8;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_helmet.dart' as _i9;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_kayak.dart' as _i10;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_paddle.dart' as _i11;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_pfd.dart' as _i12;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_spraydeck.dart'
-    as _i12;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_throwbag.dart'
     as _i13;
-import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i14;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i15;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_throwbag.dart'
+    as _i14;
+import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i15;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i16;
 import 'package:przewrotkapp_client/src/protocol/user/extra_user_info.dart'
-    as _i16;
-import 'protocol.dart' as _i17;
+    as _i17;
+import 'protocol.dart' as _i18;
 
 /// {@category Endpoint}
 class EndpointComments extends _i1.EndpointRef {
@@ -79,9 +80,22 @@ class EndpointGearManage extends _i1.EndpointRef {
   @override
   String get name => 'gearManage';
 
+  _i2.Future<Uri> uploadGearImage(
+    _i4.ByteData imageBytes,
+    String clubId,
+  ) =>
+      caller.callServerEndpoint<Uri>(
+        'gearManage',
+        'uploadGearImage',
+        {
+          'imageBytes': imageBytes,
+          'clubId': clubId,
+        },
+      );
+
   _i2.Future<void> createOrUpdateBelt(
-    _i4.Gear gear,
-    _i5.GearBelt belt,
+    _i5.Gear gear,
+    _i6.GearBelt belt,
   ) =>
       caller.callServerEndpoint<void>(
         'gearManage',
@@ -93,8 +107,8 @@ class EndpointGearManage extends _i1.EndpointRef {
       );
 
   _i2.Future<void> createOrUpdateClothing(
-    _i4.Gear gear,
-    _i6.GearClothing clothing,
+    _i5.Gear gear,
+    _i7.GearClothing clothing,
   ) =>
       caller.callServerEndpoint<void>(
         'gearManage',
@@ -106,8 +120,8 @@ class EndpointGearManage extends _i1.EndpointRef {
       );
 
   _i2.Future<void> createOrUpdateFloatbag(
-    _i4.Gear gear,
-    _i7.GearFloatbag floatbag,
+    _i5.Gear gear,
+    _i8.GearFloatbag floatbag,
   ) =>
       caller.callServerEndpoint<void>(
         'gearManage',
@@ -119,8 +133,8 @@ class EndpointGearManage extends _i1.EndpointRef {
       );
 
   _i2.Future<void> createOrUpdateHelmet(
-    _i4.Gear gear,
-    _i8.GearHelmet helmet,
+    _i5.Gear gear,
+    _i9.GearHelmet helmet,
   ) =>
       caller.callServerEndpoint<void>(
         'gearManage',
@@ -132,8 +146,8 @@ class EndpointGearManage extends _i1.EndpointRef {
       );
 
   _i2.Future<void> createOrUpdateKayak(
-    _i4.Gear gear,
-    _i9.GearKayak kayak,
+    _i5.Gear gear,
+    _i10.GearKayak kayak,
   ) =>
       caller.callServerEndpoint<void>(
         'gearManage',
@@ -145,8 +159,8 @@ class EndpointGearManage extends _i1.EndpointRef {
       );
 
   _i2.Future<void> createOrUpdatePaddle(
-    _i4.Gear gear,
-    _i10.GearPaddle paddle,
+    _i5.Gear gear,
+    _i11.GearPaddle paddle,
   ) =>
       caller.callServerEndpoint<void>(
         'gearManage',
@@ -158,8 +172,8 @@ class EndpointGearManage extends _i1.EndpointRef {
       );
 
   _i2.Future<void> createOrUpdatePfd(
-    _i4.Gear gear,
-    _i11.GearPfd pfd,
+    _i5.Gear gear,
+    _i12.GearPfd pfd,
   ) =>
       caller.callServerEndpoint<void>(
         'gearManage',
@@ -171,8 +185,8 @@ class EndpointGearManage extends _i1.EndpointRef {
       );
 
   _i2.Future<void> createOrUpdateSpraydeck(
-    _i4.Gear gear,
-    _i12.GearSpraydeck spraydeck,
+    _i5.Gear gear,
+    _i13.GearSpraydeck spraydeck,
   ) =>
       caller.callServerEndpoint<void>(
         'gearManage',
@@ -184,8 +198,8 @@ class EndpointGearManage extends _i1.EndpointRef {
       );
 
   _i2.Future<void> createOrUpdateThrowbag(
-    _i4.Gear gear,
-    _i13.GearThrowbag throwbag,
+    _i5.Gear gear,
+    _i14.GearThrowbag throwbag,
   ) =>
       caller.callServerEndpoint<void>(
         'gearManage',
@@ -204,153 +218,153 @@ class EndpointGearRead extends _i1.EndpointRef {
   @override
   String get name => 'gearRead';
 
-  _i2.Future<List<(_i4.Gear, _i5.GearBelt)>> getAllBelts() =>
-      caller.callServerEndpoint<List<(_i4.Gear, _i5.GearBelt)>>(
+  _i2.Future<List<(_i5.Gear, _i6.GearBelt)>> getAllBelts() =>
+      caller.callServerEndpoint<List<(_i5.Gear, _i6.GearBelt)>>(
         'gearRead',
         'getAllBelts',
         {},
       );
 
-  _i2.Stream<List<(_i4.Gear, _i5.GearBelt)>> watchAllBelts() =>
+  _i2.Stream<List<(_i5.Gear, _i6.GearBelt)>> watchAllBelts() =>
       caller.callStreamingServerEndpoint<
-          _i2.Stream<List<(_i4.Gear, _i5.GearBelt)>>,
-          List<(_i4.Gear, _i5.GearBelt)>>(
+          _i2.Stream<List<(_i5.Gear, _i6.GearBelt)>>,
+          List<(_i5.Gear, _i6.GearBelt)>>(
         'gearRead',
         'watchAllBelts',
         {},
         {},
       );
 
-  _i2.Future<List<(_i4.Gear, _i6.GearClothing)>> getAllClothes() =>
-      caller.callServerEndpoint<List<(_i4.Gear, _i6.GearClothing)>>(
+  _i2.Future<List<(_i5.Gear, _i7.GearClothing)>> getAllClothes() =>
+      caller.callServerEndpoint<List<(_i5.Gear, _i7.GearClothing)>>(
         'gearRead',
         'getAllClothes',
         {},
       );
 
-  _i2.Stream<List<(_i4.Gear, _i6.GearClothing)>> watchAllClothes() =>
+  _i2.Stream<List<(_i5.Gear, _i7.GearClothing)>> watchAllClothes() =>
       caller.callStreamingServerEndpoint<
-          _i2.Stream<List<(_i4.Gear, _i6.GearClothing)>>,
-          List<(_i4.Gear, _i6.GearClothing)>>(
+          _i2.Stream<List<(_i5.Gear, _i7.GearClothing)>>,
+          List<(_i5.Gear, _i7.GearClothing)>>(
         'gearRead',
         'watchAllClothes',
         {},
         {},
       );
 
-  _i2.Future<List<(_i4.Gear, _i7.GearFloatbag)>> getAllFloatbags() =>
-      caller.callServerEndpoint<List<(_i4.Gear, _i7.GearFloatbag)>>(
+  _i2.Future<List<(_i5.Gear, _i8.GearFloatbag)>> getAllFloatbags() =>
+      caller.callServerEndpoint<List<(_i5.Gear, _i8.GearFloatbag)>>(
         'gearRead',
         'getAllFloatbags',
         {},
       );
 
-  _i2.Stream<List<(_i4.Gear, _i7.GearFloatbag)>> watchAllFloatbags() =>
+  _i2.Stream<List<(_i5.Gear, _i8.GearFloatbag)>> watchAllFloatbags() =>
       caller.callStreamingServerEndpoint<
-          _i2.Stream<List<(_i4.Gear, _i7.GearFloatbag)>>,
-          List<(_i4.Gear, _i7.GearFloatbag)>>(
+          _i2.Stream<List<(_i5.Gear, _i8.GearFloatbag)>>,
+          List<(_i5.Gear, _i8.GearFloatbag)>>(
         'gearRead',
         'watchAllFloatbags',
         {},
         {},
       );
 
-  _i2.Future<List<(_i4.Gear, _i8.GearHelmet)>> getAllHelmets() =>
-      caller.callServerEndpoint<List<(_i4.Gear, _i8.GearHelmet)>>(
+  _i2.Future<List<(_i5.Gear, _i9.GearHelmet)>> getAllHelmets() =>
+      caller.callServerEndpoint<List<(_i5.Gear, _i9.GearHelmet)>>(
         'gearRead',
         'getAllHelmets',
         {},
       );
 
-  _i2.Stream<List<(_i4.Gear, _i8.GearHelmet)>> watchAllHelmets() =>
+  _i2.Stream<List<(_i5.Gear, _i9.GearHelmet)>> watchAllHelmets() =>
       caller.callStreamingServerEndpoint<
-          _i2.Stream<List<(_i4.Gear, _i8.GearHelmet)>>,
-          List<(_i4.Gear, _i8.GearHelmet)>>(
+          _i2.Stream<List<(_i5.Gear, _i9.GearHelmet)>>,
+          List<(_i5.Gear, _i9.GearHelmet)>>(
         'gearRead',
         'watchAllHelmets',
         {},
         {},
       );
 
-  _i2.Future<List<(_i4.Gear, _i9.GearKayak)>> getAllKayaks() =>
-      caller.callServerEndpoint<List<(_i4.Gear, _i9.GearKayak)>>(
+  _i2.Future<List<(_i5.Gear, _i10.GearKayak)>> getAllKayaks() =>
+      caller.callServerEndpoint<List<(_i5.Gear, _i10.GearKayak)>>(
         'gearRead',
         'getAllKayaks',
         {},
       );
 
-  _i2.Stream<List<(_i4.Gear, _i9.GearKayak)>> watchAllKayaks() =>
+  _i2.Stream<List<(_i5.Gear, _i10.GearKayak)>> watchAllKayaks() =>
       caller.callStreamingServerEndpoint<
-          _i2.Stream<List<(_i4.Gear, _i9.GearKayak)>>,
-          List<(_i4.Gear, _i9.GearKayak)>>(
+          _i2.Stream<List<(_i5.Gear, _i10.GearKayak)>>,
+          List<(_i5.Gear, _i10.GearKayak)>>(
         'gearRead',
         'watchAllKayaks',
         {},
         {},
       );
 
-  _i2.Future<List<(_i4.Gear, _i10.GearPaddle)>> getAllPaddles() =>
-      caller.callServerEndpoint<List<(_i4.Gear, _i10.GearPaddle)>>(
+  _i2.Future<List<(_i5.Gear, _i11.GearPaddle)>> getAllPaddles() =>
+      caller.callServerEndpoint<List<(_i5.Gear, _i11.GearPaddle)>>(
         'gearRead',
         'getAllPaddles',
         {},
       );
 
-  _i2.Stream<List<(_i4.Gear, _i10.GearPaddle)>> watchAllPaddles() =>
+  _i2.Stream<List<(_i5.Gear, _i11.GearPaddle)>> watchAllPaddles() =>
       caller.callStreamingServerEndpoint<
-          _i2.Stream<List<(_i4.Gear, _i10.GearPaddle)>>,
-          List<(_i4.Gear, _i10.GearPaddle)>>(
+          _i2.Stream<List<(_i5.Gear, _i11.GearPaddle)>>,
+          List<(_i5.Gear, _i11.GearPaddle)>>(
         'gearRead',
         'watchAllPaddles',
         {},
         {},
       );
 
-  _i2.Future<List<(_i4.Gear, _i11.GearPfd)>> getAllPfds() =>
-      caller.callServerEndpoint<List<(_i4.Gear, _i11.GearPfd)>>(
+  _i2.Future<List<(_i5.Gear, _i12.GearPfd)>> getAllPfds() =>
+      caller.callServerEndpoint<List<(_i5.Gear, _i12.GearPfd)>>(
         'gearRead',
         'getAllPfds',
         {},
       );
 
-  _i2.Stream<List<(_i4.Gear, _i11.GearPfd)>> watchAllPfds() =>
+  _i2.Stream<List<(_i5.Gear, _i12.GearPfd)>> watchAllPfds() =>
       caller.callStreamingServerEndpoint<
-          _i2.Stream<List<(_i4.Gear, _i11.GearPfd)>>,
-          List<(_i4.Gear, _i11.GearPfd)>>(
+          _i2.Stream<List<(_i5.Gear, _i12.GearPfd)>>,
+          List<(_i5.Gear, _i12.GearPfd)>>(
         'gearRead',
         'watchAllPfds',
         {},
         {},
       );
 
-  _i2.Future<List<(_i4.Gear, _i12.GearSpraydeck)>> getAllSpraydecks() =>
-      caller.callServerEndpoint<List<(_i4.Gear, _i12.GearSpraydeck)>>(
+  _i2.Future<List<(_i5.Gear, _i13.GearSpraydeck)>> getAllSpraydecks() =>
+      caller.callServerEndpoint<List<(_i5.Gear, _i13.GearSpraydeck)>>(
         'gearRead',
         'getAllSpraydecks',
         {},
       );
 
-  _i2.Stream<List<(_i4.Gear, _i12.GearSpraydeck)>> watchAllSpraydecks() =>
+  _i2.Stream<List<(_i5.Gear, _i13.GearSpraydeck)>> watchAllSpraydecks() =>
       caller.callStreamingServerEndpoint<
-          _i2.Stream<List<(_i4.Gear, _i12.GearSpraydeck)>>,
-          List<(_i4.Gear, _i12.GearSpraydeck)>>(
+          _i2.Stream<List<(_i5.Gear, _i13.GearSpraydeck)>>,
+          List<(_i5.Gear, _i13.GearSpraydeck)>>(
         'gearRead',
         'watchAllSpraydecks',
         {},
         {},
       );
 
-  _i2.Future<List<(_i4.Gear, _i13.GearThrowbag)>> getAllThrowbags() =>
-      caller.callServerEndpoint<List<(_i4.Gear, _i13.GearThrowbag)>>(
+  _i2.Future<List<(_i5.Gear, _i14.GearThrowbag)>> getAllThrowbags() =>
+      caller.callServerEndpoint<List<(_i5.Gear, _i14.GearThrowbag)>>(
         'gearRead',
         'getAllThrowbags',
         {},
       );
 
-  _i2.Stream<List<(_i4.Gear, _i13.GearThrowbag)>> watchAllThrowbags() =>
+  _i2.Stream<List<(_i5.Gear, _i14.GearThrowbag)>> watchAllThrowbags() =>
       caller.callStreamingServerEndpoint<
-          _i2.Stream<List<(_i4.Gear, _i13.GearThrowbag)>>,
-          List<(_i4.Gear, _i13.GearThrowbag)>>(
+          _i2.Stream<List<(_i5.Gear, _i14.GearThrowbag)>>,
+          List<(_i5.Gear, _i14.GearThrowbag)>>(
         'gearRead',
         'watchAllThrowbags',
         {},
@@ -365,16 +379,16 @@ class EndpointRental extends _i1.EndpointRef {
   @override
   String get name => 'rental';
 
-  _i2.Future<List<_i14.Rental>> getRentals({required bool past}) =>
-      caller.callServerEndpoint<List<_i14.Rental>>(
+  _i2.Future<List<_i15.Rental>> getRentals({required bool past}) =>
+      caller.callServerEndpoint<List<_i15.Rental>>(
         'rental',
         'getRentals',
         {'past': past},
       );
 
-  _i2.Stream<List<_i14.Rental>> watchRentals({required bool past}) =>
-      caller.callStreamingServerEndpoint<_i2.Stream<List<_i14.Rental>>,
-          List<_i14.Rental>>(
+  _i2.Stream<List<_i15.Rental>> watchRentals({required bool past}) =>
+      caller.callStreamingServerEndpoint<_i2.Stream<List<_i15.Rental>>,
+          List<_i15.Rental>>(
         'rental',
         'watchRentals',
         {'past': past},
@@ -382,7 +396,7 @@ class EndpointRental extends _i1.EndpointRef {
       );
 
   _i2.Future<void> rentGear(
-    List<_i4.Gear> gear,
+    List<_i5.Gear> gear,
     DateTime from,
     DateTime to,
   ) =>
@@ -404,23 +418,23 @@ class EndpointUser extends _i1.EndpointRef {
   @override
   String get name => 'user';
 
-  _i2.Future<_i15.UserInfoPublic> getUserInfo(int userId) =>
-      caller.callServerEndpoint<_i15.UserInfoPublic>(
+  _i2.Future<_i16.UserInfoPublic> getUserInfo(int userId) =>
+      caller.callServerEndpoint<_i16.UserInfoPublic>(
         'user',
         'getUserInfo',
         {'userId': userId},
       );
 
-  _i2.Future<_i16.ExtraUserInfo> getExtraUserInfo([int? userId]) =>
-      caller.callServerEndpoint<_i16.ExtraUserInfo>(
+  _i2.Future<_i17.ExtraUserInfo> getExtraUserInfo([int? userId]) =>
+      caller.callServerEndpoint<_i17.ExtraUserInfo>(
         'user',
         'getExtraUserInfo',
         {'userId': userId},
       );
 
-  _i2.Stream<_i16.ExtraUserInfo> watchExtraUserInfo([int? userId]) =>
-      caller.callStreamingServerEndpoint<_i2.Stream<_i16.ExtraUserInfo>,
-          _i16.ExtraUserInfo>(
+  _i2.Stream<_i17.ExtraUserInfo> watchExtraUserInfo([int? userId]) =>
+      caller.callStreamingServerEndpoint<_i2.Stream<_i17.ExtraUserInfo>,
+          _i17.ExtraUserInfo>(
         'user',
         'watchExtraUserInfo',
         {'userId': userId},
@@ -428,7 +442,7 @@ class EndpointUser extends _i1.EndpointRef {
       );
 
   _i2.Future<void> updateGearFavourite(
-    _i4.Gear gear,
+    _i5.Gear gear,
     bool isFavourite,
   ) =>
       caller.callServerEndpoint<void>(
@@ -440,7 +454,7 @@ class EndpointUser extends _i1.EndpointRef {
         },
       );
 
-  _i2.Future<void> updateUser(_i16.ExtraUserInfo extraUser) =>
+  _i2.Future<void> updateUser(_i17.ExtraUserInfo extraUser) =>
       caller.callServerEndpoint<void>(
         'user',
         'updateUser',
@@ -450,10 +464,10 @@ class EndpointUser extends _i1.EndpointRef {
 
 class Modules {
   Modules(Client client) {
-    auth = _i15.Caller(client);
+    auth = _i16.Caller(client);
   }
 
-  late final _i15.Caller auth;
+  late final _i16.Caller auth;
 }
 
 class Client extends _i1.ServerpodClientShared {
@@ -472,7 +486,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i17.Protocol(),
+          _i18.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,

@@ -1,8 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:przewrotkapp_client/scopes.dart';
 import 'package:przewrotkapp_server/src/gear_read_endpoint.dart';
 import 'package:przewrotkapp_server/src/utils.dart';
-import 'package:serverpod/database.dart';
-import 'package:serverpod/server.dart';
+import 'package:serverpod/serverpod.dart';
 
 import 'generated/protocol.dart';
 
@@ -20,6 +21,23 @@ class GearManageEndpoint extends Endpoint {
   }) async => row.id != null
       ? await session.db.updateRow<T>(row, transaction: t)
       : await session.db.insertRow<T>(row, transaction: t);
+
+  Future<Uri> uploadGearImage(
+    Session session,
+    ByteData imageBytes,
+    String clubId,
+  ) async {
+    final path = '/${clubId.toUpperCase()}/${Uuid().v4()}.jpg';
+    await session.storage.storeFile(
+      storageId: 'public',
+      path: path,
+      byteData: imageBytes,
+    );
+    return (await session.storage.getPublicUrl(
+      storageId: 'public',
+      path: path,
+    ))!;
+  }
 
   Future<void> _createOrUpdateGearPair(
     Session session,

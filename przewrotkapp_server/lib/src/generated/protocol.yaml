@@ -4,6 +4,7 @@ comments:
 events:
   - getDiscordEvents:
 gearManage:
+  - uploadGearImage:
   - createOrUpdateBelt:
   - createOrUpdateClothing:
   - createOrUpdateFloatbag:

@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +18,7 @@ class GearEditPage extends StatefulWidget {
 }
 
 class _GearEditPageState extends State<GearEditPage> {
+  late final Client client;
   final key = GlobalKey<FormState>();
   late final Gear editedGear;
   late final GearExtra editedExtra;
@@ -48,6 +52,7 @@ class _GearEditPageState extends State<GearEditPage> {
   @override
   void initState() {
     super.initState();
+    client = context.read<Client>();
     // avoid editing global list
     editedGear = widget.gearPair.gear.copyWith(
       photoUrls: widget.gearPair.gear.photoUrls?.toList(),
@@ -58,8 +63,24 @@ class _GearEditPageState extends State<GearEditPage> {
       maxImages: 32,
       picker: (pickCount, params) async {
         final pickedImages = await ImagePicker().pickMultiImage();
-        // TODO: Compress the image and upload it at *this point*
-        return pickedImages.map((e) => convertXFileToImageFile(e)).toList();
+        return await Stream.fromIterable(pickedImages).asyncMap((e) async {
+          final bytes = await FlutterImageCompress.compressWithList(
+            await e.readAsBytes(),
+            quality: 70,
+            format: CompressFormat.jpeg,
+          );
+          final uri = await client.gearManage.uploadGearImage(
+            ByteData.sublistView(bytes),
+            widget.clubId,
+          );
+          return ImageFile(
+            UniqueKey().toString(),
+            // these two don't really work for our url schemes, but it works
+            name: uri.pathSegments.last,
+            extension: uri.pathSegments.last.split('.').last,
+            path: uri.toString(),
+          );
+        }).toList();
       },
     );
     ctrlImg.addListener(onImageMoved);
@@ -68,7 +89,6 @@ class _GearEditPageState extends State<GearEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    final client = context.read<Client>();
     return Scaffold(
       appBar: AppBar(title: Text("Edycja ${widget.clubId} ✏")),
       body: ListView(

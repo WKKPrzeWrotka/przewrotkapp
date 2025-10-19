@@ -17,25 +17,26 @@ import '../gear_read_endpoint.dart' as _i5;
 import '../rental_endpoint.dart' as _i6;
 import '../user_endpoint.dart' as _i7;
 import 'package:przewrotkapp_server/src/generated/protocol.dart' as _i8;
-import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i9;
-import 'package:przewrotkapp_server/src/generated/gear/gear_belt.dart' as _i10;
+import 'dart:typed_data' as _i9;
+import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i10;
+import 'package:przewrotkapp_server/src/generated/gear/gear_belt.dart' as _i11;
 import 'package:przewrotkapp_server/src/generated/gear/gear_clothing.dart'
-    as _i11;
-import 'package:przewrotkapp_server/src/generated/gear/gear_floatbag.dart'
     as _i12;
-import 'package:przewrotkapp_server/src/generated/gear/gear_helmet.dart'
+import 'package:przewrotkapp_server/src/generated/gear/gear_floatbag.dart'
     as _i13;
-import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i14;
+import 'package:przewrotkapp_server/src/generated/gear/gear_helmet.dart'
+    as _i14;
+import 'package:przewrotkapp_server/src/generated/gear/gear_kayak.dart' as _i15;
 import 'package:przewrotkapp_server/src/generated/gear/gear_paddle.dart'
-    as _i15;
-import 'package:przewrotkapp_server/src/generated/gear/gear_pfd.dart' as _i16;
+    as _i16;
+import 'package:przewrotkapp_server/src/generated/gear/gear_pfd.dart' as _i17;
 import 'package:przewrotkapp_server/src/generated/gear/gear_spraydeck.dart'
-    as _i17;
-import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
     as _i18;
-import 'package:przewrotkapp_server/src/generated/user/extra_user_info.dart'
+import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
     as _i19;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i20;
+import 'package:przewrotkapp_server/src/generated/user/extra_user_info.dart'
+    as _i20;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i21;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -154,17 +155,42 @@ class Endpoints extends _i1.EndpointDispatch {
       name: 'gearManage',
       endpoint: endpoints['gearManage']!,
       methodConnectors: {
+        'uploadGearImage': _i1.MethodConnector(
+          name: 'uploadGearImage',
+          params: {
+            'imageBytes': _i1.ParameterDescription(
+              name: 'imageBytes',
+              type: _i1.getType<_i9.ByteData>(),
+              nullable: false,
+            ),
+            'clubId': _i1.ParameterDescription(
+              name: 'clubId',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['gearManage'] as _i4.GearManageEndpoint)
+                  .uploadGearImage(
+            session,
+            params['imageBytes'],
+            params['clubId'],
+          ),
+        ),
         'createOrUpdateBelt': _i1.MethodConnector(
           name: 'createOrUpdateBelt',
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<_i9.Gear>(),
+              type: _i1.getType<_i10.Gear>(),
               nullable: false,
             ),
             'belt': _i1.ParameterDescription(
               name: 'belt',
-              type: _i1.getType<_i10.GearBelt>(),
+              type: _i1.getType<_i11.GearBelt>(),
               nullable: false,
             ),
           },
@@ -184,12 +210,12 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<_i9.Gear>(),
+              type: _i1.getType<_i10.Gear>(),
               nullable: false,
             ),
             'clothing': _i1.ParameterDescription(
               name: 'clothing',
-              type: _i1.getType<_i11.GearClothing>(),
+              type: _i1.getType<_i12.GearClothing>(),
               nullable: false,
             ),
           },
@@ -209,12 +235,12 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<_i9.Gear>(),
+              type: _i1.getType<_i10.Gear>(),
               nullable: false,
             ),
             'floatbag': _i1.ParameterDescription(
               name: 'floatbag',
-              type: _i1.getType<_i12.GearFloatbag>(),
+              type: _i1.getType<_i13.GearFloatbag>(),
               nullable: false,
             ),
           },
@@ -234,12 +260,12 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<_i9.Gear>(),
+              type: _i1.getType<_i10.Gear>(),
               nullable: false,
             ),
             'helmet': _i1.ParameterDescription(
               name: 'helmet',
-              type: _i1.getType<_i13.GearHelmet>(),
+              type: _i1.getType<_i14.GearHelmet>(),
               nullable: false,
             ),
           },
@@ -259,12 +285,12 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<_i9.Gear>(),
+              type: _i1.getType<_i10.Gear>(),
               nullable: false,
             ),
             'kayak': _i1.ParameterDescription(
               name: 'kayak',
-              type: _i1.getType<_i14.GearKayak>(),
+              type: _i1.getType<_i15.GearKayak>(),
               nullable: false,
             ),
           },
@@ -284,12 +310,12 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<_i9.Gear>(),
+              type: _i1.getType<_i10.Gear>(),
               nullable: false,
             ),
             'paddle': _i1.ParameterDescription(
               name: 'paddle',
-              type: _i1.getType<_i15.GearPaddle>(),
+              type: _i1.getType<_i16.GearPaddle>(),
               nullable: false,
             ),
           },
@@ -309,12 +335,12 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<_i9.Gear>(),
+              type: _i1.getType<_i10.Gear>(),
               nullable: false,
             ),
             'pfd': _i1.ParameterDescription(
               name: 'pfd',
-              type: _i1.getType<_i16.GearPfd>(),
+              type: _i1.getType<_i17.GearPfd>(),
               nullable: false,
             ),
           },
@@ -334,12 +360,12 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<_i9.Gear>(),
+              type: _i1.getType<_i10.Gear>(),
               nullable: false,
             ),
             'spraydeck': _i1.ParameterDescription(
               name: 'spraydeck',
-              type: _i1.getType<_i17.GearSpraydeck>(),
+              type: _i1.getType<_i18.GearSpraydeck>(),
               nullable: false,
             ),
           },
@@ -359,12 +385,12 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<_i9.Gear>(),
+              type: _i1.getType<_i10.Gear>(),
               nullable: false,
             ),
             'throwbag': _i1.ParameterDescription(
               name: 'throwbag',
-              type: _i1.getType<_i18.GearThrowbag>(),
+              type: _i1.getType<_i19.GearThrowbag>(),
               nullable: false,
             ),
           },
@@ -639,7 +665,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<List<_i9.Gear>>(),
+              type: _i1.getType<List<_i10.Gear>>(),
               nullable: false,
             ),
             'from': _i1.ParameterDescription(
@@ -732,7 +758,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'gear': _i1.ParameterDescription(
               name: 'gear',
-              type: _i1.getType<_i9.Gear>(),
+              type: _i1.getType<_i10.Gear>(),
               nullable: false,
             ),
             'isFavourite': _i1.ParameterDescription(
@@ -756,7 +782,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'extraUser': _i1.ParameterDescription(
               name: 'extraUser',
-              type: _i1.getType<_i19.ExtraUserInfo>(),
+              type: _i1.getType<_i20.ExtraUserInfo>(),
               nullable: false,
             )
           },
@@ -792,6 +818,6 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
-    modules['serverpod_auth'] = _i20.Endpoints()..initializeEndpoints(server);
+    modules['serverpod_auth'] = _i21.Endpoints()..initializeEndpoints(server);
   }
 }
