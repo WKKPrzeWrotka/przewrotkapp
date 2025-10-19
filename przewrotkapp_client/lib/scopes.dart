@@ -1,8 +1,11 @@
-import 'package:serverpod/server.dart';
+enum PrzeScope {
+  sprzetowiec('sprzetowiec'),
+  godzinkowy('godzinkowy');
 
-class PrzeScope extends Scope {
-  const PrzeScope(String super.name);
+  final String name;
 
-  static const sprzetowiec = PrzeScope('sprzetowiec');
-  static const godzinkowy = PrzeScope('godzinkowy');
+  const PrzeScope(this.name);
+
+  @override
+  String toString() => name;
 }

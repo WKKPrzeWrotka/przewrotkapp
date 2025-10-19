@@ -1,5 +1,6 @@
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
+import 'package:przewrotkapp_client/scopes.dart';
 import 'package:serverpod/serverpod.dart';
 
 final _smtpServer = gmail(
@@ -58,4 +59,12 @@ Stream<T> watchX<T>(Future<T> Function() getX, Stream updateStream) async* {
   await for (final _ in updateStream) {
     yield await getX();
   }
+}
+
+extension SuperPrzeScope on PrzeScope {
+  Scope toScope() => Scope(name);
+}
+
+extension SuperSuperPrzeScope on Set<PrzeScope> {
+  Set<Scope> toScopes() => map((e) => e.toScope()).toSet();
 }

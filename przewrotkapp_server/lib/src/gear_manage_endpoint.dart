@@ -1,5 +1,6 @@
 import 'package:przewrotkapp_client/scopes.dart';
 import 'package:przewrotkapp_server/src/gear_read_endpoint.dart';
+import 'package:przewrotkapp_server/src/utils.dart';
 import 'package:serverpod/database.dart';
 import 'package:serverpod/server.dart';
 
@@ -10,7 +11,7 @@ class GearManageEndpoint extends Endpoint {
   bool get requireLogin => true;
 
   @override
-  Set<Scope> get requiredScopes => {PrzeScope.sprzetowiec};
+  Set<Scope> get requiredScopes => {PrzeScope.sprzetowiec}.toScopes();
 
   Future<void> _insertOrUpdate<T extends TableRow>(
     Session session,
