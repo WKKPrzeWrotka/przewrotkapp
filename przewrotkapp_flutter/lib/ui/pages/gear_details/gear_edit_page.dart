@@ -20,6 +20,10 @@ class GearEditPage extends StatefulWidget {
 class _GearEditPageState extends State<GearEditPage> {
   late final Client client;
   final key = GlobalKey<FormState>();
+  late final TextEditingController ctrlManufacturer;
+  late final TextEditingController ctrlModel;
+  late final TextEditingController ctrlFriendlyName;
+
   late final Gear editedGear;
   late final GearExtra editedExtra;
   late final MultiImagePickerController ctrlImg;
@@ -52,6 +56,10 @@ class _GearEditPageState extends State<GearEditPage> {
     );
     editedExtra = widget.gearPair.gearExtra.copyWith();
 
+    ctrlManufacturer = TextEditingController(text: editedGear.manufacturer);
+    ctrlModel = TextEditingController(text: editedGear.model);
+    ctrlFriendlyName = TextEditingController(text: editedGear.friendlyName);
+
     ctrlImg = MultiImagePickerController(
       maxImages: 32,
       picker: (pickCount, params) async =>
@@ -64,6 +72,15 @@ class _GearEditPageState extends State<GearEditPage> {
     ctrlImg.addListener(onImageMoved);
     updatePickerImages();
   }
+
+  String? defaultValid(String? text) => (text == null || text.trim().isEmpty)
+      ? "Nie może być puste"
+      : (text.length > 32 ? "Za długie" : null);
+
+  String? allowNullValid(String? text) =>
+      ((text?.length ?? 0) > 32) ? "Za długie" : null;
+
+  String? nullIfEmpty(String text) => text.trim().isEmpty ? null : text;
 
   @override
   Widget build(BuildContext context) {
@@ -80,11 +97,33 @@ class _GearEditPageState extends State<GearEditPage> {
               longPressDelayMilliseconds: 200,
             ),
           ),
+          TextFormField(
+            controller: ctrlManufacturer,
+            decoration: InputDecoration(label: Text("Producent")),
+            onChanged: (t) => editedGear.manufacturer = nullIfEmpty(t),
+            validator: allowNullValid,
+          ),
+          TextFormField(
+            controller: ctrlModel,
+            decoration: InputDecoration(label: Text("Model")),
+            onChanged: (t) => editedGear.model = nullIfEmpty(t),
+            validator: allowNullValid,
+          ),
+          TextFormField(
+            controller: ctrlFriendlyName,
+            decoration: InputDecoration(label: Text("Ksywa")),
+            onChanged: (t) => editedGear.friendlyName = nullIfEmpty(t),
+            validator: allowNullValid,
+          ),
+          SizedBox(height: 16),
           FilledButton(
             onPressed: () {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text("Przytrzymaj :)")));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  duration: Duration(milliseconds: 500),
+                  content: Text("Przytrzymaj :)"),
+                ),
+              );
             },
             onLongPress: () async {
               try {
