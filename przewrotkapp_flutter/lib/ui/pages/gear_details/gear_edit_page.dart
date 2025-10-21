@@ -64,15 +64,7 @@ class _GearEditPageState extends State<GearEditPage> {
       picker: (pickCount, params) async {
         final pickedImages = await ImagePicker().pickMultiImage();
         return await Stream.fromIterable(pickedImages).asyncMap((e) async {
-          final bytes = await FlutterImageCompress.compressWithList(
-            await e.readAsBytes(),
-            quality: 70,
-            format: CompressFormat.jpeg,
-          );
-          final uri = await client.gearManage.uploadGearImage(
-            ByteData.sublistView(bytes),
-            widget.clubId,
-          );
+          final uri = await compressAndUploadImage(e);
           return ImageFile(
             UniqueKey().toString(),
             // these two don't really work for our url schemes, but it works
@@ -134,6 +126,18 @@ class _GearEditPageState extends State<GearEditPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Future<Uri> compressAndUploadImage(XFile imageFile) async {
+    final bytes = await FlutterImageCompress.compressWithList(
+      await imageFile.readAsBytes(),
+      quality: 70,
+      format: CompressFormat.jpeg,
+    );
+    return await client.gearManage.uploadGearImage(
+      ByteData.sublistView(bytes),
+      widget.clubId,
     );
   }
 
