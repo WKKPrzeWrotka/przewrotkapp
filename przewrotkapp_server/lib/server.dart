@@ -1,4 +1,3 @@
-import 'package:przewrotkapp_client/scopes.dart';
 import 'package:przewrotkapp_server/src/events_endpoint.dart';
 import 'package:przewrotkapp_server/src/web/routes/root.dart';
 import 'package:serverpod/serverpod.dart';
@@ -88,7 +87,6 @@ void run(List<String> args) async {
 
   // Start the server.
   await pod.start();
-  await auth.Users.updateUserScopes(await pod.createSession(), 4, {PrzeScope.sprzetowiec});
 
   if (pod.runMode == ServerpodRunMode.production) {
     final dcEvents = DiscordEventsFutureCall();

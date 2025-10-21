@@ -7,11 +7,19 @@ import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
+import '../../utils/names_and_strings.dart';
+
 class GearEditPage extends StatefulWidget {
   final String clubId;
   final GearPair gearPair;
+  final bool emptyFields;
 
-  const GearEditPage({super.key, required this.clubId, required this.gearPair});
+  const GearEditPage({
+    super.key,
+    required this.clubId,
+    required this.gearPair,
+    required this.emptyFields,
+  });
 
   @override
   State<GearEditPage> createState() => _GearEditPageState();
@@ -19,15 +27,11 @@ class GearEditPage extends StatefulWidget {
 
 class _GearEditPageState extends State<GearEditPage> {
   late final Client client;
-  final key = GlobalKey<FormState>();
-  late final TextEditingController ctrlManufacturer;
-  late final TextEditingController ctrlModel;
-  late final TextEditingController ctrlFriendlyName;
+  final formKey = GlobalKey<FormState>();
 
   late final Gear editedGear;
   late final GearExtra editedExtra;
   late final MultiImagePickerController ctrlImg;
-  late final TextEditingController ctrlUsername;
 
   // ====
   // ui utils here
@@ -56,10 +60,6 @@ class _GearEditPageState extends State<GearEditPage> {
     );
     editedExtra = widget.gearPair.gearExtra.copyWith();
 
-    ctrlManufacturer = TextEditingController(text: editedGear.manufacturer);
-    ctrlModel = TextEditingController(text: editedGear.model);
-    ctrlFriendlyName = TextEditingController(text: editedGear.friendlyName);
-
     ctrlImg = MultiImagePickerController(
       maxImages: 32,
       picker: (pickCount, params) async =>
@@ -77,79 +77,274 @@ class _GearEditPageState extends State<GearEditPage> {
       ? "Nie może być puste"
       : (text.length > 32 ? "Za długie" : null);
 
+  String? defaultIntValid(String? text) => (text == null || text.trim().isEmpty)
+      ? "Nie może być puste"
+      : (text.length > 32
+            ? "Za długie"
+            : (int.tryParse(text) == null
+                  ? "Ma być liczba, bez przecinka"
+                  : null));
+
+  String? defaultDoubleValid(String? text) =>
+      (text == null || text.trim().isEmpty)
+      ? "Nie może być puste"
+      : (text.length > 32
+            ? "Za długie"
+            : (double.tryParse(text) == null
+                  ? "Ma być liczba (z kropką zamiast przecinka)"
+                  : null));
+
   String? allowNullValid(String? text) =>
       ((text?.length ?? 0) > 32) ? "Za długie" : null;
 
-  String? nullIfEmpty(String text) => text.trim().isEmpty ? null : text;
+  String? allowNullIntValid(String? text) =>
+      (text?.trim().isEmpty ?? true) ? null : defaultIntValid(text);
+
+  String? allowNullDoubleValid(String? text) =>
+      (text?.trim().isEmpty ?? true) ? null : defaultDoubleValid(text);
+
+  String? nullIfEmpty(String text) => text.trim().isEmpty ? null : text.trim();
+
+  int? parseInt(String? t) =>
+      t == null ? null : int.tryParse(nullIfEmpty(t) ?? '');
+
+  double? parseDouble(String? t) =>
+      t == null ? null : double.tryParse(nullIfEmpty(t) ?? '');
+
+  List<Widget> gearSpecificFields(BuildContext context) {
+    final setInit = !widget.emptyFields;
+    final genericSizeEntries = GenericGearSize.values
+        .map((e) => DropdownMenuEntry(value: e, label: e.humanName))
+        .toList();
+    return switch (editedExtra) {
+      GearBelt belt => [
+        TextFormField(
+          initialValue: setInit ? belt.length.toString() : null,
+          onChanged: (t) => belt.length = double.parse(nullIfEmpty(t)!),
+          validator: defaultDoubleValid,
+          decoration: InputDecoration(label: Text('Długość')),
+        ),
+      ],
+      GearClothing clothing => [
+        DropdownMenuFormField(
+          initialSelection: setInit ? clothing.size : null,
+          dropdownMenuEntries: genericSizeEntries,
+          onSelected: (s) => clothing.size = s!,
+          label: Text('Rozmiar'),
+        ),
+        DropdownMenuFormField(
+          initialSelection: setInit ? clothing.type : null,
+          dropdownMenuEntries: ClothingType.values
+              .map((e) => DropdownMenuEntry(value: e, label: e.humanName))
+              .toList(),
+          onSelected: (t) => clothing.type = t!,
+          label: Text('Typ'),
+        ),
+        TextFormField(
+          initialValue: setInit ? clothing.typeDescription : null,
+          onChanged: (t) => clothing.typeDescription = nullIfEmpty(t),
+          validator: allowNullValid,
+          decoration: InputDecoration(label: Text('Opis typu')),
+        ),
+      ],
+      GearFloatbag floatbag => [
+        TextFormField(
+          initialValue: setInit ? floatbag.volume?.toString() : null,
+          onChanged: (t) => floatbag.volume = parseInt(t),
+          validator: allowNullValid,
+          decoration: InputDecoration(label: Text('Objętość')),
+        ),
+      ],
+      GearHelmet helmet => [
+        DropdownMenuFormField(
+          initialSelection: setInit ? helmet.size : null,
+          dropdownMenuEntries: genericSizeEntries,
+          onSelected: (t) => helmet.size = t!,
+          label: Text('Rozmiar'),
+        ),
+      ],
+      GearKayak kayak => [
+        DropdownMenuFormField(
+          initialSelection: setInit ? kayak.type : null,
+          dropdownMenuEntries: KayakType.values
+              .map((e) => DropdownMenuEntry(value: e, label: e.humanName))
+              .toList(),
+          onSelected: (t) => kayak.type = t!,
+          label: Text('Typ'),
+        ),
+        TextFormField(
+          initialValue: setInit ? kayak.minWeight?.toString() : null,
+          onChanged: (t) => kayak.minWeight = parseInt(t),
+          validator: allowNullIntValid,
+          decoration: InputDecoration(label: Text('Min waga jeźdźca')),
+        ),
+
+        TextFormField(
+          initialValue: setInit ? kayak.maxWeight?.toString() : null,
+          onChanged: (t) => kayak.maxWeight = parseInt(t),
+          validator: allowNullIntValid,
+          decoration: InputDecoration(label: Text('Max waga jeźdźca')),
+        ),
+
+        TextFormField(
+          initialValue: setInit ? kayak.length.toString() : null,
+          onChanged: (t) => kayak.length = parseInt(t)!,
+          validator: defaultIntValid,
+          decoration: InputDecoration(label: Text('Długość')),
+        ),
+      ],
+      GearPaddle paddle => [
+        DropdownMenuFormField(
+          initialSelection: setInit ? paddle.type : null,
+          dropdownMenuEntries: PaddleType.values
+              .map((e) => DropdownMenuEntry(value: e, label: e.humanName))
+              .toList(),
+          onSelected: (t) => paddle.type = t!,
+          label: Text('Typ'),
+        ),
+        TextFormField(
+          initialValue: setInit ? paddle.length.toString() : null,
+          onChanged: (t) => paddle.length = parseDouble(t)!,
+          validator: defaultDoubleValid,
+          decoration: InputDecoration(label: Text('Długość')),
+        ),
+
+        TextFormField(
+          initialValue: setInit ? paddle.rotation.toString() : null,
+          onChanged: (t) => paddle.rotation = parseInt(t)!,
+          validator: defaultIntValid,
+          decoration: InputDecoration(
+            label: Text('Skręt'),
+            // maybe some nice checkbox in future here?
+            // naaaah who has time for this
+            helper: Text(
+              "Jeśli kąt regulowany, wpisz maksymalny zakres na minusie - np 'maksymalnie 45' => '-45'",
+            ),
+          ),
+        ),
+      ],
+      GearPfd pfd => [
+        DropdownMenuFormField(
+          initialSelection: setInit ? pfd.size : null,
+          dropdownMenuEntries: genericSizeEntries,
+          onSaved: (s) => pfd.size,
+          label: Text("Rozmiar"),
+        ),
+        DropdownMenuFormField(
+          initialSelection: setInit ? pfd.type : null,
+          dropdownMenuEntries: PfdType.values
+              .map((s) => DropdownMenuEntry(value: s, label: s.humanName))
+              .toList(),
+          onSelected: (t) => pfd.type = t!,
+          label: Text("Typ"),
+        ),
+      ],
+      GearSpraydeck spraydeck => [
+        DropdownMenuFormField(
+          initialSelection: setInit ? spraydeck.deckSize : null,
+          dropdownMenuEntries: SpraydeckDeckSize.values
+              .map((s) => DropdownMenuEntry(value: s, label: s.humanName))
+              .toList(),
+          onSelected: (s) => spraydeck.deckSize = s!,
+          label: Text("Rozmiar kokpitu"),
+        ),
+        DropdownMenuFormField(
+          initialSelection: setInit ? spraydeck.waistSize : null,
+          dropdownMenuEntries: genericSizeEntries,
+          onSelected: (s) => spraydeck.waistSize = s!,
+          label: Text("Rozmiar w pasie"),
+        ),
+      ],
+      GearThrowbag throwbag => [
+        TextFormField(
+          initialValue: setInit ? throwbag.length.toString() : null,
+          onChanged: (t) => throwbag.length = parseInt(t)!,
+          validator: defaultIntValid,
+          decoration: InputDecoration(label: Text('Długość')),
+        ),
+      ],
+      GearExtra() => throw UnimplementedError(),
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
+    final setInit = !widget.emptyFields;
     return Scaffold(
       appBar: AppBar(title: Text("Edycja ${widget.clubId} ✏")),
-      body: ListView(
-        padding: EdgeInsets.all(8),
-        children: [
-          Container(
-            color: Colors.grey.withAlpha(40),
-            height: 256,
-            child: MultiImagePickerView(
-              controller: ctrlImg,
-              longPressDelayMilliseconds: 200,
+      body: Form(
+        key: formKey,
+        child: ListView(
+          padding: EdgeInsets.all(8),
+          children: [
+            Container(
+              color: Colors.grey.withAlpha(40),
+              height: 256,
+              child: MultiImagePickerView(
+                controller: ctrlImg,
+                longPressDelayMilliseconds: 200,
+              ),
             ),
-          ),
-          TextFormField(
-            controller: ctrlManufacturer,
-            decoration: InputDecoration(label: Text("Producent")),
-            onChanged: (t) => editedGear.manufacturer = nullIfEmpty(t),
-            validator: allowNullValid,
-          ),
-          TextFormField(
-            controller: ctrlModel,
-            decoration: InputDecoration(label: Text("Model")),
-            onChanged: (t) => editedGear.model = nullIfEmpty(t),
-            validator: allowNullValid,
-          ),
-          TextFormField(
-            controller: ctrlFriendlyName,
-            decoration: InputDecoration(label: Text("Ksywa")),
-            onChanged: (t) => editedGear.friendlyName = nullIfEmpty(t),
-            validator: allowNullValid,
-          ),
-          SizedBox(height: 16),
-          FilledButton(
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  duration: Duration(milliseconds: 500),
-                  content: Text("Przytrzymaj :)"),
-                ),
-              );
-            },
-            onLongPress: () async {
-              try {
-                await submit(client);
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.green,
-                      content: Text("Sukces!"),
-                    ),
-                  );
+            TextFormField(
+              initialValue: setInit ? editedGear.manufacturer : null,
+              onChanged: (t) => editedGear.manufacturer = nullIfEmpty(t),
+              validator: allowNullValid,
+              decoration: InputDecoration(label: Text("Producent")),
+            ),
+            TextFormField(
+              initialValue: setInit ? editedGear.model : null,
+              onChanged: (t) => editedGear.model = nullIfEmpty(t),
+              validator: allowNullValid,
+              decoration: InputDecoration(label: Text("Model")),
+            ),
+            TextFormField(
+              initialValue: setInit ? editedGear.friendlyName : null,
+              onChanged: (t) => editedGear.friendlyName = nullIfEmpty(t),
+              validator: allowNullValid,
+              decoration: InputDecoration(label: Text("Ksywa")),
+            ),
+            SizedBox(height: 16),
+            Divider(),
+            SizedBox(height: 16),
+            ...gearSpecificFields(context),
+            SizedBox(height: 32),
+            FilledButton(
+              onPressed: () {
+                formKey.currentState?.validate();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    duration: Duration(milliseconds: 500),
+                    content: Text("Przytrzymaj :)"),
+                  ),
+                );
+              },
+              onLongPress: () async {
+                if (!(formKey.currentState?.validate() ?? false)) return;
+                try {
+                  await submit(client);
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Text("Sukces!"),
+                      ),
+                    );
+                  }
+                } catch (e) {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text("Błąd :( $e"),
+                      ),
+                    );
+                  }
                 }
-              } catch (e) {
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.red,
-                      content: Text("Błąd :( $e"),
-                    ),
-                  );
-                }
-              }
-            },
-            child: Text("Zapisz"),
-          ),
-        ],
+              },
+              child: Text("Zapisz"),
+            ),
+          ],
+        ),
       ),
     );
   }
