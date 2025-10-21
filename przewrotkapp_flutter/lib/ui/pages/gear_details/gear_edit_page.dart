@@ -25,6 +25,10 @@ class _GearEditPageState extends State<GearEditPage> {
   late final MultiImagePickerController ctrlImg;
   late final TextEditingController ctrlUsername;
 
+  // ====
+  // ui utils here
+  // ====
+
   void onImageMoved() {
     editedGear.photoUrls = ctrlImg.images
         .map((f) => Uri.parse(f.path!))
@@ -34,18 +38,7 @@ class _GearEditPageState extends State<GearEditPage> {
 
   void updatePickerImages() {
     ctrlImg.updateImages(
-      editedGear.photoUrls
-              ?.map(
-                (uri) => ImageFile(
-                  UniqueKey().toString(),
-                  // these two don't really work for our url schemes, but it works
-                  name: uri.pathSegments.last,
-                  extension: uri.pathSegments.last.split('.').last,
-                  path: uri.toString(),
-                ),
-              )
-              .toList() ??
-          [],
+      editedGear.photoUrls?.map(uriToImageFile).toList() ?? [],
     );
   }
 
@@ -61,19 +54,12 @@ class _GearEditPageState extends State<GearEditPage> {
 
     ctrlImg = MultiImagePickerController(
       maxImages: 32,
-      picker: (pickCount, params) async {
-        final pickedImages = await ImagePicker().pickMultiImage();
-        return await Stream.fromIterable(pickedImages).asyncMap((e) async {
-          final uri = await compressAndUploadImage(e);
-          return ImageFile(
-            UniqueKey().toString(),
-            // these two don't really work for our url schemes, but it works
-            name: uri.pathSegments.last,
-            extension: uri.pathSegments.last.split('.').last,
-            path: uri.toString(),
-          );
-        }).toList();
-      },
+      picker: (pickCount, params) async =>
+          await Stream.fromIterable(await ImagePicker().pickMultiImage())
+              .asyncMap(
+                (e) async => uriToImageFile(await compressAndUploadImage(e)),
+              )
+              .toList(),
     );
     ctrlImg.addListener(onImageMoved);
     updatePickerImages();
@@ -128,6 +114,19 @@ class _GearEditPageState extends State<GearEditPage> {
       ),
     );
   }
+
+  // ====
+  // shitty utils here
+  // ====
+
+  ImageFile uriToImageFile(Uri uri) => ImageFile(
+    UniqueKey().toString(),
+    // these two don't really work for our url schemes (blurhash etc),
+    // but it doesn't break anything 🤷
+    name: uri.pathSegments.last,
+    extension: uri.pathSegments.last.split('.').last,
+    path: uri.toString(),
+  );
 
   Future<Uri> compressAndUploadImage(XFile imageFile) async {
     final bytes = await FlutterImageCompress.compressWithList(
