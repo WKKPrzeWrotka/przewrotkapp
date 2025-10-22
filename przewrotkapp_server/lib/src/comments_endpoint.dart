@@ -7,6 +7,9 @@ import 'package:serverpod_auth_server/module.dart';
 import 'generated/protocol.dart';
 
 class CommentsEndpoint extends Endpoint {
+  @override
+  bool get requireLogin => true;
+
   final _commentsUpdateCtrl = StreamController<bool>.broadcast();
 
   Future<List<Comment>> getComments(Session session, {bool resolved = false}) =>

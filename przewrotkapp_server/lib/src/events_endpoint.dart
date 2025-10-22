@@ -9,6 +9,9 @@ typedef DiscordEvent = ({String name, DateTime from, DateTime to});
 var discordEventsCache = <DiscordEvent>[];
 
 class Events extends Endpoint {
+  @override
+  bool get requireLogin => true;
+
   Future<List<DiscordEvent>> getDiscordEvents(
     Session session, {
     bool past = false,

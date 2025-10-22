@@ -9,6 +9,9 @@ import 'generated/protocol.dart';
 final gearUpdateCtrl = StreamController<bool>.broadcast();
 
 class GearReadEndpoint extends Endpoint {
+  @override
+  bool get requireLogin => true;
+
   final _defaultGearInclude = Gear.include(
     comments: Comment.includeList(
       where: (c) => c.resolved.equals(false),

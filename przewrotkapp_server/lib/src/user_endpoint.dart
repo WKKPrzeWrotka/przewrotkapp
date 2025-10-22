@@ -6,6 +6,9 @@ import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
 
 class UserEndpoint extends Endpoint {
+  @override
+  bool get requireLogin => true;
+
   final _userUpdateCtrl = StreamController<int>.broadcast();
 
   Future<UserInfoPublic> getUserInfo(Session session, int userId) async {

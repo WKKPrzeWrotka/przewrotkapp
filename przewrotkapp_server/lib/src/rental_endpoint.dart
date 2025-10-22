@@ -6,6 +6,9 @@ import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
 
 class RentalEndpoint extends Endpoint {
+  @override
+  bool get requireLogin => true;
+
   final _rentalsUpdateCtrl = StreamController<bool>.broadcast();
 
   Future<List<Rental>> getRentals(Session session, {bool past = false}) =>
