@@ -14,7 +14,7 @@ class GearManageEndpoint extends Endpoint {
   @override
   Set<Scope> get requiredScopes => {PrzeScope.sprzetowiec}.toScopes();
 
-  Future<void> _insertOrUpdate<T extends TableRow>(
+  Future<T> _insertOrUpdate<T extends TableRow>(
     Session session,
     T row, {
     Transaction? t,
@@ -43,54 +43,75 @@ class GearManageEndpoint extends Endpoint {
     Session session,
     GearPair gearPair,
   ) async {
-    final g = gearPair.gear;
-    final x = gearPair.gearExtra;
+    final gear = gearPair.gear;
+    final extra = gearPair.gearExtra;
     await session.db.transaction((t) async {
-      if (gearPair.gear.id != null) {
-        final old = await Gear.db.findById(
+      final gearToCopy = gear.id != null
+          ? (await Gear.db.findById(session, gear.id!, transaction: t))!
+          : ((await Gear.db.find(
+                  session,
+                  where: (g) => g.clubId.equals(gear.clubId),
+                )).isNotEmpty
+                ? throw PrzException(
+                    message: "Takie klubowe ID jest już zajęte",
+                  )
+                : Gear(clubId: gear.clubId, type: gear.type));
+      final freshDbGear = await _insertOrUpdate(
+        session,
+        gearToCopy.copyWith(
+          manufacturer: gear.manufacturer,
+          model: gear.model,
+          friendlyName: gear.friendlyName,
+          photoUrls: gear.photoUrls,
+          thumbnailUrl: gear.thumbnailUrl,
+        ),
+        t: t,
+      );
+
+      await switch (extra) {
+        GearBelt belt => _insertOrUpdate<GearBelt>(
           session,
-          gearPair.gear.id!,
-          transaction: t,
-        );
-        await Gear.db.updateRow(
-          session,
-          old!.copyWith(
-            manufacturer: g.manufacturer,
-            model: g.model,
-            friendlyName: g.friendlyName,
-            photoUrls: g.photoUrls,
-            thumbnailUrl: g.thumbnailUrl,
-          ),
-          transaction: t,
-        );
-      }
-      // I shoooould also put .copyWith everything in here, in case client
-      // messes up IDs for some reason.
-      // BUUUUUT it would be 20x longer -_-
-      await switch (x) {
-        GearBelt belt => _insertOrUpdate<GearBelt>(session, belt, t: t),
+          belt.copyWith(gearId: freshDbGear.id),
+          t: t,
+        ),
         GearClothing clothing => _insertOrUpdate<GearClothing>(
           session,
-          clothing,
+          clothing.copyWith(gearId: freshDbGear.id),
           t: t,
         ),
         GearFloatbag floatbag => _insertOrUpdate<GearFloatbag>(
           session,
-          floatbag,
+          floatbag.copyWith(gearId: freshDbGear.id),
           t: t,
         ),
-        GearHelmet helmet => _insertOrUpdate<GearHelmet>(session, helmet, t: t),
-        GearKayak kayak => _insertOrUpdate<GearKayak>(session, kayak, t: t),
-        GearPaddle paddle => _insertOrUpdate<GearPaddle>(session, paddle, t: t),
-        GearPfd pfd => _insertOrUpdate<GearPfd>(session, pfd, t: t),
+        GearHelmet helmet => _insertOrUpdate<GearHelmet>(
+          session,
+          helmet.copyWith(gearId: freshDbGear.id),
+          t: t,
+        ),
+        GearKayak kayak => _insertOrUpdate<GearKayak>(
+          session,
+          kayak.copyWith(gearId: freshDbGear.id),
+          t: t,
+        ),
+        GearPaddle paddle => _insertOrUpdate<GearPaddle>(
+          session,
+          paddle.copyWith(gearId: freshDbGear.id),
+          t: t,
+        ),
+        GearPfd pfd => _insertOrUpdate<GearPfd>(
+          session,
+          pfd.copyWith(gearId: freshDbGear.id),
+          t: t,
+        ),
         GearSpraydeck spraydeck => _insertOrUpdate<GearSpraydeck>(
           session,
-          spraydeck,
+          spraydeck.copyWith(gearId: freshDbGear.id),
           t: t,
         ),
         GearThrowbag throwbag => _insertOrUpdate<GearThrowbag>(
           session,
-          throwbag,
+          throwbag.copyWith(gearId: freshDbGear.id),
           t: t,
         ),
         GearExtra() => throw UnimplementedError(),

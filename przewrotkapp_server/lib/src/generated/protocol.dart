@@ -12,7 +12,7 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i3;
-import 'exceptions/kayak_exception.dart' as _i4;
+import 'exceptions/przexception.dart' as _i4;
 import 'gear/clothing_type.dart' as _i5;
 import 'gear/comment.dart' as _i6;
 import 'gear/comment_type.dart' as _i7;
@@ -56,7 +56,7 @@ import 'package:przewrotkapp_server/src/generated/gear/gear_spraydeck.dart'
 import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
     as _i40;
 import 'package:przewrotkapp_server/src/generated/rental/rental.dart' as _i41;
-export 'exceptions/kayak_exception.dart';
+export 'exceptions/przexception.dart';
 export 'gear/clothing_type.dart';
 export 'gear/comment.dart';
 export 'gear/comment_type.dart';
@@ -1329,8 +1329,8 @@ class Protocol extends _i1.SerializationManagerServer {
     Type? t,
   ]) {
     t ??= T;
-    if (t == _i4.KayakException) {
-      return _i4.KayakException.fromJson(data) as T;
+    if (t == _i4.PrzException) {
+      return _i4.PrzException.fromJson(data) as T;
     }
     if (t == _i5.ClothingType) {
       return _i5.ClothingType.fromJson(data) as T;
@@ -1407,8 +1407,8 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i29.FavouritesJunction) {
       return _i29.FavouritesJunction.fromJson(data) as T;
     }
-    if (t == _i1.getType<_i4.KayakException?>()) {
-      return (data != null ? _i4.KayakException.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i4.PrzException?>()) {
+      return (data != null ? _i4.PrzException.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i5.ClothingType?>()) {
       return (data != null ? _i5.ClothingType.fromJson(data) : null) as T;
@@ -1779,8 +1779,8 @@ class Protocol extends _i1.SerializationManagerServer {
   String? getClassNameForObject(Object? data) {
     String? className = super.getClassNameForObject(data);
     if (className != null) return className;
-    if (data is _i4.KayakException) {
-      return 'KayakException';
+    if (data is _i4.PrzException) {
+      return 'PrzException';
     }
     if (data is _i5.ClothingType) {
       return 'ClothingType';
@@ -1907,8 +1907,8 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName is! String) {
       return super.deserializeByClassName(data);
     }
-    if (dataClassName == 'KayakException') {
-      return deserialize<_i4.KayakException>(data['data']);
+    if (dataClassName == 'PrzException') {
+      return deserialize<_i4.PrzException>(data['data']);
     }
     if (dataClassName == 'ClothingType') {
       return deserialize<_i5.ClothingType>(data['data']);

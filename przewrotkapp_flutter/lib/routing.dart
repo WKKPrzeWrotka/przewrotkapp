@@ -53,8 +53,11 @@ final router = GoRouter(
       builder: (_, state) => GearEditPage(
         clubId: state.pathParameters['clubId']!,
         gearPair: state.extra as GearPair,
-        // TODO: Change this to true when creating new gear
-        emptyFields: false,
+        emptyFields:
+            bool.tryParse(
+              state.uri.queryParameters['emptyFields'] ?? 'false',
+            ) ??
+            false,
       ),
     ),
     GoRoute(path: '/calendar', builder: (context, state) => CalendarPage()),

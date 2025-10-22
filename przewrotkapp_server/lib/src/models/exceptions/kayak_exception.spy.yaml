@@ -1,4 +1,0 @@
-exception: KayakException
-fields:
-  kayakId: String
-  message: String?

@@ -1,0 +1,3 @@
+exception: PrzException
+fields:
+  message: String

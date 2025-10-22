@@ -10,7 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import 'exceptions/kayak_exception.dart' as _i2;
+import 'exceptions/przexception.dart' as _i2;
 import 'gear/clothing_type.dart' as _i3;
 import 'gear/comment.dart' as _i4;
 import 'gear/comment_type.dart' as _i5;
@@ -53,7 +53,7 @@ import 'package:przewrotkapp_client/src/protocol/gear/gear_throwbag.dart'
     as _i38;
 import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i39;
 import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i40;
-export 'exceptions/kayak_exception.dart';
+export 'exceptions/przexception.dart';
 export 'gear/clothing_type.dart';
 export 'gear/comment.dart';
 export 'gear/comment_type.dart';
@@ -94,8 +94,8 @@ class Protocol extends _i1.SerializationManager {
     Type? t,
   ]) {
     t ??= T;
-    if (t == _i2.KayakException) {
-      return _i2.KayakException.fromJson(data) as T;
+    if (t == _i2.PrzException) {
+      return _i2.PrzException.fromJson(data) as T;
     }
     if (t == _i3.ClothingType) {
       return _i3.ClothingType.fromJson(data) as T;
@@ -172,8 +172,8 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i27.FavouritesJunction) {
       return _i27.FavouritesJunction.fromJson(data) as T;
     }
-    if (t == _i1.getType<_i2.KayakException?>()) {
-      return (data != null ? _i2.KayakException.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i2.PrzException?>()) {
+      return (data != null ? _i2.PrzException.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i3.ClothingType?>()) {
       return (data != null ? _i3.ClothingType.fromJson(data) : null) as T;
@@ -541,8 +541,8 @@ class Protocol extends _i1.SerializationManager {
   String? getClassNameForObject(Object? data) {
     String? className = super.getClassNameForObject(data);
     if (className != null) return className;
-    if (data is _i2.KayakException) {
-      return 'KayakException';
+    if (data is _i2.PrzException) {
+      return 'PrzException';
     }
     if (data is _i3.ClothingType) {
       return 'ClothingType';
@@ -665,8 +665,8 @@ class Protocol extends _i1.SerializationManager {
     if (dataClassName is! String) {
       return super.deserializeByClassName(data);
     }
-    if (dataClassName == 'KayakException') {
-      return deserialize<_i2.KayakException>(data['data']);
+    if (dataClassName == 'PrzException') {
+      return deserialize<_i2.PrzException>(data['data']);
     }
     if (dataClassName == 'ClothingType') {
       return deserialize<_i3.ClothingType>(data['data']);
