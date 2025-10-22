@@ -1,3 +1,4 @@
+import 'package:markdown/markdown.dart';
 import 'package:przewrotkapp_server/src/sheets_connector.dart';
 import 'package:przewrotkapp_server/src/utils.dart';
 import 'package:serverpod/serverpod.dart';
@@ -50,23 +51,24 @@ Future<void> createNewSkladkaUsers(
         "Utworzenie konta PrzeWrotkApp 🛶",
         "",
         // TODO: Change this message on Szkoleniówka
-        html:
-            '<h1>Siema 👋</h1>'
-            '<p>Tu Mati Blue 🩵 (znaczy, jego bot)</p>'
-            '<p>Wprowadzamy w PrzeWrotce nową super apke do wypożyczania '
-            'sprzętu - możesz powiedzieć pa pa przeklikiwaniu sie przez '
-            'formularze 😎</p>'
-            '<p>Twoje konto zostało automatycznie stworzone na tegoż emaila - '
-            'zrób sobie hasło przez opcje <b>"Reset hasła"</b></p>'
-            '<p>Apka jest mega intuicyjna w użyciu, ale gdybyś miał z czymś '
-            'problem czy pytania, napisz śmiało do mnie:</p>'
-            '<p>'
-            '@matiii3i na Discordzie<br>'
-            '+48 577 294 391'
-            '</p>'
-            '<h2><a href="https://app.przewrotka.org/">'
-            'https://app.przewrotka.org/'
-            '</a></h2>',
+        html: markdownToHtml("""
+# Siema 👋
+Tu Mati Blue 🩵 (znaczy, jego bot)
+
+Wprowadzamy w PrzeWrotce nową super apke do wypożyczania sprzętu 
+- możesz powiedzieć pa pa przeklikiwaniu sie przez formularze 😎
+
+Twoje konto zostało automatycznie stworzone na tegoż emaila - zrób sobie hasło 
+przez opcje **"Reset hasła"**
+
+Apka jest mega intuicyjna w użyciu, ale gdybyś miał z czymś problem czy pytania,
+napisz śmiało do mnie:
+
+- @matiii3i na Discordzie
+- +48 577 294 391
+
+## [https://app.przewrotka.org/](https://app.przewrotka.org/)
+"""),
       );
     } catch (e, s) {
       session.log(
