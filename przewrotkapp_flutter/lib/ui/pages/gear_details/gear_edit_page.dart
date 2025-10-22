@@ -151,7 +151,7 @@ class _GearEditPageState extends State<GearEditPage> {
         TextFormField(
           initialValue: setInit ? floatbag.volume?.toString() : null,
           onChanged: (t) => floatbag.volume = parseInt(t),
-          validator: allowNullValid,
+          validator: allowNullIntValid,
           decoration: InputDecoration(label: Text('Objętość')),
         ),
       ],
