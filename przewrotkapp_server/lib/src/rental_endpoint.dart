@@ -44,8 +44,8 @@ class RentalEndpoint extends Endpoint {
     DateTime from,
     DateTime to,
   ) async {
+    if (to.isBefore(from)) throw "Invalid dates";
     final auth = await session.authenticated;
-    // TODO BIG: Check if given gear is rented for this range
     await session.db.transaction((t) async {
       final newRental = await Rental.db.insertRow(
         session,

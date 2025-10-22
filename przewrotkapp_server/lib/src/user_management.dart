@@ -49,6 +49,7 @@ Future<void> createNewSkladkaUsers(
         newUser.email!,
         "Utworzenie konta PrzeWrotkApp 🛶",
         "",
+        // TODO: Change this message on Szkoleniówka
         html:
             '<h1>Siema 👋</h1>'
             '<p>Tu Mati Blue 🩵 (znaczy, jego bot)</p>'
