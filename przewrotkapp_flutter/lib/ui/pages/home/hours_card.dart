@@ -20,7 +20,10 @@ class _HoursCardState extends State<HoursCard> {
           children: [
             Text('Twoje godzinki:'),
             Text('69h', style: tt.displayMedium),
-            ElevatedButton(onPressed: () => context.push('/comments'), child: Text("Zarób!")),
+            ElevatedButton(
+              onPressed: () => context.push('/comments'),
+              child: Text("Zarób!"),
+            ),
           ],
         ),
       ),
