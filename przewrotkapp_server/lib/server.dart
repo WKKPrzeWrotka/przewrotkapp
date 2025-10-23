@@ -1,3 +1,4 @@
+import 'package:przewrotkapp_server/image_management.dart';
 import 'package:przewrotkapp_server/src/events_endpoint.dart';
 import 'package:przewrotkapp_server/src/web/routes/root.dart';
 import 'package:serverpod/serverpod.dart';
@@ -88,6 +89,7 @@ void run(List<String> args) async {
   // Start the server.
   await pod.start();
 
+  pod.registerFutureCall(ThumbnailFutureCall(), ThumbnailFutureCall.callName);
   if (pod.runMode == ServerpodRunMode.production) {
     final dcEvents = DiscordEventsFutureCall();
     pod.registerFutureCall(dcEvents, dcEvents.name);

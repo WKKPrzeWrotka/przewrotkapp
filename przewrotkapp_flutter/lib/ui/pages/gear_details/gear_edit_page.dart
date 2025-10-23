@@ -5,6 +5,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker_view/multi_image_picker_view.dart';
 import 'package:provider/provider.dart';
+import 'package:przewrotkapp_client/magic_numbers.dart' as magick;
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../utils/names_and_strings.dart';
@@ -365,7 +366,7 @@ class _GearEditPageState extends State<GearEditPage> {
   Future<Uri> compressAndUploadImage(XFile imageFile) async {
     final bytes = await FlutterImageCompress.compressWithList(
       await imageFile.readAsBytes(),
-      quality: 70,
+      quality: magick.gearImageCompressionLevel,
       format: CompressFormat.jpeg,
     );
     return await client.gearManage.uploadGearImage(

@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:przewrotkapp_client/scopes.dart';
+import 'package:przewrotkapp_server/image_management.dart';
 import 'package:przewrotkapp_server/src/gear_read_endpoint.dart';
 import 'package:przewrotkapp_server/src/utils.dart';
 import 'package:serverpod/serverpod.dart';
@@ -116,6 +117,11 @@ class GearManageEndpoint extends Endpoint {
         ),
         GearExtra() => throw UnimplementedError(),
       };
+      await pod.futureCallWithDelay(
+        ThumbnailFutureCall.callName,
+        freshDbGear,
+        Duration(seconds: 5),
+      );
       gearUpdateCtrl.add(true);
     });
   }
