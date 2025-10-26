@@ -74,6 +74,8 @@ class _GearEditPageState extends State<GearEditPage> {
     updatePickerImages();
   }
 
+  String? noNullValid(Object? any) => any == null ? "Nie może być puste" : null;
+
   String? defaultValid(String? text) => (text == null || text.trim().isEmpty)
       ? "Nie może być puste"
       : (text.length > 32 ? "Za długie" : null);
@@ -131,6 +133,7 @@ class _GearEditPageState extends State<GearEditPage> {
           initialSelection: setInit ? clothing.size : null,
           dropdownMenuEntries: genericSizeEntries,
           onSelected: (s) => clothing.size = s!,
+          validator: noNullValid,
           label: Text('Rozmiar'),
         ),
         DropdownMenuFormField(
@@ -139,6 +142,7 @@ class _GearEditPageState extends State<GearEditPage> {
               .map((e) => DropdownMenuEntry(value: e, label: e.humanName))
               .toList(),
           onSelected: (t) => clothing.type = t!,
+          validator: noNullValid,
           label: Text('Typ'),
         ),
         TextFormField(
@@ -161,6 +165,7 @@ class _GearEditPageState extends State<GearEditPage> {
           initialSelection: setInit ? helmet.size : null,
           dropdownMenuEntries: genericSizeEntries,
           onSelected: (t) => helmet.size = t!,
+          validator: noNullValid,
           label: Text('Rozmiar'),
         ),
       ],
@@ -171,6 +176,7 @@ class _GearEditPageState extends State<GearEditPage> {
               .map((e) => DropdownMenuEntry(value: e, label: e.humanName))
               .toList(),
           onSelected: (t) => kayak.type = t!,
+          validator: noNullValid,
           label: Text('Typ'),
         ),
         TextFormField(
@@ -201,6 +207,7 @@ class _GearEditPageState extends State<GearEditPage> {
               .map((e) => DropdownMenuEntry(value: e, label: e.humanName))
               .toList(),
           onSelected: (t) => paddle.type = t!,
+          validator: noNullValid,
           label: Text('Typ'),
         ),
         TextFormField(
@@ -228,7 +235,8 @@ class _GearEditPageState extends State<GearEditPage> {
         DropdownMenuFormField(
           initialSelection: setInit ? pfd.size : null,
           dropdownMenuEntries: genericSizeEntries,
-          onSaved: (s) => pfd.size,
+          onSelected: (s) => pfd.size,
+          validator: noNullValid,
           label: Text("Rozmiar"),
         ),
         DropdownMenuFormField(
@@ -237,6 +245,7 @@ class _GearEditPageState extends State<GearEditPage> {
               .map((s) => DropdownMenuEntry(value: s, label: s.humanName))
               .toList(),
           onSelected: (t) => pfd.type = t!,
+          validator: noNullValid,
           label: Text("Typ"),
         ),
       ],
@@ -247,12 +256,14 @@ class _GearEditPageState extends State<GearEditPage> {
               .map((s) => DropdownMenuEntry(value: s, label: s.humanName))
               .toList(),
           onSelected: (s) => spraydeck.deckSize = s!,
+          validator: noNullValid,
           label: Text("Rozmiar kokpitu"),
         ),
         DropdownMenuFormField(
           initialSelection: setInit ? spraydeck.waistSize : null,
           dropdownMenuEntries: genericSizeEntries,
           onSelected: (s) => spraydeck.waistSize = s!,
+          validator: noNullValid,
           label: Text("Rozmiar w pasie"),
         ),
       ],
