@@ -13,13 +13,6 @@ apiServer:
   publicPort: 8080
   publicScheme: http
 
-# Configuration for the Insights server.
-insightsServer:
-  port: 8081
-  publicHost: localhost
-  publicPort: 8081
-  publicScheme: http
-
 # Configuration for the web server.
 webServer:
   port: 8082
@@ -36,21 +29,12 @@ database:
   #requireSsl: true # defaults to false
   #isUnixSocket: true # defaults to false
 
-# This is the setup for Redis.
-redis:
-  enabled: false
-  host: localhost
-  port: 8091
-  #user: # defaults to empty
-  #requireSsl: true # defaults to false
-
 maxRequestSize: 5242880 # The maximum size of requests allowed in bytes
 
 sessionLogs:
-  persistentEnabled: true
   consoleEnabled: true
+  persistentEnabled: false
   consoleLogFormat: text # Defaults to "json", options are "text" or "json"
-
 
 futureCallExecutionEnabled: true # Defaults to true
 futureCall:

@@ -15,13 +15,6 @@ apiServer:
   publicPort: 443
   publicScheme: https
 
-# Configuration for the Insights server.
-insightsServer:
-  port: 8081
-  publicHost: insights-staging.examplepod.com
-  publicPort: 443
-  publicScheme: https
-
 # Configuration for the web server.
 webServer:
   port: 8082
@@ -41,24 +34,12 @@ database:
   requireSsl: true
   #isUnixSocket: true # defaults to false
 
-# This is the setup for Redis. The default for the Google Cloud Engine Terraform
-# configuration is to connect on a private IP address.
-# If you are connecting on a public IP (e.g. on AWS or Google Cloud Run), you
-# connect on the public IP of the database e.g. redis-staging.examplepod.com.
-redis:
-  enabled: false
-  host: redis.private-staging.examplepod.com
-  port: 6379
-  #user: # defaults to empty
-  #requireSsl: true # defaults to false
-
 maxRequestSize: 5242880 # The maximum size of requests allowed in bytes
 
 sessionLogs:
-# persistentEnabled: true
-# consoleEnabled: true
-# consoleLogFormat: json # Defaults to "json", options are "text" or "json"
-
+  consoleEnabled: true
+  persistentEnabled: false
+  consoleLogFormat: text # Defaults to "json", options are "text" or "json"
 
 futureCallExecutionEnabled: true # Defaults to true
 futureCall:
