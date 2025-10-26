@@ -37,66 +37,76 @@ Uri getRichUri(Uri uri, img.Image image, String blurhash) {
   return uri.replace(queryParameters: params);
 }
 
-class ThumbnailFutureCall extends FutureCall<Gear> {
-  static const callName = "Thumbnail generation";
+class ImagesRefreshFutureCall extends FutureCall<Gear> {
+  static const callName = "Images refreshment";
 
   @override
   String get name => callName;
 
   @override
   Future<void> invoke(Session session, Gear? gear) async {
-    final first = gear!.photoUrls?.firstOrNull;
-    if (first == null) {
-      session.log(
-        "Thumbnail generation for $gear failed beacause it doesn't have any photos",
-        level: LogLevel.warning,
+    Uri? newThumbnailUri;
+    var first = true;
+    final richUris = await Stream.fromIterable(gear?.photoUrls ?? <Uri>[]).asyncMap((
+      imageUri,
+    ) async {
+      final imageStoragePath = imageUri.queryParameters['path']!;
+      final byteData = await session.storage.retrieveFile(
+        storageId: magick.storagePublic,
+        path: imageStoragePath,
       );
-      return;
-    }
-    final firstImageStoragePath = first.queryParameters['path']!;
-    final byteData = await session.storage.retrieveFile(
-      storageId: magick.storagePublic,
-      path: firstImageStoragePath,
-    );
-    if (byteData == null) {
-      session.log(
-        "Thumbnail generation for $gear failed because storage didn't return anything for $firstImageStoragePath",
-        level: LogLevel.warning,
+      if (byteData == null) {
+        session.log(
+          "Image refreshing for $gear -> $imageUri failed because storage didn't return anything for $imageStoragePath",
+          level: LogLevel.warning,
+        );
+        return imageUri;
+      }
+      final image = await Isolate.run(
+        () => img.decodeImage(Uint8List.sublistView(byteData)),
       );
-      return;
-    }
-    final image = await Isolate.run(
-      () => img.decodeImage(Uint8List.sublistView(byteData)),
-    );
-    if (image == null) {
+      if (image == null) {
+        session.log(
+          "Image refreshing for $gear -> $imageUri failed - can't decode ByteData",
+          level: LogLevel.warning,
+        );
+        return imageUri;
+      }
+      final resizedImage = await getThumbnail(image);
+      final blurhash = await getBlurhash(resizedImage);
+
+      // Thumbnail itself
+      if (first) {
+        first = false;
+        await session.storage.storeFile(
+          storageId: magick.storagePublic,
+          path: getThumbnailPath(gear!.clubId),
+          byteData: ByteData.sublistView(
+            img.encodeJpg(
+              resizedImage,
+              quality: magick.gearThumbnailCompressionLevel,
+              chroma: img.JpegChroma.yuv420,
+            ),
+          ),
+        );
+        final pubThumbnailUri = await session.storage.getPublicUrl(
+          storageId: magick.storagePublic,
+          path: getThumbnailPath(gear.clubId),
+        );
+        newThumbnailUri = getRichUri(pubThumbnailUri!, resizedImage, blurhash);
+      }
       session.log(
-        "Thumbnail generation for $gear failed - can't decode ByteData",
-        level: LogLevel.warning,
+        'Successfully generated thumbnail for $gear 🎉',
+        level: LogLevel.debug,
       );
-      return;
+      return getRichUri(imageUri, image, blurhash);
+    }).toList();
+
+    if (gear != null) {
+      await Gear.db.updateRow(
+        session,
+        gear.copyWith(photoUrls: richUris, thumbnailUrl: newThumbnailUri),
+      );
     }
-    final thumbnail = await getThumbnail(image);
-    final thumbnailBlurhash = await getBlurhash(thumbnail);
-    await session.storage.storeFile(
-      storageId: magick.storagePublic,
-      path: getThumbnailPath(gear.clubId),
-      byteData: ByteData.sublistView(
-        img.encodeJpg(
-          thumbnail,
-          quality: magick.gearThumbnailCompressionLevel,
-          chroma: img.JpegChroma.yuv420,
-        ),
-      ),
-    );
-    final pubUri = await session.storage.getPublicUrl(
-      storageId: magick.storagePublic,
-      path: getThumbnailPath(gear.clubId),
-    );
-    final newUri = getRichUri(pubUri!, thumbnail, thumbnailBlurhash);
-    await Gear.db.updateRow(session, gear.copyWith(thumbnailUrl: newUri));
-    session.log(
-      'Successfully generated thumbnail for $gear 🎉',
-      level: LogLevel.debug,
-    );
   }
 }

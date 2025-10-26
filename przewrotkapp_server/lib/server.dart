@@ -89,7 +89,7 @@ void run(List<String> args) async {
   // Start the server.
   await pod.start();
 
-  pod.registerFutureCall(ThumbnailFutureCall(), ThumbnailFutureCall.callName);
+  pod.registerFutureCall(ImagesRefreshFutureCall(), ImagesRefreshFutureCall.callName);
   if (pod.runMode == ServerpodRunMode.production) {
     final dcEvents = DiscordEventsFutureCall();
     pod.registerFutureCall(dcEvents, dcEvents.name);

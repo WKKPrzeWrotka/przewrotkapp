@@ -118,7 +118,7 @@ class GearManageEndpoint extends Endpoint {
         GearExtra() => throw UnimplementedError(),
       };
       await pod.futureCallWithDelay(
-        ThumbnailFutureCall.callName,
+        ImagesRefreshFutureCall.callName,
         freshDbGear,
         Duration(seconds: 5),
       );
