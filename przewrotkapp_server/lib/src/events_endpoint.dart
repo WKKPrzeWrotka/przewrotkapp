@@ -70,5 +70,8 @@ class DiscordEventsFutureCall extends FutureCall {
   static Future<void> schedule(
     Serverpod pod, {
     Duration delay = const Duration(minutes: 30),
-  }) => pod.futureCallWithDelay(callName, null, delay);
+  }) async {
+    await pod.cancelFutureCall(callName);
+    await pod.futureCallWithDelay(callName, null, delay, identifier: callName);
+  }
 }
