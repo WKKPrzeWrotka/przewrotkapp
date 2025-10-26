@@ -7,6 +7,9 @@ import 'package:przewrotkapp_client/magic_numbers.dart' as magick;
 import 'package:przewrotkapp_server/src/generated/gear/gear.dart';
 import 'package:serverpod/serverpod.dart';
 
+Future<img.Image?> decodeImage(Uint8List bytes) =>
+    Isolate.run(() => img.decodeImage(bytes));
+
 Future<img.Image> getThumbnail(img.Image image) => Isolate.run(
   () => img.copyResize(
     image,
@@ -62,9 +65,7 @@ class ImagesRefreshFutureCall extends FutureCall<Gear> {
         );
         return imageUri;
       }
-      final image = await Isolate.run(
-        () => img.decodeImage(Uint8List.sublistView(byteData)),
-      );
+      final image = await decodeImage(Uint8List.sublistView(byteData));
       if (image == null) {
         session.log(
           "Image refreshing for $gear -> $imageUri failed - can't decode ByteData",
