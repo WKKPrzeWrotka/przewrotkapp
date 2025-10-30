@@ -16,7 +16,13 @@ typedef FutureRentalGroups = List<RentalGroup>;
 
 typedef SelfExtraUserInfo = ExtraUserInfo;
 
-typedef UserFavourites = ({List<GearPair> gearPairs, List<int> gearIds});
+// i have to make a class because, as mentioned above, a simple List<int>
+// could get mixed with others
+class UserFavourites {
+  final List<int> gearIds;
+
+  const UserFavourites(this.gearIds);
+}
 
 // maybe separate class some day, but now it's enough
 typedef DiscordEvent = ({String name, DateTime from, DateTime to});

@@ -12,40 +12,40 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
-import '../gear/gear.dart' as _i2;
-import '../user/extra_user_info.dart' as _i3;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i2;
+import '../gear/gear.dart' as _i3;
 
 abstract class FavouritesJunction
     implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
   FavouritesJunction._({
     this.id,
+    required this.userId,
+    this.user,
     required this.gearId,
     this.gear,
-    required this.extraUserInfoId,
-    this.extraUserInfo,
   });
 
   factory FavouritesJunction({
     int? id,
+    required int userId,
+    _i2.UserInfo? user,
     required int gearId,
-    _i2.Gear? gear,
-    required int extraUserInfoId,
-    _i3.ExtraUserInfo? extraUserInfo,
+    _i3.Gear? gear,
   }) = _FavouritesJunctionImpl;
 
   factory FavouritesJunction.fromJson(Map<String, dynamic> jsonSerialization) {
     return FavouritesJunction(
       id: jsonSerialization['id'] as int?,
+      userId: jsonSerialization['userId'] as int,
+      user: jsonSerialization['user'] == null
+          ? null
+          : _i2.UserInfo.fromJson(
+              (jsonSerialization['user'] as Map<String, dynamic>)),
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
-          : _i2.Gear.fromJson(
+          : _i3.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      extraUserInfoId: jsonSerialization['extraUserInfoId'] as int,
-      extraUserInfo: jsonSerialization['extraUserInfo'] == null
-          ? null
-          : _i3.ExtraUserInfo.fromJson(
-              (jsonSerialization['extraUserInfo'] as Map<String, dynamic>)),
     );
   }
 
@@ -56,13 +56,13 @@ abstract class FavouritesJunction
   @override
   int? id;
 
+  int userId;
+
+  _i2.UserInfo? user;
+
   int gearId;
 
-  _i2.Gear? gear;
-
-  int extraUserInfoId;
-
-  _i3.ExtraUserInfo? extraUserInfo;
+  _i3.Gear? gear;
 
   @override
   _i1.Table<int?> get table => t;
@@ -72,19 +72,19 @@ abstract class FavouritesJunction
   @_i1.useResult
   FavouritesJunction copyWith({
     int? id,
+    int? userId,
+    _i2.UserInfo? user,
     int? gearId,
-    _i2.Gear? gear,
-    int? extraUserInfoId,
-    _i3.ExtraUserInfo? extraUserInfo,
+    _i3.Gear? gear,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
+      'userId': userId,
+      if (user != null) 'user': user?.toJson(),
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
-      'extraUserInfoId': extraUserInfoId,
-      if (extraUserInfo != null) 'extraUserInfo': extraUserInfo?.toJson(),
     };
   }
 
@@ -92,21 +92,20 @@ abstract class FavouritesJunction
   Map<String, dynamic> toJsonForProtocol() {
     return {
       if (id != null) 'id': id,
+      'userId': userId,
+      if (user != null) 'user': user?.toJsonForProtocol(),
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJsonForProtocol(),
-      'extraUserInfoId': extraUserInfoId,
-      if (extraUserInfo != null)
-        'extraUserInfo': extraUserInfo?.toJsonForProtocol(),
     };
   }
 
   static FavouritesJunctionInclude include({
-    _i2.GearInclude? gear,
-    _i3.ExtraUserInfoInclude? extraUserInfo,
+    _i2.UserInfoInclude? user,
+    _i3.GearInclude? gear,
   }) {
     return FavouritesJunctionInclude._(
+      user: user,
       gear: gear,
-      extraUserInfo: extraUserInfo,
     );
   }
 
@@ -141,16 +140,16 @@ class _Undefined {}
 class _FavouritesJunctionImpl extends FavouritesJunction {
   _FavouritesJunctionImpl({
     int? id,
+    required int userId,
+    _i2.UserInfo? user,
     required int gearId,
-    _i2.Gear? gear,
-    required int extraUserInfoId,
-    _i3.ExtraUserInfo? extraUserInfo,
+    _i3.Gear? gear,
   }) : super._(
           id: id,
+          userId: userId,
+          user: user,
           gearId: gearId,
           gear: gear,
-          extraUserInfoId: extraUserInfoId,
-          extraUserInfo: extraUserInfo,
         );
 
   /// Returns a shallow copy of this [FavouritesJunction]
@@ -159,19 +158,17 @@ class _FavouritesJunctionImpl extends FavouritesJunction {
   @override
   FavouritesJunction copyWith({
     Object? id = _Undefined,
+    int? userId,
+    Object? user = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    int? extraUserInfoId,
-    Object? extraUserInfo = _Undefined,
   }) {
     return FavouritesJunction(
       id: id is int? ? id : this.id,
+      userId: userId ?? this.userId,
+      user: user is _i2.UserInfo? ? user : this.user?.copyWith(),
       gearId: gearId ?? this.gearId,
-      gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
-      extraUserInfoId: extraUserInfoId ?? this.extraUserInfoId,
-      extraUserInfo: extraUserInfo is _i3.ExtraUserInfo?
-          ? extraUserInfo
-          : this.extraUserInfo?.copyWith(),
+      gear: gear is _i3.Gear? ? gear : this.gear?.copyWith(),
     );
   }
 }
@@ -179,64 +176,64 @@ class _FavouritesJunctionImpl extends FavouritesJunction {
 class FavouritesJunctionTable extends _i1.Table<int?> {
   FavouritesJunctionTable({super.tableRelation})
       : super(tableName: 'favourites_junctions') {
+    userId = _i1.ColumnInt(
+      'userId',
+      this,
+    );
     gearId = _i1.ColumnInt(
       'gearId',
       this,
     );
-    extraUserInfoId = _i1.ColumnInt(
-      'extraUserInfoId',
-      this,
-    );
   }
+
+  late final _i1.ColumnInt userId;
+
+  _i2.UserInfoTable? _user;
 
   late final _i1.ColumnInt gearId;
 
-  _i2.GearTable? _gear;
+  _i3.GearTable? _gear;
 
-  late final _i1.ColumnInt extraUserInfoId;
+  _i2.UserInfoTable get user {
+    if (_user != null) return _user!;
+    _user = _i1.createRelationTable(
+      relationFieldName: 'user',
+      field: FavouritesJunction.t.userId,
+      foreignField: _i2.UserInfo.t.id,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i2.UserInfoTable(tableRelation: foreignTableRelation),
+    );
+    return _user!;
+  }
 
-  _i3.ExtraUserInfoTable? _extraUserInfo;
-
-  _i2.GearTable get gear {
+  _i3.GearTable get gear {
     if (_gear != null) return _gear!;
     _gear = _i1.createRelationTable(
       relationFieldName: 'gear',
       field: FavouritesJunction.t.gearId,
-      foreignField: _i2.Gear.t.id,
+      foreignField: _i3.Gear.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
-          _i2.GearTable(tableRelation: foreignTableRelation),
+          _i3.GearTable(tableRelation: foreignTableRelation),
     );
     return _gear!;
-  }
-
-  _i3.ExtraUserInfoTable get extraUserInfo {
-    if (_extraUserInfo != null) return _extraUserInfo!;
-    _extraUserInfo = _i1.createRelationTable(
-      relationFieldName: 'extraUserInfo',
-      field: FavouritesJunction.t.extraUserInfoId,
-      foreignField: _i3.ExtraUserInfo.t.id,
-      tableRelation: tableRelation,
-      createTable: (foreignTableRelation) =>
-          _i3.ExtraUserInfoTable(tableRelation: foreignTableRelation),
-    );
-    return _extraUserInfo!;
   }
 
   @override
   List<_i1.Column> get columns => [
         id,
+        userId,
         gearId,
-        extraUserInfoId,
       ];
 
   @override
   _i1.Table? getRelationTable(String relationField) {
+    if (relationField == 'user') {
+      return user;
+    }
     if (relationField == 'gear') {
       return gear;
-    }
-    if (relationField == 'extraUserInfo') {
-      return extraUserInfo;
     }
     return null;
   }
@@ -244,21 +241,21 @@ class FavouritesJunctionTable extends _i1.Table<int?> {
 
 class FavouritesJunctionInclude extends _i1.IncludeObject {
   FavouritesJunctionInclude._({
-    _i2.GearInclude? gear,
-    _i3.ExtraUserInfoInclude? extraUserInfo,
+    _i2.UserInfoInclude? user,
+    _i3.GearInclude? gear,
   }) {
+    _user = user;
     _gear = gear;
-    _extraUserInfo = extraUserInfo;
   }
 
-  _i2.GearInclude? _gear;
+  _i2.UserInfoInclude? _user;
 
-  _i3.ExtraUserInfoInclude? _extraUserInfo;
+  _i3.GearInclude? _gear;
 
   @override
   Map<String, _i1.Include?> get includes => {
+        'user': _user,
         'gear': _gear,
-        'extraUserInfo': _extraUserInfo,
       };
 
   @override
@@ -509,12 +506,35 @@ class FavouritesJunctionRepository {
 class FavouritesJunctionAttachRowRepository {
   const FavouritesJunctionAttachRowRepository._();
 
+  /// Creates a relation between the given [FavouritesJunction] and [UserInfo]
+  /// by setting the [FavouritesJunction]'s foreign key `userId` to refer to the [UserInfo].
+  Future<void> user(
+    _i1.Session session,
+    FavouritesJunction favouritesJunction,
+    _i2.UserInfo user, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (favouritesJunction.id == null) {
+      throw ArgumentError.notNull('favouritesJunction.id');
+    }
+    if (user.id == null) {
+      throw ArgumentError.notNull('user.id');
+    }
+
+    var $favouritesJunction = favouritesJunction.copyWith(userId: user.id);
+    await session.db.updateRow<FavouritesJunction>(
+      $favouritesJunction,
+      columns: [FavouritesJunction.t.userId],
+      transaction: transaction,
+    );
+  }
+
   /// Creates a relation between the given [FavouritesJunction] and [Gear]
   /// by setting the [FavouritesJunction]'s foreign key `gearId` to refer to the [Gear].
   Future<void> gear(
     _i1.Session session,
     FavouritesJunction favouritesJunction,
-    _i2.Gear gear, {
+    _i3.Gear gear, {
     _i1.Transaction? transaction,
   }) async {
     if (favouritesJunction.id == null) {
@@ -528,30 +548,6 @@ class FavouritesJunctionAttachRowRepository {
     await session.db.updateRow<FavouritesJunction>(
       $favouritesJunction,
       columns: [FavouritesJunction.t.gearId],
-      transaction: transaction,
-    );
-  }
-
-  /// Creates a relation between the given [FavouritesJunction] and [ExtraUserInfo]
-  /// by setting the [FavouritesJunction]'s foreign key `extraUserInfoId` to refer to the [ExtraUserInfo].
-  Future<void> extraUserInfo(
-    _i1.Session session,
-    FavouritesJunction favouritesJunction,
-    _i3.ExtraUserInfo extraUserInfo, {
-    _i1.Transaction? transaction,
-  }) async {
-    if (favouritesJunction.id == null) {
-      throw ArgumentError.notNull('favouritesJunction.id');
-    }
-    if (extraUserInfo.id == null) {
-      throw ArgumentError.notNull('extraUserInfo.id');
-    }
-
-    var $favouritesJunction =
-        favouritesJunction.copyWith(extraUserInfoId: extraUserInfo.id);
-    await session.db.updateRow<FavouritesJunction>(
-      $favouritesJunction,
-      columns: [FavouritesJunction.t.extraUserInfoId],
       transaction: transaction,
     );
   }

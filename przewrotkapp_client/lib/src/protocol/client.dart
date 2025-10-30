@@ -460,6 +460,20 @@ class EndpointUser extends _i1.EndpointRef {
         'updateUser',
         {'extraUser': extraUser},
       );
+
+  _i2.Future<List<int>> getFavourites() => caller.callServerEndpoint<List<int>>(
+        'user',
+        'getFavourites',
+        {},
+      );
+
+  _i2.Stream<List<int>> watchFavourites() =>
+      caller.callStreamingServerEndpoint<_i2.Stream<List<int>>, List<int>>(
+        'user',
+        'watchFavourites',
+        {},
+        {},
+      );
 }
 
 class Modules {

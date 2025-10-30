@@ -13,7 +13,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i2;
-import '../user/favourites.dart' as _i3;
 
 abstract class ExtraUserInfo
     implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
@@ -24,7 +23,6 @@ abstract class ExtraUserInfo
     this.phoneNumber,
     this.discordUsername,
     required this.socialLinks,
-    this.favouritesJunctions,
   });
 
   factory ExtraUserInfo({
@@ -34,7 +32,6 @@ abstract class ExtraUserInfo
     String? phoneNumber,
     String? discordUsername,
     required Map<String, Uri> socialLinks,
-    List<_i3.FavouritesJunction>? favouritesJunctions,
   }) = _ExtraUserInfoImpl;
 
   factory ExtraUserInfo.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -52,10 +49,6 @@ abstract class ExtraUserInfo
                 k as String,
                 _i1.UriJsonExtension.fromJson(v),
               )),
-      favouritesJunctions: (jsonSerialization['favouritesJunctions'] as List?)
-          ?.map((e) =>
-              _i3.FavouritesJunction.fromJson((e as Map<String, dynamic>)))
-          .toList(),
     );
   }
 
@@ -76,8 +69,6 @@ abstract class ExtraUserInfo
 
   Map<String, Uri> socialLinks;
 
-  List<_i3.FavouritesJunction>? favouritesJunctions;
-
   @override
   _i1.Table<int?> get table => t;
 
@@ -91,7 +82,6 @@ abstract class ExtraUserInfo
     String? phoneNumber,
     String? discordUsername,
     Map<String, Uri>? socialLinks,
-    List<_i3.FavouritesJunction>? favouritesJunctions,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -102,9 +92,6 @@ abstract class ExtraUserInfo
       if (phoneNumber != null) 'phoneNumber': phoneNumber,
       if (discordUsername != null) 'discordUsername': discordUsername,
       'socialLinks': socialLinks.toJson(valueToJson: (v) => v.toJson()),
-      if (favouritesJunctions != null)
-        'favouritesJunctions':
-            favouritesJunctions?.toJson(valueToJson: (v) => v.toJson()),
     };
   }
 
@@ -117,20 +104,11 @@ abstract class ExtraUserInfo
       if (phoneNumber != null) 'phoneNumber': phoneNumber,
       if (discordUsername != null) 'discordUsername': discordUsername,
       'socialLinks': socialLinks.toJson(valueToJson: (v) => v.toJson()),
-      if (favouritesJunctions != null)
-        'favouritesJunctions': favouritesJunctions?.toJson(
-            valueToJson: (v) => v.toJsonForProtocol()),
     };
   }
 
-  static ExtraUserInfoInclude include({
-    _i2.UserInfoInclude? userInfo,
-    _i3.FavouritesJunctionIncludeList? favouritesJunctions,
-  }) {
-    return ExtraUserInfoInclude._(
-      userInfo: userInfo,
-      favouritesJunctions: favouritesJunctions,
-    );
+  static ExtraUserInfoInclude include({_i2.UserInfoInclude? userInfo}) {
+    return ExtraUserInfoInclude._(userInfo: userInfo);
   }
 
   static ExtraUserInfoIncludeList includeList({
@@ -169,7 +147,6 @@ class _ExtraUserInfoImpl extends ExtraUserInfo {
     String? phoneNumber,
     String? discordUsername,
     required Map<String, Uri> socialLinks,
-    List<_i3.FavouritesJunction>? favouritesJunctions,
   }) : super._(
           id: id,
           userInfoId: userInfoId,
@@ -177,7 +154,6 @@ class _ExtraUserInfoImpl extends ExtraUserInfo {
           phoneNumber: phoneNumber,
           discordUsername: discordUsername,
           socialLinks: socialLinks,
-          favouritesJunctions: favouritesJunctions,
         );
 
   /// Returns a shallow copy of this [ExtraUserInfo]
@@ -191,7 +167,6 @@ class _ExtraUserInfoImpl extends ExtraUserInfo {
     Object? phoneNumber = _Undefined,
     Object? discordUsername = _Undefined,
     Map<String, Uri>? socialLinks,
-    Object? favouritesJunctions = _Undefined,
   }) {
     return ExtraUserInfo(
       id: id is int? ? id : this.id,
@@ -210,9 +185,6 @@ class _ExtraUserInfoImpl extends ExtraUserInfo {
                     key0,
                     value0,
                   )),
-      favouritesJunctions: favouritesJunctions is List<_i3.FavouritesJunction>?
-          ? favouritesJunctions
-          : this.favouritesJunctions?.map((e0) => e0.copyWith()).toList(),
     );
   }
 }
@@ -248,10 +220,6 @@ class ExtraUserInfoTable extends _i1.Table<int?> {
 
   late final _i1.ColumnSerializable socialLinks;
 
-  _i3.FavouritesJunctionTable? ___favouritesJunctions;
-
-  _i1.ManyRelation<_i3.FavouritesJunctionTable>? _favouritesJunctions;
-
   _i2.UserInfoTable get userInfo {
     if (_userInfo != null) return _userInfo!;
     _userInfo = _i1.createRelationTable(
@@ -263,37 +231,6 @@ class ExtraUserInfoTable extends _i1.Table<int?> {
           _i2.UserInfoTable(tableRelation: foreignTableRelation),
     );
     return _userInfo!;
-  }
-
-  _i3.FavouritesJunctionTable get __favouritesJunctions {
-    if (___favouritesJunctions != null) return ___favouritesJunctions!;
-    ___favouritesJunctions = _i1.createRelationTable(
-      relationFieldName: '__favouritesJunctions',
-      field: ExtraUserInfo.t.id,
-      foreignField: _i3.FavouritesJunction.t.extraUserInfoId,
-      tableRelation: tableRelation,
-      createTable: (foreignTableRelation) =>
-          _i3.FavouritesJunctionTable(tableRelation: foreignTableRelation),
-    );
-    return ___favouritesJunctions!;
-  }
-
-  _i1.ManyRelation<_i3.FavouritesJunctionTable> get favouritesJunctions {
-    if (_favouritesJunctions != null) return _favouritesJunctions!;
-    var relationTable = _i1.createRelationTable(
-      relationFieldName: 'favouritesJunctions',
-      field: ExtraUserInfo.t.id,
-      foreignField: _i3.FavouritesJunction.t.extraUserInfoId,
-      tableRelation: tableRelation,
-      createTable: (foreignTableRelation) =>
-          _i3.FavouritesJunctionTable(tableRelation: foreignTableRelation),
-    );
-    _favouritesJunctions = _i1.ManyRelation<_i3.FavouritesJunctionTable>(
-      tableWithRelations: relationTable,
-      table: _i3.FavouritesJunctionTable(
-          tableRelation: relationTable.tableRelation!.lastRelation),
-    );
-    return _favouritesJunctions!;
   }
 
   @override
@@ -310,31 +247,19 @@ class ExtraUserInfoTable extends _i1.Table<int?> {
     if (relationField == 'userInfo') {
       return userInfo;
     }
-    if (relationField == 'favouritesJunctions') {
-      return __favouritesJunctions;
-    }
     return null;
   }
 }
 
 class ExtraUserInfoInclude extends _i1.IncludeObject {
-  ExtraUserInfoInclude._({
-    _i2.UserInfoInclude? userInfo,
-    _i3.FavouritesJunctionIncludeList? favouritesJunctions,
-  }) {
+  ExtraUserInfoInclude._({_i2.UserInfoInclude? userInfo}) {
     _userInfo = userInfo;
-    _favouritesJunctions = favouritesJunctions;
   }
 
   _i2.UserInfoInclude? _userInfo;
 
-  _i3.FavouritesJunctionIncludeList? _favouritesJunctions;
-
   @override
-  Map<String, _i1.Include?> get includes => {
-        'userInfo': _userInfo,
-        'favouritesJunctions': _favouritesJunctions,
-      };
+  Map<String, _i1.Include?> get includes => {'userInfo': _userInfo};
 
   @override
   _i1.Table<int?> get table => ExtraUserInfo.t;
@@ -363,13 +288,7 @@ class ExtraUserInfoIncludeList extends _i1.IncludeList {
 class ExtraUserInfoRepository {
   const ExtraUserInfoRepository._();
 
-  final attach = const ExtraUserInfoAttachRepository._();
-
   final attachRow = const ExtraUserInfoAttachRowRepository._();
-
-  final detach = const ExtraUserInfoDetachRepository._();
-
-  final detachRow = const ExtraUserInfoDetachRowRepository._();
 
   /// Returns a list of [ExtraUserInfo]s matching the given query parameters.
   ///
@@ -587,35 +506,6 @@ class ExtraUserInfoRepository {
   }
 }
 
-class ExtraUserInfoAttachRepository {
-  const ExtraUserInfoAttachRepository._();
-
-  /// Creates a relation between this [ExtraUserInfo] and the given [FavouritesJunction]s
-  /// by setting each [FavouritesJunction]'s foreign key `extraUserInfoId` to refer to this [ExtraUserInfo].
-  Future<void> favouritesJunctions(
-    _i1.Session session,
-    ExtraUserInfo extraUserInfo,
-    List<_i3.FavouritesJunction> favouritesJunction, {
-    _i1.Transaction? transaction,
-  }) async {
-    if (favouritesJunction.any((e) => e.id == null)) {
-      throw ArgumentError.notNull('favouritesJunction.id');
-    }
-    if (extraUserInfo.id == null) {
-      throw ArgumentError.notNull('extraUserInfo.id');
-    }
-
-    var $favouritesJunction = favouritesJunction
-        .map((e) => e.copyWith(extraUserInfoId: extraUserInfo.id))
-        .toList();
-    await session.db.update<_i3.FavouritesJunction>(
-      $favouritesJunction,
-      columns: [_i3.FavouritesJunction.t.extraUserInfoId],
-      transaction: transaction,
-    );
-  }
-}
-
 class ExtraUserInfoAttachRowRepository {
   const ExtraUserInfoAttachRowRepository._();
 
@@ -638,85 +528,6 @@ class ExtraUserInfoAttachRowRepository {
     await session.db.updateRow<ExtraUserInfo>(
       $extraUserInfo,
       columns: [ExtraUserInfo.t.userInfoId],
-      transaction: transaction,
-    );
-  }
-
-  /// Creates a relation between this [ExtraUserInfo] and the given [FavouritesJunction]
-  /// by setting the [FavouritesJunction]'s foreign key `extraUserInfoId` to refer to this [ExtraUserInfo].
-  Future<void> favouritesJunctions(
-    _i1.Session session,
-    ExtraUserInfo extraUserInfo,
-    _i3.FavouritesJunction favouritesJunction, {
-    _i1.Transaction? transaction,
-  }) async {
-    if (favouritesJunction.id == null) {
-      throw ArgumentError.notNull('favouritesJunction.id');
-    }
-    if (extraUserInfo.id == null) {
-      throw ArgumentError.notNull('extraUserInfo.id');
-    }
-
-    var $favouritesJunction =
-        favouritesJunction.copyWith(extraUserInfoId: extraUserInfo.id);
-    await session.db.updateRow<_i3.FavouritesJunction>(
-      $favouritesJunction,
-      columns: [_i3.FavouritesJunction.t.extraUserInfoId],
-      transaction: transaction,
-    );
-  }
-}
-
-class ExtraUserInfoDetachRepository {
-  const ExtraUserInfoDetachRepository._();
-
-  /// Detaches the relation between this [ExtraUserInfo] and the given [FavouritesJunction]
-  /// by setting the [FavouritesJunction]'s foreign key `extraUserInfoId` to `null`.
-  ///
-  /// This removes the association between the two models without deleting
-  /// the related record.
-  Future<void> favouritesJunctions(
-    _i1.Session session,
-    List<_i3.FavouritesJunction> favouritesJunction, {
-    _i1.Transaction? transaction,
-  }) async {
-    if (favouritesJunction.any((e) => e.id == null)) {
-      throw ArgumentError.notNull('favouritesJunction.id');
-    }
-
-    var $favouritesJunction = favouritesJunction
-        .map((e) => e.copyWith(extraUserInfoId: null))
-        .toList();
-    await session.db.update<_i3.FavouritesJunction>(
-      $favouritesJunction,
-      columns: [_i3.FavouritesJunction.t.extraUserInfoId],
-      transaction: transaction,
-    );
-  }
-}
-
-class ExtraUserInfoDetachRowRepository {
-  const ExtraUserInfoDetachRowRepository._();
-
-  /// Detaches the relation between this [ExtraUserInfo] and the given [FavouritesJunction]
-  /// by setting the [FavouritesJunction]'s foreign key `extraUserInfoId` to `null`.
-  ///
-  /// This removes the association between the two models without deleting
-  /// the related record.
-  Future<void> favouritesJunctions(
-    _i1.Session session,
-    _i3.FavouritesJunction favouritesJunction, {
-    _i1.Transaction? transaction,
-  }) async {
-    if (favouritesJunction.id == null) {
-      throw ArgumentError.notNull('favouritesJunction.id');
-    }
-
-    var $favouritesJunction =
-        favouritesJunction.copyWith(extraUserInfoId: null);
-    await session.db.updateRow<_i3.FavouritesJunction>(
-      $favouritesJunction,
-      columns: [_i3.FavouritesJunction.t.extraUserInfoId],
       transaction: transaction,
     );
   }

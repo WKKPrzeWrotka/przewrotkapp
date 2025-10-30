@@ -20,12 +20,7 @@ class UserEndpoint extends Endpoint {
     return (await ExtraUserInfo.db.findFirstRow(
       session,
       where: (user) => user.userInfoId.equals(id),
-      include: ExtraUserInfo.include(
-        userInfo: UserInfo.include(),
-        favouritesJunctions: FavouritesJunction.includeList(
-          include: FavouritesJunction.include(gear: Gear.include()),
-        ),
-      ),
+      include: ExtraUserInfo.include(userInfo: UserInfo.include()),
     ))!;
   }
 
@@ -46,19 +41,16 @@ class UserEndpoint extends Endpoint {
     bool isFavourite,
   ) async {
     final id = (await session.authenticated)!.userId;
-    final extraUser = await getExtraUserInfo(session, id);
     try {
       if (isFavourite) {
         await FavouritesJunction.db.insertRow(
           session,
-          FavouritesJunction(gearId: gear.id!, extraUserInfoId: extraUser.id!),
+          FavouritesJunction(gearId: gear.id!, userId: id),
         );
       } else {
         await FavouritesJunction.db.deleteWhere(
           session,
-          where: (fj) =>
-              fj.gearId.equals(gear.id) &
-              fj.extraUserInfoId.equals(extraUser.id),
+          where: (fj) => fj.gearId.equals(gear.id) & fj.userId.equals(id),
         );
       }
     } finally {
@@ -93,5 +85,21 @@ class UserEndpoint extends Endpoint {
         transaction: t,
       );
     });
+    _userUpdateCtrl.add(id);
   }
+
+  Future<List<int>> getFavourites(Session session) async {
+    final id = (await session.authenticated)!.userId;
+    return (await FavouritesJunction.db.find(
+      session,
+      where: (fj) => fj.userId.equals(id),
+      orderByList: (fj) => [
+        Order(column: fj.gear.type),
+        Order(column: fj.gear.clubId),
+      ],
+    )).map((fj) => fj.gearId).toList();
+  }
+
+  Stream<List<int>> watchFavourites(Session session) =>
+      watchX(() => getFavourites(session), _userUpdateCtrl.stream);
 }

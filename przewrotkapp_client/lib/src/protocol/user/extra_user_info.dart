@@ -11,7 +11,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i2;
-import '../user/favourites.dart' as _i3;
 
 abstract class ExtraUserInfo implements _i1.SerializableModel {
   ExtraUserInfo._({
@@ -21,7 +20,6 @@ abstract class ExtraUserInfo implements _i1.SerializableModel {
     this.phoneNumber,
     this.discordUsername,
     required this.socialLinks,
-    this.favouritesJunctions,
   });
 
   factory ExtraUserInfo({
@@ -31,7 +29,6 @@ abstract class ExtraUserInfo implements _i1.SerializableModel {
     String? phoneNumber,
     String? discordUsername,
     required Map<String, Uri> socialLinks,
-    List<_i3.FavouritesJunction>? favouritesJunctions,
   }) = _ExtraUserInfoImpl;
 
   factory ExtraUserInfo.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -49,10 +46,6 @@ abstract class ExtraUserInfo implements _i1.SerializableModel {
                 k as String,
                 _i1.UriJsonExtension.fromJson(v),
               )),
-      favouritesJunctions: (jsonSerialization['favouritesJunctions'] as List?)
-          ?.map((e) =>
-              _i3.FavouritesJunction.fromJson((e as Map<String, dynamic>)))
-          .toList(),
     );
   }
 
@@ -71,8 +64,6 @@ abstract class ExtraUserInfo implements _i1.SerializableModel {
 
   Map<String, Uri> socialLinks;
 
-  List<_i3.FavouritesJunction>? favouritesJunctions;
-
   /// Returns a shallow copy of this [ExtraUserInfo]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
@@ -83,7 +74,6 @@ abstract class ExtraUserInfo implements _i1.SerializableModel {
     String? phoneNumber,
     String? discordUsername,
     Map<String, Uri>? socialLinks,
-    List<_i3.FavouritesJunction>? favouritesJunctions,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -94,9 +84,6 @@ abstract class ExtraUserInfo implements _i1.SerializableModel {
       if (phoneNumber != null) 'phoneNumber': phoneNumber,
       if (discordUsername != null) 'discordUsername': discordUsername,
       'socialLinks': socialLinks.toJson(valueToJson: (v) => v.toJson()),
-      if (favouritesJunctions != null)
-        'favouritesJunctions':
-            favouritesJunctions?.toJson(valueToJson: (v) => v.toJson()),
     };
   }
 
@@ -116,7 +103,6 @@ class _ExtraUserInfoImpl extends ExtraUserInfo {
     String? phoneNumber,
     String? discordUsername,
     required Map<String, Uri> socialLinks,
-    List<_i3.FavouritesJunction>? favouritesJunctions,
   }) : super._(
           id: id,
           userInfoId: userInfoId,
@@ -124,7 +110,6 @@ class _ExtraUserInfoImpl extends ExtraUserInfo {
           phoneNumber: phoneNumber,
           discordUsername: discordUsername,
           socialLinks: socialLinks,
-          favouritesJunctions: favouritesJunctions,
         );
 
   /// Returns a shallow copy of this [ExtraUserInfo]
@@ -138,7 +123,6 @@ class _ExtraUserInfoImpl extends ExtraUserInfo {
     Object? phoneNumber = _Undefined,
     Object? discordUsername = _Undefined,
     Map<String, Uri>? socialLinks,
-    Object? favouritesJunctions = _Undefined,
   }) {
     return ExtraUserInfo(
       id: id is int? ? id : this.id,
@@ -157,9 +141,6 @@ class _ExtraUserInfoImpl extends ExtraUserInfo {
                     key0,
                     value0,
                   )),
-      favouritesJunctions: favouritesJunctions is List<_i3.FavouritesJunction>?
-          ? favouritesJunctions
-          : this.favouritesJunctions?.map((e0) => e0.copyWith()).toList(),
     );
   }
 }

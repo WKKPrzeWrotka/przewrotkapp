@@ -795,6 +795,15 @@ class Endpoints extends _i1.EndpointDispatch {
             params['extraUser'],
           ),
         ),
+        'getFavourites': _i1.MethodConnector(
+          name: 'getFavourites',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i7.UserEndpoint).getFavourites(session),
+        ),
         'watchExtraUserInfo': _i1.MethodStreamConnector(
           name: 'watchExtraUserInfo',
           params: {
@@ -815,6 +824,18 @@ class Endpoints extends _i1.EndpointDispatch {
             session,
             params['userId'],
           ),
+        ),
+        'watchFavourites': _i1.MethodStreamConnector(
+          name: 'watchFavourites',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['user'] as _i7.UserEndpoint).watchFavourites(session),
         ),
       },
     );

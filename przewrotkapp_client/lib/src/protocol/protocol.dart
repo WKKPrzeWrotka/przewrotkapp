@@ -286,13 +286,6 @@ class Protocol extends _i1.SerializationManager {
       return (data as Map).map(
           (k, v) => MapEntry(deserialize<String>(k), deserialize<Uri>(v))) as T;
     }
-    if (t == _i1.getType<List<_i27.FavouritesJunction>?>()) {
-      return (data != null
-          ? (data as List)
-              .map((e) => deserialize<_i27.FavouritesJunction>(e))
-              .toList()
-          : null) as T;
-    }
     if (t == List<_i28.Comment>) {
       return (data as List).map((e) => deserialize<_i28.Comment>(e)).toList()
           as T;
@@ -477,6 +470,9 @@ class Protocol extends _i1.SerializationManager {
     if (t == List<_i29.Gear>) {
       return (data as List).map((e) => deserialize<_i29.Gear>(e)).toList() as T;
     }
+    if (t == List<int>) {
+      return (data as List).map((e) => deserialize<int>(e)).toList() as T;
+    }
     if (t == _i1.getType<(_i29.Gear, _i30.GearBelt)>()) {
       return (
         deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
@@ -656,6 +652,9 @@ class Protocol extends _i1.SerializationManager {
     if (data is List<_i39.Rental>) {
       return 'List<Rental>';
     }
+    if (data is List<int>) {
+      return 'List<int>';
+    }
     return null;
   }
 
@@ -779,6 +778,9 @@ class Protocol extends _i1.SerializationManager {
     }
     if (dataClassName == 'List<Rental>') {
       return deserialize<List<_i39.Rental>>(data['data']);
+    }
+    if (dataClassName == 'List<int>') {
+      return deserialize<List<int>>(data['data']);
     }
     return super.deserializeByClassName(data);
   }

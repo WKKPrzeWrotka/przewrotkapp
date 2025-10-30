@@ -90,22 +90,12 @@ class EverythingProvider extends StatelessWidget {
           initialData: null,
           create: (_) => _retryStream(() => _client.user.watchExtraUserInfo()),
         ),
-        ProxyProvider2<AllGearCache?, SelfExtraUserInfo?, UserFavourites?>(
+        StreamProvider<UserFavourites?>(
           lazy: false,
-          create: (_) => null,
-          update: (_, AllGearCache? allGearCache, ExtraUserInfo? extraUser, _) {
-            if (allGearCache == null ||
-                extraUser?.favouritesJunctions == null) {
-              return null;
-            }
-            final favIds = extraUser!.favouritesJunctions!
-                .map((e) => e.gearId)
-                .toList();
-            final gear = allGearCache
-                .where((g) => favIds.contains(g.gear.id))
-                .toList();
-            return (gearPairs: gear, gearIds: favIds);
-          },
+          initialData: null,
+          create: (_) => _retryStream(
+            () => _client.user.watchFavourites(),
+          ).map((f) => UserFavourites(f)),
         ),
         ProxyProvider2<
           FutureRentals?,

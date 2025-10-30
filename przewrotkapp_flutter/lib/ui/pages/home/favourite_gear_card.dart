@@ -18,7 +18,11 @@ class _FavouriteGearCardState extends State<FavouriteGearCard> {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
-    final favGear = context.watch<UserFavourites?>()?.gearPairs;
+    final gear = context.watch<AllGearCache?>();
+    final favs = context.watch<UserFavourites?>();
+    final favGear = (gear != null && favs != null)
+        ? gear.where((g) => favs.gearIds.contains(g.gear.id))
+        : <GearPair>[];
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(4.0),
@@ -26,8 +30,7 @@ class _FavouriteGearCardState extends State<FavouriteGearCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Twój ulubiony sprzęt:", style: tt.headlineSmall),
-            for (final gear in favGear ?? <GearPair>[])
-              GearListing(gearPair: gear),
+            for (final gear in favGear) GearListing(gearPair: gear),
             SizedBox(height: 4),
             ElevatedButton(
               onPressed: () => context.push('/gear'),

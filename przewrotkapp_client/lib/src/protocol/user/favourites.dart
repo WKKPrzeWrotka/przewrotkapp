@@ -10,39 +10,39 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
-import '../gear/gear.dart' as _i2;
-import '../user/extra_user_info.dart' as _i3;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i2;
+import '../gear/gear.dart' as _i3;
 
 abstract class FavouritesJunction implements _i1.SerializableModel {
   FavouritesJunction._({
     this.id,
+    required this.userId,
+    this.user,
     required this.gearId,
     this.gear,
-    required this.extraUserInfoId,
-    this.extraUserInfo,
   });
 
   factory FavouritesJunction({
     int? id,
+    required int userId,
+    _i2.UserInfo? user,
     required int gearId,
-    _i2.Gear? gear,
-    required int extraUserInfoId,
-    _i3.ExtraUserInfo? extraUserInfo,
+    _i3.Gear? gear,
   }) = _FavouritesJunctionImpl;
 
   factory FavouritesJunction.fromJson(Map<String, dynamic> jsonSerialization) {
     return FavouritesJunction(
       id: jsonSerialization['id'] as int?,
+      userId: jsonSerialization['userId'] as int,
+      user: jsonSerialization['user'] == null
+          ? null
+          : _i2.UserInfo.fromJson(
+              (jsonSerialization['user'] as Map<String, dynamic>)),
       gearId: jsonSerialization['gearId'] as int,
       gear: jsonSerialization['gear'] == null
           ? null
-          : _i2.Gear.fromJson(
+          : _i3.Gear.fromJson(
               (jsonSerialization['gear'] as Map<String, dynamic>)),
-      extraUserInfoId: jsonSerialization['extraUserInfoId'] as int,
-      extraUserInfo: jsonSerialization['extraUserInfo'] == null
-          ? null
-          : _i3.ExtraUserInfo.fromJson(
-              (jsonSerialization['extraUserInfo'] as Map<String, dynamic>)),
     );
   }
 
@@ -51,32 +51,32 @@ abstract class FavouritesJunction implements _i1.SerializableModel {
   /// the id will be null.
   int? id;
 
+  int userId;
+
+  _i2.UserInfo? user;
+
   int gearId;
 
-  _i2.Gear? gear;
-
-  int extraUserInfoId;
-
-  _i3.ExtraUserInfo? extraUserInfo;
+  _i3.Gear? gear;
 
   /// Returns a shallow copy of this [FavouritesJunction]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   FavouritesJunction copyWith({
     int? id,
+    int? userId,
+    _i2.UserInfo? user,
     int? gearId,
-    _i2.Gear? gear,
-    int? extraUserInfoId,
-    _i3.ExtraUserInfo? extraUserInfo,
+    _i3.Gear? gear,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
+      'userId': userId,
+      if (user != null) 'user': user?.toJson(),
       'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
-      'extraUserInfoId': extraUserInfoId,
-      if (extraUserInfo != null) 'extraUserInfo': extraUserInfo?.toJson(),
     };
   }
 
@@ -91,16 +91,16 @@ class _Undefined {}
 class _FavouritesJunctionImpl extends FavouritesJunction {
   _FavouritesJunctionImpl({
     int? id,
+    required int userId,
+    _i2.UserInfo? user,
     required int gearId,
-    _i2.Gear? gear,
-    required int extraUserInfoId,
-    _i3.ExtraUserInfo? extraUserInfo,
+    _i3.Gear? gear,
   }) : super._(
           id: id,
+          userId: userId,
+          user: user,
           gearId: gearId,
           gear: gear,
-          extraUserInfoId: extraUserInfoId,
-          extraUserInfo: extraUserInfo,
         );
 
   /// Returns a shallow copy of this [FavouritesJunction]
@@ -109,19 +109,17 @@ class _FavouritesJunctionImpl extends FavouritesJunction {
   @override
   FavouritesJunction copyWith({
     Object? id = _Undefined,
+    int? userId,
+    Object? user = _Undefined,
     int? gearId,
     Object? gear = _Undefined,
-    int? extraUserInfoId,
-    Object? extraUserInfo = _Undefined,
   }) {
     return FavouritesJunction(
       id: id is int? ? id : this.id,
+      userId: userId ?? this.userId,
+      user: user is _i2.UserInfo? ? user : this.user?.copyWith(),
       gearId: gearId ?? this.gearId,
-      gear: gear is _i2.Gear? ? gear : this.gear?.copyWith(),
-      extraUserInfoId: extraUserInfoId ?? this.extraUserInfoId,
-      extraUserInfo: extraUserInfo is _i3.ExtraUserInfo?
-          ? extraUserInfo
-          : this.extraUserInfo?.copyWith(),
+      gear: gear is _i3.Gear? ? gear : this.gear?.copyWith(),
     );
   }
 }

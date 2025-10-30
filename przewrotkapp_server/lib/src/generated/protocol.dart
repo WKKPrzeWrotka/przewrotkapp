@@ -330,13 +330,13 @@ class Protocol extends _i1.SerializationManagerServer {
           columnDefault: 'nextval(\'favourites_junctions_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
-          name: 'gearId',
+          name: 'userId',
           columnType: _i2.ColumnType.bigint,
           isNullable: false,
           dartType: 'int',
         ),
         _i2.ColumnDefinition(
-          name: 'extraUserInfoId',
+          name: 'gearId',
           columnType: _i2.ColumnType.bigint,
           isNullable: false,
           dartType: 'int',
@@ -345,8 +345,8 @@ class Protocol extends _i1.SerializationManagerServer {
       foreignKeys: [
         _i2.ForeignKeyDefinition(
           constraintName: 'favourites_junctions_fk_0',
-          columns: ['gearId'],
-          referenceTable: 'gear',
+          columns: ['userId'],
+          referenceTable: 'serverpod_user_info',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -355,8 +355,8 @@ class Protocol extends _i1.SerializationManagerServer {
         ),
         _i2.ForeignKeyDefinition(
           constraintName: 'favourites_junctions_fk_1',
-          columns: ['extraUserInfoId'],
-          referenceTable: 'extra_user_infos',
+          columns: ['gearId'],
+          referenceTable: 'gear',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -384,11 +384,11 @@ class Protocol extends _i1.SerializationManagerServer {
           elements: [
             _i2.IndexElementDefinition(
               type: _i2.IndexElementDefinitionType.column,
-              definition: 'gearId',
+              definition: 'userId',
             ),
             _i2.IndexElementDefinition(
               type: _i2.IndexElementDefinitionType.column,
-              definition: 'extraUserInfoId',
+              definition: 'gearId',
             ),
           ],
           type: 'btree',
@@ -1521,13 +1521,6 @@ class Protocol extends _i1.SerializationManagerServer {
       return (data as Map).map(
           (k, v) => MapEntry(deserialize<String>(k), deserialize<Uri>(v))) as T;
     }
-    if (t == _i1.getType<List<_i29.FavouritesJunction>?>()) {
-      return (data != null
-          ? (data as List)
-              .map((e) => deserialize<_i29.FavouritesJunction>(e))
-              .toList()
-          : null) as T;
-    }
     if (t == List<_i30.Comment>) {
       return (data as List).map((e) => deserialize<_i30.Comment>(e)).toList()
           as T;
@@ -1711,6 +1704,9 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (t == List<_i31.Gear>) {
       return (data as List).map((e) => deserialize<_i31.Gear>(e)).toList() as T;
+    }
+    if (t == List<int>) {
+      return (data as List).map((e) => deserialize<int>(e)).toList() as T;
     }
     if (t == _i1.getType<(_i31.Gear, _i32.GearBelt)>()) {
       return (
@@ -1898,6 +1894,9 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is List<_i41.Rental>) {
       return 'List<Rental>';
     }
+    if (data is List<int>) {
+      return 'List<int>';
+    }
     return null;
   }
 
@@ -2025,6 +2024,9 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (dataClassName == 'List<Rental>') {
       return deserialize<List<_i41.Rental>>(data['data']);
+    }
+    if (dataClassName == 'List<int>') {
+      return deserialize<List<int>>(data['data']);
     }
     return super.deserializeByClassName(data);
   }

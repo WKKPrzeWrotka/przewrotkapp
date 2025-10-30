@@ -5,7 +5,6 @@ fields:
   phoneNumber: String?
   discordUsername: String?
   socialLinks: Map<String, Uri>
-  favouritesJunctions: List<FavouritesJunction>?, relation(name=extra_user_info_junctions)
 indexes:
   extra_user_info_user_info_unique_idx:
     fields: userInfoId
