@@ -31,7 +31,8 @@ import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i15;
 import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i16;
 import 'package:przewrotkapp_client/src/protocol/user/extra_user_info.dart'
     as _i17;
-import 'protocol.dart' as _i18;
+import 'package:przewrotkapp_client/src/protocol/hour.dart' as _i18;
+import 'protocol.dart' as _i19;
 
 /// {@category Endpoint}
 class EndpointComments extends _i1.EndpointRef {
@@ -474,6 +475,36 @@ class EndpointUser extends _i1.EndpointRef {
         {},
         {},
       );
+
+  _i2.Future<List<_i18.Hour>> getHours({int? userId}) =>
+      caller.callServerEndpoint<List<_i18.Hour>>(
+        'user',
+        'getHours',
+        {'userId': userId},
+      );
+
+  _i2.Stream<List<_i18.Hour>> watchHours({int? userId}) =>
+      caller.callStreamingServerEndpoint<_i2.Stream<List<_i18.Hour>>,
+          List<_i18.Hour>>(
+        'user',
+        'watchHours',
+        {'userId': userId},
+        {},
+      );
+
+  _i2.Future<int> getHoursSum(int userId) => caller.callServerEndpoint<int>(
+        'user',
+        'getHoursSum',
+        {'userId': userId},
+      );
+
+  _i2.Stream<int> watchHoursSum(int userId) =>
+      caller.callStreamingServerEndpoint<_i2.Stream<int>, int>(
+        'user',
+        'watchHoursSum',
+        {'userId': userId},
+        {},
+      );
 }
 
 class Modules {
@@ -500,7 +531,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i18.Protocol(),
+          _i19.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,

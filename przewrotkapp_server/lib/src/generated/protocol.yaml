@@ -45,3 +45,7 @@ user:
   - updateUser:
   - getFavourites:
   - watchFavourites:
+  - getHours:
+  - watchHours:
+  - getHoursSum:
+  - watchHoursSum:

@@ -58,6 +58,7 @@ import 'package:przewrotkapp_server/src/generated/gear/gear_spraydeck.dart'
 import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
     as _i42;
 import 'package:przewrotkapp_server/src/generated/rental/rental.dart' as _i43;
+import 'package:przewrotkapp_server/src/generated/hour.dart' as _i44;
 export 'exceptions/przexception.dart';
 export 'gear/clothing_type.dart';
 export 'gear/comment.dart';
@@ -1817,6 +1818,9 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == List<int>) {
       return (data as List).map((e) => deserialize<int>(e)).toList() as T;
     }
+    if (t == List<_i44.Hour>) {
+      return (data as List).map((e) => deserialize<_i44.Hour>(e)).toList() as T;
+    }
     if (t == _i1.getType<(_i33.Gear, _i34.GearBelt)>()) {
       return (
         deserialize<_i33.Gear>(((data as Map)['p'] as List)[0]),
@@ -2012,6 +2016,9 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is List<int>) {
       return 'List<int>';
     }
+    if (data is List<_i44.Hour>) {
+      return 'List<Hour>';
+    }
     return null;
   }
 
@@ -2148,6 +2155,9 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (dataClassName == 'List<int>') {
       return deserialize<List<int>>(data['data']);
+    }
+    if (dataClassName == 'List<Hour>') {
+      return deserialize<List<_i44.Hour>>(data['data']);
     }
     return super.deserializeByClassName(data);
   }

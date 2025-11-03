@@ -804,6 +804,42 @@ class Endpoints extends _i1.EndpointDispatch {
           ) async =>
               (endpoints['user'] as _i7.UserEndpoint).getFavourites(session),
         ),
+        'getHours': _i1.MethodConnector(
+          name: 'getHours',
+          params: {
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
+              type: _i1.getType<int?>(),
+              nullable: true,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i7.UserEndpoint).getHours(
+            session,
+            userId: params['userId'],
+          ),
+        ),
+        'getHoursSum': _i1.MethodConnector(
+          name: 'getHoursSum',
+          params: {
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i7.UserEndpoint).getHoursSum(
+            session,
+            params['userId'],
+          ),
+        ),
         'watchExtraUserInfo': _i1.MethodStreamConnector(
           name: 'watchExtraUserInfo',
           params: {
@@ -836,6 +872,48 @@ class Endpoints extends _i1.EndpointDispatch {
             Map<String, Stream> streamParams,
           ) =>
               (endpoints['user'] as _i7.UserEndpoint).watchFavourites(session),
+        ),
+        'watchHours': _i1.MethodStreamConnector(
+          name: 'watchHours',
+          params: {
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
+              type: _i1.getType<int?>(),
+              nullable: true,
+            )
+          },
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['user'] as _i7.UserEndpoint).watchHours(
+            session,
+            userId: params['userId'],
+          ),
+        ),
+        'watchHoursSum': _i1.MethodStreamConnector(
+          name: 'watchHoursSum',
+          params: {
+            'userId': _i1.ParameterDescription(
+              name: 'userId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['user'] as _i7.UserEndpoint).watchHoursSum(
+            session,
+            params['userId'],
+          ),
         ),
       },
     );
