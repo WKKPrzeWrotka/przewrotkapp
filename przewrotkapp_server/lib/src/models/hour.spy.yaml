@@ -1,0 +1,13 @@
+class: Hour
+table: hours
+fields:
+  user: module:auth:UserInfo?, relation
+  amount: int
+  description: String
+  category: HourCategory
+  date: DateTime
+  approved: bool, default=false
+indexes:
+  hours_users_unique_idx:
+    fields: userId
+    unique: false

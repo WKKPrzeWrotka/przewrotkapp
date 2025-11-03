@@ -32,27 +32,29 @@ import 'gear/kayak_type.dart' as _i20;
 import 'gear/paddle_type.dart' as _i21;
 import 'gear/pfd_type.dart' as _i22;
 import 'gear/spraydeck_deck_size.dart' as _i23;
-import 'rental/rental.dart' as _i24;
-import 'rental/rental_junction.dart' as _i25;
-import 'user/extra_user_info.dart' as _i26;
-import 'user/favourites.dart' as _i27;
-import 'package:przewrotkapp_client/src/protocol/gear/comment.dart' as _i28;
-import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i29;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_belt.dart' as _i30;
+import 'hour.dart' as _i24;
+import 'hour_category.dart' as _i25;
+import 'rental/rental.dart' as _i26;
+import 'rental/rental_junction.dart' as _i27;
+import 'user/extra_user_info.dart' as _i28;
+import 'user/favourites.dart' as _i29;
+import 'package:przewrotkapp_client/src/protocol/gear/comment.dart' as _i30;
+import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i31;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_belt.dart' as _i32;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_clothing.dart'
-    as _i31;
+    as _i33;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_floatbag.dart'
-    as _i32;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_helmet.dart' as _i33;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_kayak.dart' as _i34;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_paddle.dart' as _i35;
-import 'package:przewrotkapp_client/src/protocol/gear/gear_pfd.dart' as _i36;
+    as _i34;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_helmet.dart' as _i35;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_kayak.dart' as _i36;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_paddle.dart' as _i37;
+import 'package:przewrotkapp_client/src/protocol/gear/gear_pfd.dart' as _i38;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_spraydeck.dart'
-    as _i37;
+    as _i39;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_throwbag.dart'
-    as _i38;
-import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i39;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i40;
+    as _i40;
+import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i41;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i42;
 export 'exceptions/przexception.dart';
 export 'gear/clothing_type.dart';
 export 'gear/comment.dart';
@@ -75,6 +77,8 @@ export 'gear/kayak_type.dart';
 export 'gear/paddle_type.dart';
 export 'gear/pfd_type.dart';
 export 'gear/spraydeck_deck_size.dart';
+export 'hour.dart';
+export 'hour_category.dart';
 export 'rental/rental.dart';
 export 'rental/rental_junction.dart';
 export 'user/extra_user_info.dart';
@@ -160,17 +164,23 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i23.SpraydeckDeckSize) {
       return _i23.SpraydeckDeckSize.fromJson(data) as T;
     }
-    if (t == _i24.Rental) {
-      return _i24.Rental.fromJson(data) as T;
+    if (t == _i24.Hour) {
+      return _i24.Hour.fromJson(data) as T;
     }
-    if (t == _i25.RentalJunction) {
-      return _i25.RentalJunction.fromJson(data) as T;
+    if (t == _i25.HourCategory) {
+      return _i25.HourCategory.fromJson(data) as T;
     }
-    if (t == _i26.ExtraUserInfo) {
-      return _i26.ExtraUserInfo.fromJson(data) as T;
+    if (t == _i26.Rental) {
+      return _i26.Rental.fromJson(data) as T;
     }
-    if (t == _i27.FavouritesJunction) {
-      return _i27.FavouritesJunction.fromJson(data) as T;
+    if (t == _i27.RentalJunction) {
+      return _i27.RentalJunction.fromJson(data) as T;
+    }
+    if (t == _i28.ExtraUserInfo) {
+      return _i28.ExtraUserInfo.fromJson(data) as T;
+    }
+    if (t == _i29.FavouritesJunction) {
+      return _i29.FavouritesJunction.fromJson(data) as T;
     }
     if (t == _i1.getType<_i2.PrzException?>()) {
       return (data != null ? _i2.PrzException.fromJson(data) : null) as T;
@@ -238,17 +248,23 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i23.SpraydeckDeckSize?>()) {
       return (data != null ? _i23.SpraydeckDeckSize.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i24.Rental?>()) {
-      return (data != null ? _i24.Rental.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i24.Hour?>()) {
+      return (data != null ? _i24.Hour.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i25.RentalJunction?>()) {
-      return (data != null ? _i25.RentalJunction.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i25.HourCategory?>()) {
+      return (data != null ? _i25.HourCategory.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i26.ExtraUserInfo?>()) {
-      return (data != null ? _i26.ExtraUserInfo.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i26.Rental?>()) {
+      return (data != null ? _i26.Rental.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i27.FavouritesJunction?>()) {
-      return (data != null ? _i27.FavouritesJunction.fromJson(data) : null)
+    if (t == _i1.getType<_i27.RentalJunction?>()) {
+      return (data != null ? _i27.RentalJunction.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i28.ExtraUserInfo?>()) {
+      return (data != null ? _i28.ExtraUserInfo.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i29.FavouritesJunction?>()) {
+      return (data != null ? _i29.FavouritesJunction.fromJson(data) : null)
           as T;
     }
     if (t == _i1.getType<List<Uri>?>()) {
@@ -256,17 +272,17 @@ class Protocol extends _i1.SerializationManager {
           ? (data as List).map((e) => deserialize<Uri>(e)).toList()
           : null) as T;
     }
-    if (t == _i1.getType<List<_i25.RentalJunction>?>()) {
+    if (t == _i1.getType<List<_i27.RentalJunction>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i25.RentalJunction>(e))
+              .map((e) => deserialize<_i27.RentalJunction>(e))
               .toList()
           : null) as T;
     }
-    if (t == _i1.getType<List<_i27.FavouritesJunction>?>()) {
+    if (t == _i1.getType<List<_i29.FavouritesJunction>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i27.FavouritesJunction>(e))
+              .map((e) => deserialize<_i29.FavouritesJunction>(e))
               .toList()
           : null) as T;
     }
@@ -275,10 +291,10 @@ class Protocol extends _i1.SerializationManager {
           ? (data as List).map((e) => deserialize<_i4.Comment>(e)).toList()
           : null) as T;
     }
-    if (t == _i1.getType<List<_i25.RentalJunction>?>()) {
+    if (t == _i1.getType<List<_i27.RentalJunction>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i25.RentalJunction>(e))
+              .map((e) => deserialize<_i27.RentalJunction>(e))
               .toList()
           : null) as T;
     }
@@ -286,8 +302,8 @@ class Protocol extends _i1.SerializationManager {
       return (data as Map).map(
           (k, v) => MapEntry(deserialize<String>(k), deserialize<Uri>(v))) as T;
     }
-    if (t == List<_i28.Comment>) {
-      return (data as List).map((e) => deserialize<_i28.Comment>(e)).toList()
+    if (t == List<_i30.Comment>) {
+      return (data as List).map((e) => deserialize<_i30.Comment>(e)).toList()
           as T;
     }
     if (t == List<({DateTime from, String name, DateTime to})>) {
@@ -310,225 +326,225 @@ class Protocol extends _i1.SerializationManager {
         to: deserialize<DateTime>(data['n']['to']),
       ) as T;
     }
-    if (t == List<(_i29.Gear, _i30.GearBelt)>) {
+    if (t == List<(_i31.Gear, _i32.GearBelt)>) {
       return (data as List)
-          .map((e) => deserialize<(_i29.Gear, _i30.GearBelt)>(e))
+          .map((e) => deserialize<(_i31.Gear, _i32.GearBelt)>(e))
           .toList() as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i30.GearBelt)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i32.GearBelt)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i30.GearBelt>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i32.GearBelt>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i30.GearBelt)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i32.GearBelt)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i30.GearBelt>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i32.GearBelt>(data['p'][1]),
       ) as T;
     }
-    if (t == List<(_i29.Gear, _i31.GearClothing)>) {
+    if (t == List<(_i31.Gear, _i33.GearClothing)>) {
       return (data as List)
-          .map((e) => deserialize<(_i29.Gear, _i31.GearClothing)>(e))
+          .map((e) => deserialize<(_i31.Gear, _i33.GearClothing)>(e))
           .toList() as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i31.GearClothing)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i33.GearClothing)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i31.GearClothing>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i33.GearClothing>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i31.GearClothing)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i33.GearClothing)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i31.GearClothing>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i33.GearClothing>(data['p'][1]),
       ) as T;
     }
-    if (t == List<(_i29.Gear, _i32.GearFloatbag)>) {
+    if (t == List<(_i31.Gear, _i34.GearFloatbag)>) {
       return (data as List)
-          .map((e) => deserialize<(_i29.Gear, _i32.GearFloatbag)>(e))
+          .map((e) => deserialize<(_i31.Gear, _i34.GearFloatbag)>(e))
           .toList() as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i32.GearFloatbag)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i34.GearFloatbag)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i32.GearFloatbag>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i34.GearFloatbag>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i32.GearFloatbag)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i34.GearFloatbag)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i32.GearFloatbag>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i34.GearFloatbag>(data['p'][1]),
       ) as T;
     }
-    if (t == List<(_i29.Gear, _i33.GearHelmet)>) {
+    if (t == List<(_i31.Gear, _i35.GearHelmet)>) {
       return (data as List)
-          .map((e) => deserialize<(_i29.Gear, _i33.GearHelmet)>(e))
+          .map((e) => deserialize<(_i31.Gear, _i35.GearHelmet)>(e))
           .toList() as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i33.GearHelmet)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i35.GearHelmet)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i33.GearHelmet>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i35.GearHelmet>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i33.GearHelmet)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i35.GearHelmet)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i33.GearHelmet>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i35.GearHelmet>(data['p'][1]),
       ) as T;
     }
-    if (t == List<(_i29.Gear, _i34.GearKayak)>) {
+    if (t == List<(_i31.Gear, _i36.GearKayak)>) {
       return (data as List)
-          .map((e) => deserialize<(_i29.Gear, _i34.GearKayak)>(e))
+          .map((e) => deserialize<(_i31.Gear, _i36.GearKayak)>(e))
           .toList() as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i34.GearKayak)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i36.GearKayak)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i34.GearKayak>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i36.GearKayak>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i34.GearKayak)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i36.GearKayak)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i34.GearKayak>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i36.GearKayak>(data['p'][1]),
       ) as T;
     }
-    if (t == List<(_i29.Gear, _i35.GearPaddle)>) {
+    if (t == List<(_i31.Gear, _i37.GearPaddle)>) {
       return (data as List)
-          .map((e) => deserialize<(_i29.Gear, _i35.GearPaddle)>(e))
+          .map((e) => deserialize<(_i31.Gear, _i37.GearPaddle)>(e))
           .toList() as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i35.GearPaddle)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i37.GearPaddle)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i35.GearPaddle>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i37.GearPaddle>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i35.GearPaddle)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i37.GearPaddle)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i35.GearPaddle>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i37.GearPaddle>(data['p'][1]),
       ) as T;
     }
-    if (t == List<(_i29.Gear, _i36.GearPfd)>) {
+    if (t == List<(_i31.Gear, _i38.GearPfd)>) {
       return (data as List)
-          .map((e) => deserialize<(_i29.Gear, _i36.GearPfd)>(e))
+          .map((e) => deserialize<(_i31.Gear, _i38.GearPfd)>(e))
           .toList() as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i36.GearPfd)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i38.GearPfd)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i36.GearPfd>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i38.GearPfd>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i36.GearPfd)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i38.GearPfd)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i36.GearPfd>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i38.GearPfd>(data['p'][1]),
       ) as T;
     }
-    if (t == List<(_i29.Gear, _i37.GearSpraydeck)>) {
+    if (t == List<(_i31.Gear, _i39.GearSpraydeck)>) {
       return (data as List)
-          .map((e) => deserialize<(_i29.Gear, _i37.GearSpraydeck)>(e))
+          .map((e) => deserialize<(_i31.Gear, _i39.GearSpraydeck)>(e))
           .toList() as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i37.GearSpraydeck)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i39.GearSpraydeck)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i37.GearSpraydeck>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i39.GearSpraydeck>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i37.GearSpraydeck)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i39.GearSpraydeck)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i37.GearSpraydeck>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i39.GearSpraydeck>(data['p'][1]),
       ) as T;
     }
-    if (t == List<(_i29.Gear, _i38.GearThrowbag)>) {
+    if (t == List<(_i31.Gear, _i40.GearThrowbag)>) {
       return (data as List)
-          .map((e) => deserialize<(_i29.Gear, _i38.GearThrowbag)>(e))
+          .map((e) => deserialize<(_i31.Gear, _i40.GearThrowbag)>(e))
           .toList() as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i38.GearThrowbag)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i40.GearThrowbag)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i38.GearThrowbag>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i40.GearThrowbag>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i38.GearThrowbag)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i40.GearThrowbag)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i38.GearThrowbag>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i40.GearThrowbag>(data['p'][1]),
       ) as T;
     }
-    if (t == List<_i39.Rental>) {
-      return (data as List).map((e) => deserialize<_i39.Rental>(e)).toList()
+    if (t == List<_i41.Rental>) {
+      return (data as List).map((e) => deserialize<_i41.Rental>(e)).toList()
           as T;
     }
-    if (t == List<_i29.Gear>) {
-      return (data as List).map((e) => deserialize<_i29.Gear>(e)).toList() as T;
+    if (t == List<_i31.Gear>) {
+      return (data as List).map((e) => deserialize<_i31.Gear>(e)).toList() as T;
     }
     if (t == List<int>) {
       return (data as List).map((e) => deserialize<int>(e)).toList() as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i30.GearBelt)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i32.GearBelt)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i30.GearBelt>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i32.GearBelt>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i31.GearClothing)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i33.GearClothing)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i31.GearClothing>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i33.GearClothing>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i32.GearFloatbag)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i34.GearFloatbag)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i32.GearFloatbag>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i34.GearFloatbag>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i33.GearHelmet)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i35.GearHelmet)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i33.GearHelmet>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i35.GearHelmet>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i34.GearKayak)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i36.GearKayak)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i34.GearKayak>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i36.GearKayak>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i35.GearPaddle)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i37.GearPaddle)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i35.GearPaddle>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i37.GearPaddle>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i36.GearPfd)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i38.GearPfd)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i36.GearPfd>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i38.GearPfd>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i37.GearSpraydeck)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i39.GearSpraydeck)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i37.GearSpraydeck>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i39.GearSpraydeck>(data['p'][1]),
       ) as T;
     }
-    if (t == _i1.getType<(_i29.Gear, _i38.GearThrowbag)>()) {
+    if (t == _i1.getType<(_i31.Gear, _i40.GearThrowbag)>()) {
       return (
-        deserialize<_i29.Gear>(((data as Map)['p'] as List)[0]),
-        deserialize<_i38.GearThrowbag>(data['p'][1]),
+        deserialize<_i31.Gear>(((data as Map)['p'] as List)[0]),
+        deserialize<_i40.GearThrowbag>(data['p'][1]),
       ) as T;
     }
     try {
-      return _i40.Protocol().deserialize<T>(data, t);
+      return _i42.Protocol().deserialize<T>(data, t);
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
@@ -603,53 +619,59 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i23.SpraydeckDeckSize) {
       return 'SpraydeckDeckSize';
     }
-    if (data is _i24.Rental) {
+    if (data is _i24.Hour) {
+      return 'Hour';
+    }
+    if (data is _i25.HourCategory) {
+      return 'HourCategory';
+    }
+    if (data is _i26.Rental) {
       return 'Rental';
     }
-    if (data is _i25.RentalJunction) {
+    if (data is _i27.RentalJunction) {
       return 'RentalJunction';
     }
-    if (data is _i26.ExtraUserInfo) {
+    if (data is _i28.ExtraUserInfo) {
       return 'ExtraUserInfo';
     }
-    if (data is _i27.FavouritesJunction) {
+    if (data is _i29.FavouritesJunction) {
       return 'FavouritesJunction';
     }
-    className = _i40.Protocol().getClassNameForObject(data);
+    className = _i42.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth.$className';
     }
-    if (data is List<_i28.Comment>) {
+    if (data is List<_i30.Comment>) {
       return 'List<Comment>';
     }
-    if (data is List<(_i29.Gear, _i30.GearBelt)>) {
+    if (data is List<(_i31.Gear, _i32.GearBelt)>) {
       return 'List<(Gear,GearBelt)>';
     }
-    if (data is List<(_i29.Gear, _i31.GearClothing)>) {
+    if (data is List<(_i31.Gear, _i33.GearClothing)>) {
       return 'List<(Gear,GearClothing)>';
     }
-    if (data is List<(_i29.Gear, _i32.GearFloatbag)>) {
+    if (data is List<(_i31.Gear, _i34.GearFloatbag)>) {
       return 'List<(Gear,GearFloatbag)>';
     }
-    if (data is List<(_i29.Gear, _i33.GearHelmet)>) {
+    if (data is List<(_i31.Gear, _i35.GearHelmet)>) {
       return 'List<(Gear,GearHelmet)>';
     }
-    if (data is List<(_i29.Gear, _i34.GearKayak)>) {
+    if (data is List<(_i31.Gear, _i36.GearKayak)>) {
       return 'List<(Gear,GearKayak)>';
     }
-    if (data is List<(_i29.Gear, _i35.GearPaddle)>) {
+    if (data is List<(_i31.Gear, _i37.GearPaddle)>) {
       return 'List<(Gear,GearPaddle)>';
     }
-    if (data is List<(_i29.Gear, _i36.GearPfd)>) {
+    if (data is List<(_i31.Gear, _i38.GearPfd)>) {
       return 'List<(Gear,GearPfd)>';
     }
-    if (data is List<(_i29.Gear, _i37.GearSpraydeck)>) {
+    if (data is List<(_i31.Gear, _i39.GearSpraydeck)>) {
       return 'List<(Gear,GearSpraydeck)>';
     }
-    if (data is List<(_i29.Gear, _i38.GearThrowbag)>) {
+    if (data is List<(_i31.Gear, _i40.GearThrowbag)>) {
       return 'List<(Gear,GearThrowbag)>';
     }
-    if (data is List<_i39.Rental>) {
+    if (data is List<_i41.Rental>) {
       return 'List<Rental>';
     }
     if (data is List<int>) {
@@ -730,54 +752,60 @@ class Protocol extends _i1.SerializationManager {
     if (dataClassName == 'SpraydeckDeckSize') {
       return deserialize<_i23.SpraydeckDeckSize>(data['data']);
     }
+    if (dataClassName == 'Hour') {
+      return deserialize<_i24.Hour>(data['data']);
+    }
+    if (dataClassName == 'HourCategory') {
+      return deserialize<_i25.HourCategory>(data['data']);
+    }
     if (dataClassName == 'Rental') {
-      return deserialize<_i24.Rental>(data['data']);
+      return deserialize<_i26.Rental>(data['data']);
     }
     if (dataClassName == 'RentalJunction') {
-      return deserialize<_i25.RentalJunction>(data['data']);
+      return deserialize<_i27.RentalJunction>(data['data']);
     }
     if (dataClassName == 'ExtraUserInfo') {
-      return deserialize<_i26.ExtraUserInfo>(data['data']);
+      return deserialize<_i28.ExtraUserInfo>(data['data']);
     }
     if (dataClassName == 'FavouritesJunction') {
-      return deserialize<_i27.FavouritesJunction>(data['data']);
+      return deserialize<_i29.FavouritesJunction>(data['data']);
     }
     if (dataClassName.startsWith('serverpod_auth.')) {
       data['className'] = dataClassName.substring(15);
-      return _i40.Protocol().deserializeByClassName(data);
+      return _i42.Protocol().deserializeByClassName(data);
     }
     if (dataClassName == 'List<Comment>') {
-      return deserialize<List<_i28.Comment>>(data['data']);
+      return deserialize<List<_i30.Comment>>(data['data']);
     }
     if (dataClassName == 'List<(Gear,GearBelt)>') {
-      return deserialize<List<(_i29.Gear, _i30.GearBelt)>>(data['data']);
+      return deserialize<List<(_i31.Gear, _i32.GearBelt)>>(data['data']);
     }
     if (dataClassName == 'List<(Gear,GearClothing)>') {
-      return deserialize<List<(_i29.Gear, _i31.GearClothing)>>(data['data']);
+      return deserialize<List<(_i31.Gear, _i33.GearClothing)>>(data['data']);
     }
     if (dataClassName == 'List<(Gear,GearFloatbag)>') {
-      return deserialize<List<(_i29.Gear, _i32.GearFloatbag)>>(data['data']);
+      return deserialize<List<(_i31.Gear, _i34.GearFloatbag)>>(data['data']);
     }
     if (dataClassName == 'List<(Gear,GearHelmet)>') {
-      return deserialize<List<(_i29.Gear, _i33.GearHelmet)>>(data['data']);
+      return deserialize<List<(_i31.Gear, _i35.GearHelmet)>>(data['data']);
     }
     if (dataClassName == 'List<(Gear,GearKayak)>') {
-      return deserialize<List<(_i29.Gear, _i34.GearKayak)>>(data['data']);
+      return deserialize<List<(_i31.Gear, _i36.GearKayak)>>(data['data']);
     }
     if (dataClassName == 'List<(Gear,GearPaddle)>') {
-      return deserialize<List<(_i29.Gear, _i35.GearPaddle)>>(data['data']);
+      return deserialize<List<(_i31.Gear, _i37.GearPaddle)>>(data['data']);
     }
     if (dataClassName == 'List<(Gear,GearPfd)>') {
-      return deserialize<List<(_i29.Gear, _i36.GearPfd)>>(data['data']);
+      return deserialize<List<(_i31.Gear, _i38.GearPfd)>>(data['data']);
     }
     if (dataClassName == 'List<(Gear,GearSpraydeck)>') {
-      return deserialize<List<(_i29.Gear, _i37.GearSpraydeck)>>(data['data']);
+      return deserialize<List<(_i31.Gear, _i39.GearSpraydeck)>>(data['data']);
     }
     if (dataClassName == 'List<(Gear,GearThrowbag)>') {
-      return deserialize<List<(_i29.Gear, _i38.GearThrowbag)>>(data['data']);
+      return deserialize<List<(_i31.Gear, _i40.GearThrowbag)>>(data['data']);
     }
     if (dataClassName == 'List<Rental>') {
-      return deserialize<List<_i39.Rental>>(data['data']);
+      return deserialize<List<_i41.Rental>>(data['data']);
     }
     if (dataClassName == 'List<int>') {
       return deserialize<List<int>>(data['data']);
@@ -826,7 +854,7 @@ Map<String, dynamic>? mapRecordToJson(Record? record) {
       },
     };
   }
-  if (record is (_i29.Gear, _i30.GearBelt)) {
+  if (record is (_i31.Gear, _i32.GearBelt)) {
     return {
       "p": [
         record.$1,
@@ -834,7 +862,7 @@ Map<String, dynamic>? mapRecordToJson(Record? record) {
       ],
     };
   }
-  if (record is (_i29.Gear, _i31.GearClothing)) {
+  if (record is (_i31.Gear, _i33.GearClothing)) {
     return {
       "p": [
         record.$1,
@@ -842,7 +870,7 @@ Map<String, dynamic>? mapRecordToJson(Record? record) {
       ],
     };
   }
-  if (record is (_i29.Gear, _i32.GearFloatbag)) {
+  if (record is (_i31.Gear, _i34.GearFloatbag)) {
     return {
       "p": [
         record.$1,
@@ -850,7 +878,7 @@ Map<String, dynamic>? mapRecordToJson(Record? record) {
       ],
     };
   }
-  if (record is (_i29.Gear, _i33.GearHelmet)) {
+  if (record is (_i31.Gear, _i35.GearHelmet)) {
     return {
       "p": [
         record.$1,
@@ -858,7 +886,7 @@ Map<String, dynamic>? mapRecordToJson(Record? record) {
       ],
     };
   }
-  if (record is (_i29.Gear, _i34.GearKayak)) {
+  if (record is (_i31.Gear, _i36.GearKayak)) {
     return {
       "p": [
         record.$1,
@@ -866,7 +894,7 @@ Map<String, dynamic>? mapRecordToJson(Record? record) {
       ],
     };
   }
-  if (record is (_i29.Gear, _i35.GearPaddle)) {
+  if (record is (_i31.Gear, _i37.GearPaddle)) {
     return {
       "p": [
         record.$1,
@@ -874,7 +902,7 @@ Map<String, dynamic>? mapRecordToJson(Record? record) {
       ],
     };
   }
-  if (record is (_i29.Gear, _i36.GearPfd)) {
+  if (record is (_i31.Gear, _i38.GearPfd)) {
     return {
       "p": [
         record.$1,
@@ -882,7 +910,7 @@ Map<String, dynamic>? mapRecordToJson(Record? record) {
       ],
     };
   }
-  if (record is (_i29.Gear, _i37.GearSpraydeck)) {
+  if (record is (_i31.Gear, _i39.GearSpraydeck)) {
     return {
       "p": [
         record.$1,
@@ -890,7 +918,7 @@ Map<String, dynamic>? mapRecordToJson(Record? record) {
       ],
     };
   }
-  if (record is (_i29.Gear, _i38.GearThrowbag)) {
+  if (record is (_i31.Gear, _i40.GearThrowbag)) {
     return {
       "p": [
         record.$1,
