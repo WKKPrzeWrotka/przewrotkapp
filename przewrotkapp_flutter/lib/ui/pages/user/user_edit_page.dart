@@ -22,12 +22,8 @@ class _UserEditPageState extends State<UserEditPage> {
   @override
   void initState() {
     super.initState();
-    ctrlUsername = TextEditingController(
-      text: widget.przeUser.userInfo?.userName,
-    );
-    ctrlFullName = TextEditingController(
-      text: widget.przeUser.userInfo?.fullName,
-    );
+    ctrlUsername = TextEditingController(text: widget.przeUser.user?.userName);
+    ctrlFullName = TextEditingController(text: widget.przeUser.user?.fullName);
     ctrlPhone = TextEditingController(text: widget.przeUser.phoneNumber);
   }
 
@@ -37,7 +33,7 @@ class _UserEditPageState extends State<UserEditPage> {
   @override
   Widget build(BuildContext context) {
     final extra = widget.przeUser;
-    final user = extra.userInfo!;
+    final user = extra.user!;
     final sm = context.read<SessionManager>();
     final client = context.read<Client>();
     return Scaffold(
@@ -105,7 +101,7 @@ class _UserEditPageState extends State<UserEditPage> {
                 if (key.currentState!.validate()) {
                   await client.user.updateUser(
                     extra.copyWith(
-                      userInfo: user.copyWith(
+                      user: user.copyWith(
                         userName: ctrlUsername.text.trim().isNotEmpty
                             ? ctrlUsername.text.trim()
                             : null,

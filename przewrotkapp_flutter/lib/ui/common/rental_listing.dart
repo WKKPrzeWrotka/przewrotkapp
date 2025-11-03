@@ -31,7 +31,7 @@ class RentalListing extends StatelessWidget {
                   "${rental.from.toStringDate(showYear: false)} do "
                   "${rental.to.toStringDate(showYear: false)}",
                 ),
-                UserChip(userInfo: rental.userInfo!),
+                UserChip(user: rental.user!),
                 Text("bierze:"),
               ],
             ),

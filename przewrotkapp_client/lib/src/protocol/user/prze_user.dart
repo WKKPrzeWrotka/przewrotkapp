@@ -15,8 +15,8 @@ import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i2;
 abstract class PrzeUser implements _i1.SerializableModel {
   PrzeUser._({
     this.id,
-    required this.userInfoId,
-    this.userInfo,
+    required this.userId,
+    this.user,
     this.phoneNumber,
     this.discordUsername,
     required this.socialLinks,
@@ -24,8 +24,8 @@ abstract class PrzeUser implements _i1.SerializableModel {
 
   factory PrzeUser({
     int? id,
-    required int userInfoId,
-    _i2.UserInfo? userInfo,
+    required int userId,
+    _i2.UserInfo? user,
     String? phoneNumber,
     String? discordUsername,
     required Map<String, Uri> socialLinks,
@@ -34,11 +34,11 @@ abstract class PrzeUser implements _i1.SerializableModel {
   factory PrzeUser.fromJson(Map<String, dynamic> jsonSerialization) {
     return PrzeUser(
       id: jsonSerialization['id'] as int?,
-      userInfoId: jsonSerialization['userInfoId'] as int,
-      userInfo: jsonSerialization['userInfo'] == null
+      userId: jsonSerialization['userId'] as int,
+      user: jsonSerialization['user'] == null
           ? null
           : _i2.UserInfo.fromJson(
-              (jsonSerialization['userInfo'] as Map<String, dynamic>)),
+              (jsonSerialization['user'] as Map<String, dynamic>)),
       phoneNumber: jsonSerialization['phoneNumber'] as String?,
       discordUsername: jsonSerialization['discordUsername'] as String?,
       socialLinks:
@@ -54,9 +54,9 @@ abstract class PrzeUser implements _i1.SerializableModel {
   /// the id will be null.
   int? id;
 
-  int userInfoId;
+  int userId;
 
-  _i2.UserInfo? userInfo;
+  _i2.UserInfo? user;
 
   String? phoneNumber;
 
@@ -69,8 +69,8 @@ abstract class PrzeUser implements _i1.SerializableModel {
   @_i1.useResult
   PrzeUser copyWith({
     int? id,
-    int? userInfoId,
-    _i2.UserInfo? userInfo,
+    int? userId,
+    _i2.UserInfo? user,
     String? phoneNumber,
     String? discordUsername,
     Map<String, Uri>? socialLinks,
@@ -79,8 +79,8 @@ abstract class PrzeUser implements _i1.SerializableModel {
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'userInfoId': userInfoId,
-      if (userInfo != null) 'userInfo': userInfo?.toJson(),
+      'userId': userId,
+      if (user != null) 'user': user?.toJson(),
       if (phoneNumber != null) 'phoneNumber': phoneNumber,
       if (discordUsername != null) 'discordUsername': discordUsername,
       'socialLinks': socialLinks.toJson(valueToJson: (v) => v.toJson()),
@@ -98,15 +98,15 @@ class _Undefined {}
 class _PrzeUserImpl extends PrzeUser {
   _PrzeUserImpl({
     int? id,
-    required int userInfoId,
-    _i2.UserInfo? userInfo,
+    required int userId,
+    _i2.UserInfo? user,
     String? phoneNumber,
     String? discordUsername,
     required Map<String, Uri> socialLinks,
   }) : super._(
           id: id,
-          userInfoId: userInfoId,
-          userInfo: userInfo,
+          userId: userId,
+          user: user,
           phoneNumber: phoneNumber,
           discordUsername: discordUsername,
           socialLinks: socialLinks,
@@ -118,17 +118,16 @@ class _PrzeUserImpl extends PrzeUser {
   @override
   PrzeUser copyWith({
     Object? id = _Undefined,
-    int? userInfoId,
-    Object? userInfo = _Undefined,
+    int? userId,
+    Object? user = _Undefined,
     Object? phoneNumber = _Undefined,
     Object? discordUsername = _Undefined,
     Map<String, Uri>? socialLinks,
   }) {
     return PrzeUser(
       id: id is int? ? id : this.id,
-      userInfoId: userInfoId ?? this.userInfoId,
-      userInfo:
-          userInfo is _i2.UserInfo? ? userInfo : this.userInfo?.copyWith(),
+      userId: userId ?? this.userId,
+      user: user is _i2.UserInfo? ? user : this.user?.copyWith(),
       phoneNumber: phoneNumber is String? ? phoneNumber : this.phoneNumber,
       discordUsername:
           discordUsername is String? ? discordUsername : this.discordUsername,

@@ -1183,7 +1183,7 @@ class Protocol extends _i1.SerializationManagerServer {
           columnDefault: 'nextval(\'prze_users_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
-          name: 'userInfoId',
+          name: 'userId',
           columnType: _i2.ColumnType.bigint,
           isNullable: false,
           dartType: 'int',
@@ -1210,7 +1210,7 @@ class Protocol extends _i1.SerializationManagerServer {
       foreignKeys: [
         _i2.ForeignKeyDefinition(
           constraintName: 'prze_users_fk_0',
-          columns: ['userInfoId'],
+          columns: ['userId'],
           referenceTable: 'serverpod_user_info',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
@@ -1234,12 +1234,12 @@ class Protocol extends _i1.SerializationManagerServer {
           isPrimary: true,
         ),
         _i2.IndexDefinition(
-          indexName: 'extra_user_info_user_info_unique_idx',
+          indexName: 'prze_users_users_unique_idx',
           tableSpace: null,
           elements: [
             _i2.IndexElementDefinition(
               type: _i2.IndexElementDefinitionType.column,
-              definition: 'userInfoId',
+              definition: 'userId',
             )
           ],
           type: 'btree',
@@ -1345,7 +1345,7 @@ class Protocol extends _i1.SerializationManagerServer {
           columnDefault: 'nextval(\'rentals_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
-          name: 'userInfoId',
+          name: 'userId',
           columnType: _i2.ColumnType.bigint,
           isNullable: false,
           dartType: 'int',
@@ -1378,7 +1378,7 @@ class Protocol extends _i1.SerializationManagerServer {
       foreignKeys: [
         _i2.ForeignKeyDefinition(
           constraintName: 'rentals_fk_0',
-          columns: ['userInfoId'],
+          columns: ['userId'],
           referenceTable: 'serverpod_user_info',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
@@ -1407,7 +1407,7 @@ class Protocol extends _i1.SerializationManagerServer {
           elements: [
             _i2.IndexElementDefinition(
               type: _i2.IndexElementDefinitionType.column,
-              definition: 'userInfoId',
+              definition: 'userId',
             )
           ],
           type: 'btree',

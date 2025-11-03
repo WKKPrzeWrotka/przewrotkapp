@@ -18,8 +18,8 @@ abstract class PrzeUser
     implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
   PrzeUser._({
     this.id,
-    required this.userInfoId,
-    this.userInfo,
+    required this.userId,
+    this.user,
     this.phoneNumber,
     this.discordUsername,
     required this.socialLinks,
@@ -27,8 +27,8 @@ abstract class PrzeUser
 
   factory PrzeUser({
     int? id,
-    required int userInfoId,
-    _i2.UserInfo? userInfo,
+    required int userId,
+    _i2.UserInfo? user,
     String? phoneNumber,
     String? discordUsername,
     required Map<String, Uri> socialLinks,
@@ -37,11 +37,11 @@ abstract class PrzeUser
   factory PrzeUser.fromJson(Map<String, dynamic> jsonSerialization) {
     return PrzeUser(
       id: jsonSerialization['id'] as int?,
-      userInfoId: jsonSerialization['userInfoId'] as int,
-      userInfo: jsonSerialization['userInfo'] == null
+      userId: jsonSerialization['userId'] as int,
+      user: jsonSerialization['user'] == null
           ? null
           : _i2.UserInfo.fromJson(
-              (jsonSerialization['userInfo'] as Map<String, dynamic>)),
+              (jsonSerialization['user'] as Map<String, dynamic>)),
       phoneNumber: jsonSerialization['phoneNumber'] as String?,
       discordUsername: jsonSerialization['discordUsername'] as String?,
       socialLinks:
@@ -59,9 +59,9 @@ abstract class PrzeUser
   @override
   int? id;
 
-  int userInfoId;
+  int userId;
 
-  _i2.UserInfo? userInfo;
+  _i2.UserInfo? user;
 
   String? phoneNumber;
 
@@ -77,8 +77,8 @@ abstract class PrzeUser
   @_i1.useResult
   PrzeUser copyWith({
     int? id,
-    int? userInfoId,
-    _i2.UserInfo? userInfo,
+    int? userId,
+    _i2.UserInfo? user,
     String? phoneNumber,
     String? discordUsername,
     Map<String, Uri>? socialLinks,
@@ -87,8 +87,8 @@ abstract class PrzeUser
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'userInfoId': userInfoId,
-      if (userInfo != null) 'userInfo': userInfo?.toJson(),
+      'userId': userId,
+      if (user != null) 'user': user?.toJson(),
       if (phoneNumber != null) 'phoneNumber': phoneNumber,
       if (discordUsername != null) 'discordUsername': discordUsername,
       'socialLinks': socialLinks.toJson(valueToJson: (v) => v.toJson()),
@@ -99,16 +99,16 @@ abstract class PrzeUser
   Map<String, dynamic> toJsonForProtocol() {
     return {
       if (id != null) 'id': id,
-      'userInfoId': userInfoId,
-      if (userInfo != null) 'userInfo': userInfo?.toJsonForProtocol(),
+      'userId': userId,
+      if (user != null) 'user': user?.toJsonForProtocol(),
       if (phoneNumber != null) 'phoneNumber': phoneNumber,
       if (discordUsername != null) 'discordUsername': discordUsername,
       'socialLinks': socialLinks.toJson(valueToJson: (v) => v.toJson()),
     };
   }
 
-  static PrzeUserInclude include({_i2.UserInfoInclude? userInfo}) {
-    return PrzeUserInclude._(userInfo: userInfo);
+  static PrzeUserInclude include({_i2.UserInfoInclude? user}) {
+    return PrzeUserInclude._(user: user);
   }
 
   static PrzeUserIncludeList includeList({
@@ -142,15 +142,15 @@ class _Undefined {}
 class _PrzeUserImpl extends PrzeUser {
   _PrzeUserImpl({
     int? id,
-    required int userInfoId,
-    _i2.UserInfo? userInfo,
+    required int userId,
+    _i2.UserInfo? user,
     String? phoneNumber,
     String? discordUsername,
     required Map<String, Uri> socialLinks,
   }) : super._(
           id: id,
-          userInfoId: userInfoId,
-          userInfo: userInfo,
+          userId: userId,
+          user: user,
           phoneNumber: phoneNumber,
           discordUsername: discordUsername,
           socialLinks: socialLinks,
@@ -162,17 +162,16 @@ class _PrzeUserImpl extends PrzeUser {
   @override
   PrzeUser copyWith({
     Object? id = _Undefined,
-    int? userInfoId,
-    Object? userInfo = _Undefined,
+    int? userId,
+    Object? user = _Undefined,
     Object? phoneNumber = _Undefined,
     Object? discordUsername = _Undefined,
     Map<String, Uri>? socialLinks,
   }) {
     return PrzeUser(
       id: id is int? ? id : this.id,
-      userInfoId: userInfoId ?? this.userInfoId,
-      userInfo:
-          userInfo is _i2.UserInfo? ? userInfo : this.userInfo?.copyWith(),
+      userId: userId ?? this.userId,
+      user: user is _i2.UserInfo? ? user : this.user?.copyWith(),
       phoneNumber: phoneNumber is String? ? phoneNumber : this.phoneNumber,
       discordUsername:
           discordUsername is String? ? discordUsername : this.discordUsername,
@@ -191,8 +190,8 @@ class _PrzeUserImpl extends PrzeUser {
 
 class PrzeUserTable extends _i1.Table<int?> {
   PrzeUserTable({super.tableRelation}) : super(tableName: 'prze_users') {
-    userInfoId = _i1.ColumnInt(
-      'userInfoId',
+    userId = _i1.ColumnInt(
+      'userId',
       this,
     );
     phoneNumber = _i1.ColumnString(
@@ -209,9 +208,9 @@ class PrzeUserTable extends _i1.Table<int?> {
     );
   }
 
-  late final _i1.ColumnInt userInfoId;
+  late final _i1.ColumnInt userId;
 
-  _i2.UserInfoTable? _userInfo;
+  _i2.UserInfoTable? _user;
 
   late final _i1.ColumnString phoneNumber;
 
@@ -219,23 +218,23 @@ class PrzeUserTable extends _i1.Table<int?> {
 
   late final _i1.ColumnSerializable socialLinks;
 
-  _i2.UserInfoTable get userInfo {
-    if (_userInfo != null) return _userInfo!;
-    _userInfo = _i1.createRelationTable(
-      relationFieldName: 'userInfo',
-      field: PrzeUser.t.userInfoId,
+  _i2.UserInfoTable get user {
+    if (_user != null) return _user!;
+    _user = _i1.createRelationTable(
+      relationFieldName: 'user',
+      field: PrzeUser.t.userId,
       foreignField: _i2.UserInfo.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
           _i2.UserInfoTable(tableRelation: foreignTableRelation),
     );
-    return _userInfo!;
+    return _user!;
   }
 
   @override
   List<_i1.Column> get columns => [
         id,
-        userInfoId,
+        userId,
         phoneNumber,
         discordUsername,
         socialLinks,
@@ -243,22 +242,22 @@ class PrzeUserTable extends _i1.Table<int?> {
 
   @override
   _i1.Table? getRelationTable(String relationField) {
-    if (relationField == 'userInfo') {
-      return userInfo;
+    if (relationField == 'user') {
+      return user;
     }
     return null;
   }
 }
 
 class PrzeUserInclude extends _i1.IncludeObject {
-  PrzeUserInclude._({_i2.UserInfoInclude? userInfo}) {
-    _userInfo = userInfo;
+  PrzeUserInclude._({_i2.UserInfoInclude? user}) {
+    _user = user;
   }
 
-  _i2.UserInfoInclude? _userInfo;
+  _i2.UserInfoInclude? _user;
 
   @override
-  Map<String, _i1.Include?> get includes => {'userInfo': _userInfo};
+  Map<String, _i1.Include?> get includes => {'user': _user};
 
   @override
   _i1.Table<int?> get table => PrzeUser.t;
@@ -509,24 +508,24 @@ class PrzeUserAttachRowRepository {
   const PrzeUserAttachRowRepository._();
 
   /// Creates a relation between the given [PrzeUser] and [UserInfo]
-  /// by setting the [PrzeUser]'s foreign key `userInfoId` to refer to the [UserInfo].
-  Future<void> userInfo(
+  /// by setting the [PrzeUser]'s foreign key `userId` to refer to the [UserInfo].
+  Future<void> user(
     _i1.Session session,
     PrzeUser przeUser,
-    _i2.UserInfo userInfo, {
+    _i2.UserInfo user, {
     _i1.Transaction? transaction,
   }) async {
     if (przeUser.id == null) {
       throw ArgumentError.notNull('przeUser.id');
     }
-    if (userInfo.id == null) {
-      throw ArgumentError.notNull('userInfo.id');
+    if (user.id == null) {
+      throw ArgumentError.notNull('user.id');
     }
 
-    var $przeUser = przeUser.copyWith(userInfoId: userInfo.id);
+    var $przeUser = przeUser.copyWith(userId: user.id);
     await session.db.updateRow<PrzeUser>(
       $przeUser,
-      columns: [PrzeUser.t.userInfoId],
+      columns: [PrzeUser.t.userId],
       transaction: transaction,
     );
   }

@@ -31,12 +31,11 @@ class SocialLinks extends StatelessWidget {
             onLongPress: () => copyText(przeUser.phoneNumber!, context),
             child: Text("📞 ${przeUser.phoneNumber}"),
           ),
-        if (przeUser.userInfo?.email != null)
+        if (przeUser.user?.email != null)
           ElevatedButton(
-            onPressed: () =>
-                launchUrlString('mailto:${przeUser.userInfo!.email!}'),
-            onLongPress: () => copyText(przeUser.userInfo!.email!, context),
-            child: Text(przeUser.userInfo!.email!),
+            onPressed: () => launchUrlString('mailto:${przeUser.user!.email!}'),
+            onLongPress: () => copyText(przeUser.user!.email!, context),
+            child: Text(przeUser.user!.email!),
           ),
         // if (przeUser.discordUsername != null)
         //   FilledButton(

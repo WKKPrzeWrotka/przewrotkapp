@@ -33,7 +33,7 @@ class _UserPageState extends State<UserPage> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              przeUser != null ? przeUser.userInfo!.name : '🟠 Ładowanie...',
+              przeUser != null ? przeUser.user!.name : '🟠 Ładowanie...',
             ),
             automaticallyImplyLeading: true,
             actions: isYou
@@ -63,24 +63,21 @@ class _UserPageState extends State<UserPage> {
                             compact: false,
                           ),
                         )
-                      : CircularUserImage(
-                          userInfo: przeUser?.userInfo,
-                          size: 86,
-                        ),
+                      : CircularUserImage(userInfo: przeUser?.user, size: 86),
                   if (przeUser != null)
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          przeUser.userInfo?.userName ??
-                              przeUser.userInfo?.fullName ??
+                          przeUser.user?.userName ??
+                              przeUser.user?.fullName ??
                               "-nieznany-",
                           style: tt.headlineLarge,
                         ),
-                        if (przeUser.userInfo?.userName != null &&
-                            przeUser.userInfo?.fullName != null)
+                        if (przeUser.user?.userName != null &&
+                            przeUser.user?.fullName != null)
                           Text(
-                            przeUser.userInfo!.fullName!,
+                            przeUser.user!.fullName!,
                             style: tt.headlineSmall,
                           ),
                       ],
@@ -94,7 +91,7 @@ class _UserPageState extends State<UserPage> {
                 Text("Najbliższe wypożyczenia:", style: tt.headlineMedium),
               if (rentals != null)
                 for (final rental in rentals.where(
-                  (r) => r.userInfoId == przeUser?.userInfoId,
+                  (r) => r.userId == przeUser?.userId,
                 ))
                   RentalListing(rental: rental)
               else

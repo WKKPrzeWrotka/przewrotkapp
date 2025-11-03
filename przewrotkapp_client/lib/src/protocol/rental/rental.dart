@@ -16,8 +16,8 @@ import '../rental/rental_junction.dart' as _i3;
 abstract class Rental implements _i1.SerializableModel {
   Rental._({
     this.id,
-    required this.userInfoId,
-    this.userInfo,
+    required this.userId,
+    this.user,
     required this.created,
     required this.lastModified,
     required this.from,
@@ -27,8 +27,8 @@ abstract class Rental implements _i1.SerializableModel {
 
   factory Rental({
     int? id,
-    required int userInfoId,
-    _i2.UserInfo? userInfo,
+    required int userId,
+    _i2.UserInfo? user,
     required DateTime created,
     required DateTime lastModified,
     required DateTime from,
@@ -39,11 +39,11 @@ abstract class Rental implements _i1.SerializableModel {
   factory Rental.fromJson(Map<String, dynamic> jsonSerialization) {
     return Rental(
       id: jsonSerialization['id'] as int?,
-      userInfoId: jsonSerialization['userInfoId'] as int,
-      userInfo: jsonSerialization['userInfo'] == null
+      userId: jsonSerialization['userId'] as int,
+      user: jsonSerialization['user'] == null
           ? null
           : _i2.UserInfo.fromJson(
-              (jsonSerialization['userInfo'] as Map<String, dynamic>)),
+              (jsonSerialization['user'] as Map<String, dynamic>)),
       created: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['created']),
       lastModified:
           _i1.DateTimeJsonExtension.fromJson(jsonSerialization['lastModified']),
@@ -60,9 +60,9 @@ abstract class Rental implements _i1.SerializableModel {
   /// the id will be null.
   int? id;
 
-  int userInfoId;
+  int userId;
 
-  _i2.UserInfo? userInfo;
+  _i2.UserInfo? user;
 
   DateTime created;
 
@@ -79,8 +79,8 @@ abstract class Rental implements _i1.SerializableModel {
   @_i1.useResult
   Rental copyWith({
     int? id,
-    int? userInfoId,
-    _i2.UserInfo? userInfo,
+    int? userId,
+    _i2.UserInfo? user,
     DateTime? created,
     DateTime? lastModified,
     DateTime? from,
@@ -91,8 +91,8 @@ abstract class Rental implements _i1.SerializableModel {
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'userInfoId': userInfoId,
-      if (userInfo != null) 'userInfo': userInfo?.toJson(),
+      'userId': userId,
+      if (user != null) 'user': user?.toJson(),
       'created': created.toJson(),
       'lastModified': lastModified.toJson(),
       'from': from.toJson(),
@@ -113,8 +113,8 @@ class _Undefined {}
 class _RentalImpl extends Rental {
   _RentalImpl({
     int? id,
-    required int userInfoId,
-    _i2.UserInfo? userInfo,
+    required int userId,
+    _i2.UserInfo? user,
     required DateTime created,
     required DateTime lastModified,
     required DateTime from,
@@ -122,8 +122,8 @@ class _RentalImpl extends Rental {
     List<_i3.RentalJunction>? junctions,
   }) : super._(
           id: id,
-          userInfoId: userInfoId,
-          userInfo: userInfo,
+          userId: userId,
+          user: user,
           created: created,
           lastModified: lastModified,
           from: from,
@@ -137,8 +137,8 @@ class _RentalImpl extends Rental {
   @override
   Rental copyWith({
     Object? id = _Undefined,
-    int? userInfoId,
-    Object? userInfo = _Undefined,
+    int? userId,
+    Object? user = _Undefined,
     DateTime? created,
     DateTime? lastModified,
     DateTime? from,
@@ -147,9 +147,8 @@ class _RentalImpl extends Rental {
   }) {
     return Rental(
       id: id is int? ? id : this.id,
-      userInfoId: userInfoId ?? this.userInfoId,
-      userInfo:
-          userInfo is _i2.UserInfo? ? userInfo : this.userInfo?.copyWith(),
+      userId: userId ?? this.userId,
+      user: user is _i2.UserInfo? ? user : this.user?.copyWith(),
       created: created ?? this.created,
       lastModified: lastModified ?? this.lastModified,
       from: from ?? this.from,

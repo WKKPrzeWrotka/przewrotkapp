@@ -19,15 +19,12 @@ class UserEndpoint extends Endpoint {
     final id = userId ?? (await session.authenticated)!.userId;
     return (await PrzeUser.db.findFirstRow(
       session,
-      where: (user) => user.userInfoId.equals(id),
-      include: PrzeUser.include(userInfo: UserInfo.include()),
+      where: (user) => user.userId.equals(id),
+      include: PrzeUser.include(user: UserInfo.include()),
     ))!;
   }
 
-  Stream<PrzeUser> watchPrzeUser(
-    Session session, [
-    int? userId,
-  ]) async* {
+  Stream<PrzeUser> watchPrzeUser(Session session, [int? userId]) async* {
     final id = userId ?? (await session.authenticated)!.userId;
     yield* watchX(
       () => getPrzeUser(session, id),
@@ -61,8 +58,8 @@ class UserEndpoint extends Endpoint {
 
   Future<void> updateUser(Session session, PrzeUser extraUser) async {
     final id = (await session.authenticated)!.userId;
-    final newUser = extraUser.userInfo!;
-    if (id != extraUser.userInfoId) throw "Can't update user other than you";
+    final newUser = extraUser.user!;
+    if (id != extraUser.userId) throw "Can't update user other than you";
     if (newUser.userName != null) {
       await Users.changeUserName(session, id, newUser.userName!);
     }
@@ -72,7 +69,7 @@ class UserEndpoint extends Endpoint {
     await session.db.transaction((t) async {
       final currExtra = await PrzeUser.db.findFirstRow(
         session,
-        where: (e) => e.userInfoId.equals(id),
+        where: (e) => e.userId.equals(id),
         transaction: t,
       );
       await PrzeUser.db.updateRow(

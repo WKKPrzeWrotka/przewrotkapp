@@ -38,15 +38,15 @@ void run(List<String> args) async {
       ),
       validationCodeLength: 4,
       minPasswordLength: 6,
-      onUserCreated: (session, userInfo) async {
+      onUserCreated: (session, user) async {
         try {
           await PrzeUser.db.insertRow(
             session,
-            PrzeUser(userInfoId: userInfo.id!, socialLinks: <String, Uri>{}),
+            PrzeUser(userId: user.id!, socialLinks: <String, Uri>{}),
           );
         } catch (e, s) {
           session.log(
-            "FAILED TO CREATE EXTRA USER!! UserInfo: $userInfo ; Session: $session",
+            "FAILED TO CREATE EXTRA USER!! UserInfo: $user ; Session: $session",
             level: LogLevel.error,
             exception: e,
             stackTrace: s,
@@ -55,18 +55,18 @@ void run(List<String> args) async {
             "DELETING USERINFO STUFF BECAUSE OF FAILED EXTRA!",
             level: LogLevel.error,
           );
-          await auth.UserInfo.db.deleteRow(session, userInfo);
+          await auth.UserInfo.db.deleteRow(session, user);
           await PrzeUser.db.deleteWhere(
             session,
-            where: (e) => e.userInfoId.equals(userInfo.id),
+            where: (e) => e.userId.equals(user.id),
           );
           await auth.EmailAuth.db.deleteWhere(
             session,
-            where: (e) => e.userId.equals(userInfo.id),
+            where: (e) => e.userId.equals(user.id),
           );
           await auth.UserImage.db.deleteWhere(
             session,
-            where: (e) => e.userId.equals(userInfo.id),
+            where: (e) => e.userId.equals(user.id),
           );
           rethrow;
         }

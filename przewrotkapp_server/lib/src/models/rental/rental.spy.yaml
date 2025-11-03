@@ -1,7 +1,7 @@
 class: Rental
 table: rentals
 fields:
-  userInfo: module:auth:UserInfo?, relation
+  user: module:auth:UserInfo?, relation
   created: DateTime
   lastModified: DateTime
   from: DateTime
@@ -9,5 +9,5 @@ fields:
   junctions: List<RentalJunction>?, relation(name=rental_junctions)
 indexes:
   rentals_users_unique_idx:
-    fields: userInfoId
+    fields: userId
     unique: false

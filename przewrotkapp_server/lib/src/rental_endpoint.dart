@@ -28,7 +28,7 @@ class RentalEndpoint extends Endpoint {
                 DateTime.now().subtract(Duration(days: 30)),
               ),
         include: Rental.include(
-          userInfo: UserInfo.include(),
+          user: UserInfo.include(),
           junctions: RentalJunction.includeList(
             include: RentalJunction.include(gear: Gear.include()),
           ),
@@ -50,7 +50,7 @@ class RentalEndpoint extends Endpoint {
       final newRental = await Rental.db.insertRow(
         session,
         Rental(
-          userInfoId: auth!.userId,
+          userId: auth!.userId,
           created: DateTime.now(),
           lastModified: DateTime.now(),
           from: from,

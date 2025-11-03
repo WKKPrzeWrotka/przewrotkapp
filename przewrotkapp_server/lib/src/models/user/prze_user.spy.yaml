@@ -1,11 +1,11 @@
 class: PrzeUser
 table: prze_users
 fields:
-  userInfo: module:auth:UserInfo?, relation(onDelete=cascade)
+  user: module:auth:UserInfo?, relation(onDelete=cascade)
   phoneNumber: String?
   discordUsername: String?
   socialLinks: Map<String, Uri>
 indexes:
-  extra_user_info_user_info_unique_idx:
-    fields: userInfoId
+  prze_users_users_unique_idx:
+    fields: userId
     unique: true
