@@ -28,8 +28,8 @@ class RentalListing extends StatelessWidget {
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 Text(
-                  "${rental.from.toStringDate(showYear: false)} do "
-                  "${rental.to.toStringDate(showYear: false)}",
+                  "${rental.start.toStringDate(showYear: false)} do "
+                  "${rental.end.toStringDate(showYear: false)}",
                 ),
                 UserChip(user: rental.user!),
                 Text("bierze:"),

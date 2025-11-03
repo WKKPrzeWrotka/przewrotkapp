@@ -26,7 +26,7 @@ class _CalendarPageState extends State<CalendarPage> {
         CalendarEvent(
           canModify: false,
           data: rental,
-          dateTimeRange: DateTimeRange(start: rental.from, end: rental.to),
+          dateTimeRange: DateTimeRange(start: rental.start, end: rental.end),
         ),
     ]);
     return Scaffold(

@@ -111,8 +111,8 @@ class EverythingProvider extends StatelessWidget {
             return rentals
                 .groupListsBy(
                   (r) => DateTimeRange(
-                    start: r.from,
-                    end: r.to,
+                    start: r.start,
+                    end: r.end,
                   ).withDefaultRentalTimes(),
                 )
                 .entries

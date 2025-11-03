@@ -20,8 +20,8 @@ abstract class Rental implements _i1.SerializableModel {
     this.user,
     required this.created,
     required this.lastModified,
-    required this.from,
-    required this.to,
+    required this.start,
+    required this.end,
     this.junctions,
   });
 
@@ -31,8 +31,8 @@ abstract class Rental implements _i1.SerializableModel {
     _i2.UserInfo? user,
     required DateTime created,
     required DateTime lastModified,
-    required DateTime from,
-    required DateTime to,
+    required DateTime start,
+    required DateTime end,
     List<_i3.RentalJunction>? junctions,
   }) = _RentalImpl;
 
@@ -47,8 +47,8 @@ abstract class Rental implements _i1.SerializableModel {
       created: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['created']),
       lastModified:
           _i1.DateTimeJsonExtension.fromJson(jsonSerialization['lastModified']),
-      from: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['from']),
-      to: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['to']),
+      start: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['start']),
+      end: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['end']),
       junctions: (jsonSerialization['junctions'] as List?)
           ?.map((e) => _i3.RentalJunction.fromJson((e as Map<String, dynamic>)))
           .toList(),
@@ -68,9 +68,9 @@ abstract class Rental implements _i1.SerializableModel {
 
   DateTime lastModified;
 
-  DateTime from;
+  DateTime start;
 
-  DateTime to;
+  DateTime end;
 
   List<_i3.RentalJunction>? junctions;
 
@@ -83,8 +83,8 @@ abstract class Rental implements _i1.SerializableModel {
     _i2.UserInfo? user,
     DateTime? created,
     DateTime? lastModified,
-    DateTime? from,
-    DateTime? to,
+    DateTime? start,
+    DateTime? end,
     List<_i3.RentalJunction>? junctions,
   });
   @override
@@ -95,8 +95,8 @@ abstract class Rental implements _i1.SerializableModel {
       if (user != null) 'user': user?.toJson(),
       'created': created.toJson(),
       'lastModified': lastModified.toJson(),
-      'from': from.toJson(),
-      'to': to.toJson(),
+      'start': start.toJson(),
+      'end': end.toJson(),
       if (junctions != null)
         'junctions': junctions?.toJson(valueToJson: (v) => v.toJson()),
     };
@@ -117,8 +117,8 @@ class _RentalImpl extends Rental {
     _i2.UserInfo? user,
     required DateTime created,
     required DateTime lastModified,
-    required DateTime from,
-    required DateTime to,
+    required DateTime start,
+    required DateTime end,
     List<_i3.RentalJunction>? junctions,
   }) : super._(
           id: id,
@@ -126,8 +126,8 @@ class _RentalImpl extends Rental {
           user: user,
           created: created,
           lastModified: lastModified,
-          from: from,
-          to: to,
+          start: start,
+          end: end,
           junctions: junctions,
         );
 
@@ -141,8 +141,8 @@ class _RentalImpl extends Rental {
     Object? user = _Undefined,
     DateTime? created,
     DateTime? lastModified,
-    DateTime? from,
-    DateTime? to,
+    DateTime? start,
+    DateTime? end,
     Object? junctions = _Undefined,
   }) {
     return Rental(
@@ -151,8 +151,8 @@ class _RentalImpl extends Rental {
       user: user is _i2.UserInfo? ? user : this.user?.copyWith(),
       created: created ?? this.created,
       lastModified: lastModified ?? this.lastModified,
-      from: from ?? this.from,
-      to: to ?? this.to,
+      start: start ?? this.start,
+      end: end ?? this.end,
       junctions: junctions is List<_i3.RentalJunction>?
           ? junctions
           : this.junctions?.map((e0) => e0.copyWith()).toList(),

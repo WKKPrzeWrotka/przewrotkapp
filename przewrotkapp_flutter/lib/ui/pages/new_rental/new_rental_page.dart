@@ -77,7 +77,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
     final otherRentals = context.watch<FutureRentals?>();
     final overlappingRentals = range != null
         ? otherRentals?.where(
-            (r) => DateTimeRange(start: r.from, end: r.to).overlaps(range!),
+            (r) => DateTimeRange(start: r.start, end: r.end).overlaps(range!),
           )
         : null;
     final rentedGearIds = overlappingRentals?.fold(

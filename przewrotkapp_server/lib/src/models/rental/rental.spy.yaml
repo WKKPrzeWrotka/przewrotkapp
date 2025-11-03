@@ -4,8 +4,8 @@ fields:
   user: module:auth:UserInfo?, relation
   created: DateTime
   lastModified: DateTime
-  from: DateTime
-  to: DateTime
+  start: DateTime
+  end: DateTime
   junctions: List<RentalJunction>?, relation(name=rental_junctions)
 indexes:
   rentals_users_unique_idx:

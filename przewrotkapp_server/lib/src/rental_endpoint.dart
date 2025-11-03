@@ -16,7 +16,7 @@ class RentalEndpoint extends Endpoint {
         session,
         where: past
             ? null
-            : (r) => r.to.notBetween(
+            : (r) => r.end.notBetween(
                 DateTime(1970),
                 // This value (30 days) is very randomly chosen by my anxiety
                 // right now. It should be smaller (preferably, 0).
@@ -53,8 +53,8 @@ class RentalEndpoint extends Endpoint {
           userId: auth!.userId,
           created: DateTime.now(),
           lastModified: DateTime.now(),
-          from: from,
-          to: to,
+          start: from,
+          end: to,
         ),
         transaction: t,
       );
