@@ -35,6 +35,7 @@ Future<void> importHoursFromExcel(Session session) async {
         description: line[5].trim(),
         category: HourCategory.fromJson(line[6]),
         date: DateTime.parse(line[7]).copyWith(hour: 12),
+        approved: true
       );
       await Hour.db.insertRow(session, godzinka, transaction: t);
     }
