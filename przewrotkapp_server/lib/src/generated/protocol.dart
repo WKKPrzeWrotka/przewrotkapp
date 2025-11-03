@@ -38,8 +38,8 @@ import 'hour.dart' as _i26;
 import 'hour_category.dart' as _i27;
 import 'rental/rental.dart' as _i28;
 import 'rental/rental_junction.dart' as _i29;
-import 'user/extra_user_info.dart' as _i30;
-import 'user/favourites.dart' as _i31;
+import 'user/favourites.dart' as _i30;
+import 'user/prze_user.dart' as _i31;
 import 'package:przewrotkapp_server/src/generated/gear/comment.dart' as _i32;
 import 'package:przewrotkapp_server/src/generated/gear/gear.dart' as _i33;
 import 'package:przewrotkapp_server/src/generated/gear/gear_belt.dart' as _i34;
@@ -85,8 +85,8 @@ export 'hour.dart';
 export 'hour_category.dart';
 export 'rental/rental.dart';
 export 'rental/rental_junction.dart';
-export 'user/extra_user_info.dart';
 export 'user/favourites.dart';
+export 'user/prze_user.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
   Protocol._();
@@ -236,86 +236,6 @@ class Protocol extends _i1.SerializationManagerServer {
           ],
           type: 'btree',
           isUnique: false,
-          isPrimary: false,
-        ),
-      ],
-      managed: true,
-    ),
-    _i2.TableDefinition(
-      name: 'extra_user_infos',
-      dartName: 'ExtraUserInfo',
-      schema: 'public',
-      module: 'przewrotkapp',
-      columns: [
-        _i2.ColumnDefinition(
-          name: 'id',
-          columnType: _i2.ColumnType.bigint,
-          isNullable: false,
-          dartType: 'int?',
-          columnDefault: 'nextval(\'extra_user_infos_id_seq\'::regclass)',
-        ),
-        _i2.ColumnDefinition(
-          name: 'userInfoId',
-          columnType: _i2.ColumnType.bigint,
-          isNullable: false,
-          dartType: 'int',
-        ),
-        _i2.ColumnDefinition(
-          name: 'phoneNumber',
-          columnType: _i2.ColumnType.text,
-          isNullable: true,
-          dartType: 'String?',
-        ),
-        _i2.ColumnDefinition(
-          name: 'discordUsername',
-          columnType: _i2.ColumnType.text,
-          isNullable: true,
-          dartType: 'String?',
-        ),
-        _i2.ColumnDefinition(
-          name: 'socialLinks',
-          columnType: _i2.ColumnType.json,
-          isNullable: false,
-          dartType: 'Map<String,Uri>',
-        ),
-      ],
-      foreignKeys: [
-        _i2.ForeignKeyDefinition(
-          constraintName: 'extra_user_infos_fk_0',
-          columns: ['userInfoId'],
-          referenceTable: 'serverpod_user_info',
-          referenceTableSchema: 'public',
-          referenceColumns: ['id'],
-          onUpdate: _i2.ForeignKeyAction.noAction,
-          onDelete: _i2.ForeignKeyAction.cascade,
-          matchType: null,
-        )
-      ],
-      indexes: [
-        _i2.IndexDefinition(
-          indexName: 'extra_user_infos_pkey',
-          tableSpace: null,
-          elements: [
-            _i2.IndexElementDefinition(
-              type: _i2.IndexElementDefinitionType.column,
-              definition: 'id',
-            )
-          ],
-          type: 'btree',
-          isUnique: true,
-          isPrimary: true,
-        ),
-        _i2.IndexDefinition(
-          indexName: 'extra_user_info_user_info_unique_idx',
-          tableSpace: null,
-          elements: [
-            _i2.IndexElementDefinition(
-              type: _i2.IndexElementDefinitionType.column,
-              definition: 'userInfoId',
-            )
-          ],
-          type: 'btree',
-          isUnique: true,
           isPrimary: false,
         ),
       ],
@@ -1250,6 +1170,86 @@ class Protocol extends _i1.SerializationManagerServer {
       managed: true,
     ),
     _i2.TableDefinition(
+      name: 'prze_users',
+      dartName: 'PrzeUser',
+      schema: 'public',
+      module: 'przewrotkapp',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'prze_users_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'userInfoId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'phoneNumber',
+          columnType: _i2.ColumnType.text,
+          isNullable: true,
+          dartType: 'String?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'discordUsername',
+          columnType: _i2.ColumnType.text,
+          isNullable: true,
+          dartType: 'String?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'socialLinks',
+          columnType: _i2.ColumnType.json,
+          isNullable: false,
+          dartType: 'Map<String,Uri>',
+        ),
+      ],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'prze_users_fk_0',
+          columns: ['userInfoId'],
+          referenceTable: 'serverpod_user_info',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.cascade,
+          matchType: null,
+        )
+      ],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'prze_users_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'extra_user_info_user_info_unique_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'userInfoId',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
       name: 'rental_junctions',
       dartName: 'RentalJunction',
       schema: 'public',
@@ -1505,11 +1505,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i29.RentalJunction) {
       return _i29.RentalJunction.fromJson(data) as T;
     }
-    if (t == _i30.ExtraUserInfo) {
-      return _i30.ExtraUserInfo.fromJson(data) as T;
+    if (t == _i30.FavouritesJunction) {
+      return _i30.FavouritesJunction.fromJson(data) as T;
     }
-    if (t == _i31.FavouritesJunction) {
-      return _i31.FavouritesJunction.fromJson(data) as T;
+    if (t == _i31.PrzeUser) {
+      return _i31.PrzeUser.fromJson(data) as T;
     }
     if (t == _i1.getType<_i4.PrzException?>()) {
       return (data != null ? _i4.PrzException.fromJson(data) : null) as T;
@@ -1589,12 +1589,12 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i29.RentalJunction?>()) {
       return (data != null ? _i29.RentalJunction.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i30.ExtraUserInfo?>()) {
-      return (data != null ? _i30.ExtraUserInfo.fromJson(data) : null) as T;
-    }
-    if (t == _i1.getType<_i31.FavouritesJunction?>()) {
-      return (data != null ? _i31.FavouritesJunction.fromJson(data) : null)
+    if (t == _i1.getType<_i30.FavouritesJunction?>()) {
+      return (data != null ? _i30.FavouritesJunction.fromJson(data) : null)
           as T;
+    }
+    if (t == _i1.getType<_i31.PrzeUser?>()) {
+      return (data != null ? _i31.PrzeUser.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<List<Uri>?>()) {
       return (data != null
@@ -1608,10 +1608,10 @@ class Protocol extends _i1.SerializationManagerServer {
               .toList()
           : null) as T;
     }
-    if (t == _i1.getType<List<_i31.FavouritesJunction>?>()) {
+    if (t == _i1.getType<List<_i30.FavouritesJunction>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i31.FavouritesJunction>(e))
+              .map((e) => deserialize<_i30.FavouritesJunction>(e))
               .toList()
           : null) as T;
     }
@@ -1966,11 +1966,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i29.RentalJunction) {
       return 'RentalJunction';
     }
-    if (data is _i30.ExtraUserInfo) {
-      return 'ExtraUserInfo';
-    }
-    if (data is _i31.FavouritesJunction) {
+    if (data is _i30.FavouritesJunction) {
       return 'FavouritesJunction';
+    }
+    if (data is _i31.PrzeUser) {
+      return 'PrzeUser';
     }
     className = _i2.Protocol().getClassNameForObject(data);
     if (className != null) {
@@ -2106,11 +2106,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName == 'RentalJunction') {
       return deserialize<_i29.RentalJunction>(data['data']);
     }
-    if (dataClassName == 'ExtraUserInfo') {
-      return deserialize<_i30.ExtraUserInfo>(data['data']);
-    }
     if (dataClassName == 'FavouritesJunction') {
-      return deserialize<_i31.FavouritesJunction>(data['data']);
+      return deserialize<_i30.FavouritesJunction>(data['data']);
+    }
+    if (dataClassName == 'PrzeUser') {
+      return deserialize<_i31.PrzeUser>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
@@ -2205,10 +2205,10 @@ class Protocol extends _i1.SerializationManagerServer {
         return _i28.Rental.t;
       case _i29.RentalJunction:
         return _i29.RentalJunction.t;
-      case _i30.ExtraUserInfo:
-        return _i30.ExtraUserInfo.t;
-      case _i31.FavouritesJunction:
-        return _i31.FavouritesJunction.t;
+      case _i30.FavouritesJunction:
+        return _i30.FavouritesJunction.t;
+      case _i31.PrzeUser:
+        return _i31.PrzeUser.t;
     }
     return null;
   }

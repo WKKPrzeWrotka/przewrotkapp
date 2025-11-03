@@ -1,5 +1,5 @@
-class: ExtraUserInfo
-table: extra_user_infos
+class: PrzeUser
+table: prze_users
 fields:
   userInfo: module:auth:UserInfo?, relation(onDelete=cascade)
   phoneNumber: String?

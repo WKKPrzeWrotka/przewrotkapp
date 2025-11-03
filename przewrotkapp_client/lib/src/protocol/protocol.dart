@@ -36,8 +36,8 @@ import 'hour.dart' as _i24;
 import 'hour_category.dart' as _i25;
 import 'rental/rental.dart' as _i26;
 import 'rental/rental_junction.dart' as _i27;
-import 'user/extra_user_info.dart' as _i28;
-import 'user/favourites.dart' as _i29;
+import 'user/favourites.dart' as _i28;
+import 'user/prze_user.dart' as _i29;
 import 'package:przewrotkapp_client/src/protocol/gear/comment.dart' as _i30;
 import 'package:przewrotkapp_client/src/protocol/gear/gear.dart' as _i31;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_belt.dart' as _i32;
@@ -82,8 +82,8 @@ export 'hour.dart';
 export 'hour_category.dart';
 export 'rental/rental.dart';
 export 'rental/rental_junction.dart';
-export 'user/extra_user_info.dart';
 export 'user/favourites.dart';
+export 'user/prze_user.dart';
 export 'client.dart';
 
 class Protocol extends _i1.SerializationManager {
@@ -177,11 +177,11 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i27.RentalJunction) {
       return _i27.RentalJunction.fromJson(data) as T;
     }
-    if (t == _i28.ExtraUserInfo) {
-      return _i28.ExtraUserInfo.fromJson(data) as T;
+    if (t == _i28.FavouritesJunction) {
+      return _i28.FavouritesJunction.fromJson(data) as T;
     }
-    if (t == _i29.FavouritesJunction) {
-      return _i29.FavouritesJunction.fromJson(data) as T;
+    if (t == _i29.PrzeUser) {
+      return _i29.PrzeUser.fromJson(data) as T;
     }
     if (t == _i1.getType<_i2.PrzException?>()) {
       return (data != null ? _i2.PrzException.fromJson(data) : null) as T;
@@ -261,12 +261,12 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i27.RentalJunction?>()) {
       return (data != null ? _i27.RentalJunction.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i28.ExtraUserInfo?>()) {
-      return (data != null ? _i28.ExtraUserInfo.fromJson(data) : null) as T;
-    }
-    if (t == _i1.getType<_i29.FavouritesJunction?>()) {
-      return (data != null ? _i29.FavouritesJunction.fromJson(data) : null)
+    if (t == _i1.getType<_i28.FavouritesJunction?>()) {
+      return (data != null ? _i28.FavouritesJunction.fromJson(data) : null)
           as T;
+    }
+    if (t == _i1.getType<_i29.PrzeUser?>()) {
+      return (data != null ? _i29.PrzeUser.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<List<Uri>?>()) {
       return (data != null
@@ -280,10 +280,10 @@ class Protocol extends _i1.SerializationManager {
               .toList()
           : null) as T;
     }
-    if (t == _i1.getType<List<_i29.FavouritesJunction>?>()) {
+    if (t == _i1.getType<List<_i28.FavouritesJunction>?>()) {
       return (data != null
           ? (data as List)
-              .map((e) => deserialize<_i29.FavouritesJunction>(e))
+              .map((e) => deserialize<_i28.FavouritesJunction>(e))
               .toList()
           : null) as T;
     }
@@ -635,11 +635,11 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i27.RentalJunction) {
       return 'RentalJunction';
     }
-    if (data is _i28.ExtraUserInfo) {
-      return 'ExtraUserInfo';
-    }
-    if (data is _i29.FavouritesJunction) {
+    if (data is _i28.FavouritesJunction) {
       return 'FavouritesJunction';
+    }
+    if (data is _i29.PrzeUser) {
+      return 'PrzeUser';
     }
     className = _i43.Protocol().getClassNameForObject(data);
     if (className != null) {
@@ -771,11 +771,11 @@ class Protocol extends _i1.SerializationManager {
     if (dataClassName == 'RentalJunction') {
       return deserialize<_i27.RentalJunction>(data['data']);
     }
-    if (dataClassName == 'ExtraUserInfo') {
-      return deserialize<_i28.ExtraUserInfo>(data['data']);
-    }
     if (dataClassName == 'FavouritesJunction') {
-      return deserialize<_i29.FavouritesJunction>(data['data']);
+      return deserialize<_i28.FavouritesJunction>(data['data']);
+    }
+    if (dataClassName == 'PrzeUser') {
+      return deserialize<_i29.PrzeUser>(data['data']);
     }
     if (dataClassName.startsWith('serverpod_auth.')) {
       data['className'] = dataClassName.substring(15);

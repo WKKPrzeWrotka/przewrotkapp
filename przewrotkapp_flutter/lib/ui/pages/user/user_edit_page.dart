@@ -5,9 +5,9 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 class UserEditPage extends StatefulWidget {
-  final ExtraUserInfo extraUser;
+  final PrzeUser przeUser;
 
-  const UserEditPage({super.key, required this.extraUser});
+  const UserEditPage({super.key, required this.przeUser});
 
   @override
   State<UserEditPage> createState() => _UserEditPageState();
@@ -23,12 +23,12 @@ class _UserEditPageState extends State<UserEditPage> {
   void initState() {
     super.initState();
     ctrlUsername = TextEditingController(
-      text: widget.extraUser.userInfo?.userName,
+      text: widget.przeUser.userInfo?.userName,
     );
     ctrlFullName = TextEditingController(
-      text: widget.extraUser.userInfo?.fullName,
+      text: widget.przeUser.userInfo?.fullName,
     );
-    ctrlPhone = TextEditingController(text: widget.extraUser.phoneNumber);
+    ctrlPhone = TextEditingController(text: widget.przeUser.phoneNumber);
   }
 
   String stripPhone(String phone) =>
@@ -36,7 +36,7 @@ class _UserEditPageState extends State<UserEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    final extra = widget.extraUser;
+    final extra = widget.przeUser;
     final user = extra.userInfo!;
     final sm = context.read<SessionManager>();
     final client = context.read<Client>();

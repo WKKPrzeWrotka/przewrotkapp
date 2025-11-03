@@ -85,10 +85,10 @@ class EverythingProvider extends StatelessWidget {
                     .toList(),
               ),
         ),
-        StreamProvider<SelfExtraUserInfo?>(
+        StreamProvider<SelfPrzeUser?>(
           lazy: false,
           initialData: null,
-          create: (_) => _retryStream(() => _client.user.watchExtraUserInfo()),
+          create: (_) => _retryStream(() => _client.user.watchPrzeUser()),
         ),
         StreamProvider<UserFavourites?>(
           lazy: false,

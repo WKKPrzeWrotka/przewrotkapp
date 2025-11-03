@@ -69,7 +69,7 @@ final router = GoRouter(
     GoRoute(
       path: '/user/:userId/edit',
       builder: (context, state) =>
-          UserEditPage(extraUser: state.extra as ExtraUserInfo),
+          UserEditPage(przeUser: state.extra as PrzeUser),
     ),
     GoRoute(
       path: '/rentals/new',

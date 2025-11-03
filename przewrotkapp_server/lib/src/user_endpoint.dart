@@ -15,22 +15,22 @@ class UserEndpoint extends Endpoint {
     return (await Users.findUserByUserId(session, userId))!.toPublic();
   }
 
-  Future<ExtraUserInfo> getExtraUserInfo(Session session, [int? userId]) async {
+  Future<PrzeUser> getPrzeUser(Session session, [int? userId]) async {
     final id = userId ?? (await session.authenticated)!.userId;
-    return (await ExtraUserInfo.db.findFirstRow(
+    return (await PrzeUser.db.findFirstRow(
       session,
       where: (user) => user.userInfoId.equals(id),
-      include: ExtraUserInfo.include(userInfo: UserInfo.include()),
+      include: PrzeUser.include(userInfo: UserInfo.include()),
     ))!;
   }
 
-  Stream<ExtraUserInfo> watchExtraUserInfo(
+  Stream<PrzeUser> watchPrzeUser(
     Session session, [
     int? userId,
   ]) async* {
     final id = userId ?? (await session.authenticated)!.userId;
     yield* watchX(
-      () => getExtraUserInfo(session, id),
+      () => getPrzeUser(session, id),
       _userUpdateCtrl.stream.where((e) => e == id),
     );
   }
@@ -59,7 +59,7 @@ class UserEndpoint extends Endpoint {
     }
   }
 
-  Future<void> updateUser(Session session, ExtraUserInfo extraUser) async {
+  Future<void> updateUser(Session session, PrzeUser extraUser) async {
     final id = (await session.authenticated)!.userId;
     final newUser = extraUser.userInfo!;
     if (id != extraUser.userInfoId) throw "Can't update user other than you";
@@ -70,12 +70,12 @@ class UserEndpoint extends Endpoint {
       await Users.changeFullName(session, id, newUser.fullName!);
     }
     await session.db.transaction((t) async {
-      final currExtra = await ExtraUserInfo.db.findFirstRow(
+      final currExtra = await PrzeUser.db.findFirstRow(
         session,
         where: (e) => e.userInfoId.equals(id),
         transaction: t,
       );
-      await ExtraUserInfo.db.updateRow(
+      await PrzeUser.db.updateRow(
         session,
         // i do this manually to make sure user doesn't edit their ids etc
         currExtra!.copyWith(

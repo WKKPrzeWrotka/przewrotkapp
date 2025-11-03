@@ -40,12 +40,9 @@ void run(List<String> args) async {
       minPasswordLength: 6,
       onUserCreated: (session, userInfo) async {
         try {
-          await ExtraUserInfo.db.insertRow(
+          await PrzeUser.db.insertRow(
             session,
-            ExtraUserInfo(
-              userInfoId: userInfo.id!,
-              socialLinks: <String, Uri>{},
-            ),
+            PrzeUser(userInfoId: userInfo.id!, socialLinks: <String, Uri>{}),
           );
         } catch (e, s) {
           session.log(
@@ -59,7 +56,7 @@ void run(List<String> args) async {
             level: LogLevel.error,
           );
           await auth.UserInfo.db.deleteRow(session, userInfo);
-          await ExtraUserInfo.db.deleteWhere(
+          await PrzeUser.db.deleteWhere(
             session,
             where: (e) => e.userInfoId.equals(userInfo.id),
           );

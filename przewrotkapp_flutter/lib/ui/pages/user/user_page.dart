@@ -27,13 +27,13 @@ class _UserPageState extends State<UserPage> {
     final rentals = context.watch<FutureRentals?>();
     final isYou = sm.signedInUser?.id == widget.userId;
     return StreamBuilder(
-      stream: context.read<Client>().user.watchExtraUserInfo(widget.userId),
+      stream: context.read<Client>().user.watchPrzeUser(widget.userId),
       builder: (context, snap) {
-        final extraUser = snap.hasData ? snap.data : null;
+        final przeUser = snap.hasData ? snap.data : null;
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              extraUser != null ? extraUser.userInfo!.name : '🟠 Ładowanie...',
+              przeUser != null ? przeUser.userInfo!.name : '🟠 Ładowanie...',
             ),
             automaticallyImplyLeading: true,
             actions: isYou
@@ -41,7 +41,7 @@ class _UserPageState extends State<UserPage> {
                     IconButton(
                       onPressed: () => context.push(
                         '/user/${widget.userId}/edit',
-                        extra: extraUser!,
+                        extra: przeUser!,
                       ),
                       icon: Icon(Icons.edit),
                     ),
@@ -64,23 +64,23 @@ class _UserPageState extends State<UserPage> {
                           ),
                         )
                       : CircularUserImage(
-                          userInfo: extraUser?.userInfo,
+                          userInfo: przeUser?.userInfo,
                           size: 86,
                         ),
-                  if (extraUser != null)
+                  if (przeUser != null)
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          extraUser.userInfo?.userName ??
-                              extraUser.userInfo?.fullName ??
+                          przeUser.userInfo?.userName ??
+                              przeUser.userInfo?.fullName ??
                               "-nieznany-",
                           style: tt.headlineLarge,
                         ),
-                        if (extraUser.userInfo?.userName != null &&
-                            extraUser.userInfo?.fullName != null)
+                        if (przeUser.userInfo?.userName != null &&
+                            przeUser.userInfo?.fullName != null)
                           Text(
-                            extraUser.userInfo!.fullName!,
+                            przeUser.userInfo!.fullName!,
                             style: tt.headlineSmall,
                           ),
                       ],
@@ -88,13 +88,13 @@ class _UserPageState extends State<UserPage> {
                 ],
               ),
               Divider(height: 32),
-              if (extraUser != null) SocialLinks(extraUser: extraUser),
+              if (przeUser != null) SocialLinks(przeUser: przeUser),
               Divider(height: 32),
               if (rentals?.isNotEmpty ?? false)
                 Text("Najbliższe wypożyczenia:", style: tt.headlineMedium),
               if (rentals != null)
                 for (final rental in rentals.where(
-                  (r) => r.userInfoId == extraUser?.userInfoId,
+                  (r) => r.userInfoId == przeUser?.userInfoId,
                 ))
                   RentalListing(rental: rental)
               else

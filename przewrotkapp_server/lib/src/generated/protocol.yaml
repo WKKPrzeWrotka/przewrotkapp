@@ -39,8 +39,8 @@ rental:
   - rentGear:
 user:
   - getUserInfo:
-  - getExtraUserInfo:
-  - watchExtraUserInfo:
+  - getPrzeUser:
+  - watchPrzeUser:
   - updateGearFavourite:
   - updateUser:
   - getFavourites:

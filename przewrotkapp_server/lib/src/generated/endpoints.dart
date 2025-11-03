@@ -34,8 +34,7 @@ import 'package:przewrotkapp_server/src/generated/gear/gear_spraydeck.dart'
     as _i18;
 import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
     as _i19;
-import 'package:przewrotkapp_server/src/generated/user/extra_user_info.dart'
-    as _i20;
+import 'package:przewrotkapp_server/src/generated/user/prze_user.dart' as _i20;
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i21;
 
 class Endpoints extends _i1.EndpointDispatch {
@@ -735,8 +734,8 @@ class Endpoints extends _i1.EndpointDispatch {
             params['userId'],
           ),
         ),
-        'getExtraUserInfo': _i1.MethodConnector(
-          name: 'getExtraUserInfo',
+        'getPrzeUser': _i1.MethodConnector(
+          name: 'getPrzeUser',
           params: {
             'userId': _i1.ParameterDescription(
               name: 'userId',
@@ -748,7 +747,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i7.UserEndpoint).getExtraUserInfo(
+              (endpoints['user'] as _i7.UserEndpoint).getPrzeUser(
             session,
             params['userId'],
           ),
@@ -782,7 +781,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'extraUser': _i1.ParameterDescription(
               name: 'extraUser',
-              type: _i1.getType<_i20.ExtraUserInfo>(),
+              type: _i1.getType<_i20.PrzeUser>(),
               nullable: false,
             )
           },
@@ -840,8 +839,8 @@ class Endpoints extends _i1.EndpointDispatch {
             params['userId'],
           ),
         ),
-        'watchExtraUserInfo': _i1.MethodStreamConnector(
-          name: 'watchExtraUserInfo',
+        'watchPrzeUser': _i1.MethodStreamConnector(
+          name: 'watchPrzeUser',
           params: {
             'userId': _i1.ParameterDescription(
               name: 'userId',
@@ -856,7 +855,7 @@ class Endpoints extends _i1.EndpointDispatch {
             Map<String, dynamic> params,
             Map<String, Stream> streamParams,
           ) =>
-              (endpoints['user'] as _i7.UserEndpoint).watchExtraUserInfo(
+              (endpoints['user'] as _i7.UserEndpoint).watchPrzeUser(
             session,
             params['userId'],
           ),

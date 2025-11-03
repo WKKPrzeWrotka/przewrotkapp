@@ -12,8 +12,8 @@
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i2;
 
-abstract class ExtraUserInfo implements _i1.SerializableModel {
-  ExtraUserInfo._({
+abstract class PrzeUser implements _i1.SerializableModel {
+  PrzeUser._({
     this.id,
     required this.userInfoId,
     this.userInfo,
@@ -22,17 +22,17 @@ abstract class ExtraUserInfo implements _i1.SerializableModel {
     required this.socialLinks,
   });
 
-  factory ExtraUserInfo({
+  factory PrzeUser({
     int? id,
     required int userInfoId,
     _i2.UserInfo? userInfo,
     String? phoneNumber,
     String? discordUsername,
     required Map<String, Uri> socialLinks,
-  }) = _ExtraUserInfoImpl;
+  }) = _PrzeUserImpl;
 
-  factory ExtraUserInfo.fromJson(Map<String, dynamic> jsonSerialization) {
-    return ExtraUserInfo(
+  factory PrzeUser.fromJson(Map<String, dynamic> jsonSerialization) {
+    return PrzeUser(
       id: jsonSerialization['id'] as int?,
       userInfoId: jsonSerialization['userInfoId'] as int,
       userInfo: jsonSerialization['userInfo'] == null
@@ -64,10 +64,10 @@ abstract class ExtraUserInfo implements _i1.SerializableModel {
 
   Map<String, Uri> socialLinks;
 
-  /// Returns a shallow copy of this [ExtraUserInfo]
+  /// Returns a shallow copy of this [PrzeUser]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  ExtraUserInfo copyWith({
+  PrzeUser copyWith({
     int? id,
     int? userInfoId,
     _i2.UserInfo? userInfo,
@@ -95,8 +95,8 @@ abstract class ExtraUserInfo implements _i1.SerializableModel {
 
 class _Undefined {}
 
-class _ExtraUserInfoImpl extends ExtraUserInfo {
-  _ExtraUserInfoImpl({
+class _PrzeUserImpl extends PrzeUser {
+  _PrzeUserImpl({
     int? id,
     required int userInfoId,
     _i2.UserInfo? userInfo,
@@ -112,11 +112,11 @@ class _ExtraUserInfoImpl extends ExtraUserInfo {
           socialLinks: socialLinks,
         );
 
-  /// Returns a shallow copy of this [ExtraUserInfo]
+  /// Returns a shallow copy of this [PrzeUser]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  ExtraUserInfo copyWith({
+  PrzeUser copyWith({
     Object? id = _Undefined,
     int? userInfoId,
     Object? userInfo = _Undefined,
@@ -124,7 +124,7 @@ class _ExtraUserInfoImpl extends ExtraUserInfo {
     Object? discordUsername = _Undefined,
     Map<String, Uri>? socialLinks,
   }) {
-    return ExtraUserInfo(
+    return PrzeUser(
       id: id is int? ? id : this.id,
       userInfoId: userInfoId ?? this.userInfoId,
       userInfo:

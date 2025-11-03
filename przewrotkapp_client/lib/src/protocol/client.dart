@@ -29,8 +29,7 @@ import 'package:przewrotkapp_client/src/protocol/gear/gear_throwbag.dart'
     as _i14;
 import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i15;
 import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i16;
-import 'package:przewrotkapp_client/src/protocol/user/extra_user_info.dart'
-    as _i17;
+import 'package:przewrotkapp_client/src/protocol/user/prze_user.dart' as _i17;
 import 'package:przewrotkapp_client/src/protocol/hour.dart' as _i18;
 import 'protocol.dart' as _i19;
 
@@ -426,18 +425,18 @@ class EndpointUser extends _i1.EndpointRef {
         {'userId': userId},
       );
 
-  _i2.Future<_i17.ExtraUserInfo> getExtraUserInfo([int? userId]) =>
-      caller.callServerEndpoint<_i17.ExtraUserInfo>(
+  _i2.Future<_i17.PrzeUser> getPrzeUser([int? userId]) =>
+      caller.callServerEndpoint<_i17.PrzeUser>(
         'user',
-        'getExtraUserInfo',
+        'getPrzeUser',
         {'userId': userId},
       );
 
-  _i2.Stream<_i17.ExtraUserInfo> watchExtraUserInfo([int? userId]) =>
-      caller.callStreamingServerEndpoint<_i2.Stream<_i17.ExtraUserInfo>,
-          _i17.ExtraUserInfo>(
+  _i2.Stream<_i17.PrzeUser> watchPrzeUser([int? userId]) =>
+      caller.callStreamingServerEndpoint<_i2.Stream<_i17.PrzeUser>,
+          _i17.PrzeUser>(
         'user',
-        'watchExtraUserInfo',
+        'watchPrzeUser',
         {'userId': userId},
         {},
       );
@@ -455,7 +454,7 @@ class EndpointUser extends _i1.EndpointRef {
         },
       );
 
-  _i2.Future<void> updateUser(_i17.ExtraUserInfo extraUser) =>
+  _i2.Future<void> updateUser(_i17.PrzeUser extraUser) =>
       caller.callServerEndpoint<void>(
         'user',
         'updateUser',

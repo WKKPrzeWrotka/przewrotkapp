@@ -35,8 +35,7 @@ import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
     as _i16;
 import 'package:przewrotkapp_server/src/generated/rental/rental.dart' as _i17;
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i18;
-import 'package:przewrotkapp_server/src/generated/user/extra_user_info.dart'
-    as _i19;
+import 'package:przewrotkapp_server/src/generated/user/prze_user.dart' as _i19;
 import 'package:przewrotkapp_server/src/generated/hour.dart' as _i20;
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
 import 'package:przewrotkapp_server/src/generated/endpoints.dart';
@@ -1335,7 +1334,7 @@ class _UserEndpoint {
     });
   }
 
-  _i3.Future<_i19.ExtraUserInfo> getExtraUserInfo(
+  _i3.Future<_i19.PrzeUser> getPrzeUser(
     _i1.TestSessionBuilder sessionBuilder, [
     int? userId,
   ]) async {
@@ -1343,20 +1342,20 @@ class _UserEndpoint {
       var _localUniqueSession =
           (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
         endpoint: 'user',
-        method: 'getExtraUserInfo',
+        method: 'getPrzeUser',
       );
       try {
         var _localCallContext = await _endpointDispatch.getMethodCallContext(
           createSessionCallback: (_) => _localUniqueSession,
           endpointPath: 'user',
-          methodName: 'getExtraUserInfo',
+          methodName: 'getPrzeUser',
           parameters: _i1.testObjectToJson({'userId': userId}),
           serializationManager: _serializationManager,
         );
         var _localReturnValue = await (_localCallContext.method.call(
           _localUniqueSession,
           _localCallContext.arguments,
-        ) as _i3.Future<_i19.ExtraUserInfo>);
+        ) as _i3.Future<_i19.PrzeUser>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1364,23 +1363,23 @@ class _UserEndpoint {
     });
   }
 
-  _i3.Stream<_i19.ExtraUserInfo> watchExtraUserInfo(
+  _i3.Stream<_i19.PrzeUser> watchPrzeUser(
     _i1.TestSessionBuilder sessionBuilder, [
     int? userId,
   ]) {
-    var _localTestStreamManager = _i1.TestStreamManager<_i19.ExtraUserInfo>();
+    var _localTestStreamManager = _i1.TestStreamManager<_i19.PrzeUser>();
     _i1.callStreamFunctionAndHandleExceptions(
       () async {
         var _localUniqueSession =
             (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
           endpoint: 'user',
-          method: 'watchExtraUserInfo',
+          method: 'watchPrzeUser',
         );
         var _localCallContext =
             await _endpointDispatch.getMethodStreamCallContext(
           createSessionCallback: (_) => _localUniqueSession,
           endpointPath: 'user',
-          methodName: 'watchExtraUserInfo',
+          methodName: 'watchPrzeUser',
           arguments: {'userId': userId},
           requestedInputStreams: [],
           serializationManager: _serializationManager,
@@ -1431,7 +1430,7 @@ class _UserEndpoint {
 
   _i3.Future<void> updateUser(
     _i1.TestSessionBuilder sessionBuilder,
-    _i19.ExtraUserInfo extraUser,
+    _i19.PrzeUser extraUser,
   ) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
       var _localUniqueSession =

@@ -14,7 +14,7 @@ typedef FutureRentals = List<Rental>;
 
 typedef FutureRentalGroups = List<RentalGroup>;
 
-typedef SelfExtraUserInfo = ExtraUserInfo;
+typedef SelfPrzeUser = PrzeUser;
 
 // i have to make a class because, as mentioned above, a simple List<int>
 // could get mixed with others

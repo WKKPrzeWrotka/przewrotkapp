@@ -39,7 +39,7 @@ void main() {
 
       await FavouritesJunction.db.insertRow(
         session,
-        FavouritesJunction(userId: newUser!.id!, gearId: newGear.id!),
+        FavouritesJunction(userId: newUser.id!, gearId: newGear.id!),
       );
     });
     tearDown(() async {

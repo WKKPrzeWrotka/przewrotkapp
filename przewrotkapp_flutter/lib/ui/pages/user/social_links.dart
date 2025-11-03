@@ -6,9 +6,9 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../utils/ui_ux_stuff.dart';
 
 class SocialLinks extends StatelessWidget {
-  final ExtraUserInfo extraUser;
+  final PrzeUser przeUser;
 
-  const SocialLinks({super.key, required this.extraUser});
+  const SocialLinks({super.key, required this.przeUser});
 
   String socialNameToEmoji(String name) => switch (name.toLowerCase()) {
     'instagram' => '📷',
@@ -24,29 +24,29 @@ class SocialLinks extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 6,
       children: [
-        if (extraUser.phoneNumber != null)
+        if (przeUser.phoneNumber != null)
           FilledButton(
-            onPressed: () => launchUrlString('tel:${extraUser.phoneNumber}'),
+            onPressed: () => launchUrlString('tel:${przeUser.phoneNumber}'),
             // todo: separate function to also show snackbar when coping something
-            onLongPress: () => copyText(extraUser.phoneNumber!, context),
-            child: Text("📞 ${extraUser.phoneNumber}"),
+            onLongPress: () => copyText(przeUser.phoneNumber!, context),
+            child: Text("📞 ${przeUser.phoneNumber}"),
           ),
-        if (extraUser.userInfo?.email != null)
+        if (przeUser.userInfo?.email != null)
           ElevatedButton(
             onPressed: () =>
-                launchUrlString('mailto:${extraUser.userInfo!.email!}'),
-            onLongPress: () => copyText(extraUser.userInfo!.email!, context),
-            child: Text(extraUser.userInfo!.email!),
+                launchUrlString('mailto:${przeUser.userInfo!.email!}'),
+            onLongPress: () => copyText(przeUser.userInfo!.email!, context),
+            child: Text(przeUser.userInfo!.email!),
           ),
-        // if (extraUser.discordUsername != null)
+        // if (przeUser.discordUsername != null)
         //   FilledButton(
         //     // this shit for now, because opening user requires special
         //     // discord number id
         //     // actually this messes up my db plans >:(
-        //     onPressed: () => FlutterClipboard.copy(extraUser.discordUsername!),
-        //     child: Text("Discord: ${extraUser!.discordUsername}"),
+        //     onPressed: () => FlutterClipboard.copy(przeUser.discordUsername!),
+        //     child: Text("Discord: ${przeUser!.discordUsername}"),
         //   ),
-        for (final social in extraUser.socialLinks.entries)
+        for (final social in przeUser.socialLinks.entries)
           TextButton(
             onPressed: () => launchUrl(social.value),
             onLongPress: () => copyText(social.value.toString(), context),

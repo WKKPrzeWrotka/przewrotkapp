@@ -14,9 +14,9 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i2;
 
-abstract class ExtraUserInfo
+abstract class PrzeUser
     implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
-  ExtraUserInfo._({
+  PrzeUser._({
     this.id,
     required this.userInfoId,
     this.userInfo,
@@ -25,17 +25,17 @@ abstract class ExtraUserInfo
     required this.socialLinks,
   });
 
-  factory ExtraUserInfo({
+  factory PrzeUser({
     int? id,
     required int userInfoId,
     _i2.UserInfo? userInfo,
     String? phoneNumber,
     String? discordUsername,
     required Map<String, Uri> socialLinks,
-  }) = _ExtraUserInfoImpl;
+  }) = _PrzeUserImpl;
 
-  factory ExtraUserInfo.fromJson(Map<String, dynamic> jsonSerialization) {
-    return ExtraUserInfo(
+  factory PrzeUser.fromJson(Map<String, dynamic> jsonSerialization) {
+    return PrzeUser(
       id: jsonSerialization['id'] as int?,
       userInfoId: jsonSerialization['userInfoId'] as int,
       userInfo: jsonSerialization['userInfo'] == null
@@ -52,9 +52,9 @@ abstract class ExtraUserInfo
     );
   }
 
-  static final t = ExtraUserInfoTable();
+  static final t = PrzeUserTable();
 
-  static const db = ExtraUserInfoRepository._();
+  static const db = PrzeUserRepository._();
 
   @override
   int? id;
@@ -72,10 +72,10 @@ abstract class ExtraUserInfo
   @override
   _i1.Table<int?> get table => t;
 
-  /// Returns a shallow copy of this [ExtraUserInfo]
+  /// Returns a shallow copy of this [PrzeUser]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
-  ExtraUserInfo copyWith({
+  PrzeUser copyWith({
     int? id,
     int? userInfoId,
     _i2.UserInfo? userInfo,
@@ -107,26 +107,26 @@ abstract class ExtraUserInfo
     };
   }
 
-  static ExtraUserInfoInclude include({_i2.UserInfoInclude? userInfo}) {
-    return ExtraUserInfoInclude._(userInfo: userInfo);
+  static PrzeUserInclude include({_i2.UserInfoInclude? userInfo}) {
+    return PrzeUserInclude._(userInfo: userInfo);
   }
 
-  static ExtraUserInfoIncludeList includeList({
-    _i1.WhereExpressionBuilder<ExtraUserInfoTable>? where,
+  static PrzeUserIncludeList includeList({
+    _i1.WhereExpressionBuilder<PrzeUserTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<ExtraUserInfoTable>? orderBy,
+    _i1.OrderByBuilder<PrzeUserTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<ExtraUserInfoTable>? orderByList,
-    ExtraUserInfoInclude? include,
+    _i1.OrderByListBuilder<PrzeUserTable>? orderByList,
+    PrzeUserInclude? include,
   }) {
-    return ExtraUserInfoIncludeList._(
+    return PrzeUserIncludeList._(
       where: where,
       limit: limit,
       offset: offset,
-      orderBy: orderBy?.call(ExtraUserInfo.t),
+      orderBy: orderBy?.call(PrzeUser.t),
       orderDescending: orderDescending,
-      orderByList: orderByList?.call(ExtraUserInfo.t),
+      orderByList: orderByList?.call(PrzeUser.t),
       include: include,
     );
   }
@@ -139,8 +139,8 @@ abstract class ExtraUserInfo
 
 class _Undefined {}
 
-class _ExtraUserInfoImpl extends ExtraUserInfo {
-  _ExtraUserInfoImpl({
+class _PrzeUserImpl extends PrzeUser {
+  _PrzeUserImpl({
     int? id,
     required int userInfoId,
     _i2.UserInfo? userInfo,
@@ -156,11 +156,11 @@ class _ExtraUserInfoImpl extends ExtraUserInfo {
           socialLinks: socialLinks,
         );
 
-  /// Returns a shallow copy of this [ExtraUserInfo]
+  /// Returns a shallow copy of this [PrzeUser]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
   @override
-  ExtraUserInfo copyWith({
+  PrzeUser copyWith({
     Object? id = _Undefined,
     int? userInfoId,
     Object? userInfo = _Undefined,
@@ -168,7 +168,7 @@ class _ExtraUserInfoImpl extends ExtraUserInfo {
     Object? discordUsername = _Undefined,
     Map<String, Uri>? socialLinks,
   }) {
-    return ExtraUserInfo(
+    return PrzeUser(
       id: id is int? ? id : this.id,
       userInfoId: userInfoId ?? this.userInfoId,
       userInfo:
@@ -189,9 +189,8 @@ class _ExtraUserInfoImpl extends ExtraUserInfo {
   }
 }
 
-class ExtraUserInfoTable extends _i1.Table<int?> {
-  ExtraUserInfoTable({super.tableRelation})
-      : super(tableName: 'extra_user_infos') {
+class PrzeUserTable extends _i1.Table<int?> {
+  PrzeUserTable({super.tableRelation}) : super(tableName: 'prze_users') {
     userInfoId = _i1.ColumnInt(
       'userInfoId',
       this,
@@ -224,7 +223,7 @@ class ExtraUserInfoTable extends _i1.Table<int?> {
     if (_userInfo != null) return _userInfo!;
     _userInfo = _i1.createRelationTable(
       relationFieldName: 'userInfo',
-      field: ExtraUserInfo.t.userInfoId,
+      field: PrzeUser.t.userInfoId,
       foreignField: _i2.UserInfo.t.id,
       tableRelation: tableRelation,
       createTable: (foreignTableRelation) =>
@@ -251,8 +250,8 @@ class ExtraUserInfoTable extends _i1.Table<int?> {
   }
 }
 
-class ExtraUserInfoInclude extends _i1.IncludeObject {
-  ExtraUserInfoInclude._({_i2.UserInfoInclude? userInfo}) {
+class PrzeUserInclude extends _i1.IncludeObject {
+  PrzeUserInclude._({_i2.UserInfoInclude? userInfo}) {
     _userInfo = userInfo;
   }
 
@@ -262,12 +261,12 @@ class ExtraUserInfoInclude extends _i1.IncludeObject {
   Map<String, _i1.Include?> get includes => {'userInfo': _userInfo};
 
   @override
-  _i1.Table<int?> get table => ExtraUserInfo.t;
+  _i1.Table<int?> get table => PrzeUser.t;
 }
 
-class ExtraUserInfoIncludeList extends _i1.IncludeList {
-  ExtraUserInfoIncludeList._({
-    _i1.WhereExpressionBuilder<ExtraUserInfoTable>? where,
+class PrzeUserIncludeList extends _i1.IncludeList {
+  PrzeUserIncludeList._({
+    _i1.WhereExpressionBuilder<PrzeUserTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -275,22 +274,22 @@ class ExtraUserInfoIncludeList extends _i1.IncludeList {
     super.orderByList,
     super.include,
   }) {
-    super.where = where?.call(ExtraUserInfo.t);
+    super.where = where?.call(PrzeUser.t);
   }
 
   @override
   Map<String, _i1.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table<int?> get table => ExtraUserInfo.t;
+  _i1.Table<int?> get table => PrzeUser.t;
 }
 
-class ExtraUserInfoRepository {
-  const ExtraUserInfoRepository._();
+class PrzeUserRepository {
+  const PrzeUserRepository._();
 
-  final attachRow = const ExtraUserInfoAttachRowRepository._();
+  final attachRow = const PrzeUserAttachRowRepository._();
 
-  /// Returns a list of [ExtraUserInfo]s matching the given query parameters.
+  /// Returns a list of [PrzeUser]s matching the given query parameters.
   ///
   /// Use [where] to specify which items to include in the return value.
   /// If none is specified, all items will be returned.
@@ -312,21 +311,21 @@ class ExtraUserInfoRepository {
   ///   limit: 100,
   /// );
   /// ```
-  Future<List<ExtraUserInfo>> find(
+  Future<List<PrzeUser>> find(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<ExtraUserInfoTable>? where,
+    _i1.WhereExpressionBuilder<PrzeUserTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<ExtraUserInfoTable>? orderBy,
+    _i1.OrderByBuilder<PrzeUserTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<ExtraUserInfoTable>? orderByList,
+    _i1.OrderByListBuilder<PrzeUserTable>? orderByList,
     _i1.Transaction? transaction,
-    ExtraUserInfoInclude? include,
+    PrzeUserInclude? include,
   }) async {
-    return session.db.find<ExtraUserInfo>(
-      where: where?.call(ExtraUserInfo.t),
-      orderBy: orderBy?.call(ExtraUserInfo.t),
-      orderByList: orderByList?.call(ExtraUserInfo.t),
+    return session.db.find<PrzeUser>(
+      where: where?.call(PrzeUser.t),
+      orderBy: orderBy?.call(PrzeUser.t),
+      orderByList: orderByList?.call(PrzeUser.t),
       orderDescending: orderDescending,
       limit: limit,
       offset: offset,
@@ -335,7 +334,7 @@ class ExtraUserInfoRepository {
     );
   }
 
-  /// Returns the first matching [ExtraUserInfo] matching the given query parameters.
+  /// Returns the first matching [PrzeUser] matching the given query parameters.
   ///
   /// Use [where] to specify which items to include in the return value.
   /// If none is specified, all items will be returned.
@@ -352,20 +351,20 @@ class ExtraUserInfoRepository {
   ///   orderBy: (t) => t.age,
   /// );
   /// ```
-  Future<ExtraUserInfo?> findFirstRow(
+  Future<PrzeUser?> findFirstRow(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<ExtraUserInfoTable>? where,
+    _i1.WhereExpressionBuilder<PrzeUserTable>? where,
     int? offset,
-    _i1.OrderByBuilder<ExtraUserInfoTable>? orderBy,
+    _i1.OrderByBuilder<PrzeUserTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<ExtraUserInfoTable>? orderByList,
+    _i1.OrderByListBuilder<PrzeUserTable>? orderByList,
     _i1.Transaction? transaction,
-    ExtraUserInfoInclude? include,
+    PrzeUserInclude? include,
   }) async {
-    return session.db.findFirstRow<ExtraUserInfo>(
-      where: where?.call(ExtraUserInfo.t),
-      orderBy: orderBy?.call(ExtraUserInfo.t),
-      orderByList: orderByList?.call(ExtraUserInfo.t),
+    return session.db.findFirstRow<PrzeUser>(
+      where: where?.call(PrzeUser.t),
+      orderBy: orderBy?.call(PrzeUser.t),
+      orderByList: orderByList?.call(PrzeUser.t),
       orderDescending: orderDescending,
       offset: offset,
       transaction: transaction,
@@ -373,119 +372,119 @@ class ExtraUserInfoRepository {
     );
   }
 
-  /// Finds a single [ExtraUserInfo] by its [id] or null if no such row exists.
-  Future<ExtraUserInfo?> findById(
+  /// Finds a single [PrzeUser] by its [id] or null if no such row exists.
+  Future<PrzeUser?> findById(
     _i1.Session session,
     int id, {
     _i1.Transaction? transaction,
-    ExtraUserInfoInclude? include,
+    PrzeUserInclude? include,
   }) async {
-    return session.db.findById<ExtraUserInfo>(
+    return session.db.findById<PrzeUser>(
       id,
       transaction: transaction,
       include: include,
     );
   }
 
-  /// Inserts all [ExtraUserInfo]s in the list and returns the inserted rows.
+  /// Inserts all [PrzeUser]s in the list and returns the inserted rows.
   ///
-  /// The returned [ExtraUserInfo]s will have their `id` fields set.
+  /// The returned [PrzeUser]s will have their `id` fields set.
   ///
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// insert, none of the rows will be inserted.
-  Future<List<ExtraUserInfo>> insert(
+  Future<List<PrzeUser>> insert(
     _i1.Session session,
-    List<ExtraUserInfo> rows, {
+    List<PrzeUser> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.insert<ExtraUserInfo>(
+    return session.db.insert<PrzeUser>(
       rows,
       transaction: transaction,
     );
   }
 
-  /// Inserts a single [ExtraUserInfo] and returns the inserted row.
+  /// Inserts a single [PrzeUser] and returns the inserted row.
   ///
-  /// The returned [ExtraUserInfo] will have its `id` field set.
-  Future<ExtraUserInfo> insertRow(
+  /// The returned [PrzeUser] will have its `id` field set.
+  Future<PrzeUser> insertRow(
     _i1.Session session,
-    ExtraUserInfo row, {
+    PrzeUser row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.insertRow<ExtraUserInfo>(
+    return session.db.insertRow<PrzeUser>(
       row,
       transaction: transaction,
     );
   }
 
-  /// Updates all [ExtraUserInfo]s in the list and returns the updated rows. If
+  /// Updates all [PrzeUser]s in the list and returns the updated rows. If
   /// [columns] is provided, only those columns will be updated. Defaults to
   /// all columns.
   /// This is an atomic operation, meaning that if one of the rows fails to
   /// update, none of the rows will be updated.
-  Future<List<ExtraUserInfo>> update(
+  Future<List<PrzeUser>> update(
     _i1.Session session,
-    List<ExtraUserInfo> rows, {
-    _i1.ColumnSelections<ExtraUserInfoTable>? columns,
+    List<PrzeUser> rows, {
+    _i1.ColumnSelections<PrzeUserTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.update<ExtraUserInfo>(
+    return session.db.update<PrzeUser>(
       rows,
-      columns: columns?.call(ExtraUserInfo.t),
+      columns: columns?.call(PrzeUser.t),
       transaction: transaction,
     );
   }
 
-  /// Updates a single [ExtraUserInfo]. The row needs to have its id set.
+  /// Updates a single [PrzeUser]. The row needs to have its id set.
   /// Optionally, a list of [columns] can be provided to only update those
   /// columns. Defaults to all columns.
-  Future<ExtraUserInfo> updateRow(
+  Future<PrzeUser> updateRow(
     _i1.Session session,
-    ExtraUserInfo row, {
-    _i1.ColumnSelections<ExtraUserInfoTable>? columns,
+    PrzeUser row, {
+    _i1.ColumnSelections<PrzeUserTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.updateRow<ExtraUserInfo>(
+    return session.db.updateRow<PrzeUser>(
       row,
-      columns: columns?.call(ExtraUserInfo.t),
+      columns: columns?.call(PrzeUser.t),
       transaction: transaction,
     );
   }
 
-  /// Deletes all [ExtraUserInfo]s in the list and returns the deleted rows.
+  /// Deletes all [PrzeUser]s in the list and returns the deleted rows.
   /// This is an atomic operation, meaning that if one of the rows fail to
   /// be deleted, none of the rows will be deleted.
-  Future<List<ExtraUserInfo>> delete(
+  Future<List<PrzeUser>> delete(
     _i1.Session session,
-    List<ExtraUserInfo> rows, {
+    List<PrzeUser> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.delete<ExtraUserInfo>(
+    return session.db.delete<PrzeUser>(
       rows,
       transaction: transaction,
     );
   }
 
-  /// Deletes a single [ExtraUserInfo].
-  Future<ExtraUserInfo> deleteRow(
+  /// Deletes a single [PrzeUser].
+  Future<PrzeUser> deleteRow(
     _i1.Session session,
-    ExtraUserInfo row, {
+    PrzeUser row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.db.deleteRow<ExtraUserInfo>(
+    return session.db.deleteRow<PrzeUser>(
       row,
       transaction: transaction,
     );
   }
 
   /// Deletes all rows matching the [where] expression.
-  Future<List<ExtraUserInfo>> deleteWhere(
+  Future<List<PrzeUser>> deleteWhere(
     _i1.Session session, {
-    required _i1.WhereExpressionBuilder<ExtraUserInfoTable> where,
+    required _i1.WhereExpressionBuilder<PrzeUserTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.deleteWhere<ExtraUserInfo>(
-      where: where(ExtraUserInfo.t),
+    return session.db.deleteWhere<PrzeUser>(
+      where: where(PrzeUser.t),
       transaction: transaction,
     );
   }
@@ -494,40 +493,40 @@ class ExtraUserInfoRepository {
   /// will return the count of all rows in the table.
   Future<int> count(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<ExtraUserInfoTable>? where,
+    _i1.WhereExpressionBuilder<PrzeUserTable>? where,
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.count<ExtraUserInfo>(
-      where: where?.call(ExtraUserInfo.t),
+    return session.db.count<PrzeUser>(
+      where: where?.call(PrzeUser.t),
       limit: limit,
       transaction: transaction,
     );
   }
 }
 
-class ExtraUserInfoAttachRowRepository {
-  const ExtraUserInfoAttachRowRepository._();
+class PrzeUserAttachRowRepository {
+  const PrzeUserAttachRowRepository._();
 
-  /// Creates a relation between the given [ExtraUserInfo] and [UserInfo]
-  /// by setting the [ExtraUserInfo]'s foreign key `userInfoId` to refer to the [UserInfo].
+  /// Creates a relation between the given [PrzeUser] and [UserInfo]
+  /// by setting the [PrzeUser]'s foreign key `userInfoId` to refer to the [UserInfo].
   Future<void> userInfo(
     _i1.Session session,
-    ExtraUserInfo extraUserInfo,
+    PrzeUser przeUser,
     _i2.UserInfo userInfo, {
     _i1.Transaction? transaction,
   }) async {
-    if (extraUserInfo.id == null) {
-      throw ArgumentError.notNull('extraUserInfo.id');
+    if (przeUser.id == null) {
+      throw ArgumentError.notNull('przeUser.id');
     }
     if (userInfo.id == null) {
       throw ArgumentError.notNull('userInfo.id');
     }
 
-    var $extraUserInfo = extraUserInfo.copyWith(userInfoId: userInfo.id);
-    await session.db.updateRow<ExtraUserInfo>(
-      $extraUserInfo,
-      columns: [ExtraUserInfo.t.userInfoId],
+    var $przeUser = przeUser.copyWith(userInfoId: userInfo.id);
+    await session.db.updateRow<PrzeUser>(
+      $przeUser,
+      columns: [PrzeUser.t.userInfoId],
       transaction: transaction,
     );
   }
