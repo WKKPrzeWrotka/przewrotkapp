@@ -11,6 +11,9 @@ import '../generated/hour_category.dart';
 const _root = 'lib/src/excel_migration';
 
 Future<void> importHoursFromExcel(Session session) async {
+  if ((await Hour.db.find(session)).isNotEmpty) {
+    throw 'import can be ran only at init!';
+  }
   final godzinkiCsv = File('$_root/godzinki.csv');
 
   final godzinkiData = CsvToListConverter()
