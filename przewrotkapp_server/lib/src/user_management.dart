@@ -101,8 +101,6 @@ Future<void> blockNonSkladkaUsers(
       level: LogLevel.warning,
     );
     await Users.blockUser(session, nieSkladkowicz.id!);
-    // TODO: REMOVE after shenegginans
-    continue;
     // TODO: Retry
     // Probably by scheduled event
     try {
