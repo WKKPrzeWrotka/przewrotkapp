@@ -152,87 +152,6 @@
       "managed": true
     },
     {
-      "name": "extra_user_infos",
-      "dartName": "ExtraUserInfo",
-      "module": "przewrotkapp",
-      "schema": "public",
-      "columns": [
-        {
-          "name": "id",
-          "columnType": 6,
-          "isNullable": false,
-          "columnDefault": "nextval('extra_user_infos_id_seq'::regclass)",
-          "dartType": "int?"
-        },
-        {
-          "name": "userInfoId",
-          "columnType": 6,
-          "isNullable": false,
-          "dartType": "int"
-        },
-        {
-          "name": "phoneNumber",
-          "columnType": 0,
-          "isNullable": true,
-          "dartType": "String?"
-        },
-        {
-          "name": "discordUsername",
-          "columnType": 0,
-          "isNullable": true,
-          "dartType": "String?"
-        },
-        {
-          "name": "socialLinks",
-          "columnType": 8,
-          "isNullable": false,
-          "dartType": "Map<String,Uri>"
-        }
-      ],
-      "foreignKeys": [
-        {
-          "constraintName": "extra_user_infos_fk_0",
-          "columns": [
-            "userInfoId"
-          ],
-          "referenceTable": "serverpod_user_info",
-          "referenceTableSchema": "public",
-          "referenceColumns": [
-            "id"
-          ],
-          "onUpdate": 3,
-          "onDelete": 4
-        }
-      ],
-      "indexes": [
-        {
-          "indexName": "extra_user_infos_pkey",
-          "elements": [
-            {
-              "type": 0,
-              "definition": "id"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": true
-        },
-        {
-          "indexName": "extra_user_info_user_info_unique_idx",
-          "elements": [
-            {
-              "type": 0,
-              "definition": "userInfoId"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": false
-        }
-      ],
-      "managed": true
-    },
-    {
       "name": "favourites_junctions",
       "dartName": "FavouritesJunction",
       "module": "przewrotkapp",
@@ -246,13 +165,13 @@
           "dartType": "int?"
         },
         {
-          "name": "gearId",
+          "name": "userId",
           "columnType": 6,
           "isNullable": false,
           "dartType": "int"
         },
         {
-          "name": "extraUserInfoId",
+          "name": "gearId",
           "columnType": 6,
           "isNullable": false,
           "dartType": "int"
@@ -262,9 +181,9 @@
         {
           "constraintName": "favourites_junctions_fk_0",
           "columns": [
-            "gearId"
+            "userId"
           ],
-          "referenceTable": "gear",
+          "referenceTable": "serverpod_user_info",
           "referenceTableSchema": "public",
           "referenceColumns": [
             "id"
@@ -275,9 +194,9 @@
         {
           "constraintName": "favourites_junctions_fk_1",
           "columns": [
-            "extraUserInfoId"
+            "gearId"
           ],
-          "referenceTable": "extra_user_infos",
+          "referenceTable": "gear",
           "referenceTableSchema": "public",
           "referenceColumns": [
             "id"
@@ -304,11 +223,11 @@
           "elements": [
             {
               "type": 0,
-              "definition": "gearId"
+              "definition": "userId"
             },
             {
               "type": 0,
-              "definition": "extraUserInfoId"
+              "definition": "gearId"
             }
           ],
           "type": "btree",
@@ -368,27 +287,13 @@
           "dartType": "List<Uri>?"
         },
         {
-          "name": "thumbnailId",
-          "columnType": 6,
+          "name": "thumbnailUrl",
+          "columnType": 0,
           "isNullable": true,
-          "dartType": "int?"
+          "dartType": "Uri?"
         }
       ],
-      "foreignKeys": [
-        {
-          "constraintName": "gear_fk_0",
-          "columns": [
-            "thumbnailId"
-          ],
-          "referenceTable": "gear_photos",
-          "referenceTableSchema": "public",
-          "referenceColumns": [
-            "id"
-          ],
-          "onUpdate": 3,
-          "onDelete": 3
-        }
-      ],
+      "foreignKeys": [],
       "indexes": [
         {
           "indexName": "gear_pkey",
@@ -949,93 +854,6 @@
       "managed": true
     },
     {
-      "name": "gear_photos",
-      "dartName": "GearPhoto",
-      "module": "przewrotkapp",
-      "schema": "public",
-      "columns": [
-        {
-          "name": "id",
-          "columnType": 6,
-          "isNullable": false,
-          "columnDefault": "nextval('gear_photos_id_seq'::regclass)",
-          "dartType": "int?"
-        },
-        {
-          "name": "gearId",
-          "columnType": 6,
-          "isNullable": true,
-          "dartType": "int?"
-        },
-        {
-          "name": "width",
-          "columnType": 6,
-          "isNullable": false,
-          "dartType": "int"
-        },
-        {
-          "name": "height",
-          "columnType": 6,
-          "isNullable": false,
-          "dartType": "int"
-        },
-        {
-          "name": "blurhash",
-          "columnType": 0,
-          "isNullable": true,
-          "dartType": "String?"
-        },
-        {
-          "name": "path",
-          "columnType": 0,
-          "isNullable": false,
-          "dartType": "String"
-        }
-      ],
-      "foreignKeys": [
-        {
-          "constraintName": "gear_photos_fk_0",
-          "columns": [
-            "gearId"
-          ],
-          "referenceTable": "gear",
-          "referenceTableSchema": "public",
-          "referenceColumns": [
-            "id"
-          ],
-          "onUpdate": 3,
-          "onDelete": 4
-        }
-      ],
-      "indexes": [
-        {
-          "indexName": "gear_photos_pkey",
-          "elements": [
-            {
-              "type": 0,
-              "definition": "id"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": true
-        },
-        {
-          "indexName": "gear_photos_gear_unique_idx",
-          "elements": [
-            {
-              "type": 0,
-              "definition": "gearId"
-            }
-          ],
-          "type": "btree",
-          "isUnique": false,
-          "isPrimary": false
-        }
-      ],
-      "managed": true
-    },
-    {
       "name": "gear_spraydecks",
       "dartName": "GearSpraydeck",
       "module": "przewrotkapp",
@@ -1180,6 +998,181 @@
       "managed": true
     },
     {
+      "name": "hours",
+      "dartName": "Hour",
+      "module": "przewrotkapp",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 6,
+          "isNullable": false,
+          "columnDefault": "nextval('hours_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "userId",
+          "columnType": 6,
+          "isNullable": false,
+          "dartType": "int"
+        },
+        {
+          "name": "amount",
+          "columnType": 6,
+          "isNullable": false,
+          "dartType": "int"
+        },
+        {
+          "name": "description",
+          "columnType": 0,
+          "isNullable": false,
+          "dartType": "String"
+        },
+        {
+          "name": "category",
+          "columnType": 0,
+          "isNullable": false,
+          "dartType": "protocol:HourCategory"
+        },
+        {
+          "name": "date",
+          "columnType": 4,
+          "isNullable": false,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "approved",
+          "columnType": 1,
+          "isNullable": false,
+          "columnDefault": "false",
+          "dartType": "bool"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "hours_fk_0",
+          "columns": [
+            "userId"
+          ],
+          "referenceTable": "serverpod_user_info",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "hours_pkey",
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true
+        },
+        {
+          "indexName": "hours_users_unique_idx",
+          "elements": [
+            {
+              "type": 0,
+              "definition": "userId"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "prze_users",
+      "dartName": "PrzeUser",
+      "module": "przewrotkapp",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 6,
+          "isNullable": false,
+          "columnDefault": "nextval('prze_users_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "userId",
+          "columnType": 6,
+          "isNullable": false,
+          "dartType": "int"
+        },
+        {
+          "name": "phoneNumber",
+          "columnType": 0,
+          "isNullable": true,
+          "dartType": "String?"
+        },
+        {
+          "name": "discordUsername",
+          "columnType": 0,
+          "isNullable": true,
+          "dartType": "String?"
+        },
+        {
+          "name": "socialLinks",
+          "columnType": 8,
+          "isNullable": false,
+          "dartType": "Map<String,Uri>"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "prze_users_fk_0",
+          "columns": [
+            "userId"
+          ],
+          "referenceTable": "serverpod_user_info",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 4
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "prze_users_pkey",
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true
+        },
+        {
+          "indexName": "prze_users_users_unique_idx",
+          "elements": [
+            {
+              "type": 0,
+              "definition": "userId"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false
+        }
+      ],
+      "managed": true
+    },
+    {
       "name": "rental_junctions",
       "dartName": "RentalJunction",
       "module": "przewrotkapp",
@@ -1279,7 +1272,7 @@
           "dartType": "int?"
         },
         {
-          "name": "userInfoId",
+          "name": "userId",
           "columnType": 6,
           "isNullable": false,
           "dartType": "int"
@@ -1297,13 +1290,13 @@
           "dartType": "DateTime"
         },
         {
-          "name": "from",
+          "name": "start",
           "columnType": 4,
           "isNullable": false,
           "dartType": "DateTime"
         },
         {
-          "name": "to",
+          "name": "end",
           "columnType": 4,
           "isNullable": false,
           "dartType": "DateTime"
@@ -1313,7 +1306,7 @@
         {
           "constraintName": "rentals_fk_0",
           "columns": [
-            "userInfoId"
+            "userId"
           ],
           "referenceTable": "serverpod_user_info",
           "referenceTableSchema": "public",
@@ -1342,7 +1335,7 @@
           "elements": [
             {
               "type": 0,
-              "definition": "userInfoId"
+              "definition": "userId"
             }
           ],
           "type": "btree",
@@ -3045,7 +3038,7 @@
   "installedModules": [
     {
       "module": "przewrotkapp",
-      "version": "20250925100146991"
+      "version": "20251104074155446"
     },
     {
       "module": "serverpod",

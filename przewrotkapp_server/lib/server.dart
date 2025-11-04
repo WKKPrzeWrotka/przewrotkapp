@@ -1,3 +1,4 @@
+import 'package:markdown/markdown.dart';
 import 'package:przewrotkapp_server/image_management.dart';
 import 'package:przewrotkapp_server/src/events_endpoint.dart';
 import 'package:przewrotkapp_server/src/web/routes/root.dart';
@@ -8,7 +9,7 @@ import 'src/generated/endpoints.dart';
 import 'src/generated/protocol.dart';
 import 'src/utils.dart';
 
-// This is the starting point of your Serverpod server. In most cases, you will
+// This is the starting point of your Serverpod server. In most cpt4S9hases, you will
 // only need to make additions to this file if you add future calls,  are
 // configuring Relic (Serverpod's web-server), or need custom setup work.
 
@@ -20,24 +21,27 @@ void run(List<String> args) async {
     Endpoints(),
     authenticationHandler: auth.authenticationHandler,
   );
-
+  sendValidationEmail(session, email, code) => sendEmail(
+    session,
+    email,
+    'PrzeWrotkApp - $code to kod potwierdzenia',
+    '',
+    html: markdownToHtml(
+      'Siema, kod do PrzeWrotkApp\'a to:\n\n'
+      '# $code',
+    ),
+  );
   auth.AuthConfig.set(
     auth.AuthConfig(
       userImageSize: 256,
-      sendValidationEmail: (session, email, code) => sendEmail(
-        session,
-        email,
-        'PrzeWrotkApp - kod $code',
-        'Siema, kod to $code',
-      ),
-      sendPasswordResetEmail: (session, user, code) => sendEmail(
-        session,
-        user.email!,
-        'PrzeWrotkApp - kod $code',
-        'Siema, kod to $code',
-      ),
-      validationCodeLength: 4,
+      sendValidationEmail: (session, email, code) =>
+          sendValidationEmail(session, email, code),
+      sendPasswordResetEmail: (session, user, code) =>
+          sendValidationEmail(session, user.email!, code),
+      validationCodeLength: 6,
       minPasswordLength: 6,
+      // Block user creation
+      onUserWillBeCreated: (session, user, string) async => false,
       onUserCreated: (session, user) async {
         try {
           await PrzeUser.db.insertRow(
@@ -55,6 +59,7 @@ void run(List<String> args) async {
             "DELETING USERINFO STUFF BECAUSE OF FAILED EXTRA!",
             level: LogLevel.error,
           );
+          await auth.Users.blockUser(session, user.id!);
           await auth.UserInfo.db.deleteRow(session, user);
           await PrzeUser.db.deleteWhere(
             session,

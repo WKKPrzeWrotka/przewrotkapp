@@ -20,30 +20,16 @@ CREATE INDEX "comment_gear_idx" ON "comments" USING btree ("gearId");
 CREATE INDEX "comment_resolved_by_idx" ON "comments" USING btree ("resolvedById");
 
 --
--- Class ExtraUserInfo as table extra_user_infos
---
-CREATE TABLE "extra_user_infos" (
-    "id" bigserial PRIMARY KEY,
-    "userInfoId" bigint NOT NULL,
-    "phoneNumber" text,
-    "discordUsername" text,
-    "socialLinks" json NOT NULL
-);
-
--- Indexes
-CREATE UNIQUE INDEX "extra_user_info_user_info_unique_idx" ON "extra_user_infos" USING btree ("userInfoId");
-
---
 -- Class FavouritesJunction as table favourites_junctions
 --
 CREATE TABLE "favourites_junctions" (
     "id" bigserial PRIMARY KEY,
-    "gearId" bigint NOT NULL,
-    "extraUserInfoId" bigint NOT NULL
+    "userId" bigint NOT NULL,
+    "gearId" bigint NOT NULL
 );
 
 -- Indexes
-CREATE UNIQUE INDEX "favourites_junctions_index_idx" ON "favourites_junctions" USING btree ("gearId", "extraUserInfoId");
+CREATE UNIQUE INDEX "favourites_junctions_index_idx" ON "favourites_junctions" USING btree ("userId", "gearId");
 
 --
 -- Class Gear as table gear
@@ -55,7 +41,8 @@ CREATE TABLE "gear" (
     "manufacturer" text,
     "model" text,
     "friendlyName" text,
-    "photoUrls" json
+    "photoUrls" json,
+    "thumbnailUrl" text
 );
 
 -- Indexes
@@ -179,6 +166,36 @@ CREATE TABLE "gear_throwbags" (
 CREATE UNIQUE INDEX "throwbags_gear_unique_idx" ON "gear_throwbags" USING btree ("gearId");
 
 --
+-- Class Hour as table hours
+--
+CREATE TABLE "hours" (
+    "id" bigserial PRIMARY KEY,
+    "userId" bigint NOT NULL,
+    "amount" bigint NOT NULL,
+    "description" text NOT NULL,
+    "category" text NOT NULL,
+    "date" timestamp without time zone NOT NULL,
+    "approved" boolean NOT NULL DEFAULT false
+);
+
+-- Indexes
+CREATE INDEX "hours_users_unique_idx" ON "hours" USING btree ("userId");
+
+--
+-- Class PrzeUser as table prze_users
+--
+CREATE TABLE "prze_users" (
+    "id" bigserial PRIMARY KEY,
+    "userId" bigint NOT NULL,
+    "phoneNumber" text,
+    "discordUsername" text,
+    "socialLinks" json NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "prze_users_users_unique_idx" ON "prze_users" USING btree ("userId");
+
+--
 -- Class RentalJunction as table rental_junctions
 --
 CREATE TABLE "rental_junctions" (
@@ -195,15 +212,15 @@ CREATE UNIQUE INDEX "rental_junctions_index_idx" ON "rental_junctions" USING btr
 --
 CREATE TABLE "rentals" (
     "id" bigserial PRIMARY KEY,
-    "userInfoId" bigint NOT NULL,
+    "userId" bigint NOT NULL,
     "created" timestamp without time zone NOT NULL,
     "lastModified" timestamp without time zone NOT NULL,
-    "from" timestamp without time zone NOT NULL,
-    "to" timestamp without time zone NOT NULL
+    "start" timestamp without time zone NOT NULL,
+    "end" timestamp without time zone NOT NULL
 );
 
 -- Indexes
-CREATE INDEX "rentals_users_unique_idx" ON "rentals" USING btree ("userInfoId");
+CREATE INDEX "rentals_users_unique_idx" ON "rentals" USING btree ("userId");
 
 --
 -- Class CloudStorageEntry as table serverpod_cloud_storage
@@ -546,28 +563,18 @@ ALTER TABLE ONLY "comments"
     ON UPDATE NO ACTION;
 
 --
--- Foreign relations for "extra_user_infos" table
---
-ALTER TABLE ONLY "extra_user_infos"
-    ADD CONSTRAINT "extra_user_infos_fk_0"
-    FOREIGN KEY("userInfoId")
-    REFERENCES "serverpod_user_info"("id")
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION;
-
---
 -- Foreign relations for "favourites_junctions" table
 --
 ALTER TABLE ONLY "favourites_junctions"
     ADD CONSTRAINT "favourites_junctions_fk_0"
-    FOREIGN KEY("gearId")
-    REFERENCES "gear"("id")
+    FOREIGN KEY("userId")
+    REFERENCES "serverpod_user_info"("id")
     ON DELETE CASCADE
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "favourites_junctions"
     ADD CONSTRAINT "favourites_junctions_fk_1"
-    FOREIGN KEY("extraUserInfoId")
-    REFERENCES "extra_user_infos"("id")
+    FOREIGN KEY("gearId")
+    REFERENCES "gear"("id")
     ON DELETE CASCADE
     ON UPDATE NO ACTION;
 
@@ -662,6 +669,26 @@ ALTER TABLE ONLY "gear_throwbags"
     ON UPDATE NO ACTION;
 
 --
+-- Foreign relations for "hours" table
+--
+ALTER TABLE ONLY "hours"
+    ADD CONSTRAINT "hours_fk_0"
+    FOREIGN KEY("userId")
+    REFERENCES "serverpod_user_info"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "prze_users" table
+--
+ALTER TABLE ONLY "prze_users"
+    ADD CONSTRAINT "prze_users_fk_0"
+    FOREIGN KEY("userId")
+    REFERENCES "serverpod_user_info"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
 -- Foreign relations for "rental_junctions" table
 --
 ALTER TABLE ONLY "rental_junctions"
@@ -682,7 +709,7 @@ ALTER TABLE ONLY "rental_junctions"
 --
 ALTER TABLE ONLY "rentals"
     ADD CONSTRAINT "rentals_fk_0"
-    FOREIGN KEY("userInfoId")
+    FOREIGN KEY("userId")
     REFERENCES "serverpod_user_info"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
@@ -722,9 +749,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR przewrotkapp
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('przewrotkapp', '20250923124103219', now())
+    VALUES ('przewrotkapp', '20251104074155446', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20250923124103219', "timestamp" = now();
+    DO UPDATE SET "version" = '20251104074155446', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod
