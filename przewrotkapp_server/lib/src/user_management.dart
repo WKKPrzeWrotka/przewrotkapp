@@ -30,6 +30,10 @@ Future<void> createNewSkladkaUsers(
         scopeNames: [],
         blocked: false,
       ),
+      'email',
+      // By default, user creation is locked down
+      // But not here 😈
+      (session, user, string) async => true,
     );
     if (newUser == null) {
       session.log(
