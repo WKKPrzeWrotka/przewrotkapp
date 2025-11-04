@@ -82,9 +82,9 @@ with lib;
       pg_dump przewrotkapp > "przewrotkapp-db_$(date '+%Y-%m-%d_%H-%M-%S').sql"
       # leave only 7 latest, delete the rest
       ls -1t | tail -n +8 | xargs -d '\n' rm --
-      rclone sync . matigdrive:/pwa-backups
+      rclone --drive-shared-with-me --transfers 1 --stats 5s sync . matigdrive:/db-backups
       '';
-      startAt = "*-*-* 02:00:00";
+      startAt = "*-*-* 01:00:00";
     };
   };
 }
