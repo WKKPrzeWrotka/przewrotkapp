@@ -42,6 +42,10 @@ Future<void> createNewSkladkaUsers(
       );
       continue;
     }
+    await EmailAuth.db.insertRow(
+      session,
+      EmailAuth(userId: newUser.id!, email: newUser.email!, hash: 'dupa12'),
+    );
     session.log(
       "Sending $newUser email about account creation...",
       level: LogLevel.debug,
