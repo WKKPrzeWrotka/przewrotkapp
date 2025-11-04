@@ -21,3 +21,5 @@ result
 lib/src/excel_migration/godzinki.csv
 
 gear_photos/
+
+db-backups/
