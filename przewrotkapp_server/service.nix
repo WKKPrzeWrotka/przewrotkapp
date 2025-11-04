@@ -79,7 +79,7 @@ with lib;
       path  = [ pkgs.postgresql ];
       script = ''
       cd /var/lib/przewrotkapp/db-backups
-      pg_dump przewrotkapp > "przewrotkapp-db_$(date '+%Y-%m-%d_%H-%M-%S').sql"
+      pg_dump -Fc przewrotkapp > "przewrotkapp-db_$(date '+%Y-%m-%d_%H-%M-%S').dump"
       # leave only 7 latest, delete the rest
       ls -1t | tail -n +8 | xargs -d '\n' rm --
       rclone --drive-shared-with-me --transfers 1 -v --stats 5s sync . matigdrive:/db-backups
