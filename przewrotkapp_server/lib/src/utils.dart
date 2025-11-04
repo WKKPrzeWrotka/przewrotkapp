@@ -15,6 +15,15 @@ Future<bool> sendEmail(
   String text, {
   String? html,
 }) async {
+  if (session.serverpod.runMode != ServerpodRunMode.production &&
+      !bool.fromEnvironment('REALLY_SEND_EMAILS')) {
+    session.log(
+      "Not sending emails in non-production mode\n"
+      "To override, set --dart-define REALLY_SEND_EMAILS=true",
+      level: LogLevel.warning,
+    );
+    return true;
+  }
   final message = Message()
     ..from = Address(Serverpod.instance.getPassword('serverEmail')!)
     ..recipients.add(email)
