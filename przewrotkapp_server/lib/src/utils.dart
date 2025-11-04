@@ -19,7 +19,7 @@ Future<bool> sendEmail(
       !bool.fromEnvironment('REALLY_SEND_EMAILS')) {
     session.log(
       "Not sending emails in non-production mode\n"
-      "To override, set --dart-define REALLY_SEND_EMAILS=true",
+      "To override, set --define REALLY_SEND_EMAILS=true",
       level: LogLevel.warning,
     );
     return true;
