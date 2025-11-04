@@ -1,6 +1,7 @@
 import 'package:markdown/markdown.dart';
 import 'package:przewrotkapp_server/image_management.dart';
 import 'package:przewrotkapp_server/src/events_endpoint.dart';
+import 'package:przewrotkapp_server/src/user_management.dart';
 import 'package:przewrotkapp_server/src/web/routes/root.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/serverpod_auth_server.dart' as auth;
@@ -96,11 +97,19 @@ void run(List<String> args) async {
     ImagesRefreshFutureCall.callName,
   );
   if (pod.runMode == ServerpodRunMode.production) {
+    // Discord integration
     final dcEvents = DiscordEventsFutureCall();
     pod.registerFutureCall(dcEvents, dcEvents.name);
     await DiscordEventsFutureCall.schedule(
       pod,
       delay: Duration(milliseconds: 1),
+    );
+    // Auto user management
+    final userRefresh = UsersManagementRefreshing();
+    pod.registerFutureCall(userRefresh, userRefresh.name);
+    await UsersManagementRefreshing.schedule(
+      pod,
+      delay: Duration(microseconds: 1),
     );
   }
 }
