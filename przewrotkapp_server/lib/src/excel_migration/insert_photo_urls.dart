@@ -4,6 +4,8 @@ import 'dart:typed_data';
 
 import 'package:blurhash_dart/blurhash_dart.dart';
 import 'package:image/image.dart' as img;
+import 'package:przewrotkapp_client/magic_numbers.dart';
+import 'package:przewrotkapp_server/image_management.dart';
 import 'package:przewrotkapp_server/src/generated/gear/gear.dart';
 import 'package:serverpod/serverpod.dart';
 
@@ -34,15 +36,27 @@ Future<void> insertPhotoUrls(
       final bytes = await file.readAsBytes();
       final image = img.decodeJpg(bytes)!;
       final (ogWidth, ogHeight) = (image.width, image.height);
-      img.resize(image, height: 128, interpolation: img.Interpolation.cubic);
-      final hash = BlurHash.encode(image, numCompX: 4, numCompY: 4);
+      img.resize(
+        image,
+        height: thumbnailHeight,
+        interpolation: img.Interpolation.cubic,
+      );
+      final hash = BlurHash.encode(
+        image,
+        numCompX: blurhashCompSize,
+        numCompY: blurhashCompSize,
+      );
       if (first) {
-        final path = '/$clubId/thumbnail.jpg';
+        final path = getThumbnailPath(clubId);
         await session.storage.storeFile(
           storageId: 'public',
           path: path,
           byteData: ByteData.sublistView(
-            img.encodeJpg(image, quality: 60, chroma: img.JpegChroma.yuv420),
+            img.encodeJpg(
+              image,
+              quality: gearThumbnailCompressionLevel,
+              chroma: img.JpegChroma.yuv420,
+            ),
           ),
         );
         final pubUrl = await session.storage.getPublicUrl(
@@ -56,7 +70,7 @@ Future<void> insertPhotoUrls(
         thumbUrl = pubUrl.replace(queryParameters: params);
         first = false;
       }
-      final path = '/$clubId/${basename(file.path)}';
+      final path = '/${clubId.toUpperCase()}/${basename(file.path)}';
       await session.storage.storeFile(
         storageId: 'public',
         path: path,
