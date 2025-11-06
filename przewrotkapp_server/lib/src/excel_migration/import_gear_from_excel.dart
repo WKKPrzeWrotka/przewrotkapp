@@ -259,5 +259,3 @@ Future<void> importComments({
     }
   });
 }
-
-void main() {}
