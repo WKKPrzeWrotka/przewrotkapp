@@ -1,0 +1,11 @@
+class: GearPfd
+table: gear_pfds
+extends: GearExtra
+fields:
+  gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
+  size: GenericGearSize
+  type: PfdType
+indexes:
+  pfds_gear_unique_idx:
+    fields: gearId
+    unique: true

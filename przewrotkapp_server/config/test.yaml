@@ -14,13 +14,6 @@ apiServer:
   publicPort: 0
   publicScheme: http
 
-# Configuration for the Insights test server.
-insightsServer:
-  port: 0
-  publicHost: localhost
-  publicPort: 0
-  publicScheme: http
-
 # Configuration for the web test server.
 webServer:
   port: 0
@@ -31,25 +24,18 @@ webServer:
 # This is the database setup for your test server.
 database:
   host: localhost
-  port: 9090
+  port: 5432
   name: przewrotkapp_test
   user: postgres
 
-# This is the setup for your Redis test instance.
-redis:
-  enabled: false
-  host: localhost
-  port: 9091
-  #user: # defaults to empty
-  #requireSsl: true # defaults to false
+maxRequestSize: 5242880 # The maximum size of requests allowed in bytes
 
 sessionLogs:
-  persistentEnabled: true
   consoleEnabled: true
-# consoleLogFormat: json # Defaults to "json", options are "text" or "json"
+  persistentEnabled: false
+  consoleLogFormat: text # Defaults to "json", options are "text" or "json"
 
-# futureCallExecutionEnabled: true # Defaults to true
-
-#futureCall:
-#  concurrencyLimit: 1 # Defaults to 1, a negative or null value removes the limit
+futureCallExecutionEnabled: true # Defaults to true
+futureCall:
+  concurrencyLimit: 2 # Defaults to 1, a negative or null value removes the limit
 #  scanInterval: 5000 # Unit in milliseconds, defaults to 5000

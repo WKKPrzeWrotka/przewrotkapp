@@ -1,0 +1,13 @@
+class: GearKayak
+table: gear_kayaks
+extends: GearExtra
+fields:
+  gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
+  type: KayakType
+  minWeight: int?
+  maxWeight: int?
+  length: int
+indexes:
+  kayaks_gear_unique_idx:
+    fields: gearId
+    unique: true

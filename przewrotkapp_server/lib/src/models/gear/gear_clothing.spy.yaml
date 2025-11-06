@@ -1,0 +1,12 @@
+class: GearClothing
+table: gear_clothes
+extends: GearExtra
+fields:
+  gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
+  size: GenericGearSize
+  type: ClothingType
+  typeDescription: String?
+indexes:
+  clothes_gear_unique_idx:
+    fields: gearId
+    unique: true

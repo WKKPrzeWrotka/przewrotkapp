@@ -1,0 +1,13 @@
+enum: KayakType
+serialized: byName
+# Let's see if no default makes any problems or not
+#default: zwalkowy
+values:
+  - creek
+  - riverRunner
+  - halfSlice
+  - fullSlice
+  - playboat
+  - zwalkowy
+  - dwuOsobowy
+  - kanadyjka

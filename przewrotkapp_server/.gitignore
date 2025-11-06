@@ -13,3 +13,13 @@ config/passwords.yaml
 
 # Firebase service account key for Firebase auth
 config/firebase_service_account_key.json
+
+# NixOS
+result
+
+# This contains personal data :O
+lib/src/excel_migration/godzinki.csv
+
+gear_photos/
+
+db-backups/

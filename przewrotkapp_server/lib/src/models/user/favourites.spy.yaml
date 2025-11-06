@@ -1,0 +1,9 @@
+class: FavouritesJunction
+table: favourites_junctions
+fields:
+  user: module:auth:UserInfo?, relation(onDelete=cascade)
+  gear: Gear?, relation(name=gear_favourites_junctions, onDelete=cascade)
+indexes:
+  favourites_junctions_index_idx:
+    fields: userId, gearId
+    unique: true

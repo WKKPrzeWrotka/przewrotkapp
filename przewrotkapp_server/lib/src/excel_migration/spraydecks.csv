@@ -1,0 +1,59 @@
+Numer,Producent,Model,Typ,Rozmiar
+FS-10,Samoróbka,Nizinny,small,m
+FS-12,Samoróbka,Nizinny,small,m
+FS-13,Samoróbka,Nizinny,small,m
+FS-23,Samoróbka,Nizinny,small,m
+FS-30,Samoróbka,Nizinny,small,m
+KFD-01,Noname,Rock Big,big,m
+KFD-02,Noname,Rock Big,big,l
+KFD-03,Noname,Rock Big,big,xs
+KFD-04,Noname,Rock Big,big,l
+KFD-05,Noname,Rock Big,big,s
+KFD-06,Noname,Rock Big,big,s
+KFD-07,Noname,Rock Big,big,xl
+KFD-08,Noname,Rock Big,big,m
+KFD-09,Noname,Rock Big,big,sOrM
+KFD-10,Hiko,,big,m
+KFD-11,Noname,Rock Big,big,l
+KFD-12,Noname,Rock Big,big,m
+KFD-13,Extreme,,big,xsOrS
+KFD-14,HF,Silverback,big,l
+KFD-15,StomRide,Simple,big,xl
+KFD-16,StomRide,Simple,big,l
+KFD-17,StomRide,Escape,big,m
+KFD-18,Palm,Sport,big,xl
+KFD-19,Palm,Sport,big,xs
+KFD-20,StormRide,Escape,big,m
+KFD-21,Palm,Sport,big,xs
+KFD-22,Palm,Sport,big,mOrL
+KFD-23,Noname,Freestyle,big,l
+KFD-24,PeakUK,Whitewater,big,s
+KFD-25,PeakUK,Whitewater,big,s
+KFD-26,PeakUK,Whitewater,big,mOrL
+KFD-27,PeakUK,Whitewater,big,mOrL
+KFD-28,StormRide,Escape,big,xsOrS
+KFD-29,PeakUK,Whitewater,big,mOrL
+KFD-30,PeakUK,Whitewater,big,s
+KFD-31,PeakUK,Standard,big,s
+KFD-32,PeakUK,Standard,big,s
+KFD-33,PeakUK,Standard,huge,s
+KFD-34,PeakUK,Standard,big,xs
+KFD-35,Noname,Rock Big,big,l
+KFM-01,Noname,,small,xs
+KFM-02,Noname,,small,m
+KFM-03,Noname,,small,s
+KFM-04,Noname,,small,s
+KFM-05,Noname,,small,s
+KFM-06,Noname,,small,s
+KFM-07,Noname,,small,s
+KFM-08,Noname,,small,s
+KFM-09,Noname,,small,s
+KFM-10,Noname,,small,m
+KFM-12,Noname,,small,m
+KFM-13,Noname,,small,xl
+KFM-14,Noname,,small,m
+KFM-15,BushSport,,small,m
+KFM-16,Noname,,small,m
+KFN-01,HikoSport,Nizinny,big,m
+KFN-02,HikoSport,Nizinny,big,m
+KFN-03,Palm,Nizinny,small,m

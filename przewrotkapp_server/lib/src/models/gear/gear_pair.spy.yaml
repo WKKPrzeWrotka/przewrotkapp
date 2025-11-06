@@ -1,0 +1,4 @@
+class: GearPair
+fields:
+  gear: Gear
+  gearExtra: GearExtra

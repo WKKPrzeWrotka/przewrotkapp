@@ -1,0 +1,24 @@
+enum: HourCategory
+serialized: byName
+# Let's see if no default makes any problems or not
+#default: zwalkowy
+values:
+  ### Wypożyczenie sprzętu, zawsze ujemne
+  - rental
+  ### Pomoc przy szkoleniówce
+  - helpAtCourse
+  ### Pomoc w promocji klubu (stanie na DASach, rozwieszanie plakatów, itp)
+  - helpAtPromotion
+  ### Pomoc przy nie-szkoleniówkowych wydarzeniach klubowych (PrzeRodziny, organizacja spływów, organizacja nie-kajakowych imprez integracyjnych)
+  - helpAtEvent
+  ### Pomoc sprzętowa (naprawianie kajaków, sprzątanie hangaru)
+  - helpAtGear
+  ### Dotacja sprzętu do klubu lub zakup godzinek pieniędzmi
+  - donation
+  ### Wypłaty funkcyjnych
+  - functionary
+  ### Darmowe godzinki za płacenie składki, albo na start
+  - bonus
+  ### Kary wszelakiej maści - za niepłacenie składki, za późne wypożyczanie sprzętu, za brak uśmiechu na wodzie
+  - punishment
+  - other

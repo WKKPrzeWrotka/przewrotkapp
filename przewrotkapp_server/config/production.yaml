@@ -6,22 +6,15 @@
 
 # Configuration for the main API server.
 apiServer:
-  port: 8080
-  publicHost: api.examplepod.com
-  publicPort: 443
-  publicScheme: https
-
-# Configuration for the Insights server.
-insightsServer:
-  port: 8081
-  publicHost: insights.examplepod.com
+  port: 42069
+  publicHost: api.app.przewrotka.org
   publicPort: 443
   publicScheme: https
 
 # Configuration for the web server.
 webServer:
-  port: 8082
-  publicHost: app.examplepod.com
+  port: 42070
+  publicHost: api.app.przewrotka.org
   publicPort: 443
   publicScheme: https
 
@@ -30,33 +23,21 @@ webServer:
 # If you are connecting on a public IP (e.g. on AWS or Google Cloud Run), you
 # connect on the public IP of the database e.g. database.examplepod.com.
 database:
-  host: database.private-production.examplepod.com
+  host: localhost
   port: 5432
-  name: serverpod
-  user: postgres
-  requireSsl: true
+  name: przewrotkapp
+  user: przewrotkapp
+  requireSsl: false
   #isUnixSocket: true # defaults to false
 
-# This is the setup for Redis. The default for the Google Cloud Engine Terraform
-# configuration is to connect on a private IP address.
-# If you are connecting on a public IP (e.g. on AWS or Google Cloud Run), you
-# connect on the public IP of the database e.g. redis.examplepod.com.
-redis:
-  enabled: false
-  host: redis.private-production.examplepod.com
-  port: 6379
-  #user: # defaults to empty
-  #requireSsl: true # defaults to false
-
-maxRequestSize: 524288 # The maximum size of requests allowed in bytes
+maxRequestSize: 5242880 # The maximum size of requests allowed in bytes
 
 sessionLogs:
-  consoleEnabled: false
-# persistentEnabled: true
-# consoleLogFormat: json # Defaults to "json", options are "text" or "json"
+  consoleEnabled: true
+  persistentEnabled: false
+  consoleLogFormat: text # Defaults to "json", options are "text" or "json"
 
-# futureCallExecutionEnabled: true # Defaults to true
-
-#futureCall:
-#  concurrencyLimit: 1 # Defaults to 1, a negative or null value removes the limit
+futureCallExecutionEnabled: true # Defaults to true
+futureCall:
+  concurrencyLimit: 2 # Defaults to 1, a negative or null value removes the limit
 #  scanInterval: 5000 # Unit in milliseconds, defaults to 5000

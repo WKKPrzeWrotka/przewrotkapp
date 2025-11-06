@@ -1,0 +1,9 @@
+enum: PaddleType
+serialized: byName
+# Let's see if no default makes any problems or not
+#default: zwalkowe
+values:
+  - gorskie
+  - nizinne
+  - zwalkowe
+  - pagaj

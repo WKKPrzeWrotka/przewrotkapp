@@ -1,0 +1,16 @@
+enum: GearType
+serialized: byName
+# Let's see if no default makes any problems or not
+#default: zwalkowy
+values:
+  - belt
+  - clothing
+  - floatbag
+  - helmet
+  - kayak
+  - paddle
+  - pfd
+  - spraydeck
+  - throwbag
+  ### Avoid if possible!!
+  - other

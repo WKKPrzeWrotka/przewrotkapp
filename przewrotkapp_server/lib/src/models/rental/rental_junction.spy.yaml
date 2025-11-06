@@ -1,0 +1,9 @@
+class: RentalJunction
+table: rental_junctions
+fields:
+  gear: Gear?, relation(name=gear_junctions)
+  rental: Rental?, relation(name=rental_junctions, onDelete=cascade)
+indexes:
+  rental_junctions_index_idx:
+    fields: gearId, rentalId
+    unique: true

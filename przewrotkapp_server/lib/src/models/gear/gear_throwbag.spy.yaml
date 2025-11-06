@@ -1,0 +1,10 @@
+class: GearThrowbag
+table: gear_throwbags
+extends: GearExtra
+fields:
+  gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
+  length: int
+indexes:
+  throwbags_gear_unique_idx:
+    fields: gearId
+    unique: true

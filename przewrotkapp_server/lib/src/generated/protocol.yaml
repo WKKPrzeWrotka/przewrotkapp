@@ -1,2 +1,51 @@
-greeting:
-  - hello:
+comments:
+  - getComments:
+  - watchComments:
+events:
+  - getDiscordEvents:
+gearManage:
+  - uploadGearImage:
+  - createOrUpdateBelt:
+  - createOrUpdateClothing:
+  - createOrUpdateFloatbag:
+  - createOrUpdateHelmet:
+  - createOrUpdateKayak:
+  - createOrUpdatePaddle:
+  - createOrUpdatePfd:
+  - createOrUpdateSpraydeck:
+  - createOrUpdateThrowbag:
+gearRead:
+  - getAllBelts:
+  - watchAllBelts:
+  - getAllClothes:
+  - watchAllClothes:
+  - getAllFloatbags:
+  - watchAllFloatbags:
+  - getAllHelmets:
+  - watchAllHelmets:
+  - getAllKayaks:
+  - watchAllKayaks:
+  - getAllPaddles:
+  - watchAllPaddles:
+  - getAllPfds:
+  - watchAllPfds:
+  - getAllSpraydecks:
+  - watchAllSpraydecks:
+  - getAllThrowbags:
+  - watchAllThrowbags:
+rental:
+  - getRentals:
+  - watchRentals:
+  - rentGear:
+user:
+  - getUserInfo:
+  - getPrzeUser:
+  - watchPrzeUser:
+  - updateGearFavourite:
+  - updateUser:
+  - getFavourites:
+  - watchFavourites:
+  - getHours:
+  - watchHours:
+  - getHoursSum:
+  - watchHoursSum:

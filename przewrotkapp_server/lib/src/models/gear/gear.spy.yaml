@@ -1,0 +1,28 @@
+class: Gear
+table: gear
+fields:
+  clubId: String
+  #  This is *kind* of repetition, because info about gear type is already
+  #  included in the existance of gear_x field, connected by foreign key
+  #  ...buuuut I thought this might help with simplifying queries, and if
+  #  I ever decide this is bad, I can just drop it :)
+  type: GearType
+  manufacturer: String?
+  model: String?
+  friendlyName: String?
+  photoUrls: List<Uri>?
+  thumbnailUrl: Uri?
+  junctions: List<RentalJunction>?, relation(name=gear_junctions)
+  favouritesJunctions: List<FavouritesJunction>?, relation(name=gear_favourites_junctions)
+  comments: List<Comment>?, relation(name=gear_comments)
+
+  # TODO: Evaluate if i want to include extras here
+  # (This will not change the db in any way, just add include functions to ORM)
+  # This way i could do getAllGear() in one request and have everything in place
+  # I could, even, get rid of GearPair, and just pass Gear itself only
+  # This would, however, be a gigantic change to the whole goddamn codebase everywhere ;_;
+  # I think it's more worth it to wait for Serverpod people to get their shit together with abstract classes
+indexes:
+  gear_club_id_idx:
+    fields: clubId
+    unique: true

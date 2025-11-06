@@ -1,16 +1,29 @@
 name: przewrotkapp_server
 description: Starting point for a Serverpod server.
-# version: 1.0.0
+version: 1.0.0+1
 # homepage: https://www.example.com
 
+executables:
+  pwa: main
+
 environment:
-  sdk: '>=3.5.0 <4.0.0'
+  sdk: '>=3.9.0 <4.0.0'
 
 dependencies:
-  serverpod: 2.9.1
+  serverpod: 2.9.2
+  serverpod_auth_server: 2.9.2
+  przewrotkapp_client:
+    path: ../przewrotkapp_client
+  mailer: ^6.6.0
+  nyxx: ^6.7.0
+  image: ^4.5.4
+  blurhash_dart: ^1.2.1
+  gsheets: ^0.5.0
+  markdown: ^7.3.0
 
 dev_dependencies:
   lints: '>=3.0.0 <7.0.0'
-  test: '^1.24.2'
-  serverpod_test: 2.9.1
+  test: ^1.26.3
+  serverpod_test: 2.9.2
+  csv: ^6.0.0
 

@@ -9,21 +9,14 @@
 # Configuration for the main API server.
 apiServer:
   port: 8080
-  publicHost: localhost
+  publicHost: 0.0.0.0
   publicPort: 8080
-  publicScheme: http
-
-# Configuration for the Insights server.
-insightsServer:
-  port: 8081
-  publicHost: localhost
-  publicPort: 8081
   publicScheme: http
 
 # Configuration for the web server.
 webServer:
   port: 8082
-  publicHost: localhost
+  publicHost: 0.0.0.0
   publicPort: 8082
   publicScheme: http
 
@@ -32,27 +25,18 @@ database:
   host: localhost
   port: 5432
   name: przewrotkapp
-  user: matiii
+  user: postgres
   #requireSsl: true # defaults to false
   #isUnixSocket: true # defaults to false
 
-# This is the setup for Redis.
-redis:
-  enabled: false
-  host: localhost
-  port: 8091
-  #user: # defaults to empty
-  #requireSsl: true # defaults to false
-
-maxRequestSize: 524288 # The maximum size of requests allowed in bytes
+maxRequestSize: 5242880 # The maximum size of requests allowed in bytes
 
 sessionLogs:
-  persistentEnabled: true
   consoleEnabled: true
+  persistentEnabled: false
   consoleLogFormat: text # Defaults to "json", options are "text" or "json"
 
-# futureCallExecutionEnabled: true # Defaults to true
-
-#futureCall:
-#  concurrencyLimit: 1 # Defaults to 1, a negative or null value removes the limit
+futureCallExecutionEnabled: true # Defaults to true
+futureCall:
+  concurrencyLimit: 2 # Defaults to 1, a negative or null value removes the limit
 #  scanInterval: 5000 # Unit in milliseconds, defaults to 5000

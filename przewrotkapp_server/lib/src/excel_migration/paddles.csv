@@ -1,0 +1,67 @@
+Numer,Producent,Model,Typ,Długość,Skręt
+P-01,,Listek,pagaj,150,0
+P-02,,Listek,pagaj,160,0
+P-03,TNP,,zwalkowe,155,0
+P-04,TNP,,zwalkowe,155,0
+P-05,,Łopata,pagaj,155,0
+P-06,,,pagaj,140,0
+WK-01,TNP,Składane,zwalkowe,190,60
+WK-02,Dr Kayak,,zwalkowe,195,60
+WK-03,Dr Kayak,,zwalkowe,195,60
+WK-04,Dr Kayak,,zwalkowe,185,60
+WK-05,Dr Kayak,,zwalkowe,195,60
+WK-06,Dr Kayak,,zwalkowe,195,60
+WK-07,Dr Kayak,,zwalkowe,195,60
+WK-08,Dr Kayak,,zwalkowe,195,60
+WK-09,Dr Kayak,,zwalkowe,195,60
+WK-10,Dr Kayak,,zwalkowe,195,60
+WK-11,TNP,Rapa,gorskie,195,30
+WK-12,TNP,Rapa,gorskie,192.5,45
+WK-13,TNP,Rapa,gorskie,190,60
+WK-14,Panda,,gorskie,195,60
+WK-15,TNP,Rapa,gorskie,195,45
+WK-16,Dr Kayak,,zwalkowe,195,0
+WK-17,TNP,,zwalkowe,190,45
+WK-18,Swat,Egalis,gorskie,200,60
+WK-19,Dr Kayak,Banan,zwalkowe,195,60
+WK-20,Dr Kayak,,zwalkowe,190,30
+WK-21,Dr Kayak,,zwalkowe,205,60
+WK-22,Dr Kayak,,zwalkowe,195,60
+WK-23,Dr Kayak,,zwalkowe,195,60
+WK-24,TNP,,zwalkowe,200,60
+WK-25,Dr Kayak,,zwalkowe,195,60
+WK-26,TNP,Rapa,gorskie,197.5,45
+WK-27,TNP,Rapa,gorskie,195,45
+WK-28,TNP,Rapa,gorskie,198,20
+WK-29,TNP,Rapa,gorskie,191.5,60
+WK-30,TNP,Rapa,nizinne,187,0
+WK-31,TNP,Rapa,gorskie,192.5,45
+WK-32,TNP,Rapa,nizinne,179,0
+WK-33,TNP,Rapa,gorskie,195,60
+WK-34,Schlegel,Duralen,gorskie,192,60
+WK-35,,,nizinne,197,60
+WK-36,,Składane,nizinne,197,-45
+WK-37,,,nizinne,203,90
+WK-38,Dr Kayak,Allaround,zwalkowe,195,60
+WK-39,TNP,Rapa,gorskie,195,30
+WD-01,Dr Kayak,,zwalkowe,210,60
+WD-02,Dr Kayak,,zwalkowe,215,60
+WD-03,Dr Kayak,Niby składane,zwalkowe,225,60
+WD-04,TNP,,zwalkowe,240,60
+WD-05,Dr Kayak,,zwalkowe,220,60
+WD-06,,,gorskie,220,60
+WD-07,Dr Kayak,,zwalkowe,225,60
+WD-08,Dr Kayak,,zwalkowe,225,60
+WD-09,Dr Kayak,,zwalkowe,215,0
+WD-10,TNP,,zwalkowe,210,90
+WD-11,,,zwalkowe,210,90
+WD-12,Plastex,,gorskie,220,90
+WD-13,,,nizinne,208,60
+WD-14,,,nizinne,208,60
+WD-15,Schlegel,Tech III,gorskie,208,90
+WD-16,Ainsworth,ABS100 all round,nizinne,220,60
+WD-17,Ainsworth,ABS100 all round,nizinne,220,60
+WD-18,Ainsworth,ABS100 all round,nizinne,220,60
+WD-19,Ainsworth,ABS102 assy,nizinne,225,60
+WD-20,Ainsworth,ABS102 assy,nizinne,225,60
+WD-24,Swat,Egalis(Składane),gorskie,220,-60

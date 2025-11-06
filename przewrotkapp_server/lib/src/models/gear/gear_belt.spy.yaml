@@ -1,0 +1,10 @@
+class: GearBelt
+table: gear_belts
+extends: GearExtra
+fields:
+  gear: Gear?, relation(onUpdate=NoAction, onDelete=Cascade)
+  length: double
+indexes:
+  belts_gear_unique_idx:
+    fields: gearId
+    unique: true

@@ -1,11 +1,11 @@
 {
-    "name": "przewrotkapp_flutter",
-    "short_name": "przewrotkapp_flutter",
+    "name": "PrzeWrotkApp",
+    "short_name": "PrzeWrotkApp",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "description": "Potężna apka sprzętowa",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
