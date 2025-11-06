@@ -223,6 +223,7 @@ class UsersManagementRefreshing extends FutureCall {
       );
       await createNewSkladkaUsers(session, skladki);
       await blockNonSkladkaUsers(session, skladki);
+      await unblockExistingSkladkaUsers(session, skladki);
       await schedule(session.serverpod);
     } catch (_) {
       await schedule(session.serverpod);
