@@ -173,7 +173,7 @@ Future<void> unblockExistingSkladkaUsers(
       await sendEmail(
         session,
         innocentUser.email!,
-        "Blokada konta PrzeWrotkApp 😢",
+        "Odblokowanie konta PrzeWrotkApp 🎉",
         "",
         html: markdownToHtml("""
 # Siema 👋
