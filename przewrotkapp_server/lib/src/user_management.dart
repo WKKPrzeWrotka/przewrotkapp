@@ -4,8 +4,8 @@ import 'package:przewrotkapp_server/src/utils.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
 
-// TODO: Actually execute it somewhere
-
+/// Creates account for someone who is on Skladkowicze list, but doesn't have
+/// an account yet
 Future<void> createNewSkladkaUsers(
   Session session,
   List<Skladkowicz> skladki,
@@ -88,14 +88,20 @@ napisz śmiało do mnie:
   }
 }
 
+/// Blocks someone who has an account but is not on Skladkowicze list
+///
+/// Also sends them a guilty email
 Future<void> blockNonSkladkaUsers(
   Session session,
   List<Skladkowicz> skladki,
 ) async {
-  final existingUsers = await UserInfo.db.find(session);
-  for (final nieSkladkowicz in existingUsers.where(
-    (u) => (!skladki.map((s) => s.email).contains(u.email) && !u.blocked),
-  )) {
+  final usersNotOnList = await UserInfo.db.find(
+    session,
+    where: (u) =>
+        u.blocked.equals(false) &
+        u.email.notInSet(skladki.map((s) => s.email).toSet()),
+  );
+  for (final nieSkladkowicz in usersNotOnList) {
     session.log(
       '$nieSkladkowicz nie ma skladki! Blokuje!',
       level: LogLevel.warning,
@@ -141,6 +147,52 @@ Psst, w razie wszelakich pytań, możesz odezwać się do mnie
     } catch (e, s) {
       session.log(
         "Failed sending $nieSkladkowicz a blocked email!\n$e",
+        stackTrace: s,
+        level: LogLevel.error,
+      );
+    }
+  }
+}
+
+/// Unblocks someone who was blocked, but now is present on Skladkowicze list
+Future<void> unblockExistingSkladkaUsers(
+  Session session,
+  List<Skladkowicz> skladki,
+) async {
+  final blockedButSkladkaUsers = await UserInfo.db.find(
+    session,
+    where: (u) =>
+        u.blocked.equals(true) &
+        u.email.inSet(skladki.map((s) => s.email).toSet()),
+  );
+  for (final innocentUser in blockedButSkladkaUsers) {
+    await Users.unblockUser(session, innocentUser.id!);
+    // TODO: Retry
+    // Probably by scheduled event
+    try {
+      await sendEmail(
+        session,
+        innocentUser.email!,
+        "Blokada konta PrzeWrotkApp 😢",
+        "",
+        html: markdownToHtml("""
+# Siema 👋
+Tu znowu Mati Blue 🩵 (znaczy, jego bot)
+
+Dzięki opłaconej składce, odblokowałem twoje konto na PrzeWrotkApp 🩵
+Jesteś super 🩵🩵🩵
+
+Jak zawsze, w razie pytań, pisz:
+
+- @matiii3i na Discordzie
+- +48 577 294 391
+
+## [https://app.przewrotka.org/](https://app.przewrotka.org/)
+"""),
+      );
+    } catch (e, s) {
+      session.log(
+        "Failed sending $innocentUser an unblocked email!\n$e",
         stackTrace: s,
         level: LogLevel.error,
       );
