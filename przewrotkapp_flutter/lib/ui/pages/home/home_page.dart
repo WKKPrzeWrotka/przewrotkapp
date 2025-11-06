@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 import '../../../logic/data_types.dart';
+import '../../utils/names_and_strings.dart';
 import 'favourite_gear_card.dart';
 import 'hours_card.dart';
 import 'upcoming_trips_card.dart';
@@ -22,7 +23,7 @@ class HomePage extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Siemano ${user?.userName ?? 'ktoś'}'),
+            Text('Siemano ${user?.name ?? 'yyy'}'),
             if (context.watch<AllGearCache?>() == null)
               Text("🟠 Ładowanie...", style: tt.labelMedium),
           ],
