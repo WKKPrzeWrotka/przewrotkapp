@@ -5,7 +5,7 @@ TODO:
   - [ ] Rola godzinokwej
   - [ ] Zglaszanie godzinek
   - [ ] Edytowanie godzinek przez godzinkową
-- [ ] 
+  - [ ] Odbieranie godzinek za wypożyczenia
 - [ ] 
 - [ ] 
 - [ ] 
