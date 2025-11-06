@@ -99,31 +99,4 @@ class UserEndpoint extends Endpoint {
 
   Stream<List<int>> watchFavourites(Session session) =>
       watchX(() => getFavourites(session), _userUpdateCtrl.stream);
-
-  Future<List<Hour>> getHours(Session session, {int? userId}) => Hour.db.find(
-    session,
-    where: userId != null ? (h) => h.userId.equals(userId) : null,
-  );
-
-  Stream<List<Hour>> watchHours(Session session, {int? userId}) => watchX(
-    () => getHours(session, userId: userId),
-    _userUpdateCtrl.stream.where(
-      userId != null ? (e) => e == userId : (_) => true,
-    ),
-  );
-
-  Future<int> getHoursSum(Session session, int userId) => session.db
-      .unsafeQuery(
-        'SELECT SUM(amount) FROM hours '
-        'WHERE "userId" = ${EscapedExpression(userId)} '
-        'AND approved = true',
-      )
-      .then(
-        (res) => res.first.first is String ? int.parse(res.first.first) : 0,
-      );
-
-  Stream<int> watchHoursSum(Session session, int userId) => watchX(
-    () => getHoursSum(session, userId),
-    _userUpdateCtrl.stream.where((e) => e == userId),
-  );
 }

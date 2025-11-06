@@ -25,16 +25,30 @@ class _HoursCardState extends State<HoursCard> {
           children: [
             Text('Twoje godzinki:'),
             // TODO: Change this to some cool di, this is just for demo now
+            // note: turned out making di for this was super annoying because
+            // you have to pass userId. So maybe for another time :)
             StreamBuilder(
-              stream: client.user.watchHoursSum(sm.signedInUser!.id!),
+              stream: client.hours.watchHoursSum(sm.signedInUser!.id!),
               builder: (context, snap) => Text(
                 snap.hasData ? '${snap.data}h' : 'Ładowanie...',
                 style: tt.displayMedium,
               ),
             ),
-            ElevatedButton(
-              onPressed: () => context.push('/comments'),
-              child: Text("Zarób!"),
+            Align(
+              child: Wrap(
+                spacing: 4,
+                runSpacing: 4,
+                children: [
+                  FilledButton(
+                    onPressed: () => context.push('/comments'),
+                    child: Text("Zarób!"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => context.push('/hours/claim'),
+                    child: Text("Zgłoś należne"),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

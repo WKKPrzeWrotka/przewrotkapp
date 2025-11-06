@@ -33,6 +33,11 @@ gearRead:
   - watchAllSpraydecks:
   - getAllThrowbags:
   - watchAllThrowbags:
+hours:
+  - getHours:
+  - watchHours:
+  - getHoursSum:
+  - watchHoursSum:
 rental:
   - getRentals:
   - watchRentals:
@@ -45,7 +50,3 @@ user:
   - updateUser:
   - getFavourites:
   - watchFavourites:
-  - getHours:
-  - watchHours:
-  - getHoursSum:
-  - watchHoursSum:
