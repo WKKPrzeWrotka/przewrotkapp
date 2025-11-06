@@ -11,6 +11,7 @@ import 'ui/pages/gear_details/fullscreen_photos_page.dart';
 import 'ui/pages/gear_details/gear_details_page.dart';
 import 'ui/pages/gear_details/gear_edit_page.dart';
 import 'ui/pages/home/home_page.dart';
+import 'ui/pages/hours/hours_claim_page.dart';
 import 'ui/pages/new_rental/new_rental_page.dart';
 import 'ui/pages/rental_group_details/rental_group_details_page.dart';
 import 'ui/pages/sign_in/sign_in_page.dart';
@@ -70,6 +71,10 @@ final router = GoRouter(
       path: '/user/:userId/edit',
       builder: (context, state) =>
           UserEditPage(przeUser: state.extra as PrzeUser),
+    ),
+    GoRoute(
+      path: '/hours/claim',
+      builder: (context, state) => HoursClaimPage(),
     ),
     GoRoute(
       path: '/rentals/new',

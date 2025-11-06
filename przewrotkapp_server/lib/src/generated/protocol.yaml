@@ -38,6 +38,7 @@ hours:
   - watchHours:
   - getHoursSum:
   - watchHoursSum:
+  - claimHour:
 rental:
   - getRentals:
   - watchRentals:

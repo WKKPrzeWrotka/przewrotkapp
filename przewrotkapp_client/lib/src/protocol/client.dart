@@ -408,6 +408,12 @@ class EndpointHours extends _i1.EndpointRef {
         {'userId': userId},
         {},
       );
+
+  _i2.Future<void> claimHour(_i15.Hour hour) => caller.callServerEndpoint<void>(
+        'hours',
+        'claimHour',
+        {'hour': hour},
+      );
 }
 
 /// {@category Endpoint}

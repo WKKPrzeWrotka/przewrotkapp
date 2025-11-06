@@ -35,8 +35,9 @@ import 'package:przewrotkapp_server/src/generated/gear/gear_spraydeck.dart'
     as _i19;
 import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
     as _i20;
-import 'package:przewrotkapp_server/src/generated/user/prze_user.dart' as _i21;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i22;
+import 'package:przewrotkapp_server/src/generated/hour.dart' as _i21;
+import 'package:przewrotkapp_server/src/generated/user/prze_user.dart' as _i22;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i23;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -684,6 +685,24 @@ class Endpoints extends _i1.EndpointDispatch {
             params['userId'],
           ),
         ),
+        'claimHour': _i1.MethodConnector(
+          name: 'claimHour',
+          params: {
+            'hour': _i1.ParameterDescription(
+              name: 'hour',
+              type: _i1.getType<_i21.Hour>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['hours'] as _i6.HoursEndpoint).claimHour(
+            session,
+            params['hour'],
+          ),
+        ),
         'watchHours': _i1.MethodStreamConnector(
           name: 'watchHours',
           params: {
@@ -872,7 +891,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'extraUser': _i1.ParameterDescription(
               name: 'extraUser',
-              type: _i1.getType<_i21.PrzeUser>(),
+              type: _i1.getType<_i22.PrzeUser>(),
               nullable: false,
             )
           },
@@ -929,6 +948,6 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
-    modules['serverpod_auth'] = _i22.Endpoints()..initializeEndpoints(server);
+    modules['serverpod_auth'] = _i23.Endpoints()..initializeEndpoints(server);
   }
 }
