@@ -225,7 +225,7 @@ Future<void> importComments({
   Session? session,
   required int authorUserId,
 }) async {
-  final commentsCsv = File("$_root/komentarze-chatgpt.csv");
+  final commentsCsv = File("$_root/komentarze-zuza.csv");
   // this one uses lib because it has a lot of "strings"
   final commentsData = CsvToListConverter()
       .convert(

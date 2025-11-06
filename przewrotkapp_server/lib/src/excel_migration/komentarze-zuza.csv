@@ -1,0 +1,160 @@
+Numer,Uwagi/stan,Typ (neutral/warningarning/broken)
+KK-2,"naderwany prawy boczek, spawany przy mocowaniu siodełka",neutral
+KK-3,"brak podnóżka, wyrwane inserty od uchwytów na kolana/uda, był na zamykani doubrawy",warning
+KK-4,"brak boczków, strzelony",broken
+KK-5,"brak boczków, spawany przy mocowaniu siodełka. Nie nadaje się na mocniejsze pływanie",broken
+KK-7,"Lekko wgniecony dziób, neopren na siodełku ",warning
+KK-8,"ok, był spawany na dupie, uwaga bo szybki (a nie czerwony)",neutral
+KK-9,"brak motylków na kolana , odkleja sie pianka od oparcia, sparciała gumka od oparcia",broken
+KK-11,"uszkodzony pasek od napinarki, mocno spawany przy mocowaniu siodełka i na dupie",warning
+KK-12,"oryginalny podnóżek na szynie, obecnie wypchany styrodurem",neutral
+KK-13,"brak podnóżka, oparcie do udoskonalenia, ale ogólnie elegancki ",warning
+KK-14,dziura w kokpicie (niski priorytet),broken
+KK-15,"brak grodzi, oparcie siodełka naderwane, pianki na dupie do przyklejenia",neutral
+KK-16,"brak boczków (obecnie zrobione z gąbki i taśmy), czerwony strzelony nosek, strzelony także pod siodełkiem - Malina wkleił taśme i podobno narazie jest git i nie ruszać, do przyklejenia siatka na siodełku",warning
+KK-17,"ok, wgnieciony z tyłu za kokpitem",neutral
+KK-18,brak boczków ,neutral
+KK-19,"połamany nosek na dziobie, sparciałe gumki od oparcia, urwany korek ",warning
+KK-20,"brak grodzi z przodu, wgnieciony dziub ",neutral
+KK-21,"po grubszych naprawach (w tym spawanie), nie nadaje się na mocniejsze pływanie ",broken
+KK-22,"brak grodzi z przodu, cieknie, trzy razy zdał salze. Świetny kajak, zwiedził pół świata",neutral
+KK-24,"brak podnóżka, siodelko nieprzymocowane z tyłu, cieknie",warning
+KK-26,brak podnóżka,neutral
+KK-27,"dziura w kokpicie i dziura na dupie (spawana), oparcie handmade, ten dziobek jest naruszony",broken
+KK-28,urwany uchwyt z tylu,neutral
+KK-30,"brak grodzi z przodu i z tyłu (obecnie podmieniony outfit z żółtego hossa) siedzonko z Pyranha, mocno spawany",neutral
+KK-31,"po przejściach, urwane mocowanie siodełka, spawany przy śrubach, brak uchwytów na kolana/uda (raczej do sprzedania w przyszłości)",broken
+KK-32,brak grodzi,neutral
+KK-33,"wystająca siatka po spawaniu (trzeba zabezpieczyć/poprawić), urwany pasek od jednego boczka ",warning
+KK-34,"Kajak od Pana Benka, lekko sparciałe gumy od siodełka oraz od mocowania boczków, ale ogólnie w świetnym stanie ",neutral
+KK-35,dopasować lepszy korek bo obecny nie jest idealny,neutral
+KK-36,"brak boczków , do wymiany sparciała gumeczka od oparcia, do spawania przy kokpicie",warning
+KK-37,"oryginalny podnóżek na szynie, obecnie wypchany styrodurem",neutral
+KK-38,"cieknie, słaby outfit, ale ma pokrowiec",warning
+KK-39,"duża dziura przy kokpicie, cały kokpit osylikonowany białym pultem, oparcie na taśmie i trytycce, mocno spawany na dupie, do sprzedania w pezyszlosci",broken
+KK-40,"spawany na dupie z wklejoną siatką, był na zamykani doubravy, dwa razy zdał salze",neutral
+KK-41,"mocno spawany, nie nadaje się na grubsze pływanie, należy zabezpieczyć otwór w kokpicie przez który jest przeciągnięty pasek od siodełka żeby się nie strzępił, urwana taśmą od oparcia ",warning
+KK-42,"brak podnóżka, nowe boczki od Wave Sport, ogólnie elegancki, po naprawach (przymocowane siodełko, nowe boki siodełka z rzepem)",neutral
+KK-43,"kokpit do spawania, brak boczków",broken
+KK-44,"cieknie na korku, ostre krawędzie kokpitu, boczki trudne w ścisłym dopasowaniu do kajaka, bardzo delikatny plastik - przewozić tylko na boku, śruby mocujące siodełko szybko się rozregulowują. Ułamane mocowanie siodełka z lewej strony (materiał ABS)",warning
+KK-45,"cieknie na korku, ostre krawędzie kokpitu, boczki trudne w ścisłym dopasowaniu do kajaka, bardzo delikatny plastik - przewozić tylko na boku, śruby mocujące siodełko szybko się rozregulowują  ",warning
+NULL_1,"wyłamane mocowanie siodełka (grubsza naprawa), brak grodzi z przodu, oderwany boczek prawy, urwane mocowanie od napinarki oparcia ",broken
+NULL_2,obecnie w II magazynie PWr (ul Gdańska/Sopocka),neutral
+KK-29,cieknie,broken
+KN-1,"pęknięty kokpit, brak korka, środkowa ławka nie jest przykręcona",broken
+KN-2,kanadyjka szklana do naprawy (cieknie),broken
+AK-03,rozerwana kieszonka,neutral
+AK-08,kieszonka podjedzona przez myszy,neutral
+AK-09,"brak kieszonki, pianka wyjedzona przez myszy",neutral
+AK-10,pas nadgryziony przez myszy,neutral
+AK-11,"brak pasa głównego, kieszonka wyżarta przez myszy",warning
+AK-13,kieszonka wyjedzona przez myszy,neutral
+AK-14,gruz,neutral
+AK-16,ma podjajnik,neutral
+AK-17,ma podjajnik w którym brakuje klamry,neutral
+AK-18,kieszonka rozdarta,neutral
+AK-19,"kieszonka oderwana przez myszy, i rozdarcie (Kacper Strzelecki ją wziął żeby opracować metodę ścierania starych napisów)",neutral
+AK-30,ma podjajnik,neutral
+AK-38,SĄ DWIE AK-38!!,neutral
+AK-51,brak klamry od głównego zapięcia ale za to jest kieszonka,warning
+AK-28,brak pasa bezpiecznikowego,neutral
+AK-29,brak pasa bezpiecznikowego,neutral
+AK-31,jest pas bezpiecznikowy,neutral
+AK-32,ramiączka oderwane i przyszyte,neutral
+AK-34,jeden uchwyt zamka urwany,neutral
+AK-39,"jest pas bezpiecznikowy, ale klamra bez metalowego elementu ",neutral
+AK-52,jest pas bezpiecznikowy,neutral
+AK-53,jest pas bezpiecznikowy,neutral
+AK-54,brak pasa bezpiecznikowego,neutral
+AK-55,brak pasa bezpiecznikowego,neutral
+AK-56,brak pasa bezpiecznikowego,neutral
+AK-57,brak pasa bezpiecznikowego ,neutral
+AK-49,gruz,neutral
+P-05,xD,neutral
+P-06,uszkodzone pióro,warning
+WK-03,Zdeformowane lewe pióro ,warning
+WK-04,Drążek był złamany ale jest respawn,warning
+WK-07,"Nie ma ociekaczy, zaklejone taśmą z dwóch stron, klei się. ",warning
+WK-11,Połamane lewe pióro ,neutral
+WK-12,Połamane z dwóch stron,warning
+WK-13,"Otaśmowane z lewej strony, brak ociekaczy ",warning
+WK-15,połamane jedno pióro,neutral
+WK-19,"Brak ociekaczy, zdeformowane pióra ",warning
+WK-21,"zniekształcony drążek, nie jest symetryczne, potaśmowana dwie strony (taśma porwana - klei się), zdeformowane pióra ",broken
+WK-22,"Potaśmowana prawa strona rączki, zdeformowane pióra",warning
+WK-23,Brak ociekaczy,neutral
+WK-24,Składane ale nie da się rozłożyć,neutral
+WK-26,"Udaje karbon, brak ociekaczy",neutral
+WK-28,"Pęknięcie na jednym piórze, jedno pióro niefabryczne. Otasmowane z dwóch stron ",neutral
+WK-29,"Jakieś resztki taśm, brak ociekaczy",neutral
+WK-30,"Proste, prawe pióro połamane, lewe leciutko uszczerbione, różne kształty piór, brak ociekaczy, carbon",neutral
+WK-31,"Jakby troche sztywniejsze, połamane prawe pióro, brak ociekaczy",neutral
+WK-32,"Proste, rozwalone gripy, pęknięte z jednej steony, warto podspawać, carbon, brak ociekaczy ",neutral
+WK-33,uszczerbione prawe pióro,neutral
+WK-34,Do sprawdzenia,neutral
+WK-37,brak ociekaczy,neutral
+WK-39,"od Mariana z podpisami klubowiczów. Do użytku klubowego, choć czasami do użytku Marianowego ",neutral
+WD-06,Brak ociekaczy,neutral
+WD-15,brak ociekaczy,neutral
+WD-19,brak ociekaczy,neutral
+WD-20,brak ociekaczy,neutral
+KFD-02,Dziura,broken
+KFD-04,Lekka dziura ,warning
+KFD-06,Dziura,broken
+KFD-07,dziura ,broken
+KFD-10,Brak taśmy z przodu ,broken
+KFD-11,Lekka dziura,warning
+KFD-12,dziura,broken
+KFD-13,Dziury na kominie ,warning
+KFD-17,"Ok, poprawić napis bo jest mało widoczny",neutral
+KFD-18,Dziurawy,broken
+KFD-19,Dziurawy,broken
+KFD-22,Dziurawy ,broken
+KFM-01,3 Dziury ,broken
+KFM-04,Urwany rant,broken
+KFM-05,Dziura na szwie i druga przy uchwycie,broken
+KFM-07,Dziura,broken
+KFM-08,Urwany rant i dziura,broken
+KFM-10,Urwany rant,broken
+KFM-15,Zapałka,neutral
+KFN-01,"z szelkami, dziura z prawej strony ",warning
+KFN-02,z szelkami (ale brakuje szelek),neutral
+KW-01,"Stara jak świat, dziurawa",warning
+KW-02,Klejone taśmą,neutral
+KW-03,Korek nie jest oryginalny,neutral
+KW-04,"Sklejana, korek nie jest oryginalny",neutral
+KW-05,Korek nie jest oryginalny,neutral
+KW-06,Korek nie jest oryginalny,neutral
+KW-07,"Duża, do kajaka bez grodzi",neutral
+KW-08,zakrętka odpada (przekręca się na gwincie),warning
+KW-10,Bez rurki,warning
+KW-11,"Stara jak świat, dziurawa",warning
+KW-12,"Korek nie jest oryginalny, długi wężyk, dziurawa",warning
+KW-18,"Zewnętrzny materiał rozerwany, ale szczelna",neutral
+KW-19,"Zewnętrzny materiał rozerwany, ale szczelna",neutral
+KW-20,"Zewnętrzny materiał rozerwany, ale szczelna",neutral
+KW-21,"Zewnętrzny materiał rozerwany, ale szczelna",neutral
+KW-23,"Zewnętrzny materiał rozerwany, ale szczelna",neutral
+KW-24,"Zewnętrzny materiał rozerwany, ale szczelna",neutral
+KW-25,"Zewnętrzny materiał rozerwany, ale szczelna",neutral
+KW-29,Była łatana w kilku miejscach,neutral
+OP-1,"Zły, dziury przy suwaku i na dupie, przetarte kolana",warning
+OP-3,"Wielka dziura na dupie, przetarte kolana",warning
+OP-6,"Odklejająca się łata na kolanie, dziura na dupie",warning
+OP-8,"Lekko przetarte kolana, Zaskakująco mała dziura na dupie jak na ten rodzaj",warning
+OP-9,"Dziura na dupie, drobne przetarcia",warning
+OP-12,"Dziura na dupie i na łokciu, przetarte kolana",warning
+OP-13,"Lekko przetarte kolana, Zaskakująco mała dziura na dupie jak na ten rodzaj",warning
+OK-1,Podarta gilza na szyi i na prawym nadgarstku (sparciałe gilzy),warning
+OK-3,Raczej już pół mokra,warning
+OK-4,"Podarty rękaw, odklejona taśma od szwów",warning
+KS-02,Tylnia regulacja pęknięta ,warning
+KS-04,"Urwane mocowanie stelaża, kask basenowy",warning
+KS-06,Brak regulacji ,warning
+KS-09,"Pęknięty, na basen",warning
+KS-14,Połamane ucho ,warning
+KS-15,"Brak regulacji, składak z różnych kasków ",warning
+KS-17,Regulacja pęknięta,warning
+KS-23,"Połamany stelaż z jednej strony, tylko na basen",warning
+KS-24,Brak regulacji ,warning
+KS-26,Wyłamane trochę pianki z środka ,warning
