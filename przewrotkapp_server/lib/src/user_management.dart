@@ -61,7 +61,7 @@ Future<void> createNewSkladkaUsers(
         // TODO: Change this message on Szkoleniówka
         html: markdownToHtml("""
 # Siema 👋
-Tu Mati Blue 🩵 (znaczy, jego bot)
+Tu Mati Blue 🩵 (znaczy, jego bot 🤖)
 
 Wprowadzamy w PrzeWrotce nową super apke do wypożyczania sprzętu 
 - możesz powiedzieć pa pa przeklikiwaniu sie przez formularze 😎
@@ -117,7 +117,7 @@ Future<void> blockNonSkladkaUsers(
         "",
         html: markdownToHtml("""
 # Hej... 😞
-Tu Mati Blue 🩵 (znaczy, jego bot)
+Tu Mati Blue 🩵 (znaczy, jego bot 🤖)
 
 Twoje konto na PrzeWrotkApp zostało chwilowo zablokowane, 
 przez nieopłaconą składkę 🥺
@@ -177,7 +177,7 @@ Future<void> unblockExistingSkladkaUsers(
         "",
         html: markdownToHtml("""
 # Siema 👋
-Tu znowu Mati Blue 🩵 (znaczy, jego bot)
+Tu znowu Mati Blue 🩵 (znaczy, jego bot 🤖)
 
 Dzięki opłaconej składce, odblokowałem twoje konto na PrzeWrotkApp 🩵
 Jesteś super 🩵🩵🩵
