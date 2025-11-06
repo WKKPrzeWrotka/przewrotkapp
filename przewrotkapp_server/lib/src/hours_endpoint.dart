@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:serverpod/serverpod.dart';
+import 'package:serverpod_auth_server/module.dart';
 
 import 'generated/hour.dart';
 import 'utils.dart';
@@ -16,6 +17,9 @@ class HoursEndpoint extends Endpoint {
     where: userId != null
         ? (h) => h.userId.equals(userId) & h.approved.equals(true)
         : (h) => h.approved.equals(true),
+    orderBy: (h) => h.date,
+    orderDescending: true,
+    include: Hour.include(user: UserInfo.include()),
   );
 
   Stream<List<Hour>> watchHours(Session session, {int? userId}) => watchX(

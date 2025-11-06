@@ -8,6 +8,7 @@ import '../../../logic/data_types.dart';
 import '../../common/rental_listing.dart';
 import '../../utils/names_and_strings.dart';
 import 'social_links.dart';
+import 'user_recent_hours_list.dart';
 
 class UserPage extends StatefulWidget {
   final int userId;
@@ -23,6 +24,7 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
+    final client = context.read<Client>();
     final sm = context.watch<SessionManager>();
     final rentals = context.watch<FutureRentals?>();
     final isYou = sm.signedInUser?.id == widget.userId;
@@ -87,8 +89,7 @@ class _UserPageState extends State<UserPage> {
               Divider(height: 32),
               if (przeUser != null) SocialLinks(przeUser: przeUser),
               Divider(height: 32),
-              if (rentals?.isNotEmpty ?? false)
-                Text("Najbliższe wypożyczenia:", style: tt.headlineMedium),
+              Text("Najbliższe wypożyczenia:", style: tt.headlineMedium),
               if (rentals != null)
                 for (final rental in rentals.where(
                   (r) => r.userId == przeUser?.userId,
@@ -96,6 +97,17 @@ class _UserPageState extends State<UserPage> {
                   RentalListing(rental: rental)
               else
                 Text("🟠 Ładowanie wypożyczeń..."),
+              Divider(height: 32),
+              StreamBuilder(
+                // todo: move this somewhere else
+                stream: client.hours.watchHoursSum(widget.userId),
+                builder: (_, snap) => Text(
+                  "Ostatnie godzinki${snap.hasData ? ' (${snap.data}h)' : ""}:",
+                  style: tt.headlineMedium,
+                ),
+              ),
+              UserRecentHoursList(userId: widget.userId),
+              Divider(height: 32),
               ElevatedButton(
                 onPressed: () async {
                   await sm.signOutDevice();
