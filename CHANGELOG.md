@@ -1,3 +1,8 @@
+## 1.1.0
+
+- Pare stylistycznych poprawek
+- Strona do zgłaszania godzinek
+
 ## 1.0.0
 
 Pierwszy launch, jupiiiiiii 🛶🛶🛶🎉🎉🎉
