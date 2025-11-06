@@ -53,8 +53,8 @@ import 'package:przewrotkapp_client/src/protocol/gear/gear_spraydeck.dart'
     as _i39;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_throwbag.dart'
     as _i40;
-import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i41;
-import 'package:przewrotkapp_client/src/protocol/hour.dart' as _i42;
+import 'package:przewrotkapp_client/src/protocol/hour.dart' as _i41;
+import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i42;
 import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i43;
 export 'exceptions/przexception.dart';
 export 'gear/clothing_type.dart';
@@ -480,8 +480,11 @@ class Protocol extends _i1.SerializationManager {
         deserialize<_i40.GearThrowbag>(data['p'][1]),
       ) as T;
     }
-    if (t == List<_i41.Rental>) {
-      return (data as List).map((e) => deserialize<_i41.Rental>(e)).toList()
+    if (t == List<_i41.Hour>) {
+      return (data as List).map((e) => deserialize<_i41.Hour>(e)).toList() as T;
+    }
+    if (t == List<_i42.Rental>) {
+      return (data as List).map((e) => deserialize<_i42.Rental>(e)).toList()
           as T;
     }
     if (t == List<_i31.Gear>) {
@@ -489,9 +492,6 @@ class Protocol extends _i1.SerializationManager {
     }
     if (t == List<int>) {
       return (data as List).map((e) => deserialize<int>(e)).toList() as T;
-    }
-    if (t == List<_i42.Hour>) {
-      return (data as List).map((e) => deserialize<_i42.Hour>(e)).toList() as T;
     }
     if (t == _i1.getType<(_i31.Gear, _i32.GearBelt)>()) {
       return (
@@ -675,14 +675,14 @@ class Protocol extends _i1.SerializationManager {
     if (data is List<(_i31.Gear, _i40.GearThrowbag)>) {
       return 'List<(Gear,GearThrowbag)>';
     }
-    if (data is List<_i41.Rental>) {
+    if (data is List<_i41.Hour>) {
+      return 'List<Hour>';
+    }
+    if (data is List<_i42.Rental>) {
       return 'List<Rental>';
     }
     if (data is List<int>) {
       return 'List<int>';
-    }
-    if (data is List<_i42.Hour>) {
-      return 'List<Hour>';
     }
     return null;
   }
@@ -811,14 +811,14 @@ class Protocol extends _i1.SerializationManager {
     if (dataClassName == 'List<(Gear,GearThrowbag)>') {
       return deserialize<List<(_i31.Gear, _i40.GearThrowbag)>>(data['data']);
     }
+    if (dataClassName == 'List<Hour>') {
+      return deserialize<List<_i41.Hour>>(data['data']);
+    }
     if (dataClassName == 'List<Rental>') {
-      return deserialize<List<_i41.Rental>>(data['data']);
+      return deserialize<List<_i42.Rental>>(data['data']);
     }
     if (dataClassName == 'List<int>') {
       return deserialize<List<int>>(data['data']);
-    }
-    if (dataClassName == 'List<Hour>') {
-      return deserialize<List<_i42.Hour>>(data['data']);
     }
     return super.deserializeByClassName(data);
   }

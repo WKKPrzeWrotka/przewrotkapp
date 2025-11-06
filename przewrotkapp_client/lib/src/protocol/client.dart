@@ -27,10 +27,10 @@ import 'package:przewrotkapp_client/src/protocol/gear/gear_spraydeck.dart'
     as _i13;
 import 'package:przewrotkapp_client/src/protocol/gear/gear_throwbag.dart'
     as _i14;
-import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i15;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i16;
-import 'package:przewrotkapp_client/src/protocol/user/prze_user.dart' as _i17;
-import 'package:przewrotkapp_client/src/protocol/hour.dart' as _i18;
+import 'package:przewrotkapp_client/src/protocol/hour.dart' as _i15;
+import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i16;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i17;
+import 'package:przewrotkapp_client/src/protocol/user/prze_user.dart' as _i18;
 import 'protocol.dart' as _i19;
 
 /// {@category Endpoint}
@@ -373,22 +373,66 @@ class EndpointGearRead extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
+class EndpointHours extends _i1.EndpointRef {
+  EndpointHours(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'hours';
+
+  _i2.Future<List<_i15.Hour>> getHours({int? userId}) =>
+      caller.callServerEndpoint<List<_i15.Hour>>(
+        'hours',
+        'getHours',
+        {'userId': userId},
+      );
+
+  _i2.Stream<List<_i15.Hour>> watchHours({int? userId}) =>
+      caller.callStreamingServerEndpoint<_i2.Stream<List<_i15.Hour>>,
+          List<_i15.Hour>>(
+        'hours',
+        'watchHours',
+        {'userId': userId},
+        {},
+      );
+
+  _i2.Future<int> getHoursSum(int userId) => caller.callServerEndpoint<int>(
+        'hours',
+        'getHoursSum',
+        {'userId': userId},
+      );
+
+  _i2.Stream<int> watchHoursSum(int userId) =>
+      caller.callStreamingServerEndpoint<_i2.Stream<int>, int>(
+        'hours',
+        'watchHoursSum',
+        {'userId': userId},
+        {},
+      );
+
+  _i2.Future<void> claimHour(_i15.Hour hour) => caller.callServerEndpoint<void>(
+        'hours',
+        'claimHour',
+        {'hour': hour},
+      );
+}
+
+/// {@category Endpoint}
 class EndpointRental extends _i1.EndpointRef {
   EndpointRental(_i1.EndpointCaller caller) : super(caller);
 
   @override
   String get name => 'rental';
 
-  _i2.Future<List<_i15.Rental>> getRentals({required bool past}) =>
-      caller.callServerEndpoint<List<_i15.Rental>>(
+  _i2.Future<List<_i16.Rental>> getRentals({required bool past}) =>
+      caller.callServerEndpoint<List<_i16.Rental>>(
         'rental',
         'getRentals',
         {'past': past},
       );
 
-  _i2.Stream<List<_i15.Rental>> watchRentals({required bool past}) =>
-      caller.callStreamingServerEndpoint<_i2.Stream<List<_i15.Rental>>,
-          List<_i15.Rental>>(
+  _i2.Stream<List<_i16.Rental>> watchRentals({required bool past}) =>
+      caller.callStreamingServerEndpoint<_i2.Stream<List<_i16.Rental>>,
+          List<_i16.Rental>>(
         'rental',
         'watchRentals',
         {'past': past},
@@ -418,23 +462,23 @@ class EndpointUser extends _i1.EndpointRef {
   @override
   String get name => 'user';
 
-  _i2.Future<_i16.UserInfoPublic> getUserInfo(int userId) =>
-      caller.callServerEndpoint<_i16.UserInfoPublic>(
+  _i2.Future<_i17.UserInfoPublic> getUserInfo(int userId) =>
+      caller.callServerEndpoint<_i17.UserInfoPublic>(
         'user',
         'getUserInfo',
         {'userId': userId},
       );
 
-  _i2.Future<_i17.PrzeUser> getPrzeUser([int? userId]) =>
-      caller.callServerEndpoint<_i17.PrzeUser>(
+  _i2.Future<_i18.PrzeUser> getPrzeUser([int? userId]) =>
+      caller.callServerEndpoint<_i18.PrzeUser>(
         'user',
         'getPrzeUser',
         {'userId': userId},
       );
 
-  _i2.Stream<_i17.PrzeUser> watchPrzeUser([int? userId]) =>
-      caller.callStreamingServerEndpoint<_i2.Stream<_i17.PrzeUser>,
-          _i17.PrzeUser>(
+  _i2.Stream<_i18.PrzeUser> watchPrzeUser([int? userId]) =>
+      caller.callStreamingServerEndpoint<_i2.Stream<_i18.PrzeUser>,
+          _i18.PrzeUser>(
         'user',
         'watchPrzeUser',
         {'userId': userId},
@@ -454,7 +498,7 @@ class EndpointUser extends _i1.EndpointRef {
         },
       );
 
-  _i2.Future<void> updateUser(_i17.PrzeUser extraUser) =>
+  _i2.Future<void> updateUser(_i18.PrzeUser extraUser) =>
       caller.callServerEndpoint<void>(
         'user',
         'updateUser',
@@ -474,44 +518,14 @@ class EndpointUser extends _i1.EndpointRef {
         {},
         {},
       );
-
-  _i2.Future<List<_i18.Hour>> getHours({int? userId}) =>
-      caller.callServerEndpoint<List<_i18.Hour>>(
-        'user',
-        'getHours',
-        {'userId': userId},
-      );
-
-  _i2.Stream<List<_i18.Hour>> watchHours({int? userId}) =>
-      caller.callStreamingServerEndpoint<_i2.Stream<List<_i18.Hour>>,
-          List<_i18.Hour>>(
-        'user',
-        'watchHours',
-        {'userId': userId},
-        {},
-      );
-
-  _i2.Future<int> getHoursSum(int userId) => caller.callServerEndpoint<int>(
-        'user',
-        'getHoursSum',
-        {'userId': userId},
-      );
-
-  _i2.Stream<int> watchHoursSum(int userId) =>
-      caller.callStreamingServerEndpoint<_i2.Stream<int>, int>(
-        'user',
-        'watchHoursSum',
-        {'userId': userId},
-        {},
-      );
 }
 
 class Modules {
   Modules(Client client) {
-    auth = _i16.Caller(client);
+    auth = _i17.Caller(client);
   }
 
-  late final _i16.Caller auth;
+  late final _i17.Caller auth;
 }
 
 class Client extends _i1.ServerpodClientShared {
@@ -544,6 +558,7 @@ class Client extends _i1.ServerpodClientShared {
     events = EndpointEvents(this);
     gearManage = EndpointGearManage(this);
     gearRead = EndpointGearRead(this);
+    hours = EndpointHours(this);
     rental = EndpointRental(this);
     user = EndpointUser(this);
     modules = Modules(this);
@@ -557,6 +572,8 @@ class Client extends _i1.ServerpodClientShared {
 
   late final EndpointGearRead gearRead;
 
+  late final EndpointHours hours;
+
   late final EndpointRental rental;
 
   late final EndpointUser user;
@@ -569,6 +586,7 @@ class Client extends _i1.ServerpodClientShared {
         'events': events,
         'gearManage': gearManage,
         'gearRead': gearRead,
+        'hours': hours,
         'rental': rental,
         'user': user,
       };

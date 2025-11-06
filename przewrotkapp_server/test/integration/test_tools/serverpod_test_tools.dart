@@ -33,10 +33,10 @@ import 'package:przewrotkapp_server/src/generated/gear/gear_spraydeck.dart'
     as _i15;
 import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
     as _i16;
-import 'package:przewrotkapp_server/src/generated/rental/rental.dart' as _i17;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i18;
-import 'package:przewrotkapp_server/src/generated/user/prze_user.dart' as _i19;
-import 'package:przewrotkapp_server/src/generated/hour.dart' as _i20;
+import 'package:przewrotkapp_server/src/generated/hour.dart' as _i17;
+import 'package:przewrotkapp_server/src/generated/rental/rental.dart' as _i18;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i19;
+import 'package:przewrotkapp_server/src/generated/user/prze_user.dart' as _i20;
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
 import 'package:przewrotkapp_server/src/generated/endpoints.dart';
 export 'package:serverpod_test/serverpod_test_public_exports.dart';
@@ -131,6 +131,8 @@ class TestEndpoints {
 
   late final _GearReadEndpoint gearRead;
 
+  late final _HoursEndpoint hours;
+
   late final _RentalEndpoint rental;
 
   late final _UserEndpoint user;
@@ -156,6 +158,10 @@ class _InternalTestEndpoints extends TestEndpoints
       serializationManager,
     );
     gearRead = _GearReadEndpoint(
+      endpoints,
+      serializationManager,
+    );
+    hours = _HoursEndpoint(
       endpoints,
       serializationManager,
     );
@@ -1188,6 +1194,168 @@ class _GearReadEndpoint {
   }
 }
 
+class _HoursEndpoint {
+  _HoursEndpoint(
+    this._endpointDispatch,
+    this._serializationManager,
+  );
+
+  final _i2.EndpointDispatch _endpointDispatch;
+
+  final _i2.SerializationManager _serializationManager;
+
+  _i3.Future<List<_i17.Hour>> getHours(
+    _i1.TestSessionBuilder sessionBuilder, {
+    int? userId,
+  }) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'hours',
+        method: 'getHours',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'hours',
+          methodName: 'getHours',
+          parameters: _i1.testObjectToJson({'userId': userId}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<List<_i17.Hour>>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _i3.Stream<List<_i17.Hour>> watchHours(
+    _i1.TestSessionBuilder sessionBuilder, {
+    int? userId,
+  }) {
+    var _localTestStreamManager = _i1.TestStreamManager<List<_i17.Hour>>();
+    _i1.callStreamFunctionAndHandleExceptions(
+      () async {
+        var _localUniqueSession =
+            (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+          endpoint: 'hours',
+          method: 'watchHours',
+        );
+        var _localCallContext =
+            await _endpointDispatch.getMethodStreamCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'hours',
+          methodName: 'watchHours',
+          arguments: {'userId': userId},
+          requestedInputStreams: [],
+          serializationManager: _serializationManager,
+        );
+        await _localTestStreamManager.callStreamMethod(
+          _localCallContext,
+          _localUniqueSession,
+          {},
+        );
+      },
+      _localTestStreamManager.outputStreamController,
+    );
+    return _localTestStreamManager.outputStreamController.stream;
+  }
+
+  _i3.Future<int> getHoursSum(
+    _i1.TestSessionBuilder sessionBuilder,
+    int userId,
+  ) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'hours',
+        method: 'getHoursSum',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'hours',
+          methodName: 'getHoursSum',
+          parameters: _i1.testObjectToJson({'userId': userId}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<int>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _i3.Stream<int> watchHoursSum(
+    _i1.TestSessionBuilder sessionBuilder,
+    int userId,
+  ) {
+    var _localTestStreamManager = _i1.TestStreamManager<int>();
+    _i1.callStreamFunctionAndHandleExceptions(
+      () async {
+        var _localUniqueSession =
+            (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+          endpoint: 'hours',
+          method: 'watchHoursSum',
+        );
+        var _localCallContext =
+            await _endpointDispatch.getMethodStreamCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'hours',
+          methodName: 'watchHoursSum',
+          arguments: {'userId': userId},
+          requestedInputStreams: [],
+          serializationManager: _serializationManager,
+        );
+        await _localTestStreamManager.callStreamMethod(
+          _localCallContext,
+          _localUniqueSession,
+          {},
+        );
+      },
+      _localTestStreamManager.outputStreamController,
+    );
+    return _localTestStreamManager.outputStreamController.stream;
+  }
+
+  _i3.Future<void> claimHour(
+    _i1.TestSessionBuilder sessionBuilder,
+    _i17.Hour hour,
+  ) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'hours',
+        method: 'claimHour',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'hours',
+          methodName: 'claimHour',
+          parameters: _i1.testObjectToJson({'hour': hour}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<void>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+}
+
 class _RentalEndpoint {
   _RentalEndpoint(
     this._endpointDispatch,
@@ -1198,7 +1366,7 @@ class _RentalEndpoint {
 
   final _i2.SerializationManager _serializationManager;
 
-  _i3.Future<List<_i17.Rental>> getRentals(
+  _i3.Future<List<_i18.Rental>> getRentals(
     _i1.TestSessionBuilder sessionBuilder, {
     required bool past,
   }) async {
@@ -1219,7 +1387,7 @@ class _RentalEndpoint {
         var _localReturnValue = await (_localCallContext.method.call(
           _localUniqueSession,
           _localCallContext.arguments,
-        ) as _i3.Future<List<_i17.Rental>>);
+        ) as _i3.Future<List<_i18.Rental>>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1227,11 +1395,11 @@ class _RentalEndpoint {
     });
   }
 
-  _i3.Stream<List<_i17.Rental>> watchRentals(
+  _i3.Stream<List<_i18.Rental>> watchRentals(
     _i1.TestSessionBuilder sessionBuilder, {
     required bool past,
   }) {
-    var _localTestStreamManager = _i1.TestStreamManager<List<_i17.Rental>>();
+    var _localTestStreamManager = _i1.TestStreamManager<List<_i18.Rental>>();
     _i1.callStreamFunctionAndHandleExceptions(
       () async {
         var _localUniqueSession =
@@ -1305,7 +1473,7 @@ class _UserEndpoint {
 
   final _i2.SerializationManager _serializationManager;
 
-  _i3.Future<_i18.UserInfoPublic> getUserInfo(
+  _i3.Future<_i19.UserInfoPublic> getUserInfo(
     _i1.TestSessionBuilder sessionBuilder,
     int userId,
   ) async {
@@ -1326,7 +1494,7 @@ class _UserEndpoint {
         var _localReturnValue = await (_localCallContext.method.call(
           _localUniqueSession,
           _localCallContext.arguments,
-        ) as _i3.Future<_i18.UserInfoPublic>);
+        ) as _i3.Future<_i19.UserInfoPublic>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1334,7 +1502,7 @@ class _UserEndpoint {
     });
   }
 
-  _i3.Future<_i19.PrzeUser> getPrzeUser(
+  _i3.Future<_i20.PrzeUser> getPrzeUser(
     _i1.TestSessionBuilder sessionBuilder, [
     int? userId,
   ]) async {
@@ -1355,7 +1523,7 @@ class _UserEndpoint {
         var _localReturnValue = await (_localCallContext.method.call(
           _localUniqueSession,
           _localCallContext.arguments,
-        ) as _i3.Future<_i19.PrzeUser>);
+        ) as _i3.Future<_i20.PrzeUser>);
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();
@@ -1363,11 +1531,11 @@ class _UserEndpoint {
     });
   }
 
-  _i3.Stream<_i19.PrzeUser> watchPrzeUser(
+  _i3.Stream<_i20.PrzeUser> watchPrzeUser(
     _i1.TestSessionBuilder sessionBuilder, [
     int? userId,
   ]) {
-    var _localTestStreamManager = _i1.TestStreamManager<_i19.PrzeUser>();
+    var _localTestStreamManager = _i1.TestStreamManager<_i20.PrzeUser>();
     _i1.callStreamFunctionAndHandleExceptions(
       () async {
         var _localUniqueSession =
@@ -1430,7 +1598,7 @@ class _UserEndpoint {
 
   _i3.Future<void> updateUser(
     _i1.TestSessionBuilder sessionBuilder,
-    _i19.PrzeUser extraUser,
+    _i20.PrzeUser extraUser,
   ) async {
     return _i1.callAwaitableFunctionAndHandleExceptions(() async {
       var _localUniqueSession =
@@ -1499,128 +1667,6 @@ class _UserEndpoint {
           endpointPath: 'user',
           methodName: 'watchFavourites',
           arguments: {},
-          requestedInputStreams: [],
-          serializationManager: _serializationManager,
-        );
-        await _localTestStreamManager.callStreamMethod(
-          _localCallContext,
-          _localUniqueSession,
-          {},
-        );
-      },
-      _localTestStreamManager.outputStreamController,
-    );
-    return _localTestStreamManager.outputStreamController.stream;
-  }
-
-  _i3.Future<List<_i20.Hour>> getHours(
-    _i1.TestSessionBuilder sessionBuilder, {
-    int? userId,
-  }) async {
-    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
-      var _localUniqueSession =
-          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
-        endpoint: 'user',
-        method: 'getHours',
-      );
-      try {
-        var _localCallContext = await _endpointDispatch.getMethodCallContext(
-          createSessionCallback: (_) => _localUniqueSession,
-          endpointPath: 'user',
-          methodName: 'getHours',
-          parameters: _i1.testObjectToJson({'userId': userId}),
-          serializationManager: _serializationManager,
-        );
-        var _localReturnValue = await (_localCallContext.method.call(
-          _localUniqueSession,
-          _localCallContext.arguments,
-        ) as _i3.Future<List<_i20.Hour>>);
-        return _localReturnValue;
-      } finally {
-        await _localUniqueSession.close();
-      }
-    });
-  }
-
-  _i3.Stream<List<_i20.Hour>> watchHours(
-    _i1.TestSessionBuilder sessionBuilder, {
-    int? userId,
-  }) {
-    var _localTestStreamManager = _i1.TestStreamManager<List<_i20.Hour>>();
-    _i1.callStreamFunctionAndHandleExceptions(
-      () async {
-        var _localUniqueSession =
-            (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
-          endpoint: 'user',
-          method: 'watchHours',
-        );
-        var _localCallContext =
-            await _endpointDispatch.getMethodStreamCallContext(
-          createSessionCallback: (_) => _localUniqueSession,
-          endpointPath: 'user',
-          methodName: 'watchHours',
-          arguments: {'userId': userId},
-          requestedInputStreams: [],
-          serializationManager: _serializationManager,
-        );
-        await _localTestStreamManager.callStreamMethod(
-          _localCallContext,
-          _localUniqueSession,
-          {},
-        );
-      },
-      _localTestStreamManager.outputStreamController,
-    );
-    return _localTestStreamManager.outputStreamController.stream;
-  }
-
-  _i3.Future<int> getHoursSum(
-    _i1.TestSessionBuilder sessionBuilder,
-    int userId,
-  ) async {
-    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
-      var _localUniqueSession =
-          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
-        endpoint: 'user',
-        method: 'getHoursSum',
-      );
-      try {
-        var _localCallContext = await _endpointDispatch.getMethodCallContext(
-          createSessionCallback: (_) => _localUniqueSession,
-          endpointPath: 'user',
-          methodName: 'getHoursSum',
-          parameters: _i1.testObjectToJson({'userId': userId}),
-          serializationManager: _serializationManager,
-        );
-        var _localReturnValue = await (_localCallContext.method.call(
-          _localUniqueSession,
-          _localCallContext.arguments,
-        ) as _i3.Future<int>);
-        return _localReturnValue;
-      } finally {
-        await _localUniqueSession.close();
-      }
-    });
-  }
-
-  _i3.Stream<int> watchHoursSum(
-    _i1.TestSessionBuilder sessionBuilder,
-    int userId,
-  ) {
-    var _localTestStreamManager = _i1.TestStreamManager<int>();
-    _i1.callStreamFunctionAndHandleExceptions(
-      () async {
-        var _localUniqueSession =
-            (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
-          endpoint: 'user',
-          method: 'watchHoursSum',
-        );
-        var _localCallContext =
-            await _endpointDispatch.getMethodStreamCallContext(
-          createSessionCallback: (_) => _localUniqueSession,
-          endpointPath: 'user',
-          methodName: 'watchHoursSum',
-          arguments: {'userId': userId},
           requestedInputStreams: [],
           serializationManager: _serializationManager,
         );
