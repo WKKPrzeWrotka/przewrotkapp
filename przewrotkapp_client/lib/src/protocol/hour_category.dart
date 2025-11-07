@@ -13,32 +13,36 @@ import 'package:serverpod_client/serverpod_client.dart' as _i1;
 
 enum HourCategory implements _i1.SerializableModel {
   /// Wypożyczenie sprzętu, zawsze ujemne
-  rental,
+  rental(label: "Wypożyczenie"),
 
   /// Pomoc przy szkoleniówce
-  helpAtCourse,
+  helpAtCourse(label: "Pomoc przy szkoleniówce"),
 
   /// Pomoc w promocji klubu (stanie na DASach, rozwieszanie plakatów, itp)
-  helpAtPromotion,
+  helpAtPromotion(label: "Pomoc w promocji klubu"),
 
   /// Pomoc przy nie-szkoleniówkowych wydarzeniach klubowych (PrzeRodziny, organizacja spływów, organizacja nie-kajakowych imprez integracyjnych)
-  helpAtEvent,
+  helpAtEvent(label: "Pomoc przy innych wydarzeniach"),
 
   /// Pomoc sprzętowa (naprawianie kajaków, sprzątanie hangaru)
-  helpAtGear,
+  helpAtGear(label: "Prace sprzętowe"),
 
   /// Dotacja sprzętu do klubu lub zakup godzinek pieniędzmi
-  donation,
+  donation(label: "Dotacja"),
 
   /// Wypłaty funkcyjnych
-  functionary,
+  functionary(label: "Funkcyjne"),
 
   /// Darmowe godzinki za płacenie składki, albo na start
-  bonus,
+  bonus(label: "Bonus"),
 
   /// Kary wszelakiej maści - za niepłacenie składki, za późne wypożyczanie sprzętu, za brak uśmiechu na wodzie
-  punishment,
-  other;
+  punishment(label: "Kara"),
+  other(label: "Inne");
+
+  final String label;
+
+  const HourCategory({required this.label});
 
   static HourCategory fromJson(String name) {
     switch (name) {
