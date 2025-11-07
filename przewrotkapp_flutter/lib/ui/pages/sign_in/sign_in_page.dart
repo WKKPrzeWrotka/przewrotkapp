@@ -14,6 +14,7 @@ class SignInPage extends StatelessWidget {
       body: Center(
         child: SignInWithEmailButton(
           caller: context.read<Client>().modules.auth,
+          initPage: InitPage.signIn,
           onSignedIn: () => context.go('/'),
         ),
       ),
