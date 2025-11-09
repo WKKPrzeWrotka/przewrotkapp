@@ -1,12 +1,14 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kalender/kalender.dart';
 import 'package:provider/provider.dart';
+import 'package:przewrotkapp_client/hours_calculations.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+import 'package:przewrotkapp_client/scopes.dart';
+import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 import 'package:vibration/vibration.dart';
 
 import '../../../logic/data_types.dart';
@@ -44,18 +46,6 @@ class _NewRentalPageState extends State<NewRentalPage> {
         )
       : null;
 
-  int hoursForGear(Set<GearPair> gear, DateTimeRange range) {
-    return (gear.where((e) => e.gear.type == GearType.kayak).length +
-            [
-              for (final type
-                  in GearType.values.toList()
-                    ..remove(GearType.kayak)
-                    ..remove(GearType.other))
-                gear.where((e) => e.gear.type == type).length,
-            ].reduce(max)) *
-        (range.duration.inDays + 1);
-  }
-
   @override
   void initState() {
     super.initState();
@@ -69,6 +59,9 @@ class _NewRentalPageState extends State<NewRentalPage> {
     final t = Theme.of(context);
     final tt = t.textTheme;
     final allGear = context.watch<AllGearCache?>();
+    final userScopes = PrzeScope.fromNames(
+      context.read<SessionManager>().signedInUser?.scopeNames ?? [],
+    );
     final favs = context.watch<UserFavourites?>()?.gearIds;
     final filteredGear = sortGear(
       searchGear(allGear ?? [], params),
@@ -170,7 +163,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
                 : "Nie wybrano daty",
           ),
           Text(
-            "Koszt: ${range != null ? hoursForGear(shoppingCart, range!) : "?"}h",
+            "Koszt: ${range != null ? hoursForGear(shoppingCart, (range!.duration.inDays + 1), userScopes) : "?"}h",
             style: tt.headlineMedium,
           ),
           SizedBox(
