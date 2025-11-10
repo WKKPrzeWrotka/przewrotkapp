@@ -40,7 +40,7 @@ class _GearBrowserPageState extends State<GearBrowserPage> {
             floating: true,
             pinned: true,
             snap: false,
-            expandedHeight: 400,
+            expandedHeight: 300,
             title: Text("Cały sprzęt"),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
@@ -50,13 +50,18 @@ class _GearBrowserPageState extends State<GearBrowserPage> {
                 right: 8,
               ),
               expandedTitleScale: 1,
-              title: GearSearchFilters(
-                // set this same as var params = ...
-                initialParams: GearSearchParams.mainDefault,
-                onFiltersChange: (newParams) {
-                  params = newParams;
-                  setState(() {});
-                },
+              title: SizedBox(
+                height: 200,
+                child: SingleChildScrollView(
+                  child: GearSearchFilters(
+                    // set this same as var params = ...
+                    initialParams: GearSearchParams.mainDefault,
+                    onFiltersChange: (newParams) {
+                      params = newParams;
+                      setState(() {});
+                    },
+                  ),
+                ),
               ),
             ),
             actions: [
