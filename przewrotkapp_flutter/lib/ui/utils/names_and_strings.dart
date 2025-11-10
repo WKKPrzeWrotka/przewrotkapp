@@ -228,3 +228,18 @@ extension GearHuman on Gear {
     if (friendlyName != null) friendlyName,
   ].join(" ");
 }
+
+extension HourCategoryNaming on HourCategory {
+  String get humanName => switch (this) {
+    HourCategory.rental => "Wypożyczenie",
+    HourCategory.helpAtCourse => "Pomoc przy szkoleniówce",
+    HourCategory.helpAtPromotion => "Pomoc w promocji klubu",
+    HourCategory.helpAtEvent => "Pomoc przy innych wydarzeniach",
+    HourCategory.helpAtGear => "Prace sprzętowe",
+    HourCategory.donation => "Dotacja",
+    HourCategory.functionary => "Funkcyjne",
+    HourCategory.bonus => "Bonus",
+    HourCategory.punishment => "Kara",
+    HourCategory.other => "Inne",
+  };
+}

@@ -60,7 +60,7 @@ class _HoursClaimPageState extends State<HoursClaimPage> {
             SizedBox(height: spacing),
             DropdownMenuFormField(
               dropdownMenuEntries: HourCategory.values
-                  .map((c) => DropdownMenuEntry(value: c, label: c.name))
+                  .map((c) => DropdownMenuEntry(value: c, label: c.humanName))
                   .toList(),
               onSelected: (c) => hour.category = c!,
               validator: noNullValid,
