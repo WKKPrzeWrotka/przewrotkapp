@@ -91,6 +91,28 @@ void main() {
       ),
     );
     test(
+      "1 others + 1 paddle",
+      () => expect(
+        hoursForGear(
+          {
+            ...others(),
+            GearPair(
+              gear: Gear(clubId: 'dup-12', type: GearType.paddle),
+              gearExtra: GearPaddle(
+                gearId: 0,
+                type: PaddleType.zwalkowe,
+                length: 0,
+                rotation: 0,
+              ),
+            ),
+          },
+          1,
+          {},
+        ),
+        2,
+      ),
+    );
+    test(
       "1 kayak-others by Zarzad",
       () => expect(hoursForGear(standardSet(), 1, {PrzeScope.zarzad}), 0),
     );
