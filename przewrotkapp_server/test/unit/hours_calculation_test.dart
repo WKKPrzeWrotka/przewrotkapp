@@ -12,7 +12,19 @@ void main() {
   kayak() => {
     GearPair(
       gear: Gear(clubId: random.nextDouble().toString(), type: GearType.kayak),
-      gearExtra: GearExtra(),
+      gearExtra: GearKayak(gearId: 0, type: KayakType.creek, length: 0),
+    ),
+  };
+  dwuosobowy() => {
+    GearPair(
+      gear: Gear(clubId: random.nextDouble().toString(), type: GearType.kayak),
+      gearExtra: GearKayak(gearId: 0, type: KayakType.dwuOsobowy, length: 0),
+    ),
+  };
+  kanadyjka() => {
+    GearPair(
+      gear: Gear(clubId: random.nextDouble().toString(), type: GearType.kayak),
+      gearExtra: GearKayak(gearId: 0, type: KayakType.kanadyjka, length: 0),
     ),
   };
   others() => {
@@ -50,6 +62,47 @@ void main() {
         12,
       ),
     );
+    test("1 kanadyjka", () => expect(hoursForGear({...kanadyjka()}, 1, {}), 4));
+    test(
+      "1 dwuosobowy",
+      () => expect(hoursForGear({...dwuosobowy()}, 1, {}), 4),
+    );
+    test(
+      "1 kanadyjka + 2 others",
+      () => expect(
+        hoursForGear({...kanadyjka(), ...others(), ...others()}, 1, {}),
+        4,
+      ),
+    );
+    test(
+      "1 dwuosobowy + 2 others",
+      () => expect(
+        hoursForGear({...dwuosobowy(), ...others(), ...others()}, 1, {}),
+        4,
+      ),
+    );
+    test(
+      "1 kanadyjka + 3 others",
+      () => expect(
+        hoursForGear(
+          {...kanadyjka(), ...others(), ...others(), ...others()},
+          1,
+          {},
+        ),
+        5,
+      ),
+    );
+    test(
+      "1 kanadyjka + 4 others",
+      () => expect(
+        hoursForGear(
+          {...kanadyjka(), ...others(), ...others(), ...others(), ...others()},
+          1,
+          {},
+        ),
+        6,
+      ),
+    );
     test(
       "1 kayak-others by Zarzad",
       () => expect(hoursForGear(standardSet(), 1, {PrzeScope.zarzad}), 0),
@@ -73,6 +126,138 @@ void main() {
           {PrzeScope.zarzad},
         ),
         2,
+      ),
+    );
+    test(
+      "1 kanadyjka by Zarzad",
+      () => expect(hoursForGear({...kanadyjka()}, 1, {PrzeScope.zarzad}), 0),
+    );
+    test(
+      "1 kanadyjka + 2 others by Zarzad",
+      () => expect(
+        hoursForGear(
+          {...kanadyjka(), ...others(), ...others()},
+          1,
+          {PrzeScope.zarzad},
+        ),
+        0,
+      ),
+    );
+    test(
+      "1 kanadyjka + 3 others by Zarzad",
+      () => expect(
+        hoursForGear(
+          {...kanadyjka(), ...others(), ...others(), ...others()},
+          1,
+          {PrzeScope.zarzad},
+        ),
+        1,
+      ),
+    );
+    test(
+      "1 kanadyjka + 1 kayak + 2 others by Zarzad",
+      () => expect(
+        hoursForGear(
+          {...kanadyjka(), ...kayak(), ...others(), ...others()},
+          1,
+          {PrzeScope.zarzad},
+        ),
+        2,
+      ),
+    );
+    test(
+      "1 kanadyjka + 1 kayak + 3 others by Zarzad",
+      () => expect(
+        hoursForGear(
+          {...kanadyjka(), ...kayak(), ...others(), ...others(), ...others()},
+          1,
+          {PrzeScope.zarzad},
+        ),
+        2,
+      ),
+    );
+    test(
+      "1 kanadyjka + 1 kayak + 4 others by Zarzad",
+      () => expect(
+        hoursForGear(
+          {
+            ...kanadyjka(),
+            ...kayak(),
+            ...others(),
+            ...others(),
+            ...others(),
+            ...others(),
+          },
+          1,
+          {PrzeScope.zarzad},
+        ),
+        3,
+      ),
+    );
+    test(
+      "2 kanadyjkas Zarzad",
+      () => expect(
+        hoursForGear({...kanadyjka(), ...kanadyjka()}, 1, {PrzeScope.zarzad}),
+        4,
+      ),
+    );
+    test(
+      "2 kanadyjkas + 4 others Zarzad",
+      () => expect(
+        hoursForGear(
+          {
+            ...kanadyjka(),
+            ...kanadyjka(),
+            ...others(),
+            ...others(),
+            ...others(),
+            ...others(),
+          },
+          1,
+          {PrzeScope.zarzad},
+        ),
+        4,
+      ),
+    );
+    test(
+      "2 kanadyjkas + 6 others Zarzad",
+      () => expect(
+        hoursForGear(
+          {
+            ...kanadyjka(),
+            ...kanadyjka(),
+            ...others(),
+            ...others(),
+            ...others(),
+            ...others(),
+            ...others(),
+            ...others(),
+          },
+          1,
+          {PrzeScope.zarzad},
+        ),
+        6,
+      ),
+    );
+    test(
+      "1 kanadyjka, 1 dwuosobowy, 1 kayak, 6 others by Zarzad",
+      () => expect(
+        hoursForGear(
+          {
+            ...kanadyjka(),
+            ...dwuosobowy(),
+            ...kayak(),
+            ...others(),
+            ...others(),
+            ...others(),
+            ...others(),
+            ...others(),
+            ...others(),
+          },
+          1,
+          {PrzeScope.zarzad},
+        ),
+        7,
       ),
     );
   });

@@ -18,8 +18,16 @@ int hoursForGear(
   // Just in case 😅
   if (numberOfDays < 0) throw "Bro wtf";
 
-  // Policz ile wziął kajaków
-  var countKayaks = gear.where((e) => e.gear.type == GearType.kayak).length;
+  // Policz ile wziął kajaków - licz kanadyjkę podwójnie
+  // (raz w tej linii i dodaj w countKayaks, gdzie też są wliczane jako kajak)
+  var countKanadyjki = gear
+      .where((e) =>
+          e.gear.type == GearType.kayak &&
+          {KayakType.kanadyjka, KayakType.dwuOsobowy}
+              .contains((e.gearExtra as GearKayak).type))
+      .length;
+  var countKayaks =
+      gear.where((e) => e.gear.type == GearType.kayak).length + countKanadyjki;
 
   // Zobacz na inne rodzaje
   final otherTypes = GearType.values.toList()
@@ -37,8 +45,12 @@ int hoursForGear(
 
   // Jeśli z zarządu - jeden Kajako-zestaw gratis
   if (isZarzad) {
-    countKayaks = max(countKayaks - 1, 0);
-    otherMaxCount = max(otherMaxCount - 1, 0);
+    // Jeśli w zestawie jest kanadyjka, odejmij po dwa kajaki i dwa sprzęty
+    // (Znowu - kanadyjka jest po prostu liczona jako dwa kajaki, i uprawnia
+    // do wzięcia dwóch zestawów sprzętu)
+    final freeCount = countKanadyjki > 0 ? 2 : 1;
+    countKayaks = max(countKayaks - freeCount, 0);
+    otherMaxCount = max(otherMaxCount - freeCount, 0);
   }
 
   // Ponieważ wzięcie kajaka już uprawnia do wzięcia innego sprzętu:
