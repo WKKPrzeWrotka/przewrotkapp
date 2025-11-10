@@ -9,24 +9,18 @@ import 'package:test/scaffolding.dart';
 void main() {
   // Those, being functions, prevents grouping them as same in Sets
   final random = Random();
-  kayak() => {
-    GearPair(
-      gear: Gear(clubId: random.nextDouble().toString(), type: GearType.kayak),
-      gearExtra: GearKayak(gearId: 0, type: KayakType.creek, length: 0),
-    ),
-  };
-  dwuosobowy() => {
-    GearPair(
-      gear: Gear(clubId: random.nextDouble().toString(), type: GearType.kayak),
-      gearExtra: GearKayak(gearId: 0, type: KayakType.dwuOsobowy, length: 0),
-    ),
-  };
-  kanadyjka() => {
-    GearPair(
-      gear: Gear(clubId: random.nextDouble().toString(), type: GearType.kayak),
-      gearExtra: GearKayak(gearId: 0, type: KayakType.kanadyjka, length: 0),
-    ),
-  };
+  kayak() => GearPair(
+    gear: Gear(clubId: random.nextDouble().toString(), type: GearType.kayak),
+    gearExtra: GearKayak(gearId: 0, type: KayakType.creek, length: 0),
+  );
+  dwuosobowy() => GearPair(
+    gear: Gear(clubId: random.nextDouble().toString(), type: GearType.kayak),
+    gearExtra: GearKayak(gearId: 0, type: KayakType.dwuOsobowy, length: 0),
+  );
+  kanadyjka() => GearPair(
+    gear: Gear(clubId: random.nextDouble().toString(), type: GearType.kayak),
+    gearExtra: GearKayak(gearId: 0, type: KayakType.kanadyjka, length: 0),
+  );
   others() => {
     for (final type
         in (GearType.values.toList()..remove(GearType.kayak)) +
@@ -36,7 +30,7 @@ void main() {
         gearExtra: GearExtra(),
       ),
   };
-  standardSet() => {...kayak(), ...others()};
+  standardSet() => {kayak(), ...others()};
 
   group("Hours calculation tests", () {
     test("1 kayak-others", () => expect(hoursForGear(standardSet(), 1, {}), 2));
@@ -47,11 +41,7 @@ void main() {
     test(
       "1 kayak + 3 others, for 4 days",
       () => expect(
-        hoursForGear(
-          {...kayak(), ...others(), ...others(), ...others()},
-          4,
-          {},
-        ),
+        hoursForGear({kayak(), ...others(), ...others(), ...others()}, 4, {}),
         16,
       ),
     );
@@ -62,22 +52,19 @@ void main() {
         12,
       ),
     );
-    test("1 kanadyjka", () => expect(hoursForGear({...kanadyjka()}, 1, {}), 4));
-    test(
-      "1 dwuosobowy",
-      () => expect(hoursForGear({...dwuosobowy()}, 1, {}), 4),
-    );
+    test("1 kanadyjka", () => expect(hoursForGear({kanadyjka()}, 1, {}), 4));
+    test("1 dwuosobowy", () => expect(hoursForGear({dwuosobowy()}, 1, {}), 4));
     test(
       "1 kanadyjka + 2 others",
       () => expect(
-        hoursForGear({...kanadyjka(), ...others(), ...others()}, 1, {}),
+        hoursForGear({kanadyjka(), ...others(), ...others()}, 1, {}),
         4,
       ),
     );
     test(
       "1 dwuosobowy + 2 others",
       () => expect(
-        hoursForGear({...dwuosobowy(), ...others(), ...others()}, 1, {}),
+        hoursForGear({dwuosobowy(), ...others(), ...others()}, 1, {}),
         4,
       ),
     );
@@ -85,7 +72,7 @@ void main() {
       "1 kanadyjka + 3 others",
       () => expect(
         hoursForGear(
-          {...kanadyjka(), ...others(), ...others(), ...others()},
+          {kanadyjka(), ...others(), ...others(), ...others()},
           1,
           {},
         ),
@@ -96,7 +83,7 @@ void main() {
       "1 kanadyjka + 4 others",
       () => expect(
         hoursForGear(
-          {...kanadyjka(), ...others(), ...others(), ...others(), ...others()},
+          {kanadyjka(), ...others(), ...others(), ...others(), ...others()},
           1,
           {},
         ),
@@ -130,13 +117,13 @@ void main() {
     );
     test(
       "1 kanadyjka by Zarzad",
-      () => expect(hoursForGear({...kanadyjka()}, 1, {PrzeScope.zarzad}), 0),
+      () => expect(hoursForGear({kanadyjka()}, 1, {PrzeScope.zarzad}), 0),
     );
     test(
       "1 kanadyjka + 2 others by Zarzad",
       () => expect(
         hoursForGear(
-          {...kanadyjka(), ...others(), ...others()},
+          {kanadyjka(), ...others(), ...others()},
           1,
           {PrzeScope.zarzad},
         ),
@@ -147,7 +134,7 @@ void main() {
       "1 kanadyjka + 3 others by Zarzad",
       () => expect(
         hoursForGear(
-          {...kanadyjka(), ...others(), ...others(), ...others()},
+          {kanadyjka(), ...others(), ...others(), ...others()},
           1,
           {PrzeScope.zarzad},
         ),
@@ -158,7 +145,7 @@ void main() {
       "1 kanadyjka + 1 kayak + 2 others by Zarzad",
       () => expect(
         hoursForGear(
-          {...kanadyjka(), ...kayak(), ...others(), ...others()},
+          {kanadyjka(), kayak(), ...others(), ...others()},
           1,
           {PrzeScope.zarzad},
         ),
@@ -169,7 +156,7 @@ void main() {
       "1 kanadyjka + 1 kayak + 3 others by Zarzad",
       () => expect(
         hoursForGear(
-          {...kanadyjka(), ...kayak(), ...others(), ...others(), ...others()},
+          {kanadyjka(), kayak(), ...others(), ...others(), ...others()},
           1,
           {PrzeScope.zarzad},
         ),
@@ -181,8 +168,8 @@ void main() {
       () => expect(
         hoursForGear(
           {
-            ...kanadyjka(),
-            ...kayak(),
+            kanadyjka(),
+            kayak(),
             ...others(),
             ...others(),
             ...others(),
@@ -197,7 +184,7 @@ void main() {
     test(
       "2 kanadyjkas Zarzad",
       () => expect(
-        hoursForGear({...kanadyjka(), ...kanadyjka()}, 1, {PrzeScope.zarzad}),
+        hoursForGear({kanadyjka(), kanadyjka()}, 1, {PrzeScope.zarzad}),
         4,
       ),
     );
@@ -206,8 +193,8 @@ void main() {
       () => expect(
         hoursForGear(
           {
-            ...kanadyjka(),
-            ...kanadyjka(),
+            kanadyjka(),
+            kanadyjka(),
             ...others(),
             ...others(),
             ...others(),
@@ -224,8 +211,8 @@ void main() {
       () => expect(
         hoursForGear(
           {
-            ...kanadyjka(),
-            ...kanadyjka(),
+            kanadyjka(),
+            kanadyjka(),
             ...others(),
             ...others(),
             ...others(),
@@ -244,9 +231,9 @@ void main() {
       () => expect(
         hoursForGear(
           {
-            ...kanadyjka(),
-            ...dwuosobowy(),
-            ...kayak(),
+            kanadyjka(),
+            dwuosobowy(),
+            kayak(),
             ...others(),
             ...others(),
             ...others(),
