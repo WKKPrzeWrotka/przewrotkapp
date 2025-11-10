@@ -234,7 +234,7 @@ extension HourCategoryNaming on HourCategory {
     HourCategory.rental => "Wypożyczenie",
     HourCategory.helpAtCourse => "Pomoc przy szkoleniówce",
     HourCategory.helpAtPromotion => "Pomoc w promocji klubu",
-    HourCategory.helpAtEvent =>"Pomoc przy innych wydarzeniach",
+    HourCategory.helpAtEvent => "Pomoc przy innych wydarzeniach",
     HourCategory.helpAtGear => "Prace sprzętowe",
     HourCategory.donation => "Dotacja",
     HourCategory.functionary => "Funkcyjne",
