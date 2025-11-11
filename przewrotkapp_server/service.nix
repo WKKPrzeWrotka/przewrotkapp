@@ -62,7 +62,6 @@ with lib;
 
     services.postgresql = {
       enable = true;
-      package = pkgs.postgresql_17;
       ensureDatabases = [ "przewrotkapp" ];
       ensureUsers = [
         {
