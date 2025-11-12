@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
@@ -181,6 +182,42 @@ class _UserDependentProvider extends StatelessWidget {
       ],
       child: child,
     );
+  }
+}
+
+class UserPageCubit extends Cubit<UserPageData> {
+  final int userId;
+
+  late final StreamSubscription<PrzeUser> _ssPrzeUser;
+  late final StreamSubscription<List<Hour>> _ssHours;
+  late final StreamSubscription<int> _ssHoursSum;
+
+  UserPageCubit({required this.userId})
+    : super(
+        UserPageData(
+          userId: userId,
+          przeUser: null,
+          hours: null,
+          hoursSum: null,
+        ),
+      ) {
+    _ssPrzeUser = _retryStream(
+      () => _client.user.watchPrzeUser(userId),
+    ).listen((p) => emit(state.copyWith(przeUser: p)));
+    _ssHours = _retryStream(
+      () => _client.hours.watchHours(userId: userId),
+    ).listen((h) => emit(state.copyWith(hours: h)));
+    _ssHoursSum = _retryStream(
+      () => _client.hours.watchHoursSum(userId),
+    ).listen((s) => emit(state.copyWith(hoursSum: s)));
+  }
+
+  @override
+  Future<void> close() async {
+    await _ssPrzeUser.cancel();
+    await _ssHours.cancel();
+    await _ssHoursSum.cancel();
+    return super.close();
   }
 }
 

@@ -27,6 +27,7 @@ dependencies:
   # Logic
   go_router: ^16.3.0
   provider: ^6.1.5+1
+  flutter_bloc: ^9.1.1
   rxdart: ^0.28.0
   collection: ^1.19.1
   flutter_image_compress: ^2.4.0
