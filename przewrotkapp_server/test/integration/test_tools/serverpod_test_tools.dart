@@ -258,7 +258,7 @@ class _Events {
 
   final _i2.SerializationManager _serializationManager;
 
-  _i3.Future<List<({DateTime from, String name, DateTime to})>>
+  _i3.Future<List<({DateTime end, String name, DateTime start})>>
       getDiscordEvents(
     _i1.TestSessionBuilder sessionBuilder, {
     required bool past,
@@ -282,9 +282,8 @@ class _Events {
               _localUniqueSession,
               _localCallContext.arguments,
             )
-            .then((record) => _i5.Protocol()
-                .deserialize<List<({DateTime from, String name, DateTime to})>>(
-                    record));
+            .then((record) => _i5.Protocol().deserialize<
+                List<({DateTime end, String name, DateTime start})>>(record));
         return _localReturnValue;
       } finally {
         await _localUniqueSession.close();

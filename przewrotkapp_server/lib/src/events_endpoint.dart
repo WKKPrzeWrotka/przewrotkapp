@@ -4,7 +4,7 @@ import 'package:nyxx/nyxx.dart';
 import 'package:przewrotkapp_server/src/utils.dart';
 import 'package:serverpod/serverpod.dart';
 
-typedef DiscordEvent = ({String name, DateTime from, DateTime to});
+typedef DiscordEvent = ({String name, DateTime start, DateTime end});
 
 var discordEventsCache = <DiscordEvent>[];
 
@@ -51,16 +51,21 @@ class DiscordEventsFutureCall extends FutureCall {
               // them at 22:00 previous day.
               // So, first, convert them to local, force-set time to 04:00 and
               // mark *that* as utc 😌
-              from: e.scheduledStartTime.toLocal().withDefaultRentalFromTime(),
-              to:
+              start: e.scheduledStartTime.toLocal().withDefaultRentalFromTime(),
+              end:
                   (e.scheduledEndTime?.toLocal() ??
                           e.scheduledStartTime.toLocal())
                       .withDefaultRentalToTime(),
             ),
           )
           // Last 30 days max
-          .where((e) => e.to.difference(DateTime.now()).inDays > -30)
+          .where((e) => e.end.difference(DateTime.now()).inDays > -30)
           .toList();
+      discordEventsCache.sort(
+        (a, b) => a.start.millisecondsSinceEpoch.compareTo(
+          b.start.millisecondsSinceEpoch,
+        ),
+      );
     } catch (e) {
       session.log(e.toString(), level: LogLevel.error);
     }

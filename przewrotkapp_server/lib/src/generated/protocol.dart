@@ -1635,24 +1635,24 @@ class Protocol extends _i1.SerializationManagerServer {
       return (data as List).map((e) => deserialize<_i32.Comment>(e)).toList()
           as T;
     }
-    if (t == List<({DateTime from, String name, DateTime to})>) {
+    if (t == List<({DateTime end, String name, DateTime start})>) {
       return (data as List)
           .map((e) =>
-              deserialize<({DateTime from, String name, DateTime to})>(e))
+              deserialize<({DateTime end, String name, DateTime start})>(e))
           .toList() as T;
     }
-    if (t == _i1.getType<({DateTime from, String name, DateTime to})>()) {
+    if (t == _i1.getType<({DateTime end, String name, DateTime start})>()) {
       return (
-        from: deserialize<DateTime>(((data as Map)['n'] as Map)['from']),
+        end: deserialize<DateTime>(((data as Map)['n'] as Map)['end']),
         name: deserialize<String>(data['n']['name']),
-        to: deserialize<DateTime>(data['n']['to']),
+        start: deserialize<DateTime>(data['n']['start']),
       ) as T;
     }
-    if (t == _i1.getType<({DateTime from, String name, DateTime to})>()) {
+    if (t == _i1.getType<({DateTime end, String name, DateTime start})>()) {
       return (
-        from: deserialize<DateTime>(((data as Map)['n'] as Map)['from']),
+        end: deserialize<DateTime>(((data as Map)['n'] as Map)['end']),
         name: deserialize<String>(data['n']['name']),
-        to: deserialize<DateTime>(data['n']['to']),
+        start: deserialize<DateTime>(data['n']['start']),
       ) as T;
     }
     if (t == List<(_i33.Gear, _i34.GearBelt)>) {
@@ -2252,12 +2252,12 @@ Map<String, dynamic>? mapRecordToJson(Record? record) {
   if (record == null) {
     return null;
   }
-  if (record is ({DateTime from, String name, DateTime to})) {
+  if (record is ({DateTime end, String name, DateTime start})) {
     return {
       "n": {
-        "from": record.from,
+        "end": record.end,
         "name": record.name,
-        "to": record.to,
+        "start": record.start,
       },
     };
   }

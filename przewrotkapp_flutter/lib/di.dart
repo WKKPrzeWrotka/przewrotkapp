@@ -94,8 +94,8 @@ class _UserDependentProvider extends StatelessWidget {
                     .map(
                       (event) => (
                         name: event.name,
-                        from: event.from.toUtc(),
-                        to: event.to.toUtc(),
+                        from: event.start.toUtc(),
+                        to: event.end.toUtc(),
                       ),
                     )
                     .toList(),
