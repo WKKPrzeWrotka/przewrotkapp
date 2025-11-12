@@ -45,6 +45,22 @@ class EverythingProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<SessionManager>(
+      create: (_) => _sessionManager,
+      child: _UserDependentProvider(child: child),
+    );
+  }
+}
+
+class _UserDependentProvider extends StatelessWidget {
+  final Widget child;
+
+  const _UserDependentProvider({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    final sm = context.watch<SessionManager>();
+    final user = sm.signedInUser;
     // WARNING: Different typedefs are recognized as equal if their actual types
     // are equal!! That means, if you will make a provider here for
     // typedef AllGear = List<Gear>
@@ -54,7 +70,6 @@ class EverythingProvider extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<Client>(create: (_) => _client),
-        ChangeNotifierProvider<SessionManager>(create: (_) => _sessionManager),
         // Maybe wrap it in some container class to indicate what it is
         StreamProvider<AllGearCache?>(
           lazy: false,
@@ -89,6 +104,16 @@ class EverythingProvider extends StatelessWidget {
           lazy: false,
           initialData: null,
           create: (_) => _retryStream(() => _client.user.watchPrzeUser()),
+        ),
+        StreamProvider<HoursSum?>(
+          initialData: null,
+          create: (_) => _retryStream(
+            () => user != null
+                ? _client.hours
+                      .watchHoursSum(user.id ?? -1)
+                      .map((s) => HoursSum(s))
+                : Stream.fromFuture(Future.delayed(Duration(milliseconds: 50))),
+          ),
         ),
         StreamProvider<UserFavourites?>(
           lazy: false,

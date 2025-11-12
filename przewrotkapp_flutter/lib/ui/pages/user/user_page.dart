@@ -98,14 +98,15 @@ class _UserPageState extends State<UserPage> {
               else
                 Text("🟠 Ładowanie wypożyczeń..."),
               Divider(height: 32),
-              StreamBuilder(
-                // todo: move this somewhere else
-                stream: client.hours.watchHoursSum(widget.userId),
-                builder: (_, snap) => Text(
-                  "Ostatnie godzinki${snap.hasData ? ' (${snap.data}h)' : ""}:",
-                  style: tt.headlineMedium,
-                ),
-              ),
+              // TODO: Fix this with new DI
+              // StreamBuilder(
+              //   // todo: move this somewhere else
+              //   stream: client.hours.watchHoursSum(widget.userId),
+              //   builder: (_, snap) => Text(
+              //     "Ostatnie godzinki${snap.hasData ? ' (${snap.data}h)' : ""}:",
+              //     style: tt.headlineMedium,
+              //   ),
+              // ),
               UserRecentHoursList(userId: widget.userId),
               Divider(height: 32),
               ElevatedButton(

@@ -16,6 +16,15 @@ typedef FutureRentalGroups = List<RentalGroup>;
 
 typedef SelfPrzeUser = PrzeUser;
 
+class HoursSum {
+  final int sum;
+
+  const HoursSum(this.sum);
+
+  @override
+  String toString() => sum.toString();
+}
+
 // i have to make a class because, as mentioned above, a simple List<int>
 // could get mixed with others
 class UserFavourites {
