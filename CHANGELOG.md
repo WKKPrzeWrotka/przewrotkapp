@@ -1,3 +1,9 @@
+## 1.1.1
+
+- Poprawny, przetestowany i elegancki algorytm liczenia godzinek za wypożyczenie 🎉
+- Dodanie info-tipów o sprzęcie by Zuza 🤓
+- Poprawki stylistyczne np. w labele typów godzinek
+
 ## 1.1.0
 
 - Pare stylistycznych poprawek
