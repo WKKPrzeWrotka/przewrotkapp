@@ -120,6 +120,7 @@ class _SignInPageState extends State<SignInPage> {
       ),
       const SizedBox(height: 16),
       ElevatedButton(onPressed: _enabled ? _initiatePasswordReset : null, child: Text("Resetuj hasło")),
+      const SizedBox(height: 16),
       TextButton(
         onPressed: _enabled
             ? () {
@@ -176,7 +177,7 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   Future<void> _signIn() async {
-    // _resetIssues();
+    _resetIssues();
     var email = _emailController.text.trim().toLowerCase();
     if (!EmailValidator.validate(email)) {
       setState(() {
