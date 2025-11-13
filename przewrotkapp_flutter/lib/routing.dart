@@ -1,8 +1,9 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
+import 'di.dart';
 import 'logic/utils.dart';
 import 'ui/pages/calendar/calendar_page.dart';
 import 'ui/pages/comments_browser/comments_browser_page.dart';
@@ -64,8 +65,12 @@ final router = GoRouter(
     GoRoute(path: '/calendar', builder: (context, state) => CalendarPage()),
     GoRoute(
       path: '/user/:userId',
-      builder: (context, state) =>
-          UserPage(userId: int.parse(state.pathParameters['userId']!)),
+      builder: (context, state) => BlocProvider(
+        lazy: false,
+        create: (_) =>
+            UserPageCubit(userId: int.parse(state.pathParameters['userId']!)),
+        child: UserPage(),
+      ),
     ),
     GoRoute(
       path: '/user/:userId/edit',

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
@@ -45,6 +46,22 @@ class EverythingProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<SessionManager>(
+      create: (_) => _sessionManager,
+      child: _UserDependentProvider(child: child),
+    );
+  }
+}
+
+class _UserDependentProvider extends StatelessWidget {
+  final Widget child;
+
+  const _UserDependentProvider({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    final sm = context.watch<SessionManager>();
+    final user = sm.signedInUser;
     // WARNING: Different typedefs are recognized as equal if their actual types
     // are equal!! That means, if you will make a provider here for
     // typedef AllGear = List<Gear>
@@ -54,7 +71,6 @@ class EverythingProvider extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<Client>(create: (_) => _client),
-        ChangeNotifierProvider<SessionManager>(create: (_) => _sessionManager),
         // Maybe wrap it in some container class to indicate what it is
         StreamProvider<AllGearCache?>(
           lazy: false,
@@ -78,8 +94,8 @@ class EverythingProvider extends StatelessWidget {
                     .map(
                       (event) => (
                         name: event.name,
-                        from: event.from.toUtc(),
-                        to: event.to.toUtc(),
+                        from: event.start.toUtc(),
+                        to: event.end.toUtc(),
                       ),
                     )
                     .toList(),
@@ -89,6 +105,16 @@ class EverythingProvider extends StatelessWidget {
           lazy: false,
           initialData: null,
           create: (_) => _retryStream(() => _client.user.watchPrzeUser()),
+        ),
+        StreamProvider<HoursSum?>(
+          initialData: null,
+          create: (_) => _retryStream(
+            () => user != null
+                ? _client.hours
+                      .watchHoursSum(user.id ?? -1)
+                      .map((s) => HoursSum(s))
+                : Stream.fromFuture(Future.delayed(Duration(milliseconds: 50))),
+          ),
         ),
         StreamProvider<UserFavourites?>(
           lazy: false,
@@ -156,6 +182,42 @@ class EverythingProvider extends StatelessWidget {
       ],
       child: child,
     );
+  }
+}
+
+class UserPageCubit extends Cubit<UserPageData> {
+  final int userId;
+
+  late final StreamSubscription<PrzeUser> _ssPrzeUser;
+  late final StreamSubscription<List<Hour>> _ssHours;
+  late final StreamSubscription<int> _ssHoursSum;
+
+  UserPageCubit({required this.userId})
+    : super(
+        UserPageData(
+          userId: userId,
+          przeUser: null,
+          hours: null,
+          hoursSum: null,
+        ),
+      ) {
+    _ssPrzeUser = _retryStream(
+      () => _client.user.watchPrzeUser(userId),
+    ).listen((p) => emit(state.copyWith(przeUser: p)));
+    _ssHours = _retryStream(
+      () => _client.hours.watchHours(userId: userId),
+    ).listen((h) => emit(state.copyWith(hours: h)));
+    _ssHoursSum = _retryStream(
+      () => _client.hours.watchHoursSum(userId),
+    ).listen((s) => emit(state.copyWith(hoursSum: s)));
+  }
+
+  @override
+  Future<void> close() async {
+    await _ssPrzeUser.cancel();
+    await _ssHours.cancel();
+    await _ssHoursSum.cancel();
+    return super.close();
   }
 }
 

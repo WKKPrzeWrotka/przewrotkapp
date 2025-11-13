@@ -95,6 +95,7 @@ extension SpraydeckDeckSizeNamesAndStuff on SpraydeckDeckSize {
   };
 }
 
+// TODO: Format them a bit to make more readable
 extension GearExtraHumanInfo on GearExtra {
   List<({String fieldName, String value, String? tip})>
   get extraHumanInfo => switch (this) {
@@ -106,8 +107,20 @@ extension GearExtraHumanInfo on GearExtra {
         fieldName: "Typ",
         value: clothing.type.humanName,
         tip: switch (clothing.type) {
-          ClothingType.jacket => "<TU WYPEŁNIĆ>",
-          ClothingType.neopreneFoam => "<TU WYPEŁNIĆ>",
+          ClothingType.jacket =>
+            """Kurtki kajakowe są dość luźne, tak by można było założyć pod nie dodatkowe warstwy, nie krępując tym samym ruchów. Poniżej podane są przykładowe orientacyjne rozmiary kurtek oraz odpowiadający im wzrost i waga:
+- S - <165cm, <60kg;
+- M - 165-175cm, 60-75kg;
+- L - 175-180cm, 75-90kg;
+- XL - >180cm, >90kg.
+Pamiętaj jednak, że każda firma ma inną rozmiarówkę, dlatego najlepiej przymierzyć kurtkę przed wypożyczeniem.""",
+          ClothingType.neopreneFoam =>
+            """Pianka neoprenowa jest ciasna, dopasowana i wchodzi pod kurtkę. Zazwyczaj krępuje ruchy podczas pływania, ale można się do tego przyzwyczaić. Poniżej podane są przykładowe orientacyjne rozmiary pianek oraz odpowiadający im wzrost i waga:
+- S - <165cm, <60kg;
+- M - 165-175cm, 60-75kg;
+- L - 175-180cm, 75-90kg;
+- XL - >180cm, >90kg.
+Pamiętaj jednak, że każda firma ma inną rozmiarówkę, dlatego najlepiej przymierzyć odzież przed wypożyczeniem.""",
         },
       ),
       if (clothing.typeDescription != null)
@@ -118,14 +131,19 @@ extension GearExtraHumanInfo on GearExtra {
         (
           fieldName: "Objętość",
           value: "${floatbag.volume}L",
-          tip: "<TU WYPEŁNIĆ>",
+          tip:
+              "Komory występują zazwyczaj w dwóch rozmiarach 10L i 20L. Komorę o pojemności 20L wsadza się na tył kajaka (dwie, jeśli przez środek przebiega przegroda). Komory o pojemności 10L wsadza się na przód kajaka - po jednej na każdą stronę przegrody. Używane są w kajakach z miejscem na dziobie za podnóżkiem. W przypadku kajaków bez podnóżka lub z niewielką przestrzenią na dziobie użycie tych komór nie jest konieczne.",
         ),
     ],
     GearHelmet helmet => [
       (
         fieldName: "Rozmiar",
         value: helmet.size.humanName,
-        tip: "<TU WYPEŁNIĆ>",
+        tip: """
+- S/M - kask pasujący osobom o obwodzie głowy 53-56cm
+- M/L - 56-59cm
+- L/XL - 59-61cm
+Jeżeli Twój obwód głowy jest na granicy dwóch rozmiarów, lepiej wziąć większy - wtedy pod kask wejdzie też czepek neoprenowy. Każda firma ma nieco inną rozmiarówkę, a dodatkowo w kaskach klubowych pływało wiele różnych kajakarzy, dlatego ich rozmiary mogą się różnić od standardowych. Najlepiej więc przymierzyć przed wypożyczeniem :)""",
       ),
     ],
     GearKayak kayak => [
@@ -133,14 +151,22 @@ extension GearExtraHumanInfo on GearExtra {
         fieldName: "Typ",
         value: kayak.type.humanName,
         tip: switch (kayak.type) {
-          KayakType.creek => "<TU WYPEŁNIĆ>",
-          KayakType.riverRunner => "<TU WYPEŁNIĆ>",
-          KayakType.halfSlice => "<TU WYPEŁNIĆ>",
-          KayakType.fullSlice => "<TU WYPEŁNIĆ>",
-          KayakType.playboat => "<TU WYPEŁNIĆ>",
-          KayakType.zwalkowy => "<TU WYPEŁNIĆ>",
-          KayakType.dwuOsobowy => "<TU WYPEŁNIĆ>",
-          KayakType.kanadyjka => "<TU WYPEŁNIĆ>",
+          KayakType.creek =>
+            "Jest to rodzaj kajaka górskiego przystosowanego do pływania trudnych rzek. Jest zarówno dość krótki, jak i szeroki. Ma dużą wyporność, która pozwala na szybkie wynurzenie i łatwe utrzymywanie się na powierzchni. Duża zwrotność pomaga w manewrowaniu między kamieniami. Jest zbudowany z wytrzymałych materiałów, co zapewnia bezpieczeństwo w trudnym terenie.",
+          KayakType.riverRunner =>
+            "Jest to uniwersalny kajak górski przystosowany do dynamicznego pokonywania rzek o różnym stopniu trudności. Łączy cechy creeka i playboata - pozwala zarówno na bezpieczne spływy rzekami górskimi, jak i zabawę na falkach. Płaski spód ułatwia surfowania na falach i zapewnia stabilność. Większa długość wpływa na rozwijanie prędkości i utrzymanie kierunku na rzece. Wymaga większych umiejętności na trudniejszych rzekach.",
+          KayakType.halfSlice =>
+            "Główną cechą, od której pochodzi nazwa, jest rozłożenie objętości. Przód kajaka jest wyporny, co pomaga stabilnie przebijać się przez fale i odwoje, natomiast rufa jest ścięta i ma małą objętość, co umożliwia wykonywanie trików freeslyle’owych. Idealny do nauki na łatwiejszych rzekach czy torach.",
+          KayakType.fullSlice =>
+            "Jest on zaprojektowany głównie z myślą o freestyle’u. Mała wyporność zarówno na dziobie, jak i rufie, krótki, zwrotny. Nie jest przystosowany do pływania trudnych rzek, jednak idealny do nauki na rzekach łatwych. Nie wybacza błędów, każdy zły przechył prowadzi do wywrotki, umożliwia częste ćwiczenie rolki :)",
+          KayakType.playboat =>
+            "Jest to typowy kajak freestyle’owy służący do wykonywania trików na rzece, a nie do przemieszczania się z punktu A do punktu B. Jego budowa pozwala na łatwe zatapianie końców kajaka, zwrotność, obroty, skoki, surfowanie itp. Ćwiczenie trików we freestyle’ówce na basenie czy torze rozwija jednak umiejętności, które potem można wykorzystać, pływając górską rzekę w innym kajaku.",
+          KayakType.zwalkowy =>
+            "Kajak przeznaczony do spływów nizinnych z dużą ilością przeszkód (drzewa, gałęzie). Ma wytrzymały kadłub i dużą zwrotność ułatwiającą manewrowania.",
+          KayakType.dwuOsobowy =>
+            "Łódka przeznaczona do pływania w dwie osoby, zazwyczaj w celach turystycznych, rekreacyjnych.",
+          KayakType.kanadyjka =>
+            "Jest to rodzaj rekreacyjnej otwartej łodzi wiosłowej o dużej stabilności i ładowności. Pływa się w niej zazwyczaj w pozycji klęczącej lub siedzącej na ławeczce. Do napędzania kanu używa się wiosła z jednym piórem zwanego pagajem.",
         },
       ),
       (
@@ -151,20 +177,23 @@ extension GearExtraHumanInfo on GearExtra {
           (int? _, int max) => 'Do $max kg',
           (_, _) => '',
         },
-        tip: "<TU WYPEŁNIĆ>",
+        tip:
+            "Warto stosować się do zakresu wagowego kajaka, bo  ma to wpływ na bezpieczeństwo, zanurzenie łódki, jej wyporność i stabilność. Przekroczenie wagi prowadzi do utraty stabilności kajaka i zwiększa ryzyko wywrotki. Wybór zbyt dużego kajaka natomiast utrudnia naukę i oswajanie się z wywrotkami na łatwiejszych rzekach ze względu na wybaczanie błędów, a na trudniejszych utrudnia panowanie nad łódką.",
       ),
     ],
     GearPaddle paddle => [
       (
         fieldName: "Długość",
         value: '${paddle.length.toString().replaceFirst(".0", "")}cm',
-        tip: "<TU WYPEŁNIĆ>",
+        tip:
+            "Odpowiednia długość wiosła odpowiada wysokości kajakarza z ręką wyciągniętą do góry. Im dłuższe wiosło, tym trudniejsze może być wiosłowanie i rolka, jednak dla wysokich osób lub szerokiego kajaka jest ono wskazane. Używając krótszego można wiosłować bardziej agresywnie pionowo.",
       ),
       (
         fieldName: "Skręt pióra",
         value:
             '${paddle.rotation < 0 ? 'Regulowane do ${-paddle.rotation}' : '${paddle.rotation}'}°',
-        tip: "<TU WYPEŁNIĆ>",
+        tip:
+            "Rotacja pióra zapewnia komfort i efektywność podczas wiosłowania. Wiosła skrętne wymagają lekkiej rotacji nadgarstka, co zazwyczaj skutkuje łatwiejszemu wiosłowaniu, jednak każdy ma inne preferencje, dlatego warto wypróbować różne opcje. W kajakarstwie górskim najczęściej spotykane są kąty w okolicach 30 stopni. Wiosła proste nie wymagają skrętu nadgarstka podczas wiosłowania.",
       ),
       (fieldName: "Typ", value: paddle.type.humanName, tip: null),
     ],
@@ -173,9 +202,12 @@ extension GearExtraHumanInfo on GearExtra {
         fieldName: "Typ",
         value: pfd.type.humanName,
         tip: switch (pfd.type) {
-          PfdType.gorska => "<TU WYPEŁNIĆ>",
-          PfdType.freestyle => "<TU WYPEŁNIĆ>",
-          PfdType.nizinna => "<TU WYPEŁNIĆ>",
+          PfdType.gorska =>
+            "Jest to kamizelka asekuracyjna zaprojektowana z myślą o rzekach górskich. Ma dużą wyporność pozwalającą na utrzymanie kajakarza na powierzchni rwącej wody. Ma wbudowany pas przystosowany do wpięcia tzw. krowiego ogona, który umożliwia podpięcie się do rzutki podczas akcji ratunkowej, ale i szybkie jej wypięcie. Ma wbudowane liczne kieszenie i uchwyty. Pomimo rozbudowanej konstrukcji pozwala na dużą swobodę ruchów podczas pływania.",
+          PfdType.freestyle =>
+            "Jest przystosowana do wykonywania trików na rzece. Jej najważniejszą cechą jest zachowanie jak największej swobody ruchów. Jest lekka, ma mniejszą wyporność i jest dobrze dopasowana.",
+          PfdType.nizinna =>
+            "Jest to rodzaj kamizelki asekuracyjnej do rekreacyjnego pływania rzek nizinnych. Ma podstawową wyporność, niewystarczającą do pływania rzek górskich. Jest lżejsza i mniej rozbudowana niż kamizelka górska.",
         },
       ),
       (fieldName: "Rozmiar", value: pfd.size.humanName, tip: null),
@@ -184,19 +216,27 @@ extension GearExtraHumanInfo on GearExtra {
       (
         fieldName: "Rozmiar kokpitu",
         value: spraydeck.deckSize.humanName,
-        tip: "<TU WYPEŁNIĆ>",
+        tip:
+            "Rozmiar pokładu fartucha (części, którą rozciąga się nad otworem kokpitu i jest mocowana do jego rantu) musi być dopasowany do rozmiaru kokpitu kajaka, aby samoczynnie nie spadł podczas płynięcia, ale jednocześnie był łatwo zrywalny przy kabinie. Najlepiej sprawdzić to na żywo.",
       ),
       (
         fieldName: "Rozmiar w pasie",
         value: spraydeck.waistSize.humanName,
-        tip: "<TU WYPEŁNIĆ>",
+        tip:
+            """Pas fartucha powinien dość ciasno przylegać do ciała. Przykładowe zakresy:
+- S - obwód w pasie 65-75cm,
+- M - 75-85cm,
+- L - 85-95cm,
+- XL - 95 - 105cm.
+Jednak pas jest rozciągliwy, a rozmiary różnią się w zależności od marki, dlatego warto przymierzyć fartuch przed wypożyczeniem.""",
       ),
     ],
     GearThrowbag throwbag => [
       (
         fieldName: "Długość",
         value: "${throwbag.length}m",
-        tip: "<TU WYPEŁNIĆ>",
+        tip:
+            "Długość rzutki, jaką wybierzemy na pływanko, zależy głównie od szerokości rzeki. Dłuższe rzutki są trudniejsze do celowania i klarowania. Rzutka o długości 18m jest zazwyczaj odpowiednia.",
       ),
     ],
     _ => [],

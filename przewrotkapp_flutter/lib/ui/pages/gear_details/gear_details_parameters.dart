@@ -45,7 +45,9 @@ class GearDetailsParameters extends StatelessWidget {
                               children: [
                                 Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text(info.tip!),
+                                  // TODO: Finally take care of styling some day
+                                  // and mae bodyMedium look berable
+                                  child: Text(info.tip!, style: tt.bodyLarge),
                                 ),
                                 ElevatedButton(
                                   onPressed: () => context.pop(),

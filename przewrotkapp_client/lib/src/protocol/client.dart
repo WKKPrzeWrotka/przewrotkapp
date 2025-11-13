@@ -64,9 +64,9 @@ class EndpointEvents extends _i1.EndpointRef {
   @override
   String get name => 'events';
 
-  _i2.Future<List<({DateTime from, String name, DateTime to})>>
+  _i2.Future<List<({DateTime end, String name, DateTime start})>>
       getDiscordEvents({required bool past}) => caller.callServerEndpoint<
-              List<({DateTime from, String name, DateTime to})>>(
+              List<({DateTime end, String name, DateTime start})>>(
             'events',
             'getDiscordEvents',
             {'past': past},

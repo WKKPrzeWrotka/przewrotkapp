@@ -16,12 +16,46 @@ typedef FutureRentalGroups = List<RentalGroup>;
 
 typedef SelfPrzeUser = PrzeUser;
 
+class HoursSum {
+  final int sum;
+
+  const HoursSum(this.sum);
+
+  @override
+  String toString() => sum.toString();
+}
+
 // i have to make a class because, as mentioned above, a simple List<int>
 // could get mixed with others
 class UserFavourites {
   final List<int> gearIds;
 
   const UserFavourites(this.gearIds);
+}
+
+class UserPageData {
+  final int userId;
+  final PrzeUser? przeUser;
+  final List<Hour>? hours;
+  final int? hoursSum;
+
+  const UserPageData({
+    required this.userId,
+    required this.przeUser,
+    required this.hours,
+    required this.hoursSum,
+  });
+
+  UserPageData copyWith({
+    PrzeUser? przeUser,
+    List<Hour>? hours,
+    int? hoursSum,
+  }) => UserPageData(
+    userId: userId,
+    przeUser: przeUser ?? this.przeUser,
+    hours: hours ?? this.hours,
+    hoursSum: hoursSum ?? this.hoursSum,
+  );
 }
 
 // maybe separate class some day, but now it's enough
