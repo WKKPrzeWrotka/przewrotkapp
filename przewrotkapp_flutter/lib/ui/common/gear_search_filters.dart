@@ -54,8 +54,13 @@ class _GearSearchFiltersState extends State<GearSearchFilters> {
                 label: Text(type.toDisplayString()),
                 selected: selectedGearType == type,
                 onSelected: (v) {
+                  bool typeChanged = v && type != selectedGearType;
                   if (v) selectedGearType = type;
-                  setState(() {});
+                  setState(() {
+                    if (typeChanged) {
+                      searchCtrl.text = "";
+                    }
+                  });
                   filters();
                 },
               ),
