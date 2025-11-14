@@ -23,7 +23,7 @@ Future<void> initDi() async {
   serverUrl = serverUrlFromEnv.isEmpty
       ? kReleaseMode
             ? 'https://api.app.przewrotka.org/'
-            : 'http://localhost:8080/'
+            : 'https://api.app.przewrotka.org/'
       : serverUrlFromEnv;
 
   _client = Client(
