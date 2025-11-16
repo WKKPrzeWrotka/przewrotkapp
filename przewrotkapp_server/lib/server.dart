@@ -1,6 +1,7 @@
 import 'package:markdown/markdown.dart';
 import 'package:przewrotkapp_server/image_management.dart';
 import 'package:przewrotkapp_server/src/events_endpoint.dart';
+import 'package:przewrotkapp_server/src/future_calls/charge_hours.dart';
 import 'package:przewrotkapp_server/src/user_management.dart';
 import 'package:przewrotkapp_server/src/web/routes/root.dart';
 import 'package:serverpod/serverpod.dart';
@@ -95,6 +96,10 @@ void run(List<String> args) async {
   pod.registerFutureCall(
     ImagesRefreshFutureCall(),
     ImagesRefreshFutureCall.callName,
+  );
+  pod.registerFutureCall(
+    ChargeHoursFutureCall(),
+    ChargeHoursFutureCall.callName,
   );
   if (pod.runMode == ServerpodRunMode.production) {
     // Discord integration

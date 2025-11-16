@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:przewrotkapp_server/src/future_calls/charge_hours.dart';
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
 import 'package:przewrotkapp_server/src/utils.dart';
 import 'package:serverpod/serverpod.dart';
@@ -65,6 +66,7 @@ class RentalEndpoint extends Endpoint {
             .toList(),
         transaction: t,
       );
+      await ChargeHoursFutureCall.schedule(pod, newRental);
     });
     _rentalsUpdateCtrl.add(true);
   }
