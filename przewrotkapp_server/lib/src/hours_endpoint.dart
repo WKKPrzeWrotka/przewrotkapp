@@ -8,11 +8,12 @@ import 'package:serverpod_auth_server/module.dart';
 import 'generated/hour.dart';
 import 'utils.dart';
 
+/// Send a userId here for user which was updated
+final hoursUpdateCtrl = StreamController<int>.broadcast();
+
 class HoursEndpoint extends Endpoint {
   @override
   bool get requireLogin => true;
-
-  final _hoursUpdateCtrl = StreamController<int>.broadcast();
 
   Future<List<Hour>> getHours(Session session, {int? userId}) => Hour.db.find(
     session,
@@ -26,7 +27,7 @@ class HoursEndpoint extends Endpoint {
 
   Stream<List<Hour>> watchHours(Session session, {int? userId}) => watchX(
     () => getHours(session, userId: userId),
-    _hoursUpdateCtrl.stream.where(
+    hoursUpdateCtrl.stream.where(
       userId != null ? (e) => e == userId : (_) => true,
     ),
   );
@@ -43,7 +44,7 @@ class HoursEndpoint extends Endpoint {
 
   Stream<int> watchHoursSum(Session session, int userId) => watchX(
     () => getHoursSum(session, userId),
-    _hoursUpdateCtrl.stream.where((e) => e == userId),
+    hoursUpdateCtrl.stream.where((e) => e == userId),
   );
 
   Future<void> claimHour(Session session, Hour hour) async {
@@ -61,5 +62,6 @@ class HoursEndpoint extends Endpoint {
       throw PrzException(message: "Only godzinkowy can approve hours");
     }
     await Hour.db.insertRow(session, hour);
+    hoursUpdateCtrl.add(hour.userId);
   }
 }

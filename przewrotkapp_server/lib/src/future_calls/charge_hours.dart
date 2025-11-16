@@ -1,6 +1,7 @@
 import 'package:przewrotkapp_client/hours_calculations.dart' as client;
 import 'package:przewrotkapp_client/przewrotkapp_client.dart' as client;
 import 'package:przewrotkapp_client/scopes.dart' as scopes;
+import 'package:przewrotkapp_server/src/hours_endpoint.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
 
@@ -54,6 +55,7 @@ class ChargeHoursFutureCall extends FutureCall<Rental> {
         approved: true,
       ),
     );
+    hoursUpdateCtrl.add(rental.userId);
   }
 
   static Future<void> schedule(Serverpod pod, Rental rental) async {
