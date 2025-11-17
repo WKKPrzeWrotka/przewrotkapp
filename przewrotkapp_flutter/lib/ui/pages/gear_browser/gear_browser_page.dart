@@ -40,7 +40,7 @@ class _GearBrowserPageState extends State<GearBrowserPage> {
             floating: true,
             pinned: true,
             snap: false,
-            expandedHeight: 300,
+            expandedHeight: 350,
             title: Text("Cały sprzęt"),
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
@@ -51,7 +51,7 @@ class _GearBrowserPageState extends State<GearBrowserPage> {
               ),
               expandedTitleScale: 1,
               title: SizedBox(
-                height: 200,
+                height: 350,
                 child: SingleChildScrollView(
                   child: GearSearchFilters(
                     // set this same as var params = ...
