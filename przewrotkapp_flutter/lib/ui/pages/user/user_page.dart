@@ -91,21 +91,22 @@ class UserPage extends StatelessWidget {
           ),
           UserRecentHoursList(),
           Divider(height: 32),
-          ElevatedButton(
-            onPressed: () async {
-              await sm.signOutDevice();
-              if (context.mounted) {
-                while (context.canPop()) {
-                  context.pop();
+          if (isYou)
+            ElevatedButton(
+              onPressed: () async {
+                await sm.signOutDevice();
+                if (context.mounted) {
+                  while (context.canPop()) {
+                    context.pop();
+                  }
+                  context.pushReplacement('/signin');
                 }
-                context.pushReplacement('/signin');
-              }
-            },
-            child: Text(
-              "Wyloguj",
-              style: tt.bodyMedium?.copyWith(color: Colors.red),
+              },
+              child: Text(
+                "Wyloguj",
+                style: tt.bodyMedium?.copyWith(color: Colors.red),
+              ),
             ),
-          ),
         ],
       ),
     );
