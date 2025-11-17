@@ -32,7 +32,10 @@ class HoursEndpoint extends Endpoint {
     ),
   );
 
-  Future<int> getHoursSum(Session session, int userId) => session.db
+  // a bit of a dirty hack... but why not 🤷
+  @doNotGenerate
+  static Future<int> getHoursSumStatic(Session session, int userId) => session
+      .db
       .unsafeQuery(
         'SELECT SUM(amount) FROM hours '
         'WHERE "userId" = ${EscapedExpression(userId)} '
@@ -41,6 +44,9 @@ class HoursEndpoint extends Endpoint {
       .then(
         (res) => res.first.first is String ? int.parse(res.first.first) : 0,
       );
+
+  Future<int> getHoursSum(Session session, int userId) =>
+      getHoursSumStatic(session, userId);
 
   Stream<int> watchHoursSum(Session session, int userId) => watchX(
     () => getHoursSum(session, userId),
