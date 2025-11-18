@@ -1325,7 +1325,7 @@ class _HoursEndpoint {
     return _localTestStreamManager.outputStreamController.stream;
   }
 
-  _i3.Future<void> claimHour(
+  _i3.Future<void> createOrUpdateHour(
     _i1.TestSessionBuilder sessionBuilder,
     _i17.Hour hour,
   ) async {
@@ -1333,13 +1333,13 @@ class _HoursEndpoint {
       var _localUniqueSession =
           (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
         endpoint: 'hours',
-        method: 'claimHour',
+        method: 'createOrUpdateHour',
       );
       try {
         var _localCallContext = await _endpointDispatch.getMethodCallContext(
           createSessionCallback: (_) => _localUniqueSession,
           endpointPath: 'hours',
-          methodName: 'claimHour',
+          methodName: 'createOrUpdateHour',
           parameters: _i1.testObjectToJson({'hour': hour}),
           serializationManager: _serializationManager,
         );

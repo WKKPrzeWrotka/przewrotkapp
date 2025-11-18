@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/magic_numbers.dart' as magick;
+import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 import '../../../logic/data_types.dart';
+import '../../../logic/utils.dart';
 
 class HoursCard extends StatefulWidget {
   const HoursCard({super.key});
@@ -17,6 +19,9 @@ class _HoursCardState extends State<HoursCard> {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
+    final userId = context.select<SessionManager, int>(
+      (sm) => sm.signedInUser!.id!,
+    );
     final hoursSum = context.watch<HoursSum?>()?.sum;
     final hoursNegative = hoursSum != null ? (hoursSum < 0) : false;
     final rentingBlocked = hoursSum != null
@@ -71,9 +76,13 @@ class _HoursCardState extends State<HoursCard> {
                     child: Text("Zarób!"),
                   ),
                   ElevatedButton(
-                    onPressed: () => context.push('/hours/claim'),
+                    onPressed: () => context.push(
+                      '/hours/edit',
+                      extra: HourHandy.empty(userId),
+                    ),
                     child: Text("Zgłoś należne"),
                   ),
+                  // TODO: Buttons for approval for godzinkowy
                 ],
               ),
             ),

@@ -685,8 +685,8 @@ class Endpoints extends _i1.EndpointDispatch {
             params['userId'],
           ),
         ),
-        'claimHour': _i1.MethodConnector(
-          name: 'claimHour',
+        'createOrUpdateHour': _i1.MethodConnector(
+          name: 'createOrUpdateHour',
           params: {
             'hour': _i1.ParameterDescription(
               name: 'hour',
@@ -698,7 +698,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['hours'] as _i6.HoursEndpoint).claimHour(
+              (endpoints['hours'] as _i6.HoursEndpoint).createOrUpdateHour(
             session,
             params['hour'],
           ),

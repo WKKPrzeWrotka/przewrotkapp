@@ -38,7 +38,7 @@ hours:
   - watchHours:
   - getHoursSum:
   - watchHoursSum:
-  - claimHour:
+  - createOrUpdateHour:
 rental:
   - getRentals:
   - watchRentals:

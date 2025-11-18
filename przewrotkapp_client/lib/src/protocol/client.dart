@@ -409,9 +409,10 @@ class EndpointHours extends _i1.EndpointRef {
         {},
       );
 
-  _i2.Future<void> claimHour(_i15.Hour hour) => caller.callServerEndpoint<void>(
+  _i2.Future<void> createOrUpdateHour(_i15.Hour hour) =>
+      caller.callServerEndpoint<void>(
         'hours',
-        'claimHour',
+        'createOrUpdateHour',
         {'hour': hour},
       );
 }

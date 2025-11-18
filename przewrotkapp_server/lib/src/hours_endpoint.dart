@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:przewrotkapp_client/przewrotkapp_client.dart' hide Hour;
 import 'package:przewrotkapp_client/scopes.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
 
+import 'generated/exceptions/przexception.dart';
 import 'generated/hour.dart';
 import 'utils.dart';
 
@@ -53,13 +53,11 @@ class HoursEndpoint extends Endpoint {
     hoursUpdateCtrl.stream.where((e) => e == userId),
   );
 
-  Future<void> claimHour(Session session, Hour hour) async {
+  Future<void> createOrUpdateHour(Session session, Hour hour) async {
     final auth = (await session.authenticated)!;
-    final callingUserId = auth.userId;
-    final isGodzinkowy = auth.scopes
-        .map((e) => e.name ?? 'dupa')
-        .contains(PrzeScope.godzinkowy.name);
-    if (callingUserId != hour.userId && !isGodzinkowy) {
+    final user = await Users.findUserByUserId(session, auth.userId);
+    final isGodzinkowy = user!.scopeNames.contains(PrzeScope.godzinkowy.name);
+    if (user.id != hour.userId && !isGodzinkowy) {
       throw PrzException(
         message: "Only godzinowy can claim hours for someone else",
       );
@@ -67,7 +65,7 @@ class HoursEndpoint extends Endpoint {
     if (hour.approved == true && !isGodzinkowy) {
       throw PrzException(message: "Only godzinkowy can approve hours");
     }
-    await Hour.db.insertRow(session, hour);
+    await insertOrUpdate<Hour>(session, hour);
     hoursUpdateCtrl.add(hour.userId);
   }
 }
