@@ -34,4 +34,3 @@ Future<void> copyText(String text, BuildContext context) async {
 bool isMobileScreen(BuildContext context) {
   return MediaQuery.sizeOf(context).width < 850;
 }
-

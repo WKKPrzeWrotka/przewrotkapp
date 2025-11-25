@@ -1,7 +1,6 @@
-
-
 import 'package:serverpod_auth_client/serverpod_auth_client.dart';
-import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart' show SessionManager;
+import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart'
+    show SessionManager;
 
 import 'authentication_result.dart';
 
@@ -21,8 +20,10 @@ class CustomEmailAuthController {
           serverResponse.userInfo == null ||
           serverResponse.keyId == null ||
           serverResponse.key == null) {
-
-        return AuthenticationResult(isSuccess: false, failReason: _getFailReason(serverResponse.failReason));
+        return AuthenticationResult(
+          isSuccess: false,
+          failReason: _getFailReason(serverResponse.failReason),
+        );
       }
 
       // Authentication was successful, store the key.
@@ -33,17 +34,22 @@ class CustomEmailAuthController {
         serverResponse.key!,
       );
       return AuthenticationResult(isSuccess: true, failReason: null);
-    } catch (e, stackTrace) {
-      return AuthenticationResult(isSuccess: false, failReason: "Wystąpił błąd");
+    } catch (e) {
+      return AuthenticationResult(
+        isSuccess: false,
+        failReason: "Wystąpił błąd",
+      );
     }
   }
 
   String _getFailReason(AuthenticationFailReason? failReason) {
     return switch (failReason) {
       AuthenticationFailReason.invalidCredentials => "Nieprawidłowe hasło",
-      AuthenticationFailReason.userCreationDenied => "Błąd tworzenia użytkownika",
+      AuthenticationFailReason.userCreationDenied =>
+        "Błąd tworzenia użytkownika",
       AuthenticationFailReason.internalError => "Wystąpił błąd",
-      AuthenticationFailReason.tooManyFailedAttempts => "Zbyt dużo nieudanych prób",
+      AuthenticationFailReason.tooManyFailedAttempts =>
+        "Zbyt dużo nieudanych prób",
       AuthenticationFailReason.blocked => "Użytkownik zablokowany",
       null => "Wystąpił błąd",
     };
@@ -53,16 +59,12 @@ class CustomEmailAuthController {
   /// password. If successful, true is returned. If the attempt is not a
   /// success, false is returned.
   Future<bool> createAccountRequest(
-      String userName,
-      String email,
-      String password,
-      ) async {
+    String userName,
+    String email,
+    String password,
+  ) async {
     try {
-      return await caller.email.createAccountRequest(
-        userName,
-        email,
-        password,
-      );
+      return await caller.email.createAccountRequest(userName, email, password);
     } catch (e) {
       return false;
     }
@@ -72,9 +74,9 @@ class CustomEmailAuthController {
   /// code. If successful, a [UserInfo] is returned. If the attempt is not a
   /// success, null is returned.
   Future<UserInfo?> validateAccount(
-      String email,
-      String verificationCode,
-      ) async {
+    String email,
+    String verificationCode,
+  ) async {
     try {
       return await caller.email.createAccount(email, verificationCode);
     } catch (e) {
@@ -96,15 +98,12 @@ class CustomEmailAuthController {
   /// verification code and new password. If successful, true is returned. If
   /// the attempt is not a success, false is returned.
   Future<bool> resetPassword(
-      String email,
-      String verificationCode,
-      String password,
-      ) async {
+    String email,
+    String verificationCode,
+    String password,
+  ) async {
     try {
-      return await caller.email.resetPassword(
-        verificationCode,
-        password,
-      );
+      return await caller.email.resetPassword(verificationCode, password);
     } catch (e) {
       return false;
     }

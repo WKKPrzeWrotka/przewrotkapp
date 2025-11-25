@@ -38,19 +38,28 @@ final router = GoRouter(
     GoRoute(path: '/gear', builder: (context, state) => GearBrowserPage()),
     GoRoute(
       path: '/gear/:clubId',
-      builder: (context, state) => GearDetailsPage(clubId: state.pathParameters['clubId']!),
+      builder: (context, state) =>
+          GearDetailsPage(clubId: state.pathParameters['clubId']!),
     ),
     GoRoute(
       path: '/gear/:clubId/photos',
-      builder: (context, state) =>
-          FullscreenPhotosPage(clubId: state.pathParameters['clubId']!, initialIndex: int.tryParse(state.uri.queryParameters['initialIndex'] ?? "")),
+      builder: (context, state) => FullscreenPhotosPage(
+        clubId: state.pathParameters['clubId']!,
+        initialIndex: int.tryParse(
+          state.uri.queryParameters['initialIndex'] ?? "",
+        ),
+      ),
     ),
     GoRoute(
       path: '/gear/:clubId/edit',
       builder: (_, state) => GearEditPage(
         clubId: state.pathParameters['clubId']!,
         gearPair: state.extra as GearPair,
-        emptyFields: bool.tryParse(state.uri.queryParameters['emptyFields'] ?? 'false') ?? false,
+        emptyFields:
+            bool.tryParse(
+              state.uri.queryParameters['emptyFields'] ?? 'false',
+            ) ??
+            false,
       ),
     ),
     GoRoute(path: '/calendar', builder: (context, state) => CalendarPage()),
@@ -58,31 +67,44 @@ final router = GoRouter(
       path: '/user/:userId',
       builder: (context, state) => BlocProvider(
         lazy: false,
-        create: (_) => UserPageCubit(userId: int.parse(state.pathParameters['userId']!)),
+        create: (_) =>
+            UserPageCubit(userId: int.parse(state.pathParameters['userId']!)),
         child: UserPage(),
       ),
     ),
     GoRoute(
       path: '/user/:userId/edit',
-      builder: (context, state) => UserEditPage(przeUser: state.extra as PrzeUser),
+      builder: (context, state) =>
+          UserEditPage(przeUser: state.extra as PrzeUser),
     ),
-    GoRoute(path: '/hours/edit', builder: (context, state) => HoursEditPage(
+    GoRoute(
+      path: '/hours/edit',
+      builder: (context, state) => HoursEditPage(
         hour: state.extra as Hour,
         emptyFields:
             bool.tryParse(state.uri.queryParameters['emptyFields'] ?? 'true') ??
             true,
-      )),
+      ),
+    ),
     GoRoute(
       path: '/rentals/new',
       builder: (context, state) {
-        final init = state.uri.queryParameters.containsKey('initialRange') ? DateTimeRangeParsing.parseDateRangeString(state.uri.queryParameters['initialRange']!) : null;
+        final init = state.uri.queryParameters.containsKey('initialRange')
+            ? DateTimeRangeParsing.parseDateRangeString(
+                state.uri.queryParameters['initialRange']!,
+              )
+            : null;
         return NewRentalPage(initialRange: init);
       },
     ),
     GoRoute(
       path: '/rentals/group/:range',
       builder: (context, state) {
-        return RentalGroupDetailsPage(range: DateTimeRangeParsing.parseDateRangeString(state.pathParameters['range']!));
+        return RentalGroupDetailsPage(
+          range: DateTimeRangeParsing.parseDateRangeString(
+            state.pathParameters['range']!,
+          ),
+        );
       },
     ),
     GoRoute(path: '/comments', builder: (_, _) => CommentsBrowserPage()),
@@ -95,7 +117,10 @@ final router = GoRouter(
           return null;
         }
       },
-      builder: (context, state) => SignInPage(caller: context.read<Client>().modules.auth, onSignedIn: () => context.go('/')),
+      builder: (context, state) => SignInPage(
+        caller: context.read<Client>().modules.auth,
+        onSignedIn: () => context.go('/'),
+      ),
     ),
   ],
 );

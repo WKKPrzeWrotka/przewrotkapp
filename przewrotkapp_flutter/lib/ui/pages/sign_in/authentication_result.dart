@@ -1,5 +1,3 @@
-
-
 class AuthenticationResult {
   bool isSuccess = false;
   String? failReason;

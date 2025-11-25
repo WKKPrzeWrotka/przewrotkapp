@@ -23,7 +23,8 @@ class _SignInPageState extends State<SignInPage> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _validationCodeController = TextEditingController();
+  final TextEditingController _validationCodeController =
+      TextEditingController();
 
   String? _passwordIssue;
   String? _emailIssue;
@@ -49,7 +50,12 @@ class _SignInPageState extends State<SignInPage> {
       appBar: AppBar(title: Text('PrzeZalogujSie')),
       body: Center(
         child: Container(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
+          padding: const EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 16,
+            bottom: 8,
+          ),
           width: loginPageWidth,
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -57,7 +63,8 @@ class _SignInPageState extends State<SignInPage> {
             children: switch (_page) {
               _CustomLoginPage.signIn => loginPage(),
               _CustomLoginPage.forgotPassword => forgotPasswordPage(),
-              _CustomLoginPage.confirmPasswordReset => confirmPasswordResetPage(),
+              _CustomLoginPage.confirmPasswordReset =>
+                confirmPasswordResetPage(),
             },
           ),
         ),
@@ -68,7 +75,11 @@ class _SignInPageState extends State<SignInPage> {
   List<Widget> loginPage() {
     return [
       TextField(
-        decoration: InputDecoration(hintText: "E-mail", helperText: ' ', errorText: _emailIssue),
+        decoration: InputDecoration(
+          hintText: "E-mail",
+          helperText: ' ',
+          errorText: _emailIssue,
+        ),
         keyboardType: TextInputType.emailAddress,
         controller: _emailController,
         onChanged: (_) {
@@ -86,7 +97,9 @@ class _SignInPageState extends State<SignInPage> {
           helperText: ' ',
           errorText: _passwordIssue,
           suffixIcon: IconButton(
-            icon: Icon(_isPasswordObscured ? Icons.visibility : Icons.visibility_off),
+            icon: Icon(
+              _isPasswordObscured ? Icons.visibility : Icons.visibility_off,
+            ),
             onPressed: () {
               setState(() {
                 _isPasswordObscured = !_isPasswordObscured;
@@ -119,7 +132,11 @@ class _SignInPageState extends State<SignInPage> {
         enabled: _enabled,
         controller: _emailController,
         keyboardType: TextInputType.emailAddress,
-        decoration: InputDecoration(hintText: "E-mail", helperText: ' ', errorText: _emailIssue),
+        decoration: InputDecoration(
+          hintText: "E-mail",
+          helperText: ' ',
+          errorText: _emailIssue,
+        ),
         onChanged: (_) {
           setState(() {
             _emailIssue = null;
@@ -127,7 +144,10 @@ class _SignInPageState extends State<SignInPage> {
         },
       ),
       const SizedBox(height: 16),
-      ElevatedButton(onPressed: _enabled ? _initiatePasswordReset : null, child: Text("Resetuj hasło")),
+      ElevatedButton(
+        onPressed: _enabled ? _initiatePasswordReset : null,
+        child: Text("Resetuj hasło"),
+      ),
       const SizedBox(height: 16),
       TextButton(
         onPressed: _enabled
@@ -150,7 +170,11 @@ class _SignInPageState extends State<SignInPage> {
         enabled: _enabled,
         controller: _validationCodeController,
         keyboardType: TextInputType.text,
-        decoration: InputDecoration(hintText: "Kod weryfikacyjny", helperText: ' ', errorText: _validationCodeIssue),
+        decoration: InputDecoration(
+          hintText: "Kod weryfikacyjny",
+          helperText: ' ',
+          errorText: _validationCodeIssue,
+        ),
         onChanged: (_) {
           setState(() {
             _passwordIssue = null;
@@ -162,7 +186,11 @@ class _SignInPageState extends State<SignInPage> {
         maxLength: _defaultMaxPasswordLength,
         controller: _passwordController,
         obscureText: true,
-        decoration: InputDecoration(hintText: "Nowe hasło", helperText: ' ', errorText: _passwordIssue),
+        decoration: InputDecoration(
+          hintText: "Nowe hasło",
+          helperText: ' ',
+          errorText: _passwordIssue,
+        ),
         onChanged: (_) {
           setState(() {
             _passwordIssue = null;
@@ -170,7 +198,10 @@ class _SignInPageState extends State<SignInPage> {
         },
       ),
       const SizedBox(height: 16),
-      ElevatedButton(onPressed: _enabled ? _resetPassword : null, child: Text("Zaloguj")),
+      ElevatedButton(
+        onPressed: _enabled ? _resetPassword : null,
+        child: Text("Zaloguj"),
+      ),
       TextButton(
         onPressed: _enabled
             ? () {
@@ -197,7 +228,8 @@ class _SignInPageState extends State<SignInPage> {
     var password = _passwordController.text;
     if (password.length < _defaultMinPasswordLength) {
       setState(() {
-        _passwordIssue = "Za krótkie hasło. Min $_defaultMinPasswordLength znaków";
+        _passwordIssue =
+            "Za krótkie hasło. Min $_defaultMinPasswordLength znaków";
       });
       return;
     }
@@ -207,7 +239,8 @@ class _SignInPageState extends State<SignInPage> {
     });
 
     var authenticationResult = await _emailAuth.signIn(email, password);
-    if (!authenticationResult.isSuccess && authenticationResult.failReason != null) {
+    if (!authenticationResult.isSuccess &&
+        authenticationResult.failReason != null) {
       setState(() {
         _passwordIssue = authenticationResult.failReason;
         _enabled = true;
@@ -244,7 +277,8 @@ class _SignInPageState extends State<SignInPage> {
     _resetIssues();
     if (_passwordController.text.length < _defaultMinPasswordLength) {
       setState(() {
-        _passwordIssue = "Za krótkie hasło. Min to $_defaultMinPasswordLength znaków";
+        _passwordIssue =
+            "Za krótkie hasło. Min to $_defaultMinPasswordLength znaków";
       });
       return;
     }
@@ -255,7 +289,11 @@ class _SignInPageState extends State<SignInPage> {
       _enabled = false;
     });
 
-    var success = await _emailAuth.resetPassword(email, _validationCodeController.text, _passwordController.text);
+    var success = await _emailAuth.resetPassword(
+      email,
+      _validationCodeController.text,
+      _passwordController.text,
+    );
 
     if (!success) {
       setState(() {
@@ -265,7 +303,10 @@ class _SignInPageState extends State<SignInPage> {
       return;
     }
 
-    var authenticationResult = await _emailAuth.signIn(email, _passwordController.text);
+    var authenticationResult = await _emailAuth.signIn(
+      email,
+      _passwordController.text,
+    );
     if (!authenticationResult.isSuccess) {
       // Something went wrong, start over
       setState(() {
