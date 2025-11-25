@@ -30,3 +30,7 @@ Future<void> copyText(String text, BuildContext context) async {
     await Vibration.vibrate(preset: VibrationPreset.quickSuccessAlert);
   } catch (_) {}
 }
+
+bool isMobileScreen(BuildContext context) {
+  return MediaQuery.sizeOf(context).width < 850;
+}
