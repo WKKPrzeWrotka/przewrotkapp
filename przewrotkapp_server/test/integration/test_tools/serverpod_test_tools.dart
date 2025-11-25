@@ -1353,6 +1353,35 @@ class _HoursEndpoint {
       }
     });
   }
+
+  _i3.Future<void> deleteHour(
+    _i1.TestSessionBuilder sessionBuilder,
+    _i17.Hour hour,
+  ) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'hours',
+        method: 'deleteHour',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'hours',
+          methodName: 'deleteHour',
+          parameters: _i1.testObjectToJson({'hour': hour}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<void>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
 }
 
 class _RentalEndpoint {

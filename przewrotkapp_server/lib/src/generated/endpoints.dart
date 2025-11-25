@@ -703,6 +703,24 @@ class Endpoints extends _i1.EndpointDispatch {
             params['hour'],
           ),
         ),
+        'deleteHour': _i1.MethodConnector(
+          name: 'deleteHour',
+          params: {
+            'hour': _i1.ParameterDescription(
+              name: 'hour',
+              type: _i1.getType<_i21.Hour>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['hours'] as _i6.HoursEndpoint).deleteHour(
+            session,
+            params['hour'],
+          ),
+        ),
         'watchHours': _i1.MethodStreamConnector(
           name: 'watchHours',
           params: {

@@ -68,4 +68,15 @@ class HoursEndpoint extends Endpoint {
     await insertOrUpdate<Hour>(session, hour);
     hoursUpdateCtrl.add(hour.userId);
   }
+
+  Future<void> deleteHour(Session session, Hour hour) async {
+    final auth = (await session.authenticated)!;
+    final user = await Users.findUserByUserId(session, auth.userId);
+    final isGodzinkowy = user!.scopeNames.contains(PrzeScope.godzinkowy.name);
+    if (!isGodzinkowy) {
+      throw PrzException(message: "Only godzinkowy can delete godzinki!");
+    }
+    await Hour.db.deleteRow(session, hour);
+    hoursUpdateCtrl.add(hour.userId);
+  }
 }

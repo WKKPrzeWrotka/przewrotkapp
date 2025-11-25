@@ -56,6 +56,69 @@ class _HoursEditPageState extends State<HoursEditPage> {
               ? "Zgłoś należne ci godzinki"
               : "Edytowanie godzinek",
         ),
+        actions: [
+          if (isGodzinkowy && setInit)
+            TextButton.icon(
+              onPressed: () => showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text('Na pewno?'),
+                  content: Text(
+                    'Usuwasz tą godzinke - na zawsze! Nie ma odwrotu!',
+                  ),
+                  surfaceTintColor: Colors.red,
+                  actions: [
+                    TextButton(
+                      onPressed: () => context.pop(),
+                      child: Text("Dobra jednak nie..."),
+                    ),
+
+                    FilledButton(
+                      onPressed: () =>
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              duration: Duration(seconds: 1),
+                              content: Text("Przytrzymaj ;)"),
+                            ),
+                          ),
+                      onLongPress: () async {
+                        // TODO: Unify those try-success-fail snackbars everywhere
+                        try {
+                          await client.hours.deleteHour(widget.hour);
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: Colors.green.shade600,
+                                content: Text("Sukces!"),
+                              ),
+                            );
+                            context.pop();
+                            context.pop();
+                          }
+                        } catch (e) {
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: Colors.red.shade800,
+                                content: Text(e.toString()),
+                              ),
+                            );
+                          }
+                        }
+                      },
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Colors.red.shade700,
+                      ),
+                      child: Text("Ta na pewno"),
+                    ),
+                  ],
+                ),
+              ),
+              style: TextButton.styleFrom(foregroundColor: Colors.red.shade900),
+              icon: Icon(Icons.delete),
+              label: Text("Usuń"),
+            ),
+        ],
       ),
       body: Form(
         key: formKey,

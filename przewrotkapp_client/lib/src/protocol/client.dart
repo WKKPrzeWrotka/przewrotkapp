@@ -415,6 +415,13 @@ class EndpointHours extends _i1.EndpointRef {
         'createOrUpdateHour',
         {'hour': hour},
       );
+
+  _i2.Future<void> deleteHour(_i15.Hour hour) =>
+      caller.callServerEndpoint<void>(
+        'hours',
+        'deleteHour',
+        {'hour': hour},
+      );
 }
 
 /// {@category Endpoint}
