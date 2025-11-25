@@ -18,6 +18,7 @@ import 'ui/pages/rental_group_details/rental_group_details_page.dart';
 import 'ui/pages/sign_in/sign_in_page.dart';
 import 'ui/pages/user/user_edit_page.dart';
 import 'ui/pages/user/user_page.dart';
+import 'ui/pages/users_browser/users_browser_page.dart';
 
 void initRouter() {
   // Yeah this broke some stuff
@@ -63,6 +64,15 @@ final router = GoRouter(
       ),
     ),
     GoRoute(path: '/calendar', builder: (context, state) => CalendarPage()),
+    // A bit counter-descriptive, but same way as /gear
+    GoRoute(
+      path: '/user',
+      builder: (_, _) => BlocProvider(
+        lazy: true,
+        create: (_) => UsersBrowserPageCubit(),
+        child: UsersBrowserPage(),
+      ),
+    ),
     GoRoute(
       path: '/user/:userId',
       builder: (context, state) => BlocProvider(

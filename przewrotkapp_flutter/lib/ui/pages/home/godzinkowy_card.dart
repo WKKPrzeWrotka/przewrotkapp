@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../../logic/data_types.dart';
@@ -48,6 +49,10 @@ class GodzinkowyCard extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            ElevatedButton(
+              onPressed: () => context.push('/user'),
+              child: Text("Zobacz wszystkich ludzi 👪"),
             ),
           ],
         ),

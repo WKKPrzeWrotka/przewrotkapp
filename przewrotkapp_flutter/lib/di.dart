@@ -106,13 +106,6 @@ class _UserDependentProvider extends StatelessWidget {
           initialData: null,
           create: (_) => _retryStream(() => _client.user.watchPrzeUser()),
         ),
-        StreamProvider<AllPrzeUsers?>(
-          initialData: null,
-          lazy: true,
-          create: (_) => _retryStream(
-            () => _client.user.watchAllPrzeUsers().map((p) => AllPrzeUsers(p)),
-          ),
-        ),
         StreamProvider<HoursSum?>(
           initialData: null,
           create: (_) => _retryStream(
@@ -232,6 +225,22 @@ class UserPageCubit extends Cubit<UserPageData> {
     await _ssPrzeUser.cancel();
     await _ssHours.cancel();
     await _ssHoursSum.cancel();
+    return super.close();
+  }
+}
+
+class UsersBrowserPageCubit extends Cubit<List<PrzeUser>?> {
+  late final StreamSubscription<List<PrzeUser>> _ssPrzeUsers;
+
+  UsersBrowserPageCubit() : super(null) {
+    _ssPrzeUsers = _retryStream(
+      () => _client.user.watchAllPrzeUsers(),
+    ).listen((emit));
+  }
+
+  @override
+  Future<void> close() async {
+    await _ssPrzeUsers.cancel();
     return super.close();
   }
 }
