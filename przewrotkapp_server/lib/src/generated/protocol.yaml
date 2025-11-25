@@ -50,6 +50,8 @@ user:
   - getUserInfo:
   - getPrzeUser:
   - watchPrzeUser:
+  - getAllPrzeUsers:
+  - watchAllPrzeUsers:
   - updateGearFavourite:
   - updateUser:
   - getFavourites:

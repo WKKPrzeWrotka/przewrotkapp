@@ -49,13 +49,6 @@ class GodzinkowyCard extends StatelessWidget {
                 ),
               ),
             ),
-            Wrap(
-              spacing: 4,
-              children: [
-                // TODO:
-                ElevatedButton(onPressed: () {}, child: Text("Stwórz nową")),
-              ],
-            ),
           ],
         ),
       ),

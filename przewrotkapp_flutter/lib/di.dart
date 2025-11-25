@@ -106,6 +106,13 @@ class _UserDependentProvider extends StatelessWidget {
           initialData: null,
           create: (_) => _retryStream(() => _client.user.watchPrzeUser()),
         ),
+        StreamProvider<AllPrzeUsers?>(
+          initialData: null,
+          lazy: true,
+          create: (_) => _retryStream(
+            () => _client.user.watchAllPrzeUsers().map((p) => AllPrzeUsers(p)),
+          ),
+        ),
         StreamProvider<HoursSum?>(
           initialData: null,
           create: (_) => _retryStream(

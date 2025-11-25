@@ -903,6 +903,15 @@ class Endpoints extends _i1.EndpointDispatch {
             params['userId'],
           ),
         ),
+        'getAllPrzeUsers': _i1.MethodConnector(
+          name: 'getAllPrzeUsers',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i8.UserEndpoint).getAllPrzeUsers(session),
+        ),
         'updateGearFavourite': _i1.MethodConnector(
           name: 'updateGearFavourite',
           params: {
@@ -974,6 +983,19 @@ class Endpoints extends _i1.EndpointDispatch {
             session,
             params['userId'],
           ),
+        ),
+        'watchAllPrzeUsers': _i1.MethodStreamConnector(
+          name: 'watchAllPrzeUsers',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['user'] as _i8.UserEndpoint)
+                  .watchAllPrzeUsers(session),
         ),
         'watchFavourites': _i1.MethodStreamConnector(
           name: 'watchFavourites',

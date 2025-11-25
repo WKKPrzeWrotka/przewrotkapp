@@ -509,6 +509,22 @@ class EndpointUser extends _i1.EndpointRef {
         {},
       );
 
+  _i2.Future<List<_i18.PrzeUser>> getAllPrzeUsers() =>
+      caller.callServerEndpoint<List<_i18.PrzeUser>>(
+        'user',
+        'getAllPrzeUsers',
+        {},
+      );
+
+  _i2.Stream<List<_i18.PrzeUser>> watchAllPrzeUsers() =>
+      caller.callStreamingServerEndpoint<_i2.Stream<List<_i18.PrzeUser>>,
+          List<_i18.PrzeUser>>(
+        'user',
+        'watchAllPrzeUsers',
+        {},
+        {},
+      );
+
   _i2.Future<void> updateGearFavourite(
     _i5.Gear gear,
     bool isFavourite,

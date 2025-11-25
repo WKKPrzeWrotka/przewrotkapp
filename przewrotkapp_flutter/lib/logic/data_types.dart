@@ -16,6 +16,12 @@ typedef FutureRentalGroups = List<RentalGroup>;
 
 typedef SelfPrzeUser = PrzeUser;
 
+class AllPrzeUsers {
+  final List<PrzeUser> users;
+
+  const AllPrzeUsers(this.users);
+}
+
 class HoursSum {
   final int sum;
 

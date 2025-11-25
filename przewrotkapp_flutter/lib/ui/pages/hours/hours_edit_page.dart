@@ -49,7 +49,6 @@ class _HoursEditPageState extends State<HoursEditPage> {
     final setInit = !widget.emptyFields;
     final client = context.read<Client>();
     return Scaffold(
-      // TODO: "Delete" for godzinkowy
       appBar: AppBar(
         title: Text(
           widget.emptyFields
@@ -166,7 +165,13 @@ class _HoursEditPageState extends State<HoursEditPage> {
               },
               child: Text("Wybierz date"),
             ),
-            // TODO: User selection and approval for godzinkowy
+            if (isGodzinkowy)
+              CheckboxListTile(
+                title: Text("Zatwierdzona"),
+                value: editedHour.approved,
+                onChanged: (n) =>
+                    setState(() => editedHour.approved = n ?? false),
+              ),
             SizedBox(height: spacing * 3),
             FilledButton(
               onPressed: () {
