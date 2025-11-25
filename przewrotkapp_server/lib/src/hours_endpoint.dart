@@ -32,6 +32,17 @@ class HoursEndpoint extends Endpoint {
     ),
   );
 
+  Future<List<Hour>> getAwaitingHours(Session session) => Hour.db.find(
+    session,
+    where: (h) => h.approved.equals(false),
+    orderBy: (h) => h.date,
+    orderDescending: true,
+    include: Hour.include(user: UserInfo.include()),
+  );
+
+  Stream<List<Hour>> watchAwaitingHours(Session session) =>
+      watchX(() => getAwaitingHours(session), hoursUpdateCtrl.stream);
+
   // a bit of a dirty hack... but why not 🤷
   @doNotGenerate
   static Future<int> getHoursSumStatic(Session session, int userId) => session

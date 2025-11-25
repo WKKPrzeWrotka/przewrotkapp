@@ -116,6 +116,14 @@ class _UserDependentProvider extends StatelessWidget {
                 : Stream.fromFuture(Future.delayed(Duration(milliseconds: 50))),
           ),
         ),
+        StreamProvider<AwaitingHours?>(
+          initialData: null,
+          lazy: true,
+          create: (_) => _retryStream(
+            () =>
+                _client.hours.watchAwaitingHours().map((h) => AwaitingHours(h)),
+          ),
+        ),
         StreamProvider<UserFavourites?>(
           lazy: false,
           initialData: null,

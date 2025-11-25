@@ -25,6 +25,12 @@ class HoursSum {
   String toString() => sum.toString();
 }
 
+class AwaitingHours {
+  final List<Hour> hours;
+
+  const AwaitingHours(this.hours);
+}
+
 // i have to make a class because, as mentioned above, a simple List<int>
 // could get mixed with others
 class UserFavourites {

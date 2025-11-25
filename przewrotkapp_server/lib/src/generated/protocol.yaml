@@ -36,6 +36,8 @@ gearRead:
 hours:
   - getHours:
   - watchHours:
+  - getAwaitingHours:
+  - watchAwaitingHours:
   - getHoursSum:
   - watchHoursSum:
   - createOrUpdateHour:

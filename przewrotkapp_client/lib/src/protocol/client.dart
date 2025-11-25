@@ -395,6 +395,22 @@ class EndpointHours extends _i1.EndpointRef {
         {},
       );
 
+  _i2.Future<List<_i15.Hour>> getAwaitingHours() =>
+      caller.callServerEndpoint<List<_i15.Hour>>(
+        'hours',
+        'getAwaitingHours',
+        {},
+      );
+
+  _i2.Stream<List<_i15.Hour>> watchAwaitingHours() =>
+      caller.callStreamingServerEndpoint<_i2.Stream<List<_i15.Hour>>,
+          List<_i15.Hour>>(
+        'hours',
+        'watchAwaitingHours',
+        {},
+        {},
+      );
+
   _i2.Future<int> getHoursSum(int userId) => caller.callServerEndpoint<int>(
         'hours',
         'getHoursSum',

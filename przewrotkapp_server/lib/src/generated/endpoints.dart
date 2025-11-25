@@ -667,6 +667,16 @@ class Endpoints extends _i1.EndpointDispatch {
             userId: params['userId'],
           ),
         ),
+        'getAwaitingHours': _i1.MethodConnector(
+          name: 'getAwaitingHours',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['hours'] as _i6.HoursEndpoint)
+                  .getAwaitingHours(session),
+        ),
         'getHoursSum': _i1.MethodConnector(
           name: 'getHoursSum',
           params: {
@@ -741,6 +751,19 @@ class Endpoints extends _i1.EndpointDispatch {
             session,
             userId: params['userId'],
           ),
+        ),
+        'watchAwaitingHours': _i1.MethodStreamConnector(
+          name: 'watchAwaitingHours',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['hours'] as _i6.HoursEndpoint)
+                  .watchAwaitingHours(session),
         ),
         'watchHoursSum': _i1.MethodStreamConnector(
           name: 'watchHoursSum',
