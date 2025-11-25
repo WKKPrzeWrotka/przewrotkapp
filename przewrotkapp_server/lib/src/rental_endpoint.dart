@@ -54,7 +54,9 @@ class RentalEndpoint extends Endpoint {
       auth!.userId,
     );
     if (userHours < magick.hoursDebtRentingBlocked) {
-      throw PrzException(message: "Masz mniej niż -10 godzinek!");
+      throw PrzException(
+        message: "Masz mniej niż ${magick.hoursDebtRentingBlocked} godzinek!",
+      );
     }
     await session.db.transaction((t) async {
       final newRental = await Rental.db.insertRow(
