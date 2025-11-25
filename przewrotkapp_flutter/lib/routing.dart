@@ -12,12 +12,13 @@ import 'ui/pages/gear_details/fullscreen_photos_page.dart';
 import 'ui/pages/gear_details/gear_details_page.dart';
 import 'ui/pages/gear_details/gear_edit_page.dart';
 import 'ui/pages/home/home_page.dart';
-import 'ui/pages/hours/hours_claim_page.dart';
+import 'ui/pages/hours/hours_edit_page.dart';
 import 'ui/pages/new_rental/new_rental_page.dart';
 import 'ui/pages/rental_group_details/rental_group_details_page.dart';
 import 'ui/pages/sign_in/sign_in_page.dart';
 import 'ui/pages/user/user_edit_page.dart';
 import 'ui/pages/user/user_page.dart';
+import 'ui/pages/users_browser/users_browser_page.dart';
 
 void initRouter() {
   // Yeah this broke some stuff
@@ -63,6 +64,15 @@ final router = GoRouter(
       ),
     ),
     GoRoute(path: '/calendar', builder: (context, state) => CalendarPage()),
+    // A bit counter-descriptive, but same way as /gear
+    GoRoute(
+      path: '/user',
+      builder: (_, _) => BlocProvider(
+        lazy: true,
+        create: (_) => UsersBrowserPageCubit(),
+        child: UsersBrowserPage(),
+      ),
+    ),
     GoRoute(
       path: '/user/:userId',
       builder: (context, state) => BlocProvider(
@@ -78,8 +88,13 @@ final router = GoRouter(
           UserEditPage(przeUser: state.extra as PrzeUser),
     ),
     GoRoute(
-      path: '/hours/claim',
-      builder: (context, state) => HoursClaimPage(),
+      path: '/hours/edit',
+      builder: (context, state) => HoursEditPage(
+        hour: state.extra as Hour,
+        emptyFields:
+            bool.tryParse(state.uri.queryParameters['emptyFields'] ?? 'true') ??
+            true,
+      ),
     ),
     GoRoute(
       path: '/rentals/new',

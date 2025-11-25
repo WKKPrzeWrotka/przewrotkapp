@@ -60,13 +60,12 @@ class _UserEditPageState extends State<UserEditPage> {
             ),
             TextFormField(
               controller: ctrlPhone,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.numberWithOptions(signed: true),
               decoration: InputDecoration(label: Text('Numer telefonu 📞')),
               validator: (input) {
                 if (input?.trim().isEmpty ?? true) return "Musisz mieć numer!";
-                return RegExp(
-                      r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$',
-                    ).hasMatch(stripPhone(input!))
+                return int.tryParse(stripPhone(input!.replaceAll('+', ''))) !=
+                        null
                     ? null
                     : "Napisz ten numer dobrze 😒";
               },

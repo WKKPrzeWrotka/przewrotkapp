@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:przewrotkapp_client/scopes.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 import '../../../logic/data_types.dart';
 import '../../utils/names_and_strings.dart';
 import 'favourite_gear_card.dart';
+import 'godzinkowy_card.dart';
 import 'hours_card.dart';
 import 'upcoming_trips_card.dart';
 
@@ -45,7 +47,13 @@ class HomePage extends StatelessWidget {
       ),
       body: ListView(
         padding: const EdgeInsets.all(6),
-        children: [HoursCard(), UpcomingTripsCard(), FavouriteGearCard()],
+        children: [
+          HoursCard(),
+          if (user?.scopeNames.contains(PrzeScope.godzinkowy.name) ?? false)
+            GodzinkowyCard(),
+          UpcomingTripsCard(),
+          FavouriteGearCard(),
+        ],
       ),
     );
   }

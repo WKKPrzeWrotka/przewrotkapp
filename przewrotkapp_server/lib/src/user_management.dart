@@ -66,8 +66,13 @@ Tu Mati Blue 🩵 (znaczy, jego bot 🤖)
 Wprowadzamy w PrzeWrotce nową super apke do wypożyczania sprzętu 
 - możesz powiedzieć pa pa przeklikiwaniu sie przez formularze 😎
 
-Twoje konto zostało automatycznie stworzone na tegoż emaila - zrób sobie hasło 
-przez opcje **"Reset hasła"**
+Twoje konto zostało automatycznie stworzone na tegoż emaila - jak sie zalogować?
+- Sign in with Email
+- I have an account
+- Forgot pass - ustaw sobie własne hasło
+- Finalnie, zaloguj sie **tym** mailem i swoim hasłem 🎉
+
+(Tworzenie kont jest zablokowane - tworzą sie na podstawie opłaconych składek 💸)
 
 Apka jest mega intuicyjna w użyciu, ale gdybyś miał z czymś problem czy pytania,
 napisz śmiało do mnie:

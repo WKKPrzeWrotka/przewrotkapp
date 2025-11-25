@@ -77,3 +77,11 @@ extension SuperPrzeScope on PrzeScope {
 extension SuperSuperPrzeScope on Set<PrzeScope> {
   Set<Scope> toScopes() => map((e) => e.toScope()).toSet();
 }
+
+Future<T> insertOrUpdate<T extends TableRow>(
+  Session session,
+  T row, {
+  Transaction? t,
+}) async => row.id != null
+    ? await session.db.updateRow<T>(row, transaction: t)
+    : await session.db.insertRow<T>(row, transaction: t);

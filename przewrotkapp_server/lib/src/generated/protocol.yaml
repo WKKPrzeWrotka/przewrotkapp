@@ -36,9 +36,12 @@ gearRead:
 hours:
   - getHours:
   - watchHours:
+  - getAwaitingHours:
+  - watchAwaitingHours:
   - getHoursSum:
   - watchHoursSum:
-  - claimHour:
+  - createOrUpdateHour:
+  - deleteHour:
 rental:
   - getRentals:
   - watchRentals:
@@ -47,6 +50,8 @@ user:
   - getUserInfo:
   - getPrzeUser:
   - watchPrzeUser:
+  - getAllPrzeUsers:
+  - watchAllPrzeUsers:
   - updateGearFavourite:
   - updateUser:
   - getFavourites:

@@ -76,7 +76,7 @@ with lib;
 
     systemd.services.przewrotkapp-backups = mkIf config.services.przewrotkapp.enable {
       serviceConfig.User = "przewrotkapp";
-      path  = [ pkgs.postgresql ];
+      path  = with pkgs; [ postgresql rclone ];
       script = ''
       cd /var/lib/przewrotkapp/db-backups
       pg_dump -Fc przewrotkapp > "przewrotkapp-db_$(date '+%Y-%m-%d_%H-%M-%S').dump"

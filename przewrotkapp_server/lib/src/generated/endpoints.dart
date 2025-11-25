@@ -667,6 +667,16 @@ class Endpoints extends _i1.EndpointDispatch {
             userId: params['userId'],
           ),
         ),
+        'getAwaitingHours': _i1.MethodConnector(
+          name: 'getAwaitingHours',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['hours'] as _i6.HoursEndpoint)
+                  .getAwaitingHours(session),
+        ),
         'getHoursSum': _i1.MethodConnector(
           name: 'getHoursSum',
           params: {
@@ -685,8 +695,8 @@ class Endpoints extends _i1.EndpointDispatch {
             params['userId'],
           ),
         ),
-        'claimHour': _i1.MethodConnector(
-          name: 'claimHour',
+        'createOrUpdateHour': _i1.MethodConnector(
+          name: 'createOrUpdateHour',
           params: {
             'hour': _i1.ParameterDescription(
               name: 'hour',
@@ -698,7 +708,25 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['hours'] as _i6.HoursEndpoint).claimHour(
+              (endpoints['hours'] as _i6.HoursEndpoint).createOrUpdateHour(
+            session,
+            params['hour'],
+          ),
+        ),
+        'deleteHour': _i1.MethodConnector(
+          name: 'deleteHour',
+          params: {
+            'hour': _i1.ParameterDescription(
+              name: 'hour',
+              type: _i1.getType<_i21.Hour>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['hours'] as _i6.HoursEndpoint).deleteHour(
             session,
             params['hour'],
           ),
@@ -723,6 +751,19 @@ class Endpoints extends _i1.EndpointDispatch {
             session,
             userId: params['userId'],
           ),
+        ),
+        'watchAwaitingHours': _i1.MethodStreamConnector(
+          name: 'watchAwaitingHours',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['hours'] as _i6.HoursEndpoint)
+                  .watchAwaitingHours(session),
         ),
         'watchHoursSum': _i1.MethodStreamConnector(
           name: 'watchHoursSum',
@@ -862,6 +903,15 @@ class Endpoints extends _i1.EndpointDispatch {
             params['userId'],
           ),
         ),
+        'getAllPrzeUsers': _i1.MethodConnector(
+          name: 'getAllPrzeUsers',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i8.UserEndpoint).getAllPrzeUsers(session),
+        ),
         'updateGearFavourite': _i1.MethodConnector(
           name: 'updateGearFavourite',
           params: {
@@ -933,6 +983,19 @@ class Endpoints extends _i1.EndpointDispatch {
             session,
             params['userId'],
           ),
+        ),
+        'watchAllPrzeUsers': _i1.MethodStreamConnector(
+          name: 'watchAllPrzeUsers',
+          params: {},
+          streamParams: {},
+          returnType: _i1.MethodStreamReturnType.streamType,
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+            Map<String, Stream> streamParams,
+          ) =>
+              (endpoints['user'] as _i8.UserEndpoint)
+                  .watchAllPrzeUsers(session),
         ),
         'watchFavourites': _i1.MethodStreamConnector(
           name: 'watchFavourites',

@@ -1,3 +1,13 @@
+## 1.2.0
+
+- Faktycznie kasuje ludzi godzinki za wypożyczenia 🤡
+- ...i ostrzega/blokuje przez dług godzinkowy
+- Narzędzie dla godzinkowej do dodawania 🎉
+- Poprawki i niespójności, np:
+  - Ładniejsza strona logowania
+  - Zniesienie powalonych zasad przy numerze telefonu
+  - Naprawienie przeglądarkowego long pressa
+
 ## 1.1.1
 
 - Poprawny, przetestowany i elegancki algorytm liczenia godzinek za wypożyczenie 🎉

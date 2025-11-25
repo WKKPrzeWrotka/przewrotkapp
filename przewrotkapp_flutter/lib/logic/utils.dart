@@ -86,3 +86,13 @@ extension RentalHandy on Rental {
       .where((p) => gear.map((g) => g.id).contains(p.gear.id))
       .toList();
 }
+
+extension HourHandy on Hour {
+  static Hour empty(int userId) => Hour(
+    userId: userId,
+    amount: 0,
+    description: '',
+    category: HourCategory.helpAtGear,
+    date: DateTime.now().copyWith(hour: 12),
+  );
+}

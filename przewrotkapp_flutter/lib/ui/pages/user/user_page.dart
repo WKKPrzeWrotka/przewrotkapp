@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:przewrotkapp_client/scopes.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 import '../../../di.dart';
 import '../../../logic/data_types.dart';
+import '../../../logic/utils.dart';
 import '../../common/rental_listing.dart';
 import '../../utils/names_and_strings.dart';
 import 'social_links.dart';
@@ -18,6 +20,9 @@ class UserPage extends StatelessWidget {
     final t = Theme.of(context);
     final tt = t.textTheme;
     final sm = context.watch<SessionManager>();
+    final youAreGodzinkowy =
+        sm.signedInUser?.scopeNames.contains(PrzeScope.godzinkowy.name) ??
+        false;
     final rentals = context.watch<FutureRentals?>();
     // PageData stuff
     final pageData = context.select<UserPageCubit, UserPageData>(
@@ -89,23 +94,38 @@ class UserPage extends StatelessWidget {
             "Ostatnie godzinki${pageData.hoursSum != null ? ' (${pageData.hoursSum}h)' : ""}:",
             style: tt.headlineMedium,
           ),
+          if (youAreGodzinkowy)
+            Wrap(
+              children: [
+                FilledButton(
+                  onPressed: () => context.push(
+                    '/hours/edit?emptyFields=true',
+                    extra: HourHandy.empty(
+                      userId,
+                    ).copyWith(user: przeUser!.user),
+                  ),
+                  child: Text("Dodaj godzinkę"),
+                ),
+              ],
+            ),
           UserRecentHoursList(),
           Divider(height: 32),
-          ElevatedButton(
-            onPressed: () async {
-              await sm.signOutDevice();
-              if (context.mounted) {
-                while (context.canPop()) {
-                  context.pop();
+          if (isYou)
+            ElevatedButton(
+              onPressed: () async {
+                await sm.signOutDevice();
+                if (context.mounted) {
+                  while (context.canPop()) {
+                    context.pop();
+                  }
+                  context.pushReplacement('/signin');
                 }
-                context.pushReplacement('/signin');
-              }
-            },
-            child: Text(
-              "Wyloguj",
-              style: tt.bodyMedium?.copyWith(color: Colors.red),
+              },
+              child: Text(
+                "Wyloguj",
+                style: tt.bodyMedium?.copyWith(color: Colors.red),
+              ),
             ),
-          ),
         ],
       ),
     );

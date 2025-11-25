@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:przewrotkapp_client/magic_numbers.dart' as magick;
+import 'package:przewrotkapp_server/src/future_calls/charge_hours.dart';
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
+import 'package:przewrotkapp_server/src/hours_endpoint.dart';
 import 'package:przewrotkapp_server/src/utils.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
@@ -46,11 +49,20 @@ class RentalEndpoint extends Endpoint {
   ) async {
     if (to.isBefore(from)) throw "Invalid dates";
     final auth = await session.authenticated;
+    final userHours = await HoursEndpoint.getHoursSumStatic(
+      session,
+      auth!.userId,
+    );
+    if (userHours < magick.hoursDebtRentingBlocked) {
+      throw PrzException(
+        message: "Masz mniej niż ${magick.hoursDebtRentingBlocked} godzinek!",
+      );
+    }
     await session.db.transaction((t) async {
       final newRental = await Rental.db.insertRow(
         session,
         Rental(
-          userId: auth!.userId,
+          userId: auth.userId,
           created: DateTime.now(),
           lastModified: DateTime.now(),
           start: from,
@@ -65,6 +77,7 @@ class RentalEndpoint extends Endpoint {
             .toList(),
         transaction: t,
       );
+      await ChargeHoursFutureCall.schedule(pod, newRental);
     });
     _rentalsUpdateCtrl.add(true);
   }

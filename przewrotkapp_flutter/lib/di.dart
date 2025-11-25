@@ -116,6 +116,14 @@ class _UserDependentProvider extends StatelessWidget {
                 : Stream.fromFuture(Future.delayed(Duration(milliseconds: 50))),
           ),
         ),
+        StreamProvider<AwaitingHours?>(
+          initialData: null,
+          lazy: true,
+          create: (_) => _retryStream(
+            () =>
+                _client.hours.watchAwaitingHours().map((h) => AwaitingHours(h)),
+          ),
+        ),
         StreamProvider<UserFavourites?>(
           lazy: false,
           initialData: null,
@@ -221,6 +229,22 @@ class UserPageCubit extends Cubit<UserPageData> {
   }
 }
 
+class UsersBrowserPageCubit extends Cubit<List<PrzeUser>?> {
+  late final StreamSubscription<List<PrzeUser>> _ssPrzeUsers;
+
+  UsersBrowserPageCubit() : super(null) {
+    _ssPrzeUsers = _retryStream(
+      () => _client.user.watchAllPrzeUsers(),
+    ).listen((emit));
+  }
+
+  @override
+  Future<void> close() async {
+    await _ssPrzeUsers.cancel();
+    return super.close();
+  }
+}
+
 Stream<List<GearPair>> watchAllGear() {
   return CombineLatestStream.list([
         _client.gearRead.watchAllBelts(),
@@ -267,8 +291,7 @@ Future<T> _retryFuture<T>(
 ]) async {
   while (true) {
     try {
-      final dupa = await create();
-      return dupa;
+      return await create();
     } catch (e) {
       print(e);
       await Future.delayed(retryTime);
