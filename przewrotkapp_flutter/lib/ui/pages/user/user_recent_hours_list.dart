@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
@@ -16,11 +14,15 @@ class UserRecentHoursList extends StatelessWidget {
       (p) => p.state.hours,
     );
     return hours != null
-        ? Column(
-            children: [
-              for (final hour in hours.sublist(0, min(hours.length, 5)))
-                HourListing(hour: hour),
-            ],
+        ? Container(
+            constraints: BoxConstraints(maxHeight: 200),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 1.5),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: ListView(
+              children: [for (final hour in hours) HourListing(hour: hour)],
+            ),
           )
         : Text("Ładowanie...");
   }
