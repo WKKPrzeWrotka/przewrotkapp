@@ -291,8 +291,7 @@ Future<T> _retryFuture<T>(
 ]) async {
   while (true) {
     try {
-      final dupa = await create();
-      return dupa;
+      return await create();
     } catch (e) {
       print(e);
       await Future.delayed(retryTime);
