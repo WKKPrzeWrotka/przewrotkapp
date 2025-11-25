@@ -117,10 +117,7 @@ final router = GoRouter(
           return null;
         }
       },
-      builder: (context, state) => SignInPage(
-        caller: context.read<Client>().modules.auth,
-        onSignedIn: () => context.go('/'),
-      ),
+      builder: (context, state) => SignInPage(),
     ),
   ],
 );

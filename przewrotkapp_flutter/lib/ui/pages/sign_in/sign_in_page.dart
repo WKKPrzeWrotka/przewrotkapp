@@ -1,6 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:serverpod_auth_client/serverpod_auth_client.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../utils/ui_ux_stuff.dart';
 import 'custom_email_auth_controller.dart';
@@ -9,10 +11,7 @@ const _defaultMaxPasswordLength = 128;
 const _defaultMinPasswordLength = 8;
 
 class SignInPage extends StatefulWidget {
-  final Caller caller;
-  final VoidCallback onSignedIn;
-
-  const SignInPage({super.key, required this.caller, required this.onSignedIn});
+  const SignInPage({super.key});
 
   @override
   State<StatefulWidget> createState() => _SignInPageState();
@@ -39,7 +38,11 @@ class _SignInPageState extends State<SignInPage> {
   void initState() {
     super.initState();
 
-    _emailAuth = CustomEmailAuthController(widget.caller);
+    _emailAuth = CustomEmailAuthController(context.read<Client>().modules.auth);
+  }
+
+  void onSignedIn() {
+    context.go('/');
   }
 
   @override
@@ -248,7 +251,7 @@ class _SignInPageState extends State<SignInPage> {
       return;
     }
 
-    widget.onSignedIn.call();
+    onSignedIn();
   }
 
   Future<void> _initiatePasswordReset() async {
@@ -317,7 +320,7 @@ class _SignInPageState extends State<SignInPage> {
       return;
     }
 
-    widget.onSignedIn();
+    onSignedIn();
   }
 
   void _resetIssues() {
