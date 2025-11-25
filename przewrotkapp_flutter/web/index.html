@@ -29,13 +29,12 @@
 
   <title>PrzeWrotkApp</title>
   <link rel="manifest" href="manifest.json">
-  
-  
+
+
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-  
-  
-  
-  
+
+
+
   <style id="splash-screen-style">
     html {
       height: 100%
@@ -95,6 +94,10 @@
       right: 0;
     }
   </style>
+
+    <!-- Wcześniej, przy przytrzymywaniu przycisków, w niektórych przeglądarkach, włączały sie opcje przeglądarkowe -->
+    <!-- tj. "skopiuj link/pobierz obrazek" itp -_- -->
+    <script src="disable_context_menu.js"></script>
   <script id="splash-screen-script">
     function removeSplashFromWeb() {
       document.getElementById("splash")?.remove();
@@ -112,7 +115,7 @@
       <img class="contain" aria-hidden="true" src="splash/img/light-1x.png" alt="">
   </picture>
 
-  
+
   <!-- Bump 'version' version here to make the browser actually reload the app on new version -->
   <!-- Otherwise it will use cache until the end of the world... -->
   <script src="flutter_bootstrap.js?version=1.1.1" async=""></script>
