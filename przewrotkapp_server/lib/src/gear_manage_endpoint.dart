@@ -15,14 +15,6 @@ class GearManageEndpoint extends Endpoint {
   @override
   Set<Scope> get requiredScopes => {PrzeScope.sprzetowiec}.toScopes();
 
-  Future<T> _insertOrUpdate<T extends TableRow>(
-    Session session,
-    T row, {
-    Transaction? t,
-  }) async => row.id != null
-      ? await session.db.updateRow<T>(row, transaction: t)
-      : await session.db.insertRow<T>(row, transaction: t);
-
   Future<Uri> uploadGearImage(
     Session session,
     ByteData imageBytes,
@@ -57,7 +49,7 @@ class GearManageEndpoint extends Endpoint {
                     message: "Takie klubowe ID jest już zajęte",
                   )
                 : Gear(clubId: gear.clubId, type: gear.type));
-      final freshDbGear = await _insertOrUpdate(
+      final freshDbGear = await insertOrUpdate(
         session,
         gearToCopy.copyWith(
           manufacturer: gear.manufacturer,
@@ -70,47 +62,47 @@ class GearManageEndpoint extends Endpoint {
       );
 
       await switch (extra) {
-        GearBelt belt => _insertOrUpdate<GearBelt>(
+        GearBelt belt => insertOrUpdate<GearBelt>(
           session,
           belt.copyWith(gearId: freshDbGear.id),
           t: t,
         ),
-        GearClothing clothing => _insertOrUpdate<GearClothing>(
+        GearClothing clothing => insertOrUpdate<GearClothing>(
           session,
           clothing.copyWith(gearId: freshDbGear.id),
           t: t,
         ),
-        GearFloatbag floatbag => _insertOrUpdate<GearFloatbag>(
+        GearFloatbag floatbag => insertOrUpdate<GearFloatbag>(
           session,
           floatbag.copyWith(gearId: freshDbGear.id),
           t: t,
         ),
-        GearHelmet helmet => _insertOrUpdate<GearHelmet>(
+        GearHelmet helmet => insertOrUpdate<GearHelmet>(
           session,
           helmet.copyWith(gearId: freshDbGear.id),
           t: t,
         ),
-        GearKayak kayak => _insertOrUpdate<GearKayak>(
+        GearKayak kayak => insertOrUpdate<GearKayak>(
           session,
           kayak.copyWith(gearId: freshDbGear.id),
           t: t,
         ),
-        GearPaddle paddle => _insertOrUpdate<GearPaddle>(
+        GearPaddle paddle => insertOrUpdate<GearPaddle>(
           session,
           paddle.copyWith(gearId: freshDbGear.id),
           t: t,
         ),
-        GearPfd pfd => _insertOrUpdate<GearPfd>(
+        GearPfd pfd => insertOrUpdate<GearPfd>(
           session,
           pfd.copyWith(gearId: freshDbGear.id),
           t: t,
         ),
-        GearSpraydeck spraydeck => _insertOrUpdate<GearSpraydeck>(
+        GearSpraydeck spraydeck => insertOrUpdate<GearSpraydeck>(
           session,
           spraydeck.copyWith(gearId: freshDbGear.id),
           t: t,
         ),
-        GearThrowbag throwbag => _insertOrUpdate<GearThrowbag>(
+        GearThrowbag throwbag => insertOrUpdate<GearThrowbag>(
           session,
           throwbag.copyWith(gearId: freshDbGear.id),
           t: t,

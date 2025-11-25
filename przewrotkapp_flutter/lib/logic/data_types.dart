@@ -16,6 +16,12 @@ typedef FutureRentalGroups = List<RentalGroup>;
 
 typedef SelfPrzeUser = PrzeUser;
 
+class AllPrzeUsers {
+  final List<PrzeUser> users;
+
+  const AllPrzeUsers(this.users);
+}
+
 class HoursSum {
   final int sum;
 
@@ -23,6 +29,12 @@ class HoursSum {
 
   @override
   String toString() => sum.toString();
+}
+
+class AwaitingHours {
+  final List<Hour> hours;
+
+  const AwaitingHours(this.hours);
 }
 
 // i have to make a class because, as mentioned above, a simple List<int>

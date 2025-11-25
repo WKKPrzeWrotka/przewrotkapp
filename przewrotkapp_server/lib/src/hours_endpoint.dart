@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:przewrotkapp_client/przewrotkapp_client.dart' hide Hour;
 import 'package:przewrotkapp_client/scopes.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
 
+import 'generated/exceptions/przexception.dart';
 import 'generated/hour.dart';
 import 'utils.dart';
 
@@ -32,6 +32,17 @@ class HoursEndpoint extends Endpoint {
     ),
   );
 
+  Future<List<Hour>> getAwaitingHours(Session session) => Hour.db.find(
+    session,
+    where: (h) => h.approved.equals(false),
+    orderBy: (h) => h.date,
+    orderDescending: true,
+    include: Hour.include(user: UserInfo.include()),
+  );
+
+  Stream<List<Hour>> watchAwaitingHours(Session session) =>
+      watchX(() => getAwaitingHours(session), hoursUpdateCtrl.stream);
+
   // a bit of a dirty hack... but why not 🤷
   @doNotGenerate
   static Future<int> getHoursSumStatic(Session session, int userId) => session
@@ -53,13 +64,11 @@ class HoursEndpoint extends Endpoint {
     hoursUpdateCtrl.stream.where((e) => e == userId),
   );
 
-  Future<void> claimHour(Session session, Hour hour) async {
+  Future<void> createOrUpdateHour(Session session, Hour hour) async {
     final auth = (await session.authenticated)!;
-    final callingUserId = auth.userId;
-    final isGodzinkowy = auth.scopes
-        .map((e) => e.name ?? 'dupa')
-        .contains(PrzeScope.godzinkowy.name);
-    if (callingUserId != hour.userId && !isGodzinkowy) {
+    final user = await Users.findUserByUserId(session, auth.userId);
+    final isGodzinkowy = user!.scopeNames.contains(PrzeScope.godzinkowy.name);
+    if (user.id != hour.userId && !isGodzinkowy) {
       throw PrzException(
         message: "Only godzinowy can claim hours for someone else",
       );
@@ -67,7 +76,18 @@ class HoursEndpoint extends Endpoint {
     if (hour.approved == true && !isGodzinkowy) {
       throw PrzException(message: "Only godzinkowy can approve hours");
     }
-    await Hour.db.insertRow(session, hour);
+    await insertOrUpdate<Hour>(session, hour);
+    hoursUpdateCtrl.add(hour.userId);
+  }
+
+  Future<void> deleteHour(Session session, Hour hour) async {
+    final auth = (await session.authenticated)!;
+    final user = await Users.findUserByUserId(session, auth.userId);
+    final isGodzinkowy = user!.scopeNames.contains(PrzeScope.godzinkowy.name);
+    if (!isGodzinkowy) {
+      throw PrzException(message: "Only godzinkowy can delete godzinki!");
+    }
+    await Hour.db.deleteRow(session, hour);
     hoursUpdateCtrl.add(hour.userId);
   }
 }

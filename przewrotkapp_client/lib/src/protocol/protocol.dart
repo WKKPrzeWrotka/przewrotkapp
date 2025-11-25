@@ -55,7 +55,8 @@ import 'package:przewrotkapp_client/src/protocol/gear/gear_throwbag.dart'
     as _i40;
 import 'package:przewrotkapp_client/src/protocol/hour.dart' as _i41;
 import 'package:przewrotkapp_client/src/protocol/rental/rental.dart' as _i42;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i43;
+import 'package:przewrotkapp_client/src/protocol/user/prze_user.dart' as _i43;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i44;
 export 'exceptions/przexception.dart';
 export 'gear/clothing_type.dart';
 export 'gear/comment.dart';
@@ -490,6 +491,10 @@ class Protocol extends _i1.SerializationManager {
     if (t == List<_i31.Gear>) {
       return (data as List).map((e) => deserialize<_i31.Gear>(e)).toList() as T;
     }
+    if (t == List<_i43.PrzeUser>) {
+      return (data as List).map((e) => deserialize<_i43.PrzeUser>(e)).toList()
+          as T;
+    }
     if (t == List<int>) {
       return (data as List).map((e) => deserialize<int>(e)).toList() as T;
     }
@@ -548,7 +553,7 @@ class Protocol extends _i1.SerializationManager {
       ) as T;
     }
     try {
-      return _i43.Protocol().deserialize<T>(data, t);
+      return _i44.Protocol().deserialize<T>(data, t);
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
@@ -641,7 +646,7 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i29.PrzeUser) {
       return 'PrzeUser';
     }
-    className = _i43.Protocol().getClassNameForObject(data);
+    className = _i44.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth.$className';
     }
@@ -680,6 +685,9 @@ class Protocol extends _i1.SerializationManager {
     }
     if (data is List<_i42.Rental>) {
       return 'List<Rental>';
+    }
+    if (data is List<_i43.PrzeUser>) {
+      return 'List<PrzeUser>';
     }
     if (data is List<int>) {
       return 'List<int>';
@@ -779,7 +787,7 @@ class Protocol extends _i1.SerializationManager {
     }
     if (dataClassName.startsWith('serverpod_auth.')) {
       data['className'] = dataClassName.substring(15);
-      return _i43.Protocol().deserializeByClassName(data);
+      return _i44.Protocol().deserializeByClassName(data);
     }
     if (dataClassName == 'List<Comment>') {
       return deserialize<List<_i30.Comment>>(data['data']);
@@ -816,6 +824,9 @@ class Protocol extends _i1.SerializationManager {
     }
     if (dataClassName == 'List<Rental>') {
       return deserialize<List<_i42.Rental>>(data['data']);
+    }
+    if (dataClassName == 'List<PrzeUser>') {
+      return deserialize<List<_i43.PrzeUser>>(data['data']);
     }
     if (dataClassName == 'List<int>') {
       return deserialize<List<int>>(data['data']);

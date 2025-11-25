@@ -32,6 +32,22 @@ class UserEndpoint extends Endpoint {
     );
   }
 
+  Future<List<PrzeUser>> getAllPrzeUsers(Session session) async {
+    return (await PrzeUser.db.find(
+      session,
+      orderByList: (p) => [
+        Order(column: p.user.blocked),
+        Order(column: p.user.userName),
+        Order(column: p.user.fullName),
+      ],
+      include: PrzeUser.include(user: UserInfo.include()),
+    ));
+  }
+
+  Stream<List<PrzeUser>> watchAllPrzeUsers(Session session) async* {
+    yield* watchX(() => getAllPrzeUsers(session), _userUpdateCtrl.stream);
+  }
+
   Future<void> updateGearFavourite(
     Session session,
     Gear gear,

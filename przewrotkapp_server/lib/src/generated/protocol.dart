@@ -59,6 +59,7 @@ import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
     as _i42;
 import 'package:przewrotkapp_server/src/generated/hour.dart' as _i43;
 import 'package:przewrotkapp_server/src/generated/rental/rental.dart' as _i44;
+import 'package:przewrotkapp_server/src/generated/user/prze_user.dart' as _i45;
 export 'exceptions/przexception.dart';
 export 'gear/clothing_type.dart';
 export 'gear/comment.dart';
@@ -1818,6 +1819,10 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == List<_i33.Gear>) {
       return (data as List).map((e) => deserialize<_i33.Gear>(e)).toList() as T;
     }
+    if (t == List<_i45.PrzeUser>) {
+      return (data as List).map((e) => deserialize<_i45.PrzeUser>(e)).toList()
+          as T;
+    }
     if (t == List<int>) {
       return (data as List).map((e) => deserialize<int>(e)).toList() as T;
     }
@@ -2016,6 +2021,9 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is List<_i44.Rental>) {
       return 'List<Rental>';
     }
+    if (data is List<_i45.PrzeUser>) {
+      return 'List<PrzeUser>';
+    }
     if (data is List<int>) {
       return 'List<int>';
     }
@@ -2155,6 +2163,9 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (dataClassName == 'List<Rental>') {
       return deserialize<List<_i44.Rental>>(data['data']);
+    }
+    if (dataClassName == 'List<PrzeUser>') {
+      return deserialize<List<_i45.PrzeUser>>(data['data']);
     }
     if (dataClassName == 'List<int>') {
       return deserialize<List<int>>(data['data']);

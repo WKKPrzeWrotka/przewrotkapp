@@ -106,6 +106,13 @@ class _UserDependentProvider extends StatelessWidget {
           initialData: null,
           create: (_) => _retryStream(() => _client.user.watchPrzeUser()),
         ),
+        StreamProvider<AllPrzeUsers?>(
+          initialData: null,
+          lazy: true,
+          create: (_) => _retryStream(
+            () => _client.user.watchAllPrzeUsers().map((p) => AllPrzeUsers(p)),
+          ),
+        ),
         StreamProvider<HoursSum?>(
           initialData: null,
           create: (_) => _retryStream(
@@ -114,6 +121,14 @@ class _UserDependentProvider extends StatelessWidget {
                       .watchHoursSum(user.id ?? -1)
                       .map((s) => HoursSum(s))
                 : Stream.fromFuture(Future.delayed(Duration(milliseconds: 50))),
+          ),
+        ),
+        StreamProvider<AwaitingHours?>(
+          initialData: null,
+          lazy: true,
+          create: (_) => _retryStream(
+            () =>
+                _client.hours.watchAwaitingHours().map((h) => AwaitingHours(h)),
           ),
         ),
         StreamProvider<UserFavourites?>(
