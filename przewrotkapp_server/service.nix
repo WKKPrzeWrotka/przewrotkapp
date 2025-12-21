@@ -33,7 +33,7 @@ with lib;
       isSystemUser = true;
       group = "przewrotkapp";
       shell = "/run/current-system/sw/bin/fish";
-      packages = with pkgs; [ dart flutter fish rclone ];
+      packages = with pkgs; [ flutter335 fish rclone ];
     };
     users.groups.przewrotkapp = { };
 
@@ -41,20 +41,20 @@ with lib;
       description = "PrzeWrotkApp server";
       wantedBy = [ "multi-user.target" ];
       after = [ "postgresql.service" ];
-      path = with pkgs; [ dart ];
+      path = with pkgs; [ flutter335 ];
       serviceConfig = {
         User = "przewrotkapp";
         WorkingDirectory = "/var/lib/przewrotkapp/przewrotkapp/przewrotkapp_server";
         ExecStartPre =
           if (config.services.przewrotkapp.compile == false) then
-            "${pkgs.dart}/bin/dart pub get"
+            "${pkgs.flutter335}/bin/dart pub get"
           else
             "true";
         ExecStart =
           if config.services.przewrotkapp.compile then
             "${lib.getExe pkgs.pwa} --mode production --apply-migrations"
           else
-            "${pkgs.dart}/bin/dart run bin/main.dart --mode production --apply-migrations";
+            "${pkgs.flutter335}/bin/dart run bin/main.dart --mode production --apply-migrations";
         Restart = "always";
         RestartSec = "5";
       };
