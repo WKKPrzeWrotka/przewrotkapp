@@ -82,6 +82,7 @@ class _UserEditPageState extends State<UserEditPage> {
                       mainAxisSize: MainAxisSize.min,
                       spacing: 8,
                       children: [
+                        // TODO: może by tu jednak pokierować do skarbnika?
                         Text("Nie da sie 😈"),
                         ElevatedButton(
                           onPressed: () => context.pop(),

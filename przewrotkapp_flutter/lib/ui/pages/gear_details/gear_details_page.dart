@@ -22,7 +22,8 @@ class GearDetailsPage extends StatelessWidget {
     final t = Theme.of(context);
     final tt = t.textTheme;
     // WARN: no error handling here if it's not found
-    // todo?
+    // todo? not really since it's a bit impossible
+    // maybe some day if we actually make url change, and gear share-able
     final gearPair = context.watch<AllGearCache?>()?.firstWhere(
       (e) => e.gear.clubId == clubId,
     );

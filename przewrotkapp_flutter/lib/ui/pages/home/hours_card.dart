@@ -82,7 +82,6 @@ class _HoursCardState extends State<HoursCard> {
                     ),
                     child: Text("Zgłoś należne"),
                   ),
-                  // TODO: Buttons for approval for godzinkowy
                 ],
               ),
             ),

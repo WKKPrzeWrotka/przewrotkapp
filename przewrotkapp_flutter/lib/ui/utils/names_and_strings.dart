@@ -95,7 +95,6 @@ extension SpraydeckDeckSizeNamesAndStuff on SpraydeckDeckSize {
   };
 }
 
-// TODO: Format them a bit to make more readable
 extension GearExtraHumanInfo on GearExtra {
   List<({String fieldName, String value, String? tip})>
   get extraHumanInfo => switch (this) {
