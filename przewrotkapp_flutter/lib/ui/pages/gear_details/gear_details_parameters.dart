@@ -39,9 +39,8 @@ class GearDetailsParameters extends StatelessWidget {
                         builder: (context) => Dialog(
                           child: Container(
                             padding: EdgeInsets.all(16),
-                            child: Column(
-                              spacing: 16,
-                              mainAxisSize: MainAxisSize.min,
+                            child: ListView(
+                              shrinkWrap: true,
                               children: [
                                 Align(
                                   alignment: Alignment.centerLeft,
@@ -49,6 +48,7 @@ class GearDetailsParameters extends StatelessWidget {
                                   // and mae bodyMedium look berable
                                   child: Text(info.tip!, style: tt.bodyLarge),
                                 ),
+                                SizedBox(height: 8),
                                 ElevatedButton(
                                   onPressed: () => context.pop(),
                                   child: Text("Okej"),
