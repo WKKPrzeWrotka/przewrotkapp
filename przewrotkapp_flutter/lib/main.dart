@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'di.dart';
 import 'routing.dart';
+import 'ui/theme.dart';
 
 void main() async {
   await initDi();
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         routerConfig: router,
         title: 'PrzeWrotkApp',
-        theme: ThemeData(primarySwatch: Colors.blue),
+        theme: lightTheme,
+        darkTheme: darkTheme,
       ),
     );
   }
