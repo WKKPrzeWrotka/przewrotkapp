@@ -5,7 +5,6 @@ import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart
 
 import 'di.dart';
 import 'logic/utils.dart';
-import 'ui/pages/calendar/calendar_page.dart';
 import 'ui/pages/comments_browser/comments_browser_page.dart';
 import 'ui/pages/gear_browser/gear_browser_page.dart';
 import 'ui/pages/gear_details/fullscreen_photos_page.dart';
@@ -63,7 +62,6 @@ final router = GoRouter(
             false,
       ),
     ),
-    GoRoute(path: '/calendar', builder: (context, state) => CalendarPage()),
     // A bit counter-descriptive, but same way as /gear
     GoRoute(
       path: '/user',
