@@ -178,17 +178,19 @@ Każda firma ma nieco inną rozmiarówkę, a dodatkowo w kaskach klubowych pływ
             "Jest to rodzaj rekreacyjnej otwartej łodzi wiosłowej o dużej stabilności i ładowności.\n\nPływa się w niej zazwyczaj w pozycji klęczącej lub siedzącej na ławeczce. Do napędzania kanu używa się wiosła z jednym piórem zwanego pagajem.",
         },
       ),
-      (
-        fieldName: "Zakres wagowy",
-        value: switch ((kayak.minWeight, kayak.maxWeight)) {
-          (int min, int max) => '$min~$max kg',
-          (int min, int? _) => 'Od $min kg w góre',
-          (int? _, int max) => 'Do $max kg',
-          (_, _) => '',
-        },
-        tip:
-            "Warto stosować się do zakresu wagowego kajaka - ma to wpływ na bezpieczeństwo, zanurzenie łódki, jej wyporność i stabilność.\n\nPrzekroczenie wagi prowadzi do utraty stabilności kajaka i zwiększa ryzyko wywrotki.\n\nWybór zbyt dużego kajaka natomiast utrudnia naukę i oswajanie się z wywrotkami na łatwiejszych rzekach ze względu na wybaczanie błędów, a na trudniejszych utrudnia panowanie nad łódką.",
-      ),
+      if (kayak.minWeight != null || kayak.maxWeight != null)
+        (
+          fieldName: "Zakres wagowy",
+          value: switch ((kayak.minWeight, kayak.maxWeight)) {
+            (int min, int max) => '$min~$max kg',
+            (int min, int? _) => 'Od $min kg w góre',
+            (int? _, int max) => 'Do $max kg',
+            (_, _) => '-nieznany-',
+          },
+          tip:
+              "Warto stosować się do zakresu wagowego kajaka - ma to wpływ na bezpieczeństwo, zanurzenie łódki, jej wyporność i stabilność.\n\nPrzekroczenie wagi prowadzi do utraty stabilności kajaka i zwiększa ryzyko wywrotki.\n\nWybór zbyt dużego kajaka natomiast utrudnia naukę i oswajanie się z wywrotkami na łatwiejszych rzekach ze względu na wybaczanie błędów, a na trudniejszych utrudnia panowanie nad łódką.",
+        ),
+      (fieldName: "Długość", value: "${kayak.length}cm", tip: null),
     ],
     GearPaddle paddle => [
       (
