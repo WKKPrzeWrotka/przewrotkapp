@@ -4,6 +4,7 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../../di.dart';
 import '../../common/hour_listing.dart';
+import '../../common/long_list_small_frame.dart';
 
 class UserRecentHoursList extends StatelessWidget {
   const UserRecentHoursList({super.key});
@@ -14,15 +15,10 @@ class UserRecentHoursList extends StatelessWidget {
       (p) => p.state.hours,
     );
     return hours != null
-        ? Container(
-            constraints: BoxConstraints(maxHeight: 200),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey, width: 1.5),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: ListView(
-              children: [for (final hour in hours) HourListing(hour: hour)],
-            ),
+        ? LongListSmallFrame(
+            maxHeight: 300,
+            ifEmpty: Text("Na razie nic nie wypożycza..."),
+            children: [for (final hour in hours) HourListing(hour: hour)],
           )
         : Text("Ładowanie...");
   }

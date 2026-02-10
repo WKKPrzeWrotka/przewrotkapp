@@ -5,6 +5,7 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../../logic/data_types.dart';
 import '../../common/gear_listing.dart';
+import '../../common/long_list_small_frame.dart';
 
 class FavouriteGearCard extends StatefulWidget {
   const FavouriteGearCard({super.key});
@@ -30,7 +31,17 @@ class _FavouriteGearCardState extends State<FavouriteGearCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Twój ulubiony sprzęt:", style: tt.headlineSmall),
-            for (final gear in favGear) GearListing(gearPair: gear),
+            LongListSmallFrame(
+              maxHeight: 300,
+              ifEmpty: Text(
+                "Nie masz ulubionego sprzętu - "
+                "kliknij w serce w prawym górnym rogu przy jego przeglądaniu "
+                "żeby wybrać!",
+              ),
+              children: [
+                for (final gear in favGear) GearListing(gearPair: gear),
+              ],
+            ),
             SizedBox(height: 4),
             ElevatedButton(
               onPressed: () => context.push('/gear'),
