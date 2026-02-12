@@ -296,3 +296,19 @@ extension HourCategoryNaming on HourCategory {
     HourCategory.other => "Inne",
   };
 }
+
+extension CommentCategoryNaming on CommentType {
+  String get emoji => switch (this) {
+    CommentType.neutral => 'ℹ️',
+    CommentType.warning => '⚠️',
+    CommentType.broken => '🚨',
+  };
+
+  String get humanName =>
+      emoji +
+      switch (this) {
+        CommentType.neutral => "Neutralne",
+        CommentType.warning => "Ostrzeżenie",
+        CommentType.broken => "Zepsute",
+      };
+}

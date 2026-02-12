@@ -5,6 +5,7 @@ import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart
 
 import 'di.dart';
 import 'logic/utils.dart';
+import 'ui/pages/comment_edit/comment_edit_page.dart';
 import 'ui/pages/comments_browser/comments_browser_page.dart';
 import 'ui/pages/gear_browser/gear_browser_page.dart';
 import 'ui/pages/gear_details/fullscreen_photos_page.dart';
@@ -116,6 +117,15 @@ final router = GoRouter(
       },
     ),
     GoRoute(path: '/comments', builder: (_, _) => CommentsBrowserPage()),
+    GoRoute(
+      path: '/comments/edit',
+      builder: (context, state) => CommentEditPage(
+        comment: state.extra as Comment,
+        emptyFields:
+            bool.tryParse(state.uri.queryParameters['emptyFields'] ?? 'true') ??
+            true,
+      ),
+    ),
     GoRoute(
       path: '/signin',
       redirect: (context, _) {
