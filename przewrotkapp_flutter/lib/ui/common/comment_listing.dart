@@ -24,7 +24,7 @@ class CommentListing extends StatelessWidget {
     // TODO: Unify this with server
     final allowEdit = context.select<SessionManager, bool>(
       (sm) =>
-          (sm.signedInUser!.scopeNames.contains(PrzeScope.godzinkowy.name) ||
+          (sm.signedInUser!.scopeNames.contains(PrzeScope.sprzetowiec.name) ||
           sm.signedInUser!.scopeNames.contains(PrzeScope.zarzad.name) ||
           sm.signedInUser!.id == comment.by!.id),
     );
