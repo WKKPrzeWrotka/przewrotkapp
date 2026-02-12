@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 
 /// This allows us to override both themes
 ThemeData _customize(Brightness brightness) {
-  final t = ThemeData(colorSchemeSeed: Colors.blue, brightness: brightness);
+  final t = ThemeData(
+    colorSchemeSeed: Colors.blue,
+    brightness: brightness,
+    dividerTheme: DividerThemeData(space: 32),
+  );
   final tt = t.textTheme;
   return t.copyWith(
     textTheme: tt.copyWith(

@@ -284,9 +284,7 @@ class _GearEditPageState extends State<GearEditPage> {
               validator: allowNullValid,
               decoration: InputDecoration(label: Text("Ksywa")),
             ),
-            SizedBox(height: 16),
             Divider(),
-            SizedBox(height: 16),
             ...gearSpecificFields(context),
             SizedBox(height: 32),
             FilledButton(

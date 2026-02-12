@@ -78,9 +78,9 @@ class UserPage extends StatelessWidget {
                 ),
             ],
           ),
-          Divider(height: 32),
+          Divider(),
           if (przeUser != null) SocialLinks(przeUser: przeUser),
-          Divider(height: 32),
+          Divider(),
           Text("Najbliższe wypożyczenia:", style: tt.headlineMedium),
           if (rentals != null)
             for (final rental in rentals.where(
@@ -89,7 +89,7 @@ class UserPage extends StatelessWidget {
               RentalListing(rental: rental)
           else
             Text("🟠 Ładowanie wypożyczeń..."),
-          Divider(height: 32),
+          Divider(),
           Text(
             "Ostatnie godzinki${pageData.hoursSum != null ? ' (${pageData.hoursSum}h)' : ""}:",
             style: tt.headlineMedium,
@@ -109,7 +109,7 @@ class UserPage extends StatelessWidget {
               ],
             ),
           UserRecentHoursList(),
-          Divider(height: 32),
+          Divider(),
           if (isYou)
             ElevatedButton(
               onPressed: () async {
