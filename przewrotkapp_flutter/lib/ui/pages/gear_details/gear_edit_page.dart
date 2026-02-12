@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/magic_numbers.dart' as magick;
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
+import '../../../logic/form_validation_utils.dart';
 import '../../utils/names_and_strings.dart';
 
 class GearEditPage extends StatefulWidget {
@@ -73,38 +74,6 @@ class _GearEditPageState extends State<GearEditPage> {
     ctrlImg.addListener(onImageMoved);
     updatePickerImages();
   }
-
-  String? noNullValid(Object? any) => any == null ? "Nie może być puste" : null;
-
-  String? defaultValid(String? text) => (text == null || text.trim().isEmpty)
-      ? "Nie może być puste"
-      : (text.length > 32 ? "Za długie" : null);
-
-  String? defaultIntValid(String? text) => (text == null || text.trim().isEmpty)
-      ? "Nie może być puste"
-      : (text.length > 32
-            ? "Za długie"
-            : (int.tryParse(text) == null
-                  ? "Ma być liczba, bez przecinka"
-                  : null));
-
-  String? defaultDoubleValid(String? text) =>
-      (text == null || text.trim().isEmpty)
-      ? "Nie może być puste"
-      : (text.length > 32
-            ? "Za długie"
-            : (double.tryParse(text) == null
-                  ? "Ma być liczba (z kropką zamiast przecinka)"
-                  : null));
-
-  String? allowNullValid(String? text) =>
-      ((text?.length ?? 0) > 32) ? "Za długie" : null;
-
-  String? allowNullIntValid(String? text) =>
-      (text?.trim().isEmpty ?? true) ? null : defaultIntValid(text);
-
-  String? allowNullDoubleValid(String? text) =>
-      (text?.trim().isEmpty ?? true) ? null : defaultDoubleValid(text);
 
   String? nullIfEmpty(String text) => text.trim().isEmpty ? null : text.trim();
 

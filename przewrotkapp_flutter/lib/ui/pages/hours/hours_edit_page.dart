@@ -5,6 +5,7 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_client/scopes.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
+import '../../../logic/form_validation_utils.dart';
 import '../../utils/names_and_strings.dart';
 
 class HoursEditPage extends StatefulWidget {
@@ -30,14 +31,6 @@ class _HoursEditPageState extends State<HoursEditPage> {
     super.initState();
     editedHour = widget.hour.copyWith();
   }
-
-  String? noNullValid(Object? any) => any == null ? "Nie może być puste" : null;
-
-  String? bareMinimumValid(String? text) =>
-      (text?.length ?? 0) < 10 ? "No weź, napisz tu coś porządnego" : null;
-
-  String? intValid(String? text) =>
-      int.tryParse(text ?? '') == null ? "Musi być całkowita liczba" : null;
 
   @override
   Widget build(BuildContext context) {
