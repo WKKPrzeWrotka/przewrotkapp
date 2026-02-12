@@ -246,6 +246,64 @@ class _CommentsEndpoint {
     );
     return _localTestStreamManager.outputStreamController.stream;
   }
+
+  _i3.Future<void> createOrUpdateComment(
+    _i1.TestSessionBuilder sessionBuilder,
+    _i4.Comment comment,
+  ) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'comments',
+        method: 'createOrUpdateComment',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'comments',
+          methodName: 'createOrUpdateComment',
+          parameters: _i1.testObjectToJson({'comment': comment}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<void>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
+
+  _i3.Future<void> deleteComment(
+    _i1.TestSessionBuilder sessionBuilder,
+    _i4.Comment comment,
+  ) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'comments',
+        method: 'deleteComment',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'comments',
+          methodName: 'deleteComment',
+          parameters: _i1.testObjectToJson({'comment': comment}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<void>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
 }
 
 class _Events {

@@ -1,6 +1,8 @@
 comments:
   - getComments:
   - watchComments:
+  - createOrUpdateComment:
+  - deleteComment:
 events:
   - getDiscordEvents:
 gearManage:

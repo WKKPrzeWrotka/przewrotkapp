@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
@@ -38,6 +39,7 @@ class _CommentEditPageState extends State<CommentEditPage> {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
+    final client = context.read<Client>();
     final you = context.read<SessionManager>().signedInUser;
     final allGear = context.watch<AllGearCache?>();
     final gearPair = allGear?.firstWhereOrNull(
@@ -64,15 +66,23 @@ class _CommentEditPageState extends State<CommentEditPage> {
                           : Text("🟠Ładowanie...")),
               ],
             ),
-            if (editedComment.resolved && editedComment.resolvedBy != null)
-              Wrap(
+            SizedBox(height: 8),
+            // WARNING: This is done inside this container because:
+            // 1. It makes everything jump way less
+            // 2. When i was adding widgets to this list, the key shenanigans
+            //    were messing up and Form Fields where given each other values
+            Opacity(
+              opacity: editedComment.resolved ? 1 : 0,
+              child: Wrap(
                 spacing: 8,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   Text("✅ Rozwiązany przez"),
-                  UserChip(user: editedComment.resolvedBy!),
+                  if (editedComment.resolvedBy != null)
+                    UserChip(user: editedComment.resolvedBy!),
                 ],
               ),
+            ),
             Divider(),
             DropdownMenuFormField(
               initialSelection: setInit ? editedComment.type : null,
@@ -107,7 +117,7 @@ class _CommentEditPageState extends State<CommentEditPage> {
               value: editedComment.resolved,
               onChanged: (n) => setState(() {
                 editedComment.resolved = n ?? false;
-                if (editedComment.resolved) editedComment.resolvedBy = you;
+                editedComment.resolvedBy = editedComment.resolved ? you : null;
               }),
             ),
             SizedBox(height: 8 * 3),
@@ -120,29 +130,29 @@ class _CommentEditPageState extends State<CommentEditPage> {
               },
               onLongPress: () async {
                 if (!(formKey.currentState?.validate() ?? false)) return;
-                // TODO:
-                // try {
-                //   await client.hours.createOrUpdateHour(editedHour);
-                //   if (context.mounted) {
-                //     ScaffoldMessenger.of(context).showSnackBar(
-                //       SnackBar(
-                //         backgroundColor: Colors.green,
-                //         content: Text("Sukces!"),
-                //       ),
-                //     );
-                //   }
-                //   await Future.delayed(Duration(seconds: 1));
-                //   if (context.mounted) context.pop();
-                // } catch (e) {
-                //   if (context.mounted) {
-                //     ScaffoldMessenger.of(context).showSnackBar(
-                //       SnackBar(
-                //         backgroundColor: Colors.red,
-                //         content: Text("Błąd :( $e"),
-                //       ),
-                //     );
-                //   }
-                // }
+                // TODO: Unify this
+                try {
+                  await client.comments.createOrUpdateComment(editedComment);
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Text("Sukces!"),
+                      ),
+                    );
+                  }
+                  await Future.delayed(Duration(milliseconds: 500));
+                  if (context.mounted) context.pop();
+                } catch (e) {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text("Błąd :( $e"),
+                      ),
+                    );
+                  }
+                }
               },
               child: Text("Zapisz!"),
             ),
