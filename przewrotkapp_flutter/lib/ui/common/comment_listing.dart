@@ -34,16 +34,40 @@ class CommentListing extends StatelessWidget {
             (g) => g.gear.id == comment.gearId,
           )
         : null;
+
     return Card(
-      color: comment.type.backgroundColor,
+      color: Color.alphaBlend(
+        comment.type.backgroundColor?.withAlpha(64) ?? Colors.transparent,
+        t.colorScheme.surfaceContainerLow,
+      ),
       child: ListTile(
-        title: Text(comment.type.emoji + comment.text),
-        subtitle: Wrap(
-          spacing: 8,
+        title: Text(
+          comment.type.emoji + comment.text,
+          style: tt.bodyLarge!.copyWith(
+            decoration: comment.resolved ? TextDecoration.lineThrough : null,
+          ),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (gearPair != null) GearChip(gearPair: gearPair),
-            // i think there is 0% chance that this is null but whatever
-            if (comment.by != null) UserChip(user: comment.by!),
+            if (comment.resolved)
+              Wrap(
+                spacing: 8,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  Text("✅ Rozwiązany przez"),
+                  if (comment.resolvedBy != null)
+                    UserChip(user: comment.resolvedBy!),
+                ],
+              ),
+            Wrap(
+              spacing: 8,
+              children: [
+                if (gearPair != null) GearChip(gearPair: gearPair),
+                // i think there is 0% chance that this is null but whatever
+                if (comment.by != null) UserChip(user: comment.by!),
+              ],
+            ),
           ],
         ),
         trailing: Row(

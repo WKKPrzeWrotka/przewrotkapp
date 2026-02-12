@@ -12,8 +12,8 @@ extension GearHandy on Gear {
 extension CommentTypeStyling on CommentType {
   Color? get backgroundColor => switch (this) {
     CommentType.neutral => null,
-    CommentType.warning => Colors.orange.shade200,
-    CommentType.broken => Colors.red.shade700,
+    CommentType.warning => Colors.orange,
+    CommentType.broken => Colors.red,
   };
 }
 
