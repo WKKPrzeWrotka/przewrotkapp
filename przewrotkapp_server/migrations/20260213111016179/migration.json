@@ -1,0 +1,35 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "comments",
+        "schema": "public",
+        "addColumns": [
+          {
+            "name": "dateCreated",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": "'2025-08-30 12:00:00'::timestamp without time zone",
+            "dartType": "DateTime"
+          },
+          {
+            "name": "dateResolved",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          }
+        ],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": []
+      }
+    }
+  ],
+  "warnings": [],
+  "migrationApiVersion": 1
+}

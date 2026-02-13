@@ -19,6 +19,7 @@ abstract class Comment implements _i1.SerializableModel {
     this.id,
     required this.byId,
     this.by,
+    DateTime? dateCreated,
     this.gearId,
     this.gear,
     required this.type,
@@ -27,12 +28,15 @@ abstract class Comment implements _i1.SerializableModel {
     bool? resolved,
     this.resolvedById,
     this.resolvedBy,
-  }) : resolved = resolved ?? false;
+    this.dateResolved,
+  })  : dateCreated = dateCreated ?? DateTime.parse('2025-08-30T12:00:00.000Z'),
+        resolved = resolved ?? false;
 
   factory Comment({
     int? id,
     required int byId,
     _i2.UserInfo? by,
+    DateTime? dateCreated,
     int? gearId,
     _i3.Gear? gear,
     required _i4.CommentType type,
@@ -41,6 +45,7 @@ abstract class Comment implements _i1.SerializableModel {
     bool? resolved,
     int? resolvedById,
     _i2.UserInfo? resolvedBy,
+    DateTime? dateResolved,
   }) = _CommentImpl;
 
   factory Comment.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -51,6 +56,8 @@ abstract class Comment implements _i1.SerializableModel {
           ? null
           : _i2.UserInfo.fromJson(
               (jsonSerialization['by'] as Map<String, dynamic>)),
+      dateCreated:
+          _i1.DateTimeJsonExtension.fromJson(jsonSerialization['dateCreated']),
       gearId: jsonSerialization['gearId'] as int?,
       gear: jsonSerialization['gear'] == null
           ? null
@@ -65,6 +72,10 @@ abstract class Comment implements _i1.SerializableModel {
           ? null
           : _i2.UserInfo.fromJson(
               (jsonSerialization['resolvedBy'] as Map<String, dynamic>)),
+      dateResolved: jsonSerialization['dateResolved'] == null
+          ? null
+          : _i1.DateTimeJsonExtension.fromJson(
+              jsonSerialization['dateResolved']),
     );
   }
 
@@ -76,6 +87,8 @@ abstract class Comment implements _i1.SerializableModel {
   int byId;
 
   _i2.UserInfo? by;
+
+  DateTime dateCreated;
 
   int? gearId;
 
@@ -93,6 +106,8 @@ abstract class Comment implements _i1.SerializableModel {
 
   _i2.UserInfo? resolvedBy;
 
+  DateTime? dateResolved;
+
   /// Returns a shallow copy of this [Comment]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
@@ -100,6 +115,7 @@ abstract class Comment implements _i1.SerializableModel {
     int? id,
     int? byId,
     _i2.UserInfo? by,
+    DateTime? dateCreated,
     int? gearId,
     _i3.Gear? gear,
     _i4.CommentType? type,
@@ -108,6 +124,7 @@ abstract class Comment implements _i1.SerializableModel {
     bool? resolved,
     int? resolvedById,
     _i2.UserInfo? resolvedBy,
+    DateTime? dateResolved,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -115,6 +132,7 @@ abstract class Comment implements _i1.SerializableModel {
       if (id != null) 'id': id,
       'byId': byId,
       if (by != null) 'by': by?.toJson(),
+      'dateCreated': dateCreated.toJson(),
       if (gearId != null) 'gearId': gearId,
       if (gear != null) 'gear': gear?.toJson(),
       'type': type.toJson(),
@@ -123,6 +141,7 @@ abstract class Comment implements _i1.SerializableModel {
       'resolved': resolved,
       if (resolvedById != null) 'resolvedById': resolvedById,
       if (resolvedBy != null) 'resolvedBy': resolvedBy?.toJson(),
+      if (dateResolved != null) 'dateResolved': dateResolved?.toJson(),
     };
   }
 
@@ -139,6 +158,7 @@ class _CommentImpl extends Comment {
     int? id,
     required int byId,
     _i2.UserInfo? by,
+    DateTime? dateCreated,
     int? gearId,
     _i3.Gear? gear,
     required _i4.CommentType type,
@@ -147,10 +167,12 @@ class _CommentImpl extends Comment {
     bool? resolved,
     int? resolvedById,
     _i2.UserInfo? resolvedBy,
+    DateTime? dateResolved,
   }) : super._(
           id: id,
           byId: byId,
           by: by,
+          dateCreated: dateCreated,
           gearId: gearId,
           gear: gear,
           type: type,
@@ -159,6 +181,7 @@ class _CommentImpl extends Comment {
           resolved: resolved,
           resolvedById: resolvedById,
           resolvedBy: resolvedBy,
+          dateResolved: dateResolved,
         );
 
   /// Returns a shallow copy of this [Comment]
@@ -169,6 +192,7 @@ class _CommentImpl extends Comment {
     Object? id = _Undefined,
     int? byId,
     Object? by = _Undefined,
+    DateTime? dateCreated,
     Object? gearId = _Undefined,
     Object? gear = _Undefined,
     _i4.CommentType? type,
@@ -177,11 +201,13 @@ class _CommentImpl extends Comment {
     bool? resolved,
     Object? resolvedById = _Undefined,
     Object? resolvedBy = _Undefined,
+    Object? dateResolved = _Undefined,
   }) {
     return Comment(
       id: id is int? ? id : this.id,
       byId: byId ?? this.byId,
       by: by is _i2.UserInfo? ? by : this.by?.copyWith(),
+      dateCreated: dateCreated ?? this.dateCreated,
       gearId: gearId is int? ? gearId : this.gearId,
       gear: gear is _i3.Gear? ? gear : this.gear?.copyWith(),
       type: type ?? this.type,
@@ -194,6 +220,8 @@ class _CommentImpl extends Comment {
       resolvedBy: resolvedBy is _i2.UserInfo?
           ? resolvedBy
           : this.resolvedBy?.copyWith(),
+      dateResolved:
+          dateResolved is DateTime? ? dateResolved : this.dateResolved,
     );
   }
 }

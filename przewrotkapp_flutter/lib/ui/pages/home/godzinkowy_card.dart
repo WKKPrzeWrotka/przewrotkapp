@@ -5,6 +5,7 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../../logic/data_types.dart';
 import '../../common/hour_listing.dart';
+import '../../common/long_list_small_frame.dart';
 
 class GodzinkowyCard extends StatelessWidget {
   const GodzinkowyCard({super.key});
@@ -23,32 +24,12 @@ class GodzinkowyCard extends StatelessWidget {
           children: [
             Text("Narzędzia godzinowego ⏳", style: tt.headlineMedium),
             Text("Zgłoszenia do przejrzenia:"),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey, width: 1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              constraints: BoxConstraints(maxHeight: 200),
-              child: Scrollbar(
-                thumbVisibility: true,
-                trackVisibility: true,
-                thickness: 8,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (awaiting?.hours.isEmpty ?? false)
-                        Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(8),
-                          child: Text("Nie ma żadnych :D", style: tt.bodyLarge),
-                        ),
-                      for (final hour in awaiting?.hours ?? <Hour>[])
-                        HourListing(hour: hour),
-                    ],
-                  ),
-                ),
-              ),
+            LongListSmallFrame(
+              ifEmpty: Text("Nie ma żadnych :D", style: tt.bodyLarge),
+              children: [
+                for (final hour in awaiting?.hours ?? <Hour>[])
+                  HourListing(hour: hour),
+              ],
             ),
             ElevatedButton(
               onPressed: () => context.push('/user'),

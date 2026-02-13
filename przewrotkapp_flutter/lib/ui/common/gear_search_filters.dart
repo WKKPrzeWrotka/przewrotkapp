@@ -44,8 +44,10 @@ class _GearSearchFiltersState extends State<GearSearchFilters> {
   Widget build(BuildContext context) {
     return Column(
       spacing: 8,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Wrap(
+          alignment: WrapAlignment.start,
           spacing: 4,
           runSpacing: 4,
           children: [
@@ -77,6 +79,7 @@ class _GearSearchFiltersState extends State<GearSearchFilters> {
           ],
           onChanged: (_) => setState(() {}),
         ),
+        SizedBox(height: 16),
       ],
     );
   }

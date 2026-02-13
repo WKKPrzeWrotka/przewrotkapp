@@ -8,6 +8,15 @@ extension GearHandy on Gear {
   Uri? get thumbnailOrFist => thumbnailUrl ?? photoUrls?.firstOrNull;
 }
 
+// TODO: A batter place for this some day?
+extension CommentTypeStyling on CommentType {
+  Color? get backgroundColor => switch (this) {
+    CommentType.neutral => null,
+    CommentType.warning => Colors.orange,
+    CommentType.broken => Colors.red,
+  };
+}
+
 extension UriSly on Uri {
   String? get blurhash => queryParameters['blurhash'];
 

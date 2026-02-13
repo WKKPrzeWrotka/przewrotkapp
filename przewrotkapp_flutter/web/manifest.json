@@ -4,7 +4,7 @@
     "start_url": ".",
     "display": "standalone",
     "background_color": "#ffffff",
-    "theme_color": "#000000",
+    "theme_color": "#90CAF9",
     "description": "Potężna apka sprzętowa",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,

@@ -50,6 +50,8 @@ class _SignInPageState extends State<SignInPage> {
     double? loginPageWidth = isMobileScreen(context) ? null : 350;
 
     return Scaffold(
+      // this is to avoid https://github.com/flutter/flutter/issues/124205
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(title: Text('PrzeZalogujSie')),
       body: Center(
         child: Container(

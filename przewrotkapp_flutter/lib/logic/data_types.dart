@@ -69,7 +69,7 @@ typedef DiscordEvent = ({String name, DateTime from, DateTime to});
 
 typedef FutureDiscordEvents = List<DiscordEvent>;
 
-typedef UnresolvedComments = List<Comment>;
+typedef AllComments = List<Comment>;
 
 class GearSearchParams {
   final String? text;

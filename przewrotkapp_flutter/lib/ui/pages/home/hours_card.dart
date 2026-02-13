@@ -73,7 +73,7 @@ class _HoursCardState extends State<HoursCard> {
                 children: [
                   FilledButton(
                     onPressed: () => context.push('/comments'),
-                    child: Text("Zarób!"),
+                    child: Text("Zarób 🤑"),
                   ),
                   ElevatedButton(
                     onPressed: () => context.push(
@@ -82,7 +82,6 @@ class _HoursCardState extends State<HoursCard> {
                     ),
                     child: Text("Zgłoś należne"),
                   ),
-                  // TODO: Buttons for approval for godzinkowy
                 ],
               ),
             ),

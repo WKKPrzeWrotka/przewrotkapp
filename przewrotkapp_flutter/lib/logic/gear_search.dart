@@ -4,9 +4,8 @@ import '../ui/utils/names_and_strings.dart';
 import 'data_types.dart';
 
 List<GearPair> searchGear(List<GearPair> gear, GearSearchParams params) {
-  var text = params.text;
+  final text = params.text?.trim().toLowerCase() ?? "";
   var types = params.types;
-  text = text?.trim().toLowerCase() ?? "";
   types ??= GearType.values.toSet();
   return gear
       .where((g) {
@@ -14,8 +13,14 @@ List<GearPair> searchGear(List<GearPair> gear, GearSearchParams params) {
         // Type check
         if (!types!.contains(gear.type)) return false;
         // Search text check
-        if (text!.isNotEmpty && !gear.fullName.toLowerCase().contains(text)) {
-          return false;
+        if (text.isNotEmpty) {
+          final fullDescText =
+              (gear.fullName +
+                      g.gearExtra.extraHumanInfo.map((e) => e.value).join(" "))
+                  .toLowerCase();
+          for (final word in text.split(' ')) {
+            if (!fullDescText.contains(word)) return false;
+          }
         }
         // Well, you passed
         return true;

@@ -2,12 +2,15 @@ class: Comment
 table: comments
 fields:
   by: module:auth:UserInfo?, relation(onDelete=Restrict)
+  # TODO: Remove this later
+  dateCreated: DateTime, default=2025-08-30T12:00:00.000Z
   gear: Gear?, relation(optional, name=gear_comments, onDelete=cascade)
   type: CommentType
   text: String
   hoursForResolving: int?
   resolved: bool, default=false
   resolvedBy: module:auth:UserInfo?, relation(optional, onDelete=SetNull)
+  dateResolved: DateTime?
 indexes:
   comment_by_idx:
     fields: byId

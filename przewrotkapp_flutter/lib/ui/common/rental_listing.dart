@@ -16,7 +16,6 @@ class RentalListing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final allGear = context.watch<AllGearCache?>();
-    // THIS IS UGLY AS FUCk. Edit: not as much anymore
     // TODO: Some 'edit' button here (once we have those)
     return Card(
       child: Column(

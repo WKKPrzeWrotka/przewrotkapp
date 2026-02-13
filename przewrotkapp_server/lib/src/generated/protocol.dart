@@ -117,6 +117,13 @@ class Protocol extends _i1.SerializationManagerServer {
           dartType: 'int',
         ),
         _i2.ColumnDefinition(
+          name: 'dateCreated',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+          columnDefault: '\'2025-08-30 12:00:00\'::timestamp without time zone',
+        ),
+        _i2.ColumnDefinition(
           name: 'gearId',
           columnType: _i2.ColumnType.bigint,
           isNullable: true,
@@ -152,6 +159,12 @@ class Protocol extends _i1.SerializationManagerServer {
           columnType: _i2.ColumnType.bigint,
           isNullable: true,
           dartType: 'int?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'dateResolved',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: true,
+          dartType: 'DateTime?',
         ),
       ],
       foreignKeys: [

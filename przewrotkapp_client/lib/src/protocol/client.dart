@@ -55,6 +55,20 @@ class EndpointComments extends _i1.EndpointRef {
         {'resolved': resolved},
         {},
       );
+
+  _i2.Future<void> createOrUpdateComment(_i3.Comment comment) =>
+      caller.callServerEndpoint<void>(
+        'comments',
+        'createOrUpdateComment',
+        {'comment': comment},
+      );
+
+  _i2.Future<void> deleteComment(_i3.Comment comment) =>
+      caller.callServerEndpoint<void>(
+        'comments',
+        'deleteComment',
+        {'comment': comment},
+      );
 }
 
 /// {@category Endpoint}

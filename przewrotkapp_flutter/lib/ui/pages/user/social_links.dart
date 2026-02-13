@@ -27,7 +27,6 @@ class SocialLinks extends StatelessWidget {
         if (przeUser.phoneNumber != null)
           FilledButton(
             onPressed: () => launchUrlString('tel:${przeUser.phoneNumber}'),
-            // todo: separate function to also show snackbar when coping something
             onLongPress: () => copyText(przeUser.phoneNumber!, context),
             child: Text("📞 ${przeUser.phoneNumber}"),
           ),
@@ -37,14 +36,6 @@ class SocialLinks extends StatelessWidget {
             onLongPress: () => copyText(przeUser.user!.email!, context),
             child: Text(przeUser.user!.email!),
           ),
-        // if (przeUser.discordUsername != null)
-        //   FilledButton(
-        //     // this shit for now, because opening user requires special
-        //     // discord number id
-        //     // actually this messes up my db plans >:(
-        //     onPressed: () => FlutterClipboard.copy(przeUser.discordUsername!),
-        //     child: Text("Discord: ${przeUser!.discordUsername}"),
-        //   ),
         for (final social in przeUser.socialLinks.entries)
           TextButton(
             onPressed: () => launchUrl(social.value),

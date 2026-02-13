@@ -25,7 +25,7 @@ database:
   host: localhost
   port: 5432
   name: przewrotkapp
-  user: postgres
+  user: przewrotkapp
   #requireSsl: true # defaults to false
   #isUnixSocket: true # defaults to false
 
