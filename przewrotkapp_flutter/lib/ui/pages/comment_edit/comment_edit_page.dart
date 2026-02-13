@@ -50,7 +50,7 @@ class _CommentEditPageState extends State<CommentEditPage> {
       appBar: AppBar(
         title: Text("Edytowanie komentarza"),
         actions: [
-          if (!widget.emptyFields)
+          if (setInit)
             TextButton.icon(
               onPressed: () => showDialog(
                 context: context,
