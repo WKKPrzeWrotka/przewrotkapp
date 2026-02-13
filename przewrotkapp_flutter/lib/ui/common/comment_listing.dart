@@ -35,79 +35,79 @@ class CommentListing extends StatelessWidget {
           )
         : null;
 
-    return Card(
-      color: Color.alphaBlend(
-        comment.type.backgroundColor?.withAlpha(64) ?? Colors.transparent,
-        Color.alphaBlend(
-          comment.resolved
-              ? (t.brightness == Brightness.light
-                    ? Colors.black12
-                    : Colors.black)
-              : Colors.transparent,
+    return Opacity(
+      opacity: comment.resolved ? 0.7 : 1,
+      child: Card(
+        color: Color.alphaBlend(
+          comment.type.backgroundColor?.withAlpha(64) ?? Colors.transparent,
           t.colorScheme.surfaceContainerLow,
         ),
-      ),
-      child: ListTile(
-        title: Text(
-          comment.type.emoji + comment.text,
-          style: tt.bodyLarge!.copyWith(
-            decoration: comment.resolved ? TextDecoration.lineThrough : null,
-          ),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (comment.resolved)
-              DefaultTextStyle(
-                style: tt.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: Color.lerp(tt.bodyMedium!.color, Colors.green, 0.4),
-                ),
-                child: Wrap(
-                  spacing: 4,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    Text("✅ Rozwiązany"),
-                    Text("${comment.dateResolved?.toStringDate()}"),
-                    Text("przez"),
-                    if (comment.resolvedBy != null)
-                      UserChip(user: comment.resolvedBy!),
-                    Divider(height: 16),
-                  ],
-                ),
-              ),
-            Wrap(
-              spacing: 8,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                if (gearPair != null) GearChip(gearPair: gearPair),
-                // i think there is 0% chance that this is null but whatever
-                if (comment.by != null) UserChip(user: comment.by!),
-                Text(comment.dateCreated.toStringDate()),
-              ],
+        child: ListTile(
+          title: Text(
+            comment.type.emoji + comment.text,
+            style: tt.bodyLarge!.copyWith(
+              decoration: comment.resolved ? TextDecoration.lineThrough : null,
             ),
-          ],
-        ),
-        trailing: (comment.hoursForResolving != null || allowEdit)
-            ? Row(
-                mainAxisSize: MainAxisSize.min,
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (comment.resolved)
+                DefaultTextStyle(
+                  style: tt.bodyMedium!.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: Color.lerp(tt.bodyMedium!.color, Colors.green, 0.4),
+                  ),
+                  child: Wrap(
+                    spacing: 4,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Text("✅ Rozwiązany"),
+                      Text("${comment.dateResolved?.toStringDate()}"),
+                      Text("przez"),
+                      if (comment.resolvedBy != null)
+                        UserChip(user: comment.resolvedBy!),
+                      Divider(height: 16),
+                    ],
+                  ),
+                ),
+              Wrap(
+                spacing: 8,
+                crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  if (comment.hoursForResolving != null)
-                    Text(
-                      "💸${comment.hoursForResolving}H",
-                      style: tt.titleLarge,
-                    ),
-                  if (allowEdit)
-                    IconButton(
-                      onPressed: () => context.push(
-                        '/comments/edit?emptyFields=false',
-                        extra: comment,
-                      ),
-                      icon: Icon(Icons.edit),
-                    ),
+                  if (gearPair != null) GearChip(gearPair: gearPair),
+                  // i think there is 0% chance that this is null but whatever
+                  if (comment.by != null) UserChip(user: comment.by!),
+                  Text(comment.dateCreated.toStringDate()),
                 ],
-              )
-            : null,
+              ),
+            ],
+          ),
+          trailing: (comment.hoursForResolving != null || allowEdit)
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (comment.hoursForResolving != null)
+                      Text(
+                        "💸${comment.hoursForResolving}H",
+                        style: tt.titleLarge!.copyWith(
+                          decoration: comment.resolved
+                              ? TextDecoration.lineThrough
+                              : null,
+                        ),
+                      ),
+                    if (allowEdit)
+                      IconButton(
+                        onPressed: () => context.push(
+                          '/comments/edit?emptyFields=false',
+                          extra: comment,
+                        ),
+                        icon: Icon(Icons.edit),
+                      ),
+                  ],
+                )
+              : null,
+        ),
       ),
     );
   }
