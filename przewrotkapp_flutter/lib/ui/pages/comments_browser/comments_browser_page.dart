@@ -48,7 +48,7 @@ class CommentsBrowserPage extends StatelessWidget {
               '/comments/edit?emptyFields=true',
               extra: CommentHandy.empty(
                 sm.signedInUser!.id!,
-              ).copyWith(by: sm.signedInUser),
+              ).copyWith(by: sm.signedInUser, dateCreated: DateTime.now()),
             ),
             icon: Icon(Icons.add),
             label: Text('Dodaj'),

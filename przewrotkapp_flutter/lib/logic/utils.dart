@@ -98,6 +98,10 @@ extension HourHandy on Hour {
 }
 
 extension CommentHandy on Comment {
-  static Comment empty(int byId) =>
-      Comment(byId: byId, type: CommentType.warning, text: "");
+  static Comment empty(int byId) => Comment(
+    byId: byId,
+    dateCreated: DateTime.now(),
+    type: CommentType.warning,
+    text: "",
+  );
 }

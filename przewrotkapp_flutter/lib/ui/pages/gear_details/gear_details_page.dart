@@ -105,9 +105,12 @@ class GearDetailsPage extends StatelessWidget {
                 if (gear == null) return;
                 context.push(
                   '/comments/edit?emptyFields=true',
-                  extra: CommentHandy.empty(
-                    sm.signedInUser!.id!,
-                  ).copyWith(by: sm.signedInUser, gearId: gear.id, gear: gear),
+                  extra: CommentHandy.empty(sm.signedInUser!.id!).copyWith(
+                    by: sm.signedInUser,
+                    dateCreated: DateTime.now(),
+                    gearId: gear.id,
+                    gear: gear,
+                  ),
                 );
               },
               child: Text("Dodaj komentarz"),

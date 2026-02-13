@@ -55,17 +55,22 @@ class CommentListing extends StatelessWidget {
                 spacing: 8,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  Text("✅ Rozwiązany przez"),
+                  Text(
+                    "✅ Rozwiązany ${comment.dateResolved?.toStringDate()} "
+                    "przez",
+                  ),
                   if (comment.resolvedBy != null)
                     UserChip(user: comment.resolvedBy!),
                 ],
               ),
             Wrap(
               spacing: 8,
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 if (gearPair != null) GearChip(gearPair: gearPair),
                 // i think there is 0% chance that this is null but whatever
                 if (comment.by != null) UserChip(user: comment.by!),
+                Text(comment.dateCreated.toStringDate()),
               ],
             ),
           ],

@@ -77,7 +77,10 @@ class _CommentEditPageState extends State<CommentEditPage> {
                 spacing: 8,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  Text("✅ Rozwiązany przez"),
+                  Text(
+                    "✅ Rozwiązany "
+                    "${editedComment.dateResolved?.toStringDate()} przez",
+                  ),
                   if (editedComment.resolvedBy != null)
                     UserChip(user: editedComment.resolvedBy!),
                 ],
@@ -118,6 +121,9 @@ class _CommentEditPageState extends State<CommentEditPage> {
               onChanged: (n) => setState(() {
                 editedComment.resolved = n ?? false;
                 editedComment.resolvedBy = editedComment.resolved ? you : null;
+                editedComment.dateResolved = editedComment.resolved
+                    ? DateTime.now()
+                    : null;
               }),
             ),
             SizedBox(height: 8 * 3),
