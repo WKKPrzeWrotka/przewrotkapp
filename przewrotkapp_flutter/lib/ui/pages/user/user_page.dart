@@ -7,6 +7,7 @@ import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart
 import '../../../di.dart';
 import '../../../logic/data_types.dart';
 import '../../../logic/utils.dart';
+import '../../common/long_list_small_frame.dart';
 import '../../common/rental_listing.dart';
 import '../../utils/names_and_strings.dart';
 import 'social_links.dart';
@@ -83,32 +84,35 @@ class UserPage extends StatelessWidget {
           Divider(),
           Text("Najbliższe wypożyczenia:", style: tt.headlineMedium),
           if (rentals != null)
-            for (final rental in rentals.where(
-              (r) => r.userId == przeUser?.userId,
-            ))
-              RentalListing(rental: rental)
+            LongListSmallFrame(
+              ifEmpty: Text("Na razie zamula 🥱"),
+              children: [
+                for (final rental in rentals.where(
+                  (r) => r.userId == przeUser?.userId,
+                ))
+                  RentalListing(rental: rental),
+              ],
+            )
           else
-            Text("🟠 Ładowanie wypożyczeń..."),
+            Text("🟠 Ładowanie..."),
           Divider(),
           Text(
             "Ostatnie godzinki${pageData.hoursSum != null ? ' (${pageData.hoursSum}h)' : ""}:",
             style: tt.headlineMedium,
           ),
-          if (youAreGodzinkowy)
-            Wrap(
-              children: [
-                FilledButton(
-                  onPressed: () => context.push(
-                    '/hours/edit?emptyFields=true',
-                    extra: HourHandy.empty(
-                      userId,
-                    ).copyWith(user: przeUser!.user),
-                  ),
-                  child: Text("Dodaj godzinkę"),
-                ),
-              ],
-            ),
           UserRecentHoursList(),
+          if (youAreGodzinkowy)
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.only(top: 8),
+              child: FilledButton(
+                onPressed: () => context.push(
+                  '/hours/edit?emptyFields=true',
+                  extra: HourHandy.empty(userId).copyWith(user: przeUser!.user),
+                ),
+                child: Text("Dodaj godzinkę"),
+              ),
+            ),
           Divider(),
           if (isYou)
             ElevatedButton(
