@@ -17,7 +17,7 @@ class UserRecentHoursList extends StatelessWidget {
     return hours != null
         ? LongListSmallFrame(
             maxHeight: 300,
-            ifEmpty: Text("Na razie nic nie wypożycza..."),
+            ifEmpty: Text("Na razie sie nie dorobił..."),
             children: [for (final hour in hours) HourListing(hour: hour)],
           )
         : Text("Ładowanie...");
