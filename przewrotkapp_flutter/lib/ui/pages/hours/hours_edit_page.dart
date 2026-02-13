@@ -62,7 +62,7 @@ class _HoursEditPageState extends State<HoursEditPage> {
                   actions: [
                     TextButton(
                       onPressed: () => context.pop(),
-                      child: Text("Dobra jednak nie..."),
+                      child: Text("Dobra jednak nie"),
                     ),
 
                     FilledButton(
@@ -101,7 +101,7 @@ class _HoursEditPageState extends State<HoursEditPage> {
                       style: FilledButton.styleFrom(
                         backgroundColor: Colors.red.shade700,
                       ),
-                      child: Text("Ta na pewno"),
+                      child: Text("Ta na pewno 😈"),
                     ),
                   ],
                 ),
