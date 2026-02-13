@@ -77,7 +77,11 @@ class _PrzeSliverAppBarState extends State<PrzeSliverAppBar> {
         title: OverflowBox(
           maxHeight: double.infinity,
           alignment: Alignment.topCenter,
-          child: Container(key: _contentKey, child: widget.flexibleContent),
+          child: SizedBox(
+            key: _contentKey,
+            width: double.infinity,
+            child: widget.flexibleContent,
+          ),
         ),
       ),
       actions: widget.actions,

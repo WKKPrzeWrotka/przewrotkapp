@@ -8,9 +8,18 @@ import '../../../logic/comments_utils.dart';
 import '../../../logic/data_types.dart';
 import '../../../logic/utils.dart';
 import '../../common/comment_listing.dart';
+import '../../common/prze_sliver_app_bar.dart';
 
-class CommentsBrowserPage extends StatelessWidget {
+class CommentsBrowserPage extends StatefulWidget {
   const CommentsBrowserPage({super.key});
+
+  @override
+  State<CommentsBrowserPage> createState() => _CommentsBrowserPageState();
+}
+
+class _CommentsBrowserPageState extends State<CommentsBrowserPage> {
+  var onlyWithHours = true;
+  var resolved = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,27 +28,32 @@ class CommentsBrowserPage extends StatelessWidget {
           ? sortComments(
               u.where(
                 (c) =>
-                    !(!c.resolved &&
-                        c.type == CommentType.neutral &&
-                        (c.hoursForResolving ?? 0) == 0),
+                    // Jeśli spełnia któryś z tych, to go nie dawaj
+                    !(
+                    // onlyWithHours zaznaczone i ma zero godzinek
+                    (onlyWithHours && (c.hoursForResolving ?? 0) == 0) ||
+                        // jest odznaczone resolved a on jest resolved
+                        (!resolved && c.resolved)),
               ),
             )
           : null,
     );
     final sm = context.read<SessionManager>();
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Zarób🤑"),
-        actions: [
-          TextButton(
-            onPressed: () => showDialog(
-              context: context,
-              builder: (_) => Dialog(
-                child: ListView(
-                  padding: EdgeInsets.all(16),
-                  shrinkWrap: true,
-                  children: [
-                    Text("""📜 Oto lista wszystkich komentarzy do sprzętu
+      body: CustomScrollView(
+        slivers: [
+          PrzeSliverAppBar(
+            title: Text("Zarób🤑"),
+            actions: [
+              TextButton(
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (_) => Dialog(
+                    child: ListView(
+                      padding: EdgeInsets.all(16),
+                      shrinkWrap: true,
+                      children: [
+                        Text("""📜 Oto lista wszystkich komentarzy do sprzętu
 
 💸 Niektórych z nich mają ilość godzinek za ich naprawienie - jeśli chcesz troche zarobić, to idealny sposób!
 
@@ -50,32 +64,52 @@ class CommentsBrowserPage extends StatelessWidget {
 🛶 Jeśli chcesz skomentować sprzęt, znajdź go, i przycisk w jego szczegółach
 
 Owocnej pracy 🫡"""),
-                    SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () => context.pop(),
-                      child: Text("Dzięki!"),
+                        SizedBox(height: 16),
+                        ElevatedButton(
+                          onPressed: () => context.pop(),
+                          child: Text("Dzięki!"),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
+                child: Text("O co chodzi?"),
               ),
+              TextButton.icon(
+                onPressed: () => context.push(
+                  '/comments/edit?emptyFields=true',
+                  extra: CommentHandy.empty(
+                    sm.signedInUser!.id!,
+                  ).copyWith(by: sm.signedInUser, dateCreated: DateTime.now()),
+                ),
+                icon: Icon(Icons.add),
+                label: Text('Dodaj'),
+              ),
+            ],
+            flexibleContent: Wrap(
+              spacing: 4,
+              runSpacing: 4,
+              alignment: WrapAlignment.start,
+              children: [
+                FilterChip(
+                  selected: onlyWithHours,
+                  label: Text("💸Tylko z godzinkami"),
+                  onSelected: (v) =>
+                      setState(() => onlyWithHours = !onlyWithHours),
+                ),
+                FilterChip(
+                  selected: resolved,
+                  label: Text("✅Rozwiązane"),
+                  onSelected: (v) => setState(() => resolved = !resolved),
+                ),
+              ],
             ),
-            child: Text("O co chodzi?"),
           ),
-          TextButton.icon(
-            onPressed: () => context.push(
-              '/comments/edit?emptyFields=true',
-              extra: CommentHandy.empty(
-                sm.signedInUser!.id!,
-              ).copyWith(by: sm.signedInUser, dateCreated: DateTime.now()),
-            ),
-            icon: Icon(Icons.add),
-            label: Text('Dodaj'),
+          SliverList.builder(
+            itemCount: comments?.length ?? 0,
+            itemBuilder: (context, i) => CommentListing(comment: comments![i]),
           ),
         ],
-      ),
-      body: ListView.builder(
-        itemCount: comments?.length ?? 0,
-        itemBuilder: (context, i) => CommentListing(comment: comments![i]),
       ),
     );
   }
