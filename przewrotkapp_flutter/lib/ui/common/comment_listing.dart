@@ -75,21 +75,26 @@ class CommentListing extends StatelessWidget {
             ),
           ],
         ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (comment.hoursForResolving != null)
-              Text("💸${comment.hoursForResolving}H", style: tt.titleLarge),
-            if (allowEdit)
-              IconButton(
-                onPressed: () => context.push(
-                  '/comments/edit?emptyFields=false',
-                  extra: comment,
-                ),
-                icon: Icon(Icons.edit),
-              ),
-          ],
-        ),
+        trailing: (comment.hoursForResolving != null || allowEdit)
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (comment.hoursForResolving != null)
+                    Text(
+                      "💸${comment.hoursForResolving}H",
+                      style: tt.titleLarge,
+                    ),
+                  if (allowEdit)
+                    IconButton(
+                      onPressed: () => context.push(
+                        '/comments/edit?emptyFields=false',
+                        extra: comment,
+                      ),
+                      icon: Icon(Icons.edit),
+                    ),
+                ],
+              )
+            : null,
       ),
     );
   }
