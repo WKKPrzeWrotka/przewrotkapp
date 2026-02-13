@@ -252,6 +252,8 @@ class _GearEditPageState extends State<GearEditPage> {
   Widget build(BuildContext context) {
     final setInit = !widget.emptyFields;
     return Scaffold(
+      // this is to avoid https://github.com/flutter/flutter/issues/124205
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(title: Text("Edycja ${widget.clubId} ✏")),
       body: Form(
         key: formKey,

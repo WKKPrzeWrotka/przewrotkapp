@@ -40,6 +40,8 @@ class _CommentsBrowserPageState extends State<CommentsBrowserPage> {
     );
     final sm = context.read<SessionManager>();
     return Scaffold(
+      // this is to avoid https://github.com/flutter/flutter/issues/124205
+      resizeToAvoidBottomInset: false,
       body: CustomScrollView(
         slivers: [
           PrzeSliverAppBar(

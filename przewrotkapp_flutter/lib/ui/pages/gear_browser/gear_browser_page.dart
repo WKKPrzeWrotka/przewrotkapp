@@ -35,6 +35,8 @@ class _GearBrowserPageState extends State<GearBrowserPage> {
       favs ?? [],
     );
     return Scaffold(
+      // this is to avoid https://github.com/flutter/flutter/issues/124205
+      resizeToAvoidBottomInset: false,
       body: CustomScrollView(
         slivers: [
           PrzeSliverAppBar(

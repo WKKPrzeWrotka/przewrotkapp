@@ -47,6 +47,8 @@ class _CommentEditPageState extends State<CommentEditPage> {
     );
     final setInit = !widget.emptyFields;
     return Scaffold(
+      // this is to avoid https://github.com/flutter/flutter/issues/124205
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("Edytowanie komentarza"),
         actions: [

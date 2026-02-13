@@ -42,6 +42,8 @@ class _HoursEditPageState extends State<HoursEditPage> {
     final setInit = !widget.emptyFields;
     final client = context.read<Client>();
     return Scaffold(
+      // this is to avoid https://github.com/flutter/flutter/issues/124205
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           widget.emptyFields

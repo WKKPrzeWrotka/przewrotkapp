@@ -78,6 +78,8 @@ class _NewRentalPageState extends State<NewRentalPage> {
       (l, r) => l..addAll(r.junctions!.map((j) => j.gearId)),
     );
     return Scaffold(
+      // this is to avoid https://github.com/flutter/flutter/issues/124205
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(title: Text("Wypożycz sprzęcior")),
       body: ListView(
         padding: EdgeInsets.all(8),

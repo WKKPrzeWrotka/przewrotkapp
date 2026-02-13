@@ -42,6 +42,8 @@ class GearDetailsPage extends StatelessWidget {
           )
         : null;
     return Scaffold(
+      // this is to avoid https://github.com/flutter/flutter/issues/124205
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           "${gear != null ? gear.type.toDisplayString(plural: false) : ''} $clubId",
