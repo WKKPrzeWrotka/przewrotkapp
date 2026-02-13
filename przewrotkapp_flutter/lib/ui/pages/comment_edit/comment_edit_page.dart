@@ -90,7 +90,6 @@ class _CommentEditPageState extends State<CommentEditPage> {
             DropdownMenuFormField(
               initialSelection: setInit ? editedComment.type : null,
               dropdownMenuEntries: CommentType.values
-                  // TODO: HumanName
                   .map((c) => DropdownMenuEntry(value: c, label: c.humanName))
                   .toList(),
               onSelected: (c) => editedComment.type = c!,
