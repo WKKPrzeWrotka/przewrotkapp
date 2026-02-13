@@ -21,7 +21,6 @@ class CommentsEndpoint extends Endpoint {
         include: Comment.include(
           by: UserInfo.include(),
           // Don't include gear because we already have it all over the place
-          // gear: Gear.include(),
           resolvedBy: UserInfo.include(),
         ),
       );

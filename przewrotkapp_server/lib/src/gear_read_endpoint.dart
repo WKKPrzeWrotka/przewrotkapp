@@ -14,7 +14,6 @@ class GearReadEndpoint extends Endpoint {
 
   final _defaultGearInclude = Gear.include(
     comments: Comment.includeList(
-      where: (c) => c.resolved.equals(false),
       include: Comment.include(
         by: UserInfo.include(),
         resolvedBy: UserInfo.include(),

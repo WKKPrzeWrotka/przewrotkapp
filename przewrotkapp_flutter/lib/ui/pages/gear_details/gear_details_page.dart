@@ -5,6 +5,7 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_client/scopes.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
+import '../../../logic/comments_utils.dart';
 import '../../../logic/data_types.dart';
 import '../../../logic/utils.dart';
 import '../../common/comment_listing.dart';
@@ -93,7 +94,7 @@ class GearDetailsPage extends StatelessWidget {
           LongListSmallFrame(
             ifEmpty: Text("Na razie chyba działa 🙈"),
             children: [
-              for (final comment in gear?.comments ?? <Comment>[])
+              for (final comment in sortComments(gear?.comments ?? <Comment>[]))
                 CommentListing(comment: comment),
             ],
           ),

@@ -180,11 +180,11 @@ class _UserDependentProvider extends StatelessWidget {
                 .toList();
           },
         ),
-        StreamProvider<UnresolvedComments?>(
+        StreamProvider<AllComments?>(
           lazy: false,
           initialData: null,
           create: (_) => _retryStream(
-            () => _client.comments.watchComments(resolved: false),
+            () => _client.comments.watchComments(resolved: true),
           ),
         ),
       ],
