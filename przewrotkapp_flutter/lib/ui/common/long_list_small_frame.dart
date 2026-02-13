@@ -4,8 +4,9 @@ class LongListSmallFrame extends StatelessWidget {
   final double maxHeight;
   final Widget ifEmpty;
   final List<Widget> children;
+  final ctrl = ScrollController();
 
-  const LongListSmallFrame({
+  LongListSmallFrame({
     super.key,
     this.maxHeight = 200.0,
     required this.ifEmpty,
@@ -21,10 +22,13 @@ class LongListSmallFrame extends StatelessWidget {
       ),
       constraints: BoxConstraints(maxHeight: maxHeight),
       child: Scrollbar(
+        controller: ctrl,
         thumbVisibility: true,
         trackVisibility: true,
         thickness: 8,
+        interactive: true,
         child: SingleChildScrollView(
+          controller: ctrl,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: children.isEmpty
