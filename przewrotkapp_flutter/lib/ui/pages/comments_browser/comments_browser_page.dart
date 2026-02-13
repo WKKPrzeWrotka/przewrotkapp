@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
+import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 import '../../../logic/data_types.dart';
+import '../../../logic/utils.dart';
 import '../../common/comment_listing.dart';
 
 class CommentsBrowserPage extends StatelessWidget {
@@ -35,11 +38,23 @@ class CommentsBrowserPage extends StatelessWidget {
     final comments = context.select<UnresolvedComments?, List<Comment>?>(
       (u) => u != null ? sortComments(u) : null,
     );
-    // TODO:
-    // - search bar?
-    // - better listing for standalone
+    final sm = context.read<SessionManager>();
     return Scaffold(
-      appBar: AppBar(title: Text("Wszystkie komentarze 📃")),
+      appBar: AppBar(
+        title: Text("Komentarze 📃"),
+        actions: [
+          TextButton.icon(
+            onPressed: () => context.push(
+              '/comments/edit?emptyFields=true',
+              extra: CommentHandy.empty(
+                sm.signedInUser!.id!,
+              ).copyWith(by: sm.signedInUser),
+            ),
+            icon: Icon(Icons.add),
+            label: Text('Dodaj'),
+          ),
+        ],
+      ),
       body: ListView.builder(
         itemCount: comments?.length ?? 0,
         itemBuilder: (context, i) => CommentListing(comment: comments![i]),

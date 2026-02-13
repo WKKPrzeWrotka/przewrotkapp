@@ -6,7 +6,9 @@ import 'package:przewrotkapp_client/scopes.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 import '../../../logic/data_types.dart';
+import '../../../logic/utils.dart';
 import '../../common/comment_listing.dart';
+import '../../common/long_list_small_frame.dart';
 import '../../common/rental_listing.dart';
 import '../../utils/names_and_strings.dart';
 import 'gear_details_parameters.dart';
@@ -87,11 +89,30 @@ class GearDetailsPage extends StatelessWidget {
             Text("Nadchodządce wypożyczenia", style: tt.headlineMedium),
           for (final rental in thisRentals ?? <Rental>[])
             RentalListing(rental: rental),
-          if (gear?.comments?.isNotEmpty ?? false)
-            Text("Komentarze", style: tt.headlineMedium),
-          for (final comment in gear?.comments ?? <Comment>[])
-            CommentListing(comment: comment),
-          // // TODO: Adding comments
+          Text("Komentarze", style: tt.headlineMedium),
+          LongListSmallFrame(
+            ifEmpty: Text("Na razie chyba działa 🙈"),
+            children: [
+              for (final comment in gear?.comments ?? <Comment>[])
+                CommentListing(comment: comment),
+            ],
+          ),
+          SizedBox(height: 8),
+          Align(
+            alignment: AlignmentDirectional.topStart,
+            child: FilledButton(
+              onPressed: () {
+                if (gear == null) return;
+                context.push(
+                  '/comments/edit?emptyFields=true',
+                  extra: CommentHandy.empty(
+                    sm.signedInUser!.id!,
+                  ).copyWith(by: sm.signedInUser, gearId: gear.id, gear: gear),
+                );
+              },
+              child: Text("Dodaj komentarz"),
+            ),
+          ),
         ],
       ),
     );

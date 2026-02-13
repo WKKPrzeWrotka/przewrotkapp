@@ -96,3 +96,8 @@ extension HourHandy on Hour {
     date: DateTime.now().copyWith(hour: 12),
   );
 }
+
+extension CommentHandy on Comment {
+  static Comment empty(int byId) =>
+      Comment(byId: byId, type: CommentType.warning, text: "");
+}
