@@ -7,6 +7,7 @@ import '../../../logic/data_types.dart';
 import '../../../logic/gear_search.dart';
 import '../../common/gear_listing.dart';
 import '../../common/gear_search_filters.dart';
+import '../../common/prze_sliver_app_bar.dart';
 import 'new_gear_dialog.dart';
 
 class GearBrowserPage extends StatefulWidget {
@@ -36,33 +37,14 @@ class _GearBrowserPageState extends State<GearBrowserPage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            floating: true,
-            pinned: true,
-            snap: false,
-            expandedHeight: 350,
+          PrzeSliverAppBar(
             title: Text("Cały sprzęt"),
-            flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true,
-              titlePadding: EdgeInsets.only(
-                top: kToolbarHeight,
-                left: 8,
-                right: 8,
-              ),
-              expandedTitleScale: 1,
-              title: SizedBox(
-                height: 350,
-                child: SingleChildScrollView(
-                  child: GearSearchFilters(
-                    // set this same as var params = ...
-                    initialParams: GearSearchParams.mainDefault,
-                    onFiltersChange: (newParams) {
-                      params = newParams;
-                      setState(() {});
-                    },
-                  ),
-                ),
-              ),
+            flexibleContent: GearSearchFilters(
+              initialParams: GearSearchParams.mainDefault,
+              onFiltersChange: (newParams) {
+                params = newParams;
+                setState(() {});
+              },
             ),
             actions: [
               if (isSprzetowiec)
