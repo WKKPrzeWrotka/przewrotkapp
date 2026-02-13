@@ -15,7 +15,16 @@ class CommentsBrowserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final comments = context.select<AllComments?, List<Comment>?>(
-      (u) => u != null ? sortComments(u) : null,
+      (u) => u != null
+          ? sortComments(
+              u.where(
+                (c) =>
+                    !(!c.resolved &&
+                        c.type == CommentType.neutral &&
+                        (c.hoursForResolving ?? 0) == 0),
+              ),
+            )
+          : null,
     );
     final sm = context.read<SessionManager>();
     return Scaffold(

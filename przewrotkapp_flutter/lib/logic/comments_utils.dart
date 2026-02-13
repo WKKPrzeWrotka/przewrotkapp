@@ -3,7 +3,7 @@ import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 /// Priority:
 /// - hours
 /// - severity
-List<Comment> sortComments(List<Comment> comments) {
+List<Comment> sortComments(Iterable<Comment> comments) {
   return comments.toList()..sort((a, b) {
     final resolvedStrength = switch ((a.resolved, b.resolved)) {
       (true, true) => 0,
