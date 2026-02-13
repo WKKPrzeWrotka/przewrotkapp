@@ -52,15 +52,15 @@ class CommentListing extends StatelessWidget {
           children: [
             if (comment.resolved)
               Wrap(
-                spacing: 8,
+                spacing: 4,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  Text(
-                    "✅ Rozwiązany ${comment.dateResolved?.toStringDate()} "
-                    "przez",
-                  ),
+                  Text("✅ Rozwiązany"),
+                  Text("${comment.dateResolved?.toStringDate()}"),
+                  Text("przez"),
                   if (comment.resolvedBy != null)
                     UserChip(user: comment.resolvedBy!),
+                  Divider(height: 16),
                 ],
               ),
             Wrap(

@@ -54,7 +54,7 @@ class _CommentEditPageState extends State<CommentEditPage> {
           padding: EdgeInsets.all(16),
           children: [
             Wrap(
-              spacing: 8,
+              spacing: 4,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 UserChip(user: editedComment.by!),
@@ -74,13 +74,12 @@ class _CommentEditPageState extends State<CommentEditPage> {
             Opacity(
               opacity: editedComment.resolved ? 1 : 0,
               child: Wrap(
-                spacing: 8,
+                spacing: 4,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  Text(
-                    "✅ Rozwiązany "
-                    "${editedComment.dateResolved?.toStringDate()} przez",
-                  ),
+                  Text("✅ Rozwiązany"),
+                  Text("${editedComment.dateResolved?.toStringDate()}"),
+                  Text("przez"),
                   if (editedComment.resolvedBy != null)
                     UserChip(user: editedComment.resolvedBy!),
                 ],
