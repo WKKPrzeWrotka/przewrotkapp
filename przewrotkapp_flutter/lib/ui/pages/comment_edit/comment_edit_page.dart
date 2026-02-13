@@ -60,7 +60,7 @@ class _CommentEditPageState extends State<CommentEditPage> {
                 UserChip(user: editedComment.by!),
                 Text("komentuje"),
                 editedComment.gearId == null
-                    ? Text("🏠 Hangar", style: tt.bodyLarge)
+                    ? Text("🏠 Klub", style: tt.bodyLarge)
                     : (allGear != null
                           ? GearChip(gearPair: gearPair!)
                           : Text("🟠Ładowanie...")),

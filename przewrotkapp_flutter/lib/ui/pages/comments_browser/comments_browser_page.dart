@@ -20,8 +20,38 @@ class CommentsBrowserPage extends StatelessWidget {
     final sm = context.read<SessionManager>();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Komentarze 📃"),
+        title: Text("Zarób🤑"),
         actions: [
+          TextButton(
+            onPressed: () => showDialog(
+              context: context,
+              builder: (_) => Dialog(
+                child: ListView(
+                  padding: EdgeInsets.all(16),
+                  shrinkWrap: true,
+                  children: [
+                    Text("""📜 Oto lista wszystkich komentarzy do sprzętu
+
+💸 Niektórych z nich mają ilość godzinek za ich naprawienie - jeśli chcesz troche zarobić, to idealny sposób!
+
+⚠️ Ilość godzinek jest sugerowana - jeśli dobrze wynegocjujesz, możesz sie dorobić nieco więcej 😉 (albo nieco mniej, jeśli zrobisz kaszane 😜)
+
+➕ Na górze jest przycisk dodaj - dodaje się nim komentarz ogólno-klubowy (np. 'Trzeba umyć podłoge')
+
+🛶 Jeśli chcesz skomentować sprzęt, znajdź go, i przycisk w jego szczegółach
+
+Owocnej pracy 🫡"""),
+                    SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () => context.pop(),
+                      child: Text("Dzięki!"),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            child: Text("O co chodzi?"),
+          ),
           TextButton.icon(
             onPressed: () => context.push(
               '/comments/edit?emptyFields=true',
