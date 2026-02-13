@@ -29,7 +29,7 @@ abstract class Comment implements _i1.SerializableModel {
     this.resolvedById,
     this.resolvedBy,
     this.dateResolved,
-  })  : dateCreated = dateCreated ?? DateTime.parse('2025-08-30T12:00:00.000Z'),
+  })  : dateCreated = dateCreated ?? DateTime.now(),
         resolved = resolved ?? false;
 
   factory Comment({
