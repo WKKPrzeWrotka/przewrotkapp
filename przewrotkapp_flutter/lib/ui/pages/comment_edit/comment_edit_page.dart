@@ -120,6 +120,9 @@ class _CommentEditPageState extends State<CommentEditPage> {
               onChanged: (n) => setState(() {
                 editedComment.resolved = n ?? false;
                 editedComment.resolvedBy = editedComment.resolved ? you : null;
+                editedComment.resolvedById = editedComment.resolved
+                    ? you!.id!
+                    : null;
                 editedComment.dateResolved = editedComment.resolved
                     ? DateTime.now()
                     : null;
