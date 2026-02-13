@@ -63,7 +63,7 @@ class _CommentEditPageState extends State<CommentEditPage> {
                   'po prostu zaznacz go jako rozwiązanego 👌\n\n'
                   'Jeśli ta sprawa sie przedawniła albo wogóle nie było tematu, '
                   'i nikogo nigdy nie będzie interesować... '
-                  'no to dobra, możesz usunać 🙄',
+                  'no to dobra, możesz usunąć 🙄',
                 ),
                 surfaceTintColor: Colors.red,
                 actions: [
