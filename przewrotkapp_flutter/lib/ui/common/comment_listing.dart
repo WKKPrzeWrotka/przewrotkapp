@@ -38,7 +38,14 @@ class CommentListing extends StatelessWidget {
     return Card(
       color: Color.alphaBlend(
         comment.type.backgroundColor?.withAlpha(64) ?? Colors.transparent,
-        t.colorScheme.surfaceContainerLow,
+        Color.alphaBlend(
+          comment.resolved
+              ? (t.brightness == Brightness.light
+                    ? Colors.black12
+                    : Colors.black)
+              : Colors.transparent,
+          t.colorScheme.surfaceContainerLow,
+        ),
       ),
       child: ListTile(
         title: Text(
@@ -51,17 +58,23 @@ class CommentListing extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (comment.resolved)
-              Wrap(
-                spacing: 4,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  Text("✅ Rozwiązany"),
-                  Text("${comment.dateResolved?.toStringDate()}"),
-                  Text("przez"),
-                  if (comment.resolvedBy != null)
-                    UserChip(user: comment.resolvedBy!),
-                  Divider(height: 16),
-                ],
+              DefaultTextStyle(
+                style: tt.bodyMedium!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: Color.lerp(tt.bodyMedium!.color, Colors.green, 0.4),
+                ),
+                child: Wrap(
+                  spacing: 4,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Text("✅ Rozwiązany"),
+                    Text("${comment.dateResolved?.toStringDate()}"),
+                    Text("przez"),
+                    if (comment.resolvedBy != null)
+                      UserChip(user: comment.resolvedBy!),
+                    Divider(height: 16),
+                  ],
+                ),
               ),
             Wrap(
               spacing: 8,
