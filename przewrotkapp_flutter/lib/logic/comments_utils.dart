@@ -25,6 +25,6 @@ List<Comment> sortComments(Iterable<Comment> comments) {
       b.type,
     ).compareTo(severityStrength(a.type));
     if (severity != 0) return severity;
-    return 0;
+    return b.dateCreated.compareTo(a.dateCreated);
   });
 }
