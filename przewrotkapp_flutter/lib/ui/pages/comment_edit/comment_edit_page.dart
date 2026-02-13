@@ -50,71 +50,73 @@ class _CommentEditPageState extends State<CommentEditPage> {
       appBar: AppBar(
         title: Text("Edytowanie komentarza"),
         actions: [
-          TextButton.icon(
-            onPressed: () => showDialog(
-              context: context,
-              // todo: unify "scary alert with hold-to-confirm"
-              // todo: change rest of dialogs like these to alert?
-              builder: (context) => AlertDialog(
-                title: Text('Na pewno?'),
-                content: Text(
-                  'Usuwasz ten komentarz - na zawsze! Nie ma odwrotu!\n\n'
-                  'Jeśli sprawa z komentarza została załatwiona, '
-                  'po prostu zaznacz go jako rozwiązanego 👌\n\n'
-                  'Jeśli ta sprawa sie przedawniła albo wogóle nie było tematu, '
-                  'i nikogo nigdy nie będzie interesować... '
-                  'no to dobra, możesz usunąć 🙄',
-                ),
-                surfaceTintColor: Colors.red,
-                actions: [
-                  TextButton(
-                    onPressed: () => context.pop(),
-                    child: Text("Dobra jednak nie"),
+          if (!widget.emptyFields)
+            TextButton.icon(
+              onPressed: () => showDialog(
+                context: context,
+                // todo: unify "scary alert with hold-to-confirm"
+                // todo: change rest of dialogs like these to alert?
+                builder: (context) => AlertDialog(
+                  title: Text('Na pewno?'),
+                  content: Text(
+                    'Usuwasz ten komentarz - na zawsze! Nie ma odwrotu!\n\n'
+                    'Jeśli sprawa z komentarza została załatwiona, '
+                    'po prostu zaznacz go jako rozwiązanego 👌\n\n'
+                    'Jeśli ta sprawa sie przedawniła albo wogóle nie było '
+                    'tematu, i nikogo nigdy nie będzie interesować... '
+                    'no to dobra, możesz usunąć 🙄',
                   ),
-                  FilledButton(
-                    onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        duration: Duration(seconds: 1),
-                        content: Text("Przytrzymaj ;)"),
+                  surfaceTintColor: Colors.red,
+                  actions: [
+                    TextButton(
+                      onPressed: () => context.pop(),
+                      child: Text("Dobra jednak nie"),
+                    ),
+                    FilledButton(
+                      onPressed: () =>
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              duration: Duration(seconds: 1),
+                              content: Text("Przytrzymaj ;)"),
+                            ),
+                          ),
+                      onLongPress: () async {
+                        // TODO: Unify those try-success-fail snackbars everywhere
+                        try {
+                          await client.comments.deleteComment(widget.comment);
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: Colors.green.shade600,
+                                content: Text("Sukces!"),
+                              ),
+                            );
+                            context.pop();
+                            context.pop();
+                          }
+                        } catch (e) {
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                backgroundColor: Colors.red.shade800,
+                                content: Text(e.toString()),
+                              ),
+                            );
+                          }
+                        }
+                      },
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Colors.red.shade700,
                       ),
+                      child: Text("Ta na pewno 😈"),
                     ),
-                    onLongPress: () async {
-                      // TODO: Unify those try-success-fail snackbars everywhere
-                      try {
-                        await client.comments.deleteComment(widget.comment);
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              backgroundColor: Colors.green.shade600,
-                              content: Text("Sukces!"),
-                            ),
-                          );
-                          context.pop();
-                          context.pop();
-                        }
-                      } catch (e) {
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              backgroundColor: Colors.red.shade800,
-                              content: Text(e.toString()),
-                            ),
-                          );
-                        }
-                      }
-                    },
-                    style: FilledButton.styleFrom(
-                      backgroundColor: Colors.red.shade700,
-                    ),
-                    child: Text("Ta na pewno 😈"),
-                  ),
-                ],
+                  ],
+                ),
               ),
+              style: TextButton.styleFrom(foregroundColor: Colors.red.shade900),
+              icon: Icon(Icons.delete),
+              label: Text("Usuń"),
             ),
-            style: TextButton.styleFrom(foregroundColor: Colors.red.shade900),
-            icon: Icon(Icons.delete),
-            label: Text("Usuń"),
-          ),
         ],
       ),
       body: Form(
