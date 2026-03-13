@@ -38,13 +38,12 @@ Future<List<Skladkowicz>> getSkladkaEmails(
           imie: r[0].trim().isNotEmpty ? r[0].trim() : null,
           nazwisko: r[1].trim().isNotEmpty ? r[1].trim() : null,
           ksywa: r[2].trim().isNotEmpty ? r[2].trim() : null,
-          email: r[3].trim(),
+          email: r[3].trim().toLowerCase(),
         ),
       );
   if (emails.length < 10) {
     throw "List is under 10 - something is very wrong, "
         "either with the code, or the club";
-    // elo pomelo
   }
   return emails.toList();
 }
