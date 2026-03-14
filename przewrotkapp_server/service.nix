@@ -41,7 +41,7 @@ with lib;
       description = "PrzeWrotkApp server";
       wantedBy = [ "multi-user.target" ];
       after = [ "postgresql.service" ];
-      path = with pkgs; [ flutter335 ];
+      path = with pkgs; [ flutter335 git ];
       serviceConfig = {
         User = "przewrotkapp";
         WorkingDirectory = "/var/lib/przewrotkapp/przewrotkapp/przewrotkapp_server";
