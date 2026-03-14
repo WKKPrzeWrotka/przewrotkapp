@@ -116,7 +116,7 @@ class RentalListing extends StatelessWidget {
                       ),
                     ),
                     color: Colors.red,
-                    icon: Icon(Icons.cancel_outlined),
+                    icon: Icon(Icons.cancel),
                   )
                 : (rental.userId == user.id
                       ? IconButton(
@@ -138,8 +138,7 @@ class RentalListing extends StatelessWidget {
                             ),
                           ),
                           color: t.disabledColor,
-
-                          icon: Icon(Icons.cancel_outlined),
+                          icon: Icon(Icons.cancel),
                         )
                       : null),
           ),
