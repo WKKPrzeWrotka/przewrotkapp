@@ -33,7 +33,7 @@ with lib;
       isSystemUser = true;
       group = "przewrotkapp";
       shell = "/run/current-system/sw/bin/fish";
-      packages = with pkgs; [ flutter335 fish rclone ];
+      packages = with pkgs; [ flutter335 fish rclone git ];
     };
     users.groups.przewrotkapp = { };
 
