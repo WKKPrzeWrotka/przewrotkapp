@@ -1604,6 +1604,35 @@ class _RentalEndpoint {
       }
     });
   }
+
+  _i3.Future<void> deleteRental(
+    _i1.TestSessionBuilder sessionBuilder,
+    _i18.Rental rental,
+  ) async {
+    return _i1.callAwaitableFunctionAndHandleExceptions(() async {
+      var _localUniqueSession =
+          (sessionBuilder as _i1.InternalTestSessionBuilder).internalBuild(
+        endpoint: 'rental',
+        method: 'deleteRental',
+      );
+      try {
+        var _localCallContext = await _endpointDispatch.getMethodCallContext(
+          createSessionCallback: (_) => _localUniqueSession,
+          endpointPath: 'rental',
+          methodName: 'deleteRental',
+          parameters: _i1.testObjectToJson({'rental': rental}),
+          serializationManager: _serializationManager,
+        );
+        var _localReturnValue = await (_localCallContext.method.call(
+          _localUniqueSession,
+          _localCallContext.arguments,
+        ) as _i3.Future<void>);
+        return _localReturnValue;
+      } finally {
+        await _localUniqueSession.close();
+      }
+    });
+  }
 }
 
 class _UserEndpoint {

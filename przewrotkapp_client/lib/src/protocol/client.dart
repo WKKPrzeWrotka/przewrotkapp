@@ -491,6 +491,13 @@ class EndpointRental extends _i1.EndpointRef {
           'to': to,
         },
       );
+
+  _i2.Future<void> deleteRental(_i16.Rental rental) =>
+      caller.callServerEndpoint<void>(
+        'rental',
+        'deleteRental',
+        {'rental': rental},
+      );
 }
 
 /// {@category Endpoint}
