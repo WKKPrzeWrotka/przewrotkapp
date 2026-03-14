@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'di.dart';
@@ -39,6 +40,15 @@ class MyApp extends StatelessWidget {
         },
         child: MaterialApp.router(
           routerConfig: router,
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          // no US so goddamn calendars don't have sunday as beginning
+          supportedLocales: [Locale('pl'), Locale('en', 'GB')],
+          // override bc the whole app is polish anyway
+          locale: Locale('pl'),
           title: 'PrzeWrotkApp',
           theme: lightTheme,
           darkTheme: darkTheme,

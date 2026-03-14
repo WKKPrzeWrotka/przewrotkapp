@@ -14,6 +14,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   flutter_web_plugins:
     sdk: flutter
 
@@ -39,7 +41,7 @@ dependencies:
   octo_image: ^2.1.0
   flutter_blurhash: ^0.9.1
   multi_image_picker_view: ^3.0.0
-  intl: ^0.20.2
+  intl: any
 
   # Serverpod
   serverpod_flutter: 2.9.2
