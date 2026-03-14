@@ -48,6 +48,7 @@ rental:
   - getRentals:
   - watchRentals:
   - rentGear:
+  - deleteRental:
 user:
   - getUserInfo:
   - getPrzeUser:

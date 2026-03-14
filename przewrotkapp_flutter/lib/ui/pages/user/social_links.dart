@@ -28,7 +28,9 @@ class SocialLinks extends StatelessWidget {
           FilledButton(
             onPressed: () => launchUrlString('tel:${przeUser.phoneNumber}'),
             onLongPress: () => copyText(przeUser.phoneNumber!, context),
-            child: Text("📞 ${przeUser.phoneNumber}"),
+            child: Text(
+              "📞 ${przeUser.phoneNumber?.replaceAllMapped(RegExp(r".{3}"), (match) => "${match.group(0)} ").trimRight()}",
+            ),
           ),
         if (przeUser.user?.email != null)
           ElevatedButton(

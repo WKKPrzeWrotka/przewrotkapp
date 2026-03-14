@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:przewrotkapp_client/editing_permissions.dart';
 import 'package:przewrotkapp_client/magic_numbers.dart' as magick;
+import 'package:przewrotkapp_client/przewrotkapp_client.dart' as client;
+import 'package:przewrotkapp_client/scopes.dart';
 import 'package:przewrotkapp_server/src/future_calls/charge_hours.dart';
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
 import 'package:przewrotkapp_server/src/hours_endpoint.dart';
@@ -28,7 +31,7 @@ class RentalEndpoint extends Endpoint {
                 // to be usable only for tasks like making a new rental
                 // and every calendar page or whatever will have to use
                 // some pagination
-                DateTime.now().subtract(Duration(days: 30)),
+                DateTime.now().subtract(Duration(days: 7)),
               ),
         include: Rental.include(
           user: UserInfo.include(),
@@ -36,6 +39,7 @@ class RentalEndpoint extends Endpoint {
             include: RentalJunction.include(gear: Gear.include()),
           ),
         ),
+        orderBy: (r) => r.start,
       );
 
   Stream<List<Rental>> watchRentals(Session session, {bool past = false}) =>
@@ -80,5 +84,21 @@ class RentalEndpoint extends Endpoint {
       await ChargeHoursFutureCall.schedule(pod, newRental);
     });
     _rentalsUpdateCtrl.add(true);
+  }
+
+  Future<void> deleteRental(Session session, Rental rental) async {
+    // re-fetch from db so they can't spoof values
+    rental = (await Rental.db.findById(session, rental.id!))!;
+    final auth = (await session.authenticated)!;
+    if (!canDeleteRental(
+      auth.userId,
+      PrzeScope.fromNames(auth.scopes.map((s) => s.name!)),
+      client.Rental.fromJson(rental.toJson()),
+    )) {
+      throw 'Nie możesz usunąć tego wypożyczenia!';
+    }
+    await Rental.db.deleteRow(session, rental);
+    _rentalsUpdateCtrl.add(true);
+    await ChargeHoursFutureCall.cancel(session.serverpod, rental);
   }
 }

@@ -23,6 +23,8 @@ class CommentsEndpoint extends Endpoint {
           // Don't include gear because we already have it all over the place
           resolvedBy: UserInfo.include(),
         ),
+        orderBy: (c) => c.dateCreated,
+        orderDescending: true
       );
 
   Stream<List<Comment>> watchComments(

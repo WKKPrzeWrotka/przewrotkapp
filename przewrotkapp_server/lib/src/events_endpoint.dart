@@ -59,7 +59,7 @@ class DiscordEventsFutureCall extends FutureCall {
             ),
           )
           // Last 30 days max
-          .where((e) => e.end.difference(DateTime.now()).inDays > -30)
+          .where((e) => e.end.difference(DateTime.now()).inDays > -7)
           .toList();
       discordEventsCache.sort(
         (a, b) => a.start.millisecondsSinceEpoch.compareTo(

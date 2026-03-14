@@ -270,4 +270,43 @@ void main() {
       ),
     );
   });
+  group("Hours punishment calculation tests", () {
+    test(
+      "Way before",
+      () => expect(
+        hoursPunishmentForLateness(DateTime(2026, 1, 1, 12), DateTime(2027)),
+        0,
+      ),
+    );
+    test(
+      "Just before",
+      () => expect(
+        hoursPunishmentForLateness(
+          DateTime(2026, 1, 1, 23, 59),
+          DateTime(2026, 1, 4, 6),
+        ),
+        0,
+      ),
+    );
+    test(
+      "Just after",
+      () => expect(
+        hoursPunishmentForLateness(
+          DateTime(2026, 1, 2, 0, 1),
+          DateTime(2026, 1, 4, 6),
+        ),
+        2,
+      ),
+    );
+    test(
+      "While happening",
+      () => expect(
+        hoursPunishmentForLateness(
+          DateTime(2026, 1, 6, 12),
+          DateTime(2026, 1, 4, 6),
+        ),
+        2,
+      ),
+    );
+  });
 }

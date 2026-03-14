@@ -37,8 +37,9 @@ import 'package:przewrotkapp_server/src/generated/gear/gear_spraydeck.dart'
 import 'package:przewrotkapp_server/src/generated/gear/gear_throwbag.dart'
     as _i21;
 import 'package:przewrotkapp_server/src/generated/hour.dart' as _i22;
-import 'package:przewrotkapp_server/src/generated/user/prze_user.dart' as _i23;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i24;
+import 'package:przewrotkapp_server/src/generated/rental/rental.dart' as _i23;
+import 'package:przewrotkapp_server/src/generated/user/prze_user.dart' as _i24;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i25;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -878,6 +879,24 @@ class Endpoints extends _i1.EndpointDispatch {
             params['to'],
           ),
         ),
+        'deleteRental': _i1.MethodConnector(
+          name: 'deleteRental',
+          params: {
+            'rental': _i1.ParameterDescription(
+              name: 'rental',
+              type: _i1.getType<_i23.Rental>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['rental'] as _i7.RentalEndpoint).deleteRental(
+            session,
+            params['rental'],
+          ),
+        ),
         'watchRentals': _i1.MethodStreamConnector(
           name: 'watchRentals',
           params: {
@@ -979,7 +998,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'extraUser': _i1.ParameterDescription(
               name: 'extraUser',
-              type: _i1.getType<_i23.PrzeUser>(),
+              type: _i1.getType<_i24.PrzeUser>(),
               nullable: false,
             )
           },
@@ -1049,6 +1068,6 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
-    modules['serverpod_auth'] = _i24.Endpoints()..initializeEndpoints(server);
+    modules['serverpod_auth'] = _i25.Endpoints()..initializeEndpoints(server);
   }
 }

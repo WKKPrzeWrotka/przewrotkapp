@@ -55,6 +55,23 @@ class ChargeHoursFutureCall extends FutureCall<Rental> {
         approved: true,
       ),
     );
+    final punishmentHours = client.hoursPunishmentForLateness(
+      rental.created,
+      rental.start,
+    );
+    if (punishmentHours > 0) {
+      await Hour.db.insertRow(
+        session,
+        Hour(
+          userId: rental.userId,
+          amount: -punishmentHours,
+          description: "Kara za spóźnione wypożyczenie (ID: ~${rental.id!})",
+          category: HourCategory.punishment,
+          date: rental.end,
+          approved: true,
+        ),
+      );
+    }
     hoursUpdateCtrl.add(rental.userId);
   }
 
@@ -67,6 +84,9 @@ class ChargeHoursFutureCall extends FutureCall<Rental> {
       identifier: getIdentifier(rental),
     );
   }
+
+  static Future<void> cancel(Serverpod pod, Rental rental) async =>
+      await pod.cancelFutureCall(getIdentifier(rental));
 }
 
 // This absolute pile of garbage is here because we have to convert

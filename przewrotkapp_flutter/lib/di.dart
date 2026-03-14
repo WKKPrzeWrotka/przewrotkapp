@@ -177,7 +177,8 @@ class _UserDependentProvider extends StatelessWidget {
                     ),
                   ),
                 )
-                .toList();
+                .toList()
+              ..sort((a, b) => a.range.start.compareTo(b.range.start));
           },
         ),
         StreamProvider<AllComments?>(
