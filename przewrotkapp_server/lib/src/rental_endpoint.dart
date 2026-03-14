@@ -36,6 +36,8 @@ class RentalEndpoint extends Endpoint {
             include: RentalJunction.include(gear: Gear.include()),
           ),
         ),
+        orderBy: (r) => r.start,
+        orderDescending: true,
       );
 
   Stream<List<Rental>> watchRentals(Session session, {bool past = false}) =>
