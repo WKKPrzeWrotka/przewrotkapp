@@ -27,7 +27,10 @@ class HomePage extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Siemano ${user?.name ?? 'yyy'}'),
+            Text(
+              '${getTodayUserGreeting()} '
+              '${user?.name ?? 'yyy kim jesteś'} 👋',
+            ),
             if (kDebugMode) Text('API: $serverUrl', style: tt.labelMedium),
             if (context.watch<AllGearCache?>() == null)
               Text("🟠 Ładowanie...", style: tt.labelMedium),

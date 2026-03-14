@@ -1,8 +1,32 @@
+import 'dart:math';
+
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kalender/kalender_extensions.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:serverpod_auth_client/serverpod_auth_client.dart';
+
+final _userGreetings = [
+  "Dzień dobry",
+  "Cześć",
+  "Heja",
+  "Hejka",
+  "Siema",
+  "Siemano",
+  "Siemaneczko",
+  "Siemandero",
+  "Elo",
+  "No elo",
+  "Elo pomelo",
+  "Ahoj",
+  "Welcome",
+];
+
+String getTodayUserGreeting() =>
+    _userGreetings[Random(
+      DateTime.now().ordinalDate,
+    ).nextInt(_userGreetings.length)]; // no -1 because it's exclusive
 
 extension GearTypeNamesAndStuff on GearType {
   String get emoji => switch (this) {
