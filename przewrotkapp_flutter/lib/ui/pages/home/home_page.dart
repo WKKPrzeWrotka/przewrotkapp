@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/scopes.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
+import '../../../di.dart';
 import '../../../logic/data_types.dart';
 import '../../utils/names_and_strings.dart';
 import 'favourite_gear_card.dart';
@@ -26,6 +28,7 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Siemano ${user?.name ?? 'yyy'}'),
+            if (kDebugMode) Text('API: $serverUrl', style: tt.labelMedium),
             if (context.watch<AllGearCache?>() == null)
               Text("🟠 Ładowanie...", style: tt.labelMedium),
           ],
