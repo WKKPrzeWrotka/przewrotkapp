@@ -21,7 +21,6 @@ class RentalListing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context);
-    final tt = t.textTheme;
     final allGear = context.watch<AllGearCache?>();
     final client = context.read<Client>();
     final user = context.select<SessionManager, UserInfo>(
@@ -37,8 +36,10 @@ class RentalListing extends StatelessWidget {
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 Text(
-                  "${rental.start.toStringDate(showYear: false)} do "
-                  "${rental.end.toStringDate(showYear: false)}",
+                  DateTimeRange(
+                    start: rental.start,
+                    end: rental.end,
+                  ).toStringDate(),
                 ),
                 UserChip(user: rental.user!),
                 Text("bierze:"),

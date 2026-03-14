@@ -24,11 +24,9 @@ class RentalGroupDetailsPage extends StatelessWidget {
         title: Text(
           allGroups == null
               ? "Ładowanie..."
-              : group != null
-              ? "${group.range.start.toStringDate(showYear: false)} ~ "
-                    "${group.range.end.toStringDate(showYear: false)} "
-                    "${group.name ?? ""}"
-              : "Nie znalezionow :(",
+              : (group != null
+                    ? "${group.range.toStringDate()} ${group.name ?? ""}"
+                    : "Nie znaleziono :("),
         ),
       ),
       body: ListView(

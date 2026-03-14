@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:kalender/kalender_extensions.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:serverpod_auth_client/serverpod_auth_client.dart';
 
@@ -262,10 +265,21 @@ extension UserInfoNaming on UserInfo {
 }
 
 extension DateTimePretty on DateTime {
-  String toStringDate({bool showYear = true}) =>
-      "${showYear ? "$year-" : ""}"
-      "${month.toString().padLeft(2, '0')}-"
-      "${day.toString().padLeft(2, '0')}";
+  String toStringDate({bool showYear = true, bool verbalMonth = false}) =>
+      DateFormat(switch ((showYear, verbalMonth)) {
+        (true, false) => 'd.MM.yyyy',
+        (false, false) => 'd.MM',
+        (true, true) => 'd MMMM yyyy',
+        (false, true) => 'd MMMM',
+      }, 'pl').format(this);
+}
+
+extension DateTimeRangePretty on DateTimeRange {
+  String toStringDate({bool showYear = false, bool verbalMonth = true}) =>
+      start.isSameDay(end)
+      ? "${start.toStringDate(showYear: showYear, verbalMonth: verbalMonth)} (1 dzień)"
+      : "${start.toStringDate(showYear: showYear, verbalMonth: verbalMonth)}→"
+            "${end.toStringDate(showYear: showYear, verbalMonth: verbalMonth)}";
 }
 
 extension GearHuman on Gear {

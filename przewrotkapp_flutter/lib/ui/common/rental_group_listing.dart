@@ -20,9 +20,7 @@ class RentalGroupListing extends StatelessWidget {
           '${rentalGroup.range.dateRangeString()}',
         ),
         title: Text(
-          "${rentalGroup.range.start.toStringDate(showYear: false)} ~ "
-          "${rentalGroup.range.end.toStringDate(showYear: false)}"
-          " ${rentalGroup.name ?? ""}",
+          "${rentalGroup.range.toStringDate()} ${rentalGroup.name ?? ''}",
         ),
         subtitle: rentalGroup.rentals.isNotEmpty
             ? Row(
