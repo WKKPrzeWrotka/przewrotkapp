@@ -515,10 +515,11 @@ packages:
   serverpod:
     dependency: "direct main"
     description:
-      name: serverpod
-      sha256: e9d57fa4185c2d5ed093745fbc4ca4e8b8dc351d00c2fc7a76bd1aabd509ee6e
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/serverpod"
+      ref: allow-cloudstorage-browser-caching
+      resolved-ref: "44e39cecb50312ef3f0cb578326c1f5c2888c141"
+      url: "https://github.com/TheLastGimbus/serverpod/"
+    source: git
     version: "2.9.2"
   serverpod_auth_client:
     dependency: transitive
