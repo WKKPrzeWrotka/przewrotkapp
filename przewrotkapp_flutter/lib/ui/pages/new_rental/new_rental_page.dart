@@ -77,6 +77,10 @@ class _NewRentalPageState extends State<NewRentalPage> {
       <int>[],
       (l, r) => l..addAll(r.junctions!.map((j) => j.gearId)),
     );
+    final punishmentHours = hoursPunishmentForLateness(
+      DateTime.now(),
+      range?.start ?? DateTime.now().addDays(30),
+    );
     return Scaffold(
       // this is to avoid https://github.com/flutter/flutter/issues/124205
       resizeToAvoidBottomInset: false,
@@ -165,7 +169,8 @@ class _NewRentalPageState extends State<NewRentalPage> {
                 : "Nie wybrano daty",
           ),
           Text(
-            "Koszt: ${range != null ? hoursForGear(shoppingCart, (range!.duration.inDays + 1), userScopes) : "?"}h",
+            "Koszt: ${range != null ? hoursForGear(shoppingCart, (range!.duration.inDays + 1), userScopes) : "?"}h"
+            "${punishmentHours > 0 ? " (+ ${punishmentHours}h za spóźnienie)" : ""}",
             style: tt.headlineMedium,
           ),
           SizedBox(
