@@ -28,7 +28,7 @@ class RentalEndpoint extends Endpoint {
                 // to be usable only for tasks like making a new rental
                 // and every calendar page or whatever will have to use
                 // some pagination
-                DateTime.now().subtract(Duration(days: 30)),
+                DateTime.now().subtract(Duration(days: 7)),
               ),
         include: Rental.include(
           user: UserInfo.include(),
