@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:przewrotkapp_client/scopes.dart';
+import 'package:przewrotkapp_client/editing_permissions.dart';
+import 'package:przewrotkapp_client/przewrotkapp_client.dart' as client;
 import 'package:przewrotkapp_server/src/gear_read_endpoint.dart';
 import 'package:przewrotkapp_server/src/utils.dart';
 import 'package:serverpod/serverpod.dart';
@@ -24,7 +25,7 @@ class CommentsEndpoint extends Endpoint {
           resolvedBy: UserInfo.include(),
         ),
         orderBy: (c) => c.dateCreated,
-        orderDescending: true
+        orderDescending: true,
       );
 
   Stream<List<Comment>> watchComments(
@@ -41,14 +42,12 @@ class CommentsEndpoint extends Endpoint {
     Comment comment,
   ) async {
     final auth = (await session.authenticated)!;
-    final user = await Users.findUserByUserId(session, auth.userId);
-    var isScopeAllowed =
-        (user!.scopeNames.contains(PrzeScope.sprzetowiec.name) ||
-        user.scopeNames.contains(PrzeScope.zarzad.name));
-    if (!isScopeAllowed && comment.id != null) {
-      // Check if user is at least the author of the comment - otherwise throw
-      final existing = await Comment.db.findById(session, comment.id!);
-      if (existing != null && existing.byId == user.id!) return;
+    final existing = await Comment.db.findById(session, comment.id!);
+    if (canEditComment(
+      auth.userId,
+      auth.scopes.toPrze(),
+      client.Comment.fromJson(existing!.toJson()),
+    )) {
       throw PrzException(
         message: "Comments can be edited by sprzętowiec, zarząd, or the author",
       );

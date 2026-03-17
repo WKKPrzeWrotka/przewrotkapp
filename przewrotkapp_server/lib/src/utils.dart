@@ -89,6 +89,14 @@ extension SuperSuperPrzeScope on Set<PrzeScope> {
   Set<Scope> toScopes() => map((e) => e.toScope()).toSet();
 }
 
+extension SuperScope on Scope {
+  PrzeScope toPrze() => PrzeScope.fromName(name!);
+}
+
+extension SuperSuperScope on Set<Scope> {
+  Set<PrzeScope> toPrze() => map((e) => e.toPrze()).toSet();
+}
+
 Future<T> insertOrUpdate<T extends TableRow>(
   Session session,
   T row, {

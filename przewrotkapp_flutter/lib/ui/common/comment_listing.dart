@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:przewrotkapp_client/editing_permissions.dart' as permissions;
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_client/scopes.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
@@ -21,12 +22,12 @@ class CommentListing extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
-    // TODO: Unify this with server
     final allowEdit = context.select<SessionManager, bool>(
-      (sm) =>
-          (sm.signedInUser!.scopeNames.contains(PrzeScope.sprzetowiec.name) ||
-          sm.signedInUser!.scopeNames.contains(PrzeScope.zarzad.name) ||
-          sm.signedInUser!.id == comment.by!.id),
+      (sm) => permissions.canEditComment(
+        sm.signedInUser!.id!,
+        PrzeScope.fromNames(sm.signedInUser!.scopeNames),
+        comment,
+      ),
     );
 
     final gearPair = comment.gearId != null
