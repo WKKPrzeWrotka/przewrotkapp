@@ -9,8 +9,10 @@ import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart
 
 import '../../logic/data_types.dart';
 import '../../logic/utils.dart';
+import '../../routing.dart';
 import '../utils/names_and_strings.dart';
 import 'gear_chip.dart';
+import 'long_press_try_success_fail_button.dart';
 import 'user_chip.dart';
 
 class RentalListing extends StatelessWidget {
@@ -75,35 +77,19 @@ class RentalListing extends StatelessWidget {
                             onPressed: () => context.pop(),
                             child: Text("Dobra jednak nie"),
                           ),
-                          FilledButton(
-                            onPressed: () =>
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    duration: Duration(seconds: 1),
-                                    content: Text("Przytrzymaj ;)"),
-                                  ),
-                                ),
-                            onLongPress: () async {
-                              // TODO: Unify those try-success-fail snackbars everywhere
-                              try {
-                                await client.rental.deleteRental(rental);
-                                if (context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: Colors.green.shade600,
-                                      content: Text("Sukces!"),
-                                    ),
-                                  );
+                          LongPressTrySuccessFailButton(
+                            onTry: () => client.rental.deleteRental(rental),
+                            onSuccess: () async {
+                              if (context.mounted) {
+                                context.pop();
+                                if (router
+                                        .routerDelegate
+                                        .currentConfiguration
+                                        .last
+                                        .route
+                                        .path ==
+                                    "/rentals/group/:range") {
                                   context.pop();
-                                }
-                              } catch (e) {
-                                if (context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: Colors.red.shade800,
-                                      content: Text(e.toString()),
-                                    ),
-                                  );
                                 }
                               }
                             },
