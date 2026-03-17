@@ -290,12 +290,12 @@ extension UserInfoNaming on UserInfo {
 
 extension DateTimePretty on DateTime {
   String toStringDate({bool showYear = true, bool verbalMonth = false}) =>
-      DateFormat(switch ((showYear, verbalMonth)) {
-        (true, false) => 'd.MM.yyyy',
-        (false, false) => 'd.MM',
-        (true, true) => 'd MMMM yyyy',
-        (false, true) => 'd MMMM',
-      }, 'pl').format(this);
+      DateFormat(
+        verbalMonth
+            ? "d MMMM${showYear ? " yyyy" : ""}"
+            : "d.MM${showYear ? ".yyyy" : ""}",
+        'pl',
+      ).format(this);
 }
 
 extension DateTimeRangePretty on DateTimeRange {
