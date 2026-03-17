@@ -79,7 +79,8 @@ with lib;
       path  = with pkgs; [ postgresql rclone ];
       script = ''
       cd /var/lib/przewrotkapp/db-backups
-      pg_dump -Fc przewrotkapp > "przewrotkapp-db_$(date '+%Y-%m-%d_%H-%M-%S').dump"
+      # Exclude email auth to not leak password hashes
+      pg_dump -Fc przewrotkapp --exclude-table-data serverpod_email_auth > "przewrotkapp-db_$(date '+%Y-%m-%d_%H-%M-%S').dump"
       # leave only 7 latest, delete the rest
       ls -1t | tail -n +8 | xargs -d '\n' rm --
       rclone --transfers 1 -v --stats 5s sync . matigdrive:/db-backups
