@@ -9,13 +9,13 @@ import 'package:przewrotkapp_client/hours_calculations.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_client/scopes.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
-import 'package:vibration/vibration.dart';
 
 import '../../../logic/data_types.dart';
 import '../../../logic/gear_search.dart';
 import '../../../logic/utils.dart';
 import '../../common/gear_listing.dart';
 import '../../common/gear_search_filters.dart';
+import '../../common/long_press_try_success_fail_button.dart';
 
 class NewRentalPage extends StatefulWidget {
   final DateTimeRange? initialRange;
@@ -58,6 +58,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
+    final client = context.read<Client>();
     final allGear = context.watch<AllGearCache?>();
     final userScopes = PrzeScope.fromNames(
       context.read<SessionManager>().signedInUser?.scopeNames ?? [],
@@ -77,10 +78,12 @@ class _NewRentalPageState extends State<NewRentalPage> {
       <int>[],
       (l, r) => l..addAll(r.junctions!.map((j) => j.gearId)),
     );
-    final punishmentHours = hoursPunishmentForLateness(
-      DateTime.now(),
-      range?.start ?? DateTime.now().addDays(30),
-    );
+    final punishmentHours = shoppingCart.isNotEmpty
+        ? hoursPunishmentForLateness(
+            DateTime.now(),
+            range?.start ?? DateTime.now().addDays(30),
+          )
+        : 0;
     return Scaffold(
       // this is to avoid https://github.com/flutter/flutter/issues/124205
       resizeToAvoidBottomInset: false,
@@ -173,86 +176,30 @@ class _NewRentalPageState extends State<NewRentalPage> {
             "${punishmentHours > 0 ? " (+ ${punishmentHours}h za spóźnienie)" : ""}",
             style: tt.headlineMedium,
           ),
-          SizedBox(
-            height: 64,
-            child: FilledButton(
-              onPressed: () {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text("Przytrzymaj :)")));
-              },
-              onLongPress: () async {
-                try {
-                  Vibration.vibrate();
-                } catch (e) {
-                  // nothing, dont care
-                }
-                if (range == null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      duration: Duration(seconds: 5),
-                      backgroundColor: Colors.deepOrange,
-                      content: Text("Nie wybrałeś żadnej daty!"),
-                    ),
-                  );
-                  return;
-                }
-                if (rentedGearIds == null) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      duration: Duration(seconds: 5),
-                      backgroundColor: Colors.deepOrange,
-                      content: Text(
-                        "Nie mam danych o innych wypożyczeniach! "
-                        "Spróbuj za chwile albo odśwież czy coś...",
-                      ),
-                    ),
-                  );
-                  return;
-                }
-                if (shoppingCart.any(
-                  (g) => rentedGearIds.contains(g.gear.id),
-                )) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      duration: Duration(seconds: 5),
-                      backgroundColor: Colors.red.shade700,
-                      content: Text(
-                        "O nie nie, twój sprzęt jest już wzięty "
-                        "przez kogoś w tym terminie - znajdź sobie inny!",
-                      ),
-                    ),
-                  );
-                  return;
-                }
-                rentingState = _RentingState.loading;
-                setState(() {});
-                try {
-                  await context.read<Client>().rental.rentGear(
-                    shoppingCart.map((e) => e.gear).toList(),
-                    range!.start,
-                    range!.end,
-                  );
-                  rentingState = _RentingState.success;
-                  setState(() {});
-                  await Future.delayed(Duration(milliseconds: 500));
-                  if (context.mounted) context.pop();
-                } catch (e) {
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text("Error! $e")));
-                    rentingState = _RentingState.selecting;
-                    setState(() {});
-                  }
-                }
-              },
-              child: switch (rentingState) {
-                _RentingState.selecting => Text("Bierz!"),
-                _RentingState.loading => CircularProgressIndicator(),
-                _RentingState.success => Icon(Icons.check),
-                _RentingState.error => Icon(Icons.error),
-              },
+          LongPressTrySuccessFailButton(
+            onTry: () async {
+              if (range == null) throw "Nie wybrałeś żadnej daty!";
+              if (rentedGearIds == null) {
+                throw "Nie mam danych o innych wypożyczeniach! "
+                    "Spróbuj za chwile albo odśwież czy coś...";
+              }
+              if (shoppingCart.any((g) => rentedGearIds.contains(g.gear.id))) {
+                throw "O nie nie, twój sprzęt jest już wzięty "
+                    "przez kogoś w tym terminie - znajdź sobie inny!";
+              }
+              await client.rental.rentGear(
+                shoppingCart.map((e) => e.gear).toList(),
+                range!.start,
+                range!.end,
+              );
+            },
+            onSuccess: () async {
+              await Future.delayed(Duration(milliseconds: 500));
+              if (context.mounted) context.pop();
+            },
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 24),
+              child: Text("Bierz!"),
             ),
           ),
           SizedBox(height: 24),

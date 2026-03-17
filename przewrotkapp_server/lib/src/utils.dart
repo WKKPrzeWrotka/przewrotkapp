@@ -22,6 +22,17 @@ Future<bool> sendEmail(
       "To override, set --define REALLY_SEND_EMAILS=true",
       level: LogLevel.warning,
     );
+    session.log(
+      "Instead, here's the dump of the message",
+      level: LogLevel.warning,
+    );
+    session.log(
+      "> email: $email\n"
+      "> subject: $subject\n"
+      "> text: $text\n"
+      "${html != null ? "> html: $html" : ""}",
+      level: LogLevel.warning,
+    );
     return true;
   }
   final message = Message()
@@ -76,6 +87,14 @@ extension SuperPrzeScope on PrzeScope {
 
 extension SuperSuperPrzeScope on Set<PrzeScope> {
   Set<Scope> toScopes() => map((e) => e.toScope()).toSet();
+}
+
+extension SuperScope on Scope {
+  PrzeScope toPrze() => PrzeScope.fromName(name!);
+}
+
+extension SuperSuperScope on Set<Scope> {
+  Set<PrzeScope> toPrze() => map((e) => e.toPrze()).toSet();
 }
 
 Future<T> insertOrUpdate<T extends TableRow>(

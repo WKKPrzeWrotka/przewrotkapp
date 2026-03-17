@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:przewrotkapp_client/editing_permissions.dart';
 import 'package:przewrotkapp_client/magic_numbers.dart' as magick;
 import 'package:przewrotkapp_client/przewrotkapp_client.dart' as client;
-import 'package:przewrotkapp_client/scopes.dart';
 import 'package:przewrotkapp_server/src/future_calls/charge_hours.dart';
 import 'package:przewrotkapp_server/src/generated/protocol.dart';
 import 'package:przewrotkapp_server/src/hours_endpoint.dart';
@@ -92,7 +91,7 @@ class RentalEndpoint extends Endpoint {
     final auth = (await session.authenticated)!;
     if (!canDeleteRental(
       auth.userId,
-      PrzeScope.fromNames(auth.scopes.map((s) => s.name!)),
+      auth.scopes.toPrze(),
       client.Rental.fromJson(rental.toJson()),
     )) {
       throw 'Nie możesz usunąć tego wypożyczenia!';

@@ -55,10 +55,9 @@ class ChargeHoursFutureCall extends FutureCall<Rental> {
         approved: true,
       ),
     );
-    final punishmentHours = client.hoursPunishmentForLateness(
-      rental.created,
-      rental.start,
-    );
+    final punishmentHours = clientGear.isNotEmpty
+        ? client.hoursPunishmentForLateness(rental.created, rental.start)
+        : 0;
     if (punishmentHours > 0) {
       await Hour.db.insertRow(
         session,

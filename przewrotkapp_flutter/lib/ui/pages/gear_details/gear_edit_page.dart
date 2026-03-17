@@ -9,6 +9,7 @@ import 'package:przewrotkapp_client/magic_numbers.dart' as magick;
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../../logic/form_validation_utils.dart';
+import '../../common/long_press_try_success_fail_button.dart';
 import '../../utils/names_and_strings.dart';
 
 class GearEditPage extends StatefulWidget {
@@ -289,38 +290,12 @@ class _GearEditPageState extends State<GearEditPage> {
             Divider(),
             ...gearSpecificFields(context),
             SizedBox(height: 32),
-            FilledButton(
-              onPressed: () {
-                formKey.currentState?.validate();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    duration: Duration(milliseconds: 500),
-                    content: Text("Przytrzymaj :)"),
-                  ),
-                );
-              },
-              onLongPress: () async {
-                if (!(formKey.currentState?.validate() ?? false)) return;
-                try {
-                  await submit(client);
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.green,
-                        content: Text("Sukces!"),
-                      ),
-                    );
-                  }
-                } catch (e) {
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.red,
-                        content: Text("Błąd :( $e"),
-                      ),
-                    );
-                  }
+            LongPressTrySuccessFailButton(
+              onTry: () async {
+                if (!(formKey.currentState?.validate() ?? false)) {
+                  throw "Popraw pola";
                 }
+                await submit(client);
               },
               child: Text("Zapisz"),
             ),

@@ -8,6 +8,7 @@ import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart
 import '../../../logic/data_types.dart';
 import '../../../logic/form_validation_utils.dart';
 import '../../common/gear_chip.dart';
+import '../../common/long_press_try_success_fail_button.dart';
 import '../../common/user_chip.dart';
 import '../../utils/names_and_strings.dart';
 
@@ -74,37 +75,13 @@ class _CommentEditPageState extends State<CommentEditPage> {
                       onPressed: () => context.pop(),
                       child: Text("Dobra jednak nie"),
                     ),
-                    FilledButton(
-                      onPressed: () =>
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              duration: Duration(seconds: 1),
-                              content: Text("Przytrzymaj ;)"),
-                            ),
-                          ),
-                      onLongPress: () async {
-                        // TODO: Unify those try-success-fail snackbars everywhere
-                        try {
-                          await client.comments.deleteComment(widget.comment);
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: Colors.green.shade600,
-                                content: Text("Sukces!"),
-                              ),
-                            );
-                            context.pop();
-                            context.pop();
-                          }
-                        } catch (e) {
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: Colors.red.shade800,
-                                content: Text(e.toString()),
-                              ),
-                            );
-                          }
+                    LongPressTrySuccessFailButton(
+                      onTry: () =>
+                          client.comments.deleteComment(widget.comment),
+                      onSuccess: () {
+                        if (context.mounted) {
+                          context.pop();
+                          context.pop();
                         }
                       },
                       style: FilledButton.styleFrom(
@@ -201,38 +178,15 @@ class _CommentEditPageState extends State<CommentEditPage> {
               }),
             ),
             SizedBox(height: 8 * 3),
-            FilledButton(
-              onPressed: () {
-                formKey.currentState?.validate();
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text("Przytrzymaj :)")));
-              },
-              onLongPress: () async {
-                if (!(formKey.currentState?.validate() ?? false)) return;
-                // TODO: Unify this
-                try {
-                  await client.comments.createOrUpdateComment(editedComment);
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.green,
-                        content: Text("Sukces!"),
-                      ),
-                    );
-                  }
-                  await Future.delayed(Duration(milliseconds: 500));
-                  if (context.mounted) context.pop();
-                } catch (e) {
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.red,
-                        content: Text("Błąd :( $e"),
-                      ),
-                    );
-                  }
+            LongPressTrySuccessFailButton(
+              onTry: () async {
+                if (!(formKey.currentState?.validate() ?? false)) {
+                  throw "Popraw pola";
                 }
+                await client.comments.createOrUpdateComment(editedComment);
+              },
+              onSuccess: () {
+                if (context.mounted) context.pop();
               },
               child: Text("Zapisz!"),
             ),
