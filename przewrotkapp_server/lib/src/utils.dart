@@ -22,6 +22,17 @@ Future<bool> sendEmail(
       "To override, set --define REALLY_SEND_EMAILS=true",
       level: LogLevel.warning,
     );
+    session.log(
+      "Instead, here's the dump of the message",
+      level: LogLevel.warning,
+    );
+    session.log(
+      "> email: $email\n"
+      "> subject: $subject\n"
+      "> text: $text\n"
+      "${html != null ? "> html: $html" : ""}",
+      level: LogLevel.warning,
+    );
     return true;
   }
   final message = Message()
