@@ -43,7 +43,7 @@ class CommentsEndpoint extends Endpoint {
   ) async {
     final auth = (await session.authenticated)!;
     final existing = await Comment.db.findById(session, comment.id!);
-    if (canEditComment(
+    if (!canEditComment(
       auth.userId,
       auth.scopes.toPrze(),
       client.Comment.fromJson(existing!.toJson()),
