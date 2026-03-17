@@ -6,6 +6,7 @@ import 'package:przewrotkapp_client/scopes.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 import '../../../logic/form_validation_utils.dart';
+import '../../common/long_press_try_success_fail_button.dart';
 import '../../utils/names_and_strings.dart';
 
 class HoursEditPage extends StatefulWidget {
@@ -66,38 +67,12 @@ class _HoursEditPageState extends State<HoursEditPage> {
                       onPressed: () => context.pop(),
                       child: Text("Dobra jednak nie"),
                     ),
-
-                    FilledButton(
-                      onPressed: () =>
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              duration: Duration(seconds: 1),
-                              content: Text("Przytrzymaj ;)"),
-                            ),
-                          ),
-                      onLongPress: () async {
-                        // TODO: Unify those try-success-fail snackbars everywhere
-                        try {
-                          await client.hours.deleteHour(widget.hour);
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: Colors.green.shade600,
-                                content: Text("Sukces!"),
-                              ),
-                            );
-                            context.pop();
-                            context.pop();
-                          }
-                        } catch (e) {
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: Colors.red.shade800,
-                                content: Text(e.toString()),
-                              ),
-                            );
-                          }
+                    LongPressTrySuccessFailButton(
+                      onTry: () => client.hours.deleteHour(widget.hour),
+                      onSuccess: () {
+                        if (context.mounted) {
+                          context.pop();
+                          context.pop();
                         }
                       },
                       style: FilledButton.styleFrom(
@@ -168,37 +143,15 @@ class _HoursEditPageState extends State<HoursEditPage> {
                     setState(() => editedHour.approved = n ?? false),
               ),
             SizedBox(height: spacing * 3),
-            FilledButton(
-              onPressed: () {
-                formKey.currentState?.validate();
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text("Przytrzymaj :)")));
-              },
-              onLongPress: () async {
-                if (!(formKey.currentState?.validate() ?? false)) return;
-                try {
-                  await client.hours.createOrUpdateHour(editedHour);
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.green,
-                        content: Text("Sukces!"),
-                      ),
-                    );
-                  }
-                  await Future.delayed(Duration(seconds: 1));
-                  if (context.mounted) context.pop();
-                } catch (e) {
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.red,
-                        content: Text("Błąd :( $e"),
-                      ),
-                    );
-                  }
+            LongPressTrySuccessFailButton(
+              onTry: () async {
+                if (!(formKey.currentState?.validate() ?? false)) {
+                  throw "Popraw pola";
                 }
+                await client.hours.createOrUpdateHour(editedHour);
+              },
+              onSuccess: () {
+                if (context.mounted) context.pop();
               },
               child: Text("Zgłoś!"),
             ),
