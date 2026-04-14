@@ -282,7 +282,7 @@ void main() {
       "Just before",
       () => expect(
         hoursPunishmentForLateness(
-          DateTime(2026, 1, 1, 23, 59),
+          DateTime(2026, 1, 4, 5),
           DateTime(2026, 1, 4, 6),
         ),
         0,
@@ -292,10 +292,10 @@ void main() {
       "Just after",
       () => expect(
         hoursPunishmentForLateness(
-          DateTime(2026, 1, 2, 0, 1),
+          DateTime(2026, 1, 4, 7),
           DateTime(2026, 1, 4, 6),
         ),
-        2,
+        6,
       ),
     );
     test(
@@ -305,7 +305,7 @@ void main() {
           DateTime(2026, 1, 6, 12),
           DateTime(2026, 1, 4, 6),
         ),
-        2,
+        6,
       ),
     );
   });

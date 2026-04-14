@@ -64,14 +64,7 @@ int hoursForGear(
       numberOfDays;
 }
 
-// Jeśli zgłosisz 48h przed startem (włącznie), to kara 2h
-// czyli jeśli jedziesz 10-tego, musisz zgłosić do północy 7-mego
+// Prosta sprawa prosta jak jebanie
+// Jak zgłosiłeś sprzęt jak wyjazd już trwa => -6h
 int hoursPunishmentForLateness(DateTime createDate, DateTime startDate) =>
-    // these .copyWith are just to ensure that we measure round-days properly
-    (startDate
-                .copyWith(hour: 12)
-                .difference(createDate.copyWith(hour: 4))
-                .inDays <=
-            2)
-        ? 2
-        : 0;
+    createDate.isAfter(startDate) ? 6 : 0;
