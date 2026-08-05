@@ -48,7 +48,7 @@ class RentalListing extends StatelessWidget {
               ],
             ),
             trailing:
-                canDeleteRental(
+                canEditRental(
                   user.id!,
                   PrzeScope.fromNames(user.scopeNames),
                   rental,

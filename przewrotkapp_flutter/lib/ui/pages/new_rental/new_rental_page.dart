@@ -58,6 +58,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
+    final you = context.read<SessionManager>().signedInUser;
     final client = context.read<Client>();
     final allGear = context.watch<AllGearCache?>();
     final userScopes = PrzeScope.fromNames(
@@ -187,10 +188,23 @@ class _NewRentalPageState extends State<NewRentalPage> {
                 throw "O nie nie, twój sprzęt jest już wzięty "
                     "przez kogoś w tym terminie - znajdź sobie inny!";
               }
-              await client.rental.rentGear(
-                shoppingCart.map((e) => e.gear).toList(),
-                range!.start,
-                range!.end,
+              await client.rental.createOrUpdateRental(
+                Rental(
+                  userId: you!.id!,
+                  created: DateTime.now(),
+                  lastModified: DateTime.now(),
+                  start: range!.start,
+                  end: range!.end,
+                  junctions: shoppingCart
+                      .map(
+                        // this is on purpose - see server endpoint
+                        // it overrides rentalId itself because Serverpod
+                        // is annoying in this area
+                        // https://github.com/serverpod/serverpod/issues/1343
+                        (e) => RentalJunction(gearId: e.gear.id!, rentalId: -1),
+                      )
+                      .toList(),
+                ),
               );
             },
             onSuccess: () async {

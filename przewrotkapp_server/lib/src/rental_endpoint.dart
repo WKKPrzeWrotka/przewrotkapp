@@ -44,6 +44,7 @@ class RentalEndpoint extends Endpoint {
   Stream<List<Rental>> watchRentals(Session session, {bool past = false}) =>
       watchX(() => getRentals(session, past: past), _rentalsUpdateCtrl.stream);
 
+  @Deprecated("Use createOrUpdateRental instead")
   Future<void> rentGear(
     Session session,
     List<Gear> gear,
@@ -85,17 +86,61 @@ class RentalEndpoint extends Endpoint {
     _rentalsUpdateCtrl.add(true);
   }
 
-  Future<void> deleteRental(Session session, Rental rental) async {
-    // re-fetch from db so they can't spoof values
-    rental = (await Rental.db.findById(session, rental.id!))!;
+  Future<void> _rentalEditAllowedCheck(Session session, Rental rental) async {
     final auth = (await session.authenticated)!;
-    if (!canDeleteRental(
+    if (rental.id != null) {
+      rental = (await Rental.db.findById(session, rental.id!))!;
+    }
+    if (!canEditRental(
       auth.userId,
       auth.scopes.toPrze(),
       client.Rental.fromJson(rental.toJson()),
     )) {
-      throw 'Nie możesz usunąć tego wypożyczenia!';
+      throw PrzException(message: "Nie możesz edytować tego wypożyczenia!");
     }
+  }
+
+  Future<void> createOrUpdateRental(Session session, Rental rental) async {
+    // Safety checks
+    await _rentalEditAllowedCheck(session, rental);
+    if (rental.end.isBefore(rental.start)) {
+      throw PrzException(message: "Invalid dates");
+    }
+    final userHours = await HoursEndpoint.getHoursSumStatic(
+      session,
+      rental.userId,
+    );
+    if (userHours < magick.hoursDebtRentingBlocked) {
+      throw PrzException(
+        message: "Masz mniej niż ${magick.hoursDebtRentingBlocked} godzinek!",
+      );
+    }
+    // DB operations
+    await session.db.transaction((t) async {
+      final updatedRental = await insertOrUpdate<Rental>(session, rental, t: t);
+      await RentalJunction.db.deleteWhere(
+        session,
+        where: (rj) => rj.rentalId.equals(rental.id),
+      );
+      await RentalJunction.db.insert(
+        session,
+        rental.junctions
+                ?.map((rj) => rj.copyWith(rentalId: updatedRental.id))
+                .toList() ??
+            [],
+        transaction: t,
+      );
+      // Don't call for hours if it already passed
+      if (updatedRental.end.isAfter(DateTime.now())) {
+        await ChargeHoursFutureCall.cancel(session.serverpod, updatedRental);
+        await ChargeHoursFutureCall.schedule(session.serverpod, updatedRental);
+      }
+    });
+    _rentalsUpdateCtrl.add(true);
+  }
+
+  Future<void> deleteRental(Session session, Rental rental) async {
+    await _rentalEditAllowedCheck(session, rental);
     await Rental.db.deleteRow(session, rental);
     _rentalsUpdateCtrl.add(true);
     await ChargeHoursFutureCall.cancel(session.serverpod, rental);
