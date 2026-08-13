@@ -121,6 +121,7 @@ class RentalEndpoint extends Endpoint {
       await RentalJunction.db.deleteWhere(
         session,
         where: (rj) => rj.rentalId.equals(rental.id),
+        transaction: t
       );
       await RentalJunction.db.insert(
         session,
@@ -141,8 +142,10 @@ class RentalEndpoint extends Endpoint {
 
   Future<void> deleteRental(Session session, Rental rental) async {
     await _rentalEditAllowedCheck(session, rental);
-    await Rental.db.deleteRow(session, rental);
-    _rentalsUpdateCtrl.add(true);
-    await ChargeHoursFutureCall.cancel(session.serverpod, rental);
+    await session.db.transaction((t) async {
+      await Rental.db.deleteRow(session, rental, transaction: t);
+      _rentalsUpdateCtrl.add(true);
+      await ChargeHoursFutureCall.cancel(session.serverpod, rental);
+    });
   }
 }
