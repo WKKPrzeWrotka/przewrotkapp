@@ -38,7 +38,7 @@ class _UpcomingTripsCardState extends State<UpcomingTripsCard> {
               ),
             if (rentGroups == null) Text("Ładowanie..."),
             FilledButton(
-              onPressed: () => context.push('/rentals/new'),
+              onPressed: () => context.push('/rentals/edit'),
               child: Text('Nowe wypożyczenie'),
             ),
           ],

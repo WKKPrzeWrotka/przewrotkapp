@@ -9,10 +9,8 @@ import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart
 
 import '../../logic/data_types.dart';
 import '../../logic/utils.dart';
-import '../../routing.dart';
 import '../utils/names_and_strings.dart';
 import 'gear_chip.dart';
-import 'long_press_try_success_fail_button.dart';
 import 'user_chip.dart';
 
 class RentalListing extends StatelessWidget {
@@ -24,7 +22,6 @@ class RentalListing extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final allGear = context.watch<AllGearCache?>();
-    final client = context.read<Client>();
     final user = context.select<SessionManager, UserInfo>(
       (sm) => sm.signedInUser!,
     );
@@ -54,55 +51,9 @@ class RentalListing extends StatelessWidget {
                   rental,
                 )
                 ? IconButton(
-                    onPressed: () => showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text('Na pewno?'),
-                        content: SingleChildScrollView(
-                          child: Text(
-                            'Usuwasz to wypożyczenie - na zawsze! '
-                            'Jeśli chcesz poprawić sprzęt który wypożyczasz - to dobrze 😇\n'
-                            'Zrób nowe, z całością sprzętu który bierzesz\n\n'
-                            'Pamiętaj, że jeśli teraz na nowo wypożyczysz sprzęt, '
-                            'a do wyjazdu zostało mniej niż dwa dni (albo jest w trakcie 😬), '
-                            'zostanie naliczona kara za spóźnialstwo!\n'
-                            '(To wciąż lepiej niż gdybyś miał źle oznakowane wypożyczenie 🙄)\n\n'
-                            'W razie wyjątkowych sytuacji - skontaktuj się z godzinkowym/ą 🤙 '
-                            'może sie nad tobą zlituje',
-                          ),
-                        ),
-                        surfaceTintColor: Colors.red,
-                        actions: [
-                          TextButton(
-                            onPressed: () => context.pop(),
-                            child: Text("Dobra jednak nie"),
-                          ),
-                          LongPressTrySuccessFailButton(
-                            onTry: () => client.rental.deleteRental(rental),
-                            onSuccess: () async {
-                              if (context.mounted) {
-                                context.pop();
-                                if (router
-                                        .routerDelegate
-                                        .currentConfiguration
-                                        .last
-                                        .route
-                                        .path ==
-                                    "/rentals/group/:range") {
-                                  context.pop();
-                                }
-                              }
-                            },
-                            style: FilledButton.styleFrom(
-                              backgroundColor: Colors.red.shade700,
-                            ),
-                            child: Text("Ta na pewno 😈"),
-                          ),
-                        ],
-                      ),
-                    ),
-                    color: Colors.red,
-                    icon: Icon(Icons.cancel),
+                    onPressed: () =>
+                        context.push('/rentals/edit', extra: rental),
+                    icon: Icon(Icons.edit),
                   )
                 : (rental.userId == user.id
                       ? IconButton(
@@ -124,7 +75,7 @@ class RentalListing extends StatelessWidget {
                             ),
                           ),
                           color: t.disabledColor,
-                          icon: Icon(Icons.cancel),
+                          icon: Icon(Icons.edit_off),
                         )
                       : null),
           ),

@@ -96,14 +96,18 @@ final router = GoRouter(
       ),
     ),
     GoRoute(
-      path: '/rentals/new',
+      path: '/rentals/edit',
       builder: (context, state) {
+        final editedRental = switch (state.extra) {
+          Rental r => r,
+          _ => null,
+        };
         final init = state.uri.queryParameters.containsKey('initialRange')
             ? DateTimeRangeParsing.parseDateRangeString(
                 state.uri.queryParameters['initialRange']!,
               )
             : null;
-        return NewRentalPage(initialRange: init);
+        return NewRentalPage(rental: editedRental, initialRange: init);
       },
     ),
     GoRoute(
