@@ -144,8 +144,8 @@ class RentalEndpoint extends Endpoint {
     await _rentalEditAllowedCheck(session, rental);
     await session.db.transaction((t) async {
       await Rental.db.deleteRow(session, rental, transaction: t);
-      _rentalsUpdateCtrl.add(true);
       await ChargeHoursFutureCall.cancel(session.serverpod, rental);
     });
+    _rentalsUpdateCtrl.add(true);
   }
 }
