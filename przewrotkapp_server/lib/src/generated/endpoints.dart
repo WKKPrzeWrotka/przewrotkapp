@@ -872,11 +872,32 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['rental'] as _i7.RentalEndpoint).rentGear(
+              (endpoints['rental'] as _i7.RentalEndpoint)
+                  .
+// ignore: deprecated_member_use_from_same_package
+                  rentGear(
             session,
             params['gear'],
             params['from'],
             params['to'],
+          ),
+        ),
+        'createOrUpdateRental': _i1.MethodConnector(
+          name: 'createOrUpdateRental',
+          params: {
+            'rental': _i1.ParameterDescription(
+              name: 'rental',
+              type: _i1.getType<_i23.Rental>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['rental'] as _i7.RentalEndpoint).createOrUpdateRental(
+            session,
+            params['rental'],
           ),
         ),
         'deleteRental': _i1.MethodConnector(

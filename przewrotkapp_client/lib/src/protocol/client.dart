@@ -477,6 +477,7 @@ class EndpointRental extends _i1.EndpointRef {
         {},
       );
 
+  @Deprecated('Use createOrUpdateRental instead')
   _i2.Future<void> rentGear(
     List<_i5.Gear> gear,
     DateTime from,
@@ -490,6 +491,13 @@ class EndpointRental extends _i1.EndpointRef {
           'from': from,
           'to': to,
         },
+      );
+
+  _i2.Future<void> createOrUpdateRental(_i16.Rental rental) =>
+      caller.callServerEndpoint<void>(
+        'rental',
+        'createOrUpdateRental',
+        {'rental': rental},
       );
 
   _i2.Future<void> deleteRental(_i16.Rental rental) =>
