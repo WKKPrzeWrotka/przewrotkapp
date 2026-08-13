@@ -13,7 +13,7 @@ import 'ui/pages/gear_details/gear_details_page.dart';
 import 'ui/pages/gear_details/gear_edit_page.dart';
 import 'ui/pages/home/home_page.dart';
 import 'ui/pages/hours/hours_edit_page.dart';
-import 'ui/pages/new_rental/new_rental_page.dart';
+import 'ui/pages/rental/rental_page.dart';
 import 'ui/pages/rental_group_details/rental_group_details_page.dart';
 import 'ui/pages/sign_in/sign_in_page.dart';
 import 'ui/pages/user/user_edit_page.dart';
@@ -107,7 +107,7 @@ final router = GoRouter(
                 state.uri.queryParameters['initialRange']!,
               )
             : null;
-        return NewRentalPage(rental: editedRental, initialRange: init);
+        return RentalPage(rental: editedRental, initialRange: init);
       },
     ),
     GoRoute(

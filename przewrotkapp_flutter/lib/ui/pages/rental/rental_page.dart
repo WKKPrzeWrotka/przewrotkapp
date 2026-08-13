@@ -18,17 +18,17 @@ import '../../common/gear_search_filters.dart';
 import '../../common/long_press_try_success_fail_button.dart';
 import '../../common/user_chip.dart';
 
-class NewRentalPage extends StatefulWidget {
+class RentalPage extends StatefulWidget {
   final Rental? rental;
   final DateTimeRange? initialRange;
 
-  const NewRentalPage({super.key, this.rental, this.initialRange});
+  const RentalPage({super.key, this.rental, this.initialRange});
 
   @override
-  State<NewRentalPage> createState() => _NewRentalPageState();
+  State<RentalPage> createState() => _RentalPageState();
 }
 
-class _NewRentalPageState extends State<NewRentalPage> {
+class _RentalPageState extends State<RentalPage> {
   var _shoppingCartSetUp = false;
 
   // This is only for UI. Use range below
