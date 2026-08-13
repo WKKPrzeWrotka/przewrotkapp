@@ -286,7 +286,8 @@ extension UserInfoNaming on UserInfo {
   String get name {
     if (userName != null) return userName!;
     final parts = (fullName ?? '-nieznany-').split(' ');
-    return '${parts.elementAtOrNull(0) ?? ''} ${parts.elementAtOrNull(1)?.substring(0, 1) ?? ''}';
+    final surname = parts.elementAtOrNull(1) ?? '';
+    return '${parts.elementAtOrNull(0) ?? ''} ${surname.isNotEmpty ? surname.substring(0, 1) : ''}';
   }
 }
 
