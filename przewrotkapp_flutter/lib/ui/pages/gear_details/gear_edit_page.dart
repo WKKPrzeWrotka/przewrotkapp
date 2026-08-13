@@ -205,7 +205,7 @@ class _GearEditPageState extends State<GearEditPage> {
         DropdownMenuFormField(
           initialSelection: setInit ? pfd.size : null,
           dropdownMenuEntries: genericSizeEntries,
-          onSelected: (s) => pfd.size,
+          onSelected: (s) => pfd.size = s!,
           validator: noNullValid,
           label: Text("Rozmiar"),
         ),

@@ -34,7 +34,7 @@ class RentalGroupListing extends StatelessWidget {
             : null,
         trailing: TextButton(
           onPressed: () => context.push(
-            '/rentals/new?initialRange='
+            '/rentals/edit?initialRange='
             '${rentalGroup.range.dateRangeString()}',
           ),
           child: Text("Jedź!"),

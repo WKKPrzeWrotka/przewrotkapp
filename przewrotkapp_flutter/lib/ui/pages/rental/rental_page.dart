@@ -16,20 +16,20 @@ import '../../../logic/utils.dart';
 import '../../common/gear_listing.dart';
 import '../../common/gear_search_filters.dart';
 import '../../common/long_press_try_success_fail_button.dart';
+import '../../common/user_chip.dart';
 
-class NewRentalPage extends StatefulWidget {
+class RentalPage extends StatefulWidget {
+  final Rental? rental;
   final DateTimeRange? initialRange;
 
-  const NewRentalPage({super.key, this.initialRange});
+  const RentalPage({super.key, this.rental, this.initialRange});
 
   @override
-  State<NewRentalPage> createState() => _NewRentalPageState();
+  State<RentalPage> createState() => _RentalPageState();
 }
 
-enum _RentingState { selecting, loading, success, error }
-
-class _NewRentalPageState extends State<NewRentalPage> {
-  var rentingState = _RentingState.selecting;
+class _RentalPageState extends State<RentalPage> {
+  var _shoppingCartSetUp = false;
 
   // This is only for UI. Use range below
   var selectedDates = <DateTime>[];
@@ -49,6 +49,9 @@ class _NewRentalPageState extends State<NewRentalPage> {
   @override
   void initState() {
     super.initState();
+    if (widget.rental != null) {
+      selectedDates = [widget.rental!.start, widget.rental!.end];
+    }
     if (widget.initialRange != null) {
       selectedDates = [widget.initialRange!.start, widget.initialRange!.end];
     }
@@ -58,6 +61,7 @@ class _NewRentalPageState extends State<NewRentalPage> {
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
+    final you = context.read<SessionManager>().signedInUser;
     final client = context.read<Client>();
     final allGear = context.watch<AllGearCache?>();
     final userScopes = PrzeScope.fromNames(
@@ -71,7 +75,9 @@ class _NewRentalPageState extends State<NewRentalPage> {
     final otherRentals = context.watch<FutureRentals?>();
     final overlappingRentals = range != null
         ? otherRentals?.where(
-            (r) => DateTimeRange(start: r.start, end: r.end).overlaps(range!),
+            (r) =>
+                r.id != (widget.rental?.id ?? -1) &&
+                DateTimeRange(start: r.start, end: r.end).overlaps(range!),
           )
         : null;
     final rentedGearIds = overlappingRentals?.fold(
@@ -84,10 +90,55 @@ class _NewRentalPageState extends State<NewRentalPage> {
             range?.start ?? DateTime.now().addDays(30),
           )
         : 0;
+    if (widget.rental != null && !_shoppingCartSetUp && allGear != null) {
+      final ids =
+          widget.rental!.junctions
+              ?.map((rj) => rj.gearId)
+              .toList(growable: false) ??
+          <int>[];
+      shoppingCart.clear();
+      shoppingCart.addAll(
+        allGear.where((gp) => ids.contains(gp.gear.id!)).toSet(),
+      );
+      _shoppingCartSetUp = true;
+    }
+    final foreignRental =
+        widget.rental?.userId != null && widget.rental?.userId != you?.id;
+
     return Scaffold(
       // this is to avoid https://github.com/flutter/flutter/issues/124205
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(title: Text("Wypożycz sprzęcior")),
+      appBar: AppBar(
+        title: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            Text("Wypożycz szpej${foreignRental ? " dla" : ""}"),
+            if (foreignRental) ...[
+              SizedBox(width: 4),
+              UserChip(user: widget.rental!.user!),
+            ],
+          ],
+        ),
+        actions: [
+          if (widget.rental != null)
+            // TODO: A TextButton here instead of filled
+            LongPressTrySuccessFailButton(
+              onTry: () => client.rental.deleteRental(widget.rental!),
+              onSuccess: () {
+                if (context.mounted) context.pop();
+              },
+              style: TextButton.styleFrom(backgroundColor: Colors.red.shade700),
+              child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  Icon(Icons.delete),
+                  SizedBox(width: 2),
+                  Text("Usuń"),
+                ],
+              ),
+            ),
+        ],
+      ),
       body: ListView(
         padding: EdgeInsets.all(8),
         children: [
@@ -187,10 +238,26 @@ class _NewRentalPageState extends State<NewRentalPage> {
                 throw "O nie nie, twój sprzęt jest już wzięty "
                     "przez kogoś w tym terminie - znajdź sobie inny!";
               }
-              await client.rental.rentGear(
-                shoppingCart.map((e) => e.gear).toList(),
-                range!.start,
-                range!.end,
+              await client.rental.createOrUpdateRental(
+                // Use values from edited rental, or new ones if we're making
+                // new one
+                Rental(
+                  id: widget.rental?.id,
+                  userId: widget.rental?.userId ?? you!.id!,
+                  created: widget.rental?.created ?? DateTime.now(),
+                  lastModified: DateTime.now(),
+                  start: range!.start,
+                  end: range!.end,
+                  junctions: shoppingCart
+                      .map(
+                        // this is on purpose - see server endpoint
+                        // it overrides rentalId itself because Serverpod
+                        // is annoying in this area
+                        // https://github.com/serverpod/serverpod/issues/1343
+                        (e) => RentalJunction(gearId: e.gear.id!, rentalId: -1),
+                      )
+                      .toList(),
+                ),
               );
             },
             onSuccess: () async {

@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kalender/kalender_extensions.dart';
@@ -284,8 +283,11 @@ Jednak pas jest rozciągliwy, a rozmiary różnią się w zależności od marki,
 }
 
 extension UserInfoNaming on UserInfo {
-  String get name =>
-      userName ?? fullName?.split(' ').firstOrNull ?? '-nieznany-';
+  String get name {
+    if (userName != null) return userName!;
+    final parts = (fullName ?? '-nieznany-').split(' ');
+    return '${parts.elementAtOrNull(0) ?? ''} ${parts.elementAtOrNull(1)?.substring(0, 1) ?? ''}';
+  }
 }
 
 extension DateTimePretty on DateTime {
