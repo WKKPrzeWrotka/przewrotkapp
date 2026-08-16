@@ -57,6 +57,7 @@ class GearManageEndpoint extends Endpoint {
           friendlyName: gear.friendlyName,
           photoUrls: gear.photoUrls,
           thumbnailUrl: gear.thumbnailUrl,
+          archived: gear.archived,
         ),
         t: t,
       );
