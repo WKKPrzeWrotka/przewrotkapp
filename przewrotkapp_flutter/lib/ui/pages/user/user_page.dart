@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 import 'package:przewrotkapp_client/scopes.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
@@ -21,13 +22,14 @@ class UserPage extends StatelessWidget {
     final t = Theme.of(context);
     final tt = t.textTheme;
     final sm = context.watch<SessionManager>();
+    final client = context.read<Client>();
     final youAreGodzinkowy =
         sm.signedInUser?.scopeNames.contains(PrzeScope.godzinkowy.name) ??
-        false;
+            false;
     final rentals = context.watch<FutureRentals?>();
     // PageData stuff
     final pageData = context.select<UserPageCubit, UserPageData>(
-      (p) => p.state,
+          (p) => p.state,
     );
     final userId = pageData.userId;
     final isYou = sm.signedInUser?.id == userId;
@@ -38,12 +40,12 @@ class UserPage extends StatelessWidget {
         automaticallyImplyLeading: true,
         actions: isYou
             ? [
-                IconButton(
-                  onPressed: () =>
-                      context.push('/user/$userId/edit', extra: przeUser!),
-                  icon: Icon(Icons.edit),
-                ),
-              ]
+          IconButton(
+            onPressed: () =>
+                context.push('/user/$userId/edit', extra: przeUser!),
+            icon: Icon(Icons.edit),
+          ),
+        ]
             : null,
       ),
       body: ListView(
@@ -54,13 +56,13 @@ class UserPage extends StatelessWidget {
             children: [
               isYou
                   ? SizedBox(
-                      width: 86,
-                      height: 86,
-                      child: UserImageButton(
-                        sessionManager: sm,
-                        compact: false,
-                      ),
-                    )
+                width: 86,
+                height: 86,
+                child: UserImageButton(
+                  sessionManager: sm,
+                  compact: false,
+                ),
+              )
                   : CircularUserImage(userInfo: przeUser?.user, size: 86),
               if (przeUser != null)
                 Column(
@@ -88,7 +90,7 @@ class UserPage extends StatelessWidget {
               ifEmpty: Text("Na razie zamula 🥱"),
               children: [
                 for (final rental in rentals.where(
-                  (r) => r.userId == przeUser?.userId,
+                      (r) => r.userId == przeUser?.userId,
                 ))
                   RentalListing(rental: rental),
               ],
@@ -106,13 +108,51 @@ class UserPage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(top: 8),
               child: FilledButton(
-                onPressed: () => context.push(
-                  '/hours/edit?emptyFields=true',
-                  extra: HourHandy.empty(userId).copyWith(user: przeUser!.user),
-                ),
+                onPressed: () =>
+                    context.push(
+                      '/hours/edit?emptyFields=true',
+                      extra: HourHandy.empty(userId).copyWith(user: przeUser!.user),
+                    ),
                 child: Text("Dodaj godzinkę"),
               ),
             ),
+          Divider(),
+          Text("Ostatnie wypożyczenia",style: tt.headlineMedium,),
+          FutureBuilder(future: client.rental.getRentals(past: true), builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Text("🟠 Ładowanie...");
+            }
+
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(
+                  "Błąd ładowania histori wypożyczeń: ${snapshot.error}",
+                ),
+              );
+            }
+
+            final rentalsValue = snapshot.data ?? [];
+
+            // Filter and inline-sort descending by lastModified using cascade operator ..sort
+            final filteredRentals = przeUser != null
+                ? (rentalsValue.where((r) => r.userId == przeUser.userId).toList()
+              ..sort((a, b) => b.lastModified.compareTo(a.lastModified)))
+                : <Rental>[];
+
+            if (filteredRentals.isEmpty) {
+              return const Center(
+                child: Text("Nie znaleziono histori wypożyczeń."),
+              );
+            }
+
+            return LongListSmallFrame(
+              maxHeight: 275,
+              ifEmpty: Text("Na razie pusto..."),
+              children: [for (final rentalItem in filteredRentals) RentalListing(rental: rentalItem)
+              ]
+              ,
+            );
+          }),
           Divider(),
           if (isYou)
             ElevatedButton(
