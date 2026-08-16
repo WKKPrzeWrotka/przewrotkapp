@@ -251,6 +251,7 @@ class _GearEditPageState extends State<GearEditPage> {
 
   @override
   Widget build(BuildContext context) {
+    final t = Theme.of(context);
     final setInit = !widget.emptyFields;
     return Scaffold(
       // this is to avoid https://github.com/flutter/flutter/issues/124205
@@ -286,6 +287,22 @@ class _GearEditPageState extends State<GearEditPage> {
               onChanged: (t) => editedGear.friendlyName = nullIfEmpty(t),
               validator: allowNullValid,
               decoration: InputDecoration(label: Text("Ksywa")),
+            ),
+            SizedBox(height: 8),
+            CheckboxListTile(
+              title: Text("🗃️ Zarchiwizowany"),
+              subtitle: Text(
+                "Został sprzedany czy rozwalony, "
+                "i nie będzie dostępny do wypożyczenia",
+              ),
+              activeColor: t.colorScheme.error,
+              tileColor: editedGear.archived
+                  ? t.colorScheme.errorContainer
+                  : null,
+              contentPadding: EdgeInsets.zero,
+              value: editedGear.archived,
+              onChanged: (v) =>
+                  setState(() => editedGear.archived = v ?? false),
             ),
             Divider(),
             ...gearSpecificFields(context),

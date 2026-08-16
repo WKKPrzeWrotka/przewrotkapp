@@ -69,7 +69,10 @@ class _RentalPageState extends State<RentalPage> {
     );
     final favs = context.watch<UserFavourites?>()?.gearIds;
     final filteredGear = sortGear(
-      searchGear(allGear ?? [], params),
+      searchGear(
+        allGear?.where((g) => !g.gear.archived).toList() ?? [],
+        params,
+      ),
       favs ?? [],
     );
     final otherRentals = context.watch<FutureRentals?>();

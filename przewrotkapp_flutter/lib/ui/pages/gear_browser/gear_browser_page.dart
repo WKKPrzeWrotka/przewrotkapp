@@ -22,6 +22,8 @@ class _GearBrowserPageState extends State<GearBrowserPage> {
 
   @override
   Widget build(BuildContext context) {
+    final t = Theme.of(context);
+    final tt = t.textTheme;
     final sm = context.read<SessionManager>();
     final isSprzetowiec =
         sm.signedInUser?.scopeNames.contains(
@@ -34,6 +36,8 @@ class _GearBrowserPageState extends State<GearBrowserPage> {
       searchGear(allGear ?? [], params),
       favs ?? [],
     );
+    final notArchived = filteredGear.where((g) => !g.gear.archived).toList();
+    final archived = filteredGear.where((g) => g.gear.archived).toList();
     return Scaffold(
       // this is to avoid https://github.com/flutter/flutter/issues/124205
       resizeToAvoidBottomInset: false,
@@ -62,10 +66,25 @@ class _GearBrowserPageState extends State<GearBrowserPage> {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (context, i) => GearListing(gearPair: filteredGear[i]),
-              childCount: filteredGear.length,
+              (context, i) => GearListing(gearPair: notArchived[i]),
+              childCount: notArchived.length,
             ),
           ),
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                Divider(),
+                Text("🗃️ Archiwum", style: tt.headlineSmall),
+              ],
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, i) => GearListing(gearPair: archived[i]),
+              childCount: archived.length,
+            ),
+          ),
+          SliverToBoxAdapter(child: SizedBox(height: 64)),
         ],
       ),
     );

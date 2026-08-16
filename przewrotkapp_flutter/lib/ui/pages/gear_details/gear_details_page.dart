@@ -46,8 +46,12 @@ class GearDetailsPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          "${gear != null ? gear.type.toDisplayString(plural: false) : ''} $clubId",
+          "${gear != null ? gear.type.toDisplayString(plural: false) : ''} $clubId"
+          "${gear?.archived ?? false ? " ⚠ARCHIWUM⚠" : ""}",
         ),
+        backgroundColor: gear?.archived ?? false
+            ? t.colorScheme.errorContainer
+            : null,
         actions: [
           if (sm.signedInUser?.scopeNames.contains(
                 PrzeScope.sprzetowiec.name,
