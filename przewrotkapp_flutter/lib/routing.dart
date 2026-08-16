@@ -11,6 +11,7 @@ import 'ui/pages/gear_browser/gear_browser_page.dart';
 import 'ui/pages/gear_details/fullscreen_photos_page.dart';
 import 'ui/pages/gear_details/gear_details_page.dart';
 import 'ui/pages/gear_details/gear_edit_page.dart';
+import 'ui/pages/gear_details/gear_history_page.dart';
 import 'ui/pages/home/home_page.dart';
 import 'ui/pages/hours/hours_edit_page.dart';
 import 'ui/pages/rental/rental_page.dart';
@@ -41,6 +42,11 @@ final router = GoRouter(
       path: '/gear/:clubId',
       builder: (context, state) =>
           GearDetailsPage(clubId: state.pathParameters['clubId']!),
+    ),
+    GoRoute(
+      path: '/gear/:clubId/history',
+      builder: (context, state) =>
+          GearHistoryPage(clubId: state.pathParameters['clubId']!),
     ),
     GoRoute(
       path: '/gear/:clubId/photos',

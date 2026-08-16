@@ -60,6 +60,12 @@ class GearDetailsPage extends StatelessWidget {
             ),
           IconButton(
             onPressed: gear != null
+                ? () => context.push('/gear/$clubId/history')
+                : null,
+            icon: Icon(Icons.history),
+          ),
+          IconButton(
+            onPressed: gear != null
                 ? () async {
                     final newState = !isFavourite;
                     await client.user.updateGearFavourite(gear, newState);
