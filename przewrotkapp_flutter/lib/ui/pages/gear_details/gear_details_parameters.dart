@@ -18,6 +18,18 @@ class GearDetailsParameters extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if (gear.archived)
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              "⚠ARCHIWIZOWANY⚠\n"
+              "Ten sprzęt został sprzedany, rozwalony, albo coś. "
+              "W każdym razie nie ma go już w klubie i nie da sie go wypożyczyć.\n"
+              "Zostały tylko wspomnienia 😢",
+              style: tt.bodyLarge,
+              textAlign: TextAlign.center,
+            ),
+          ),
         Text(gear.displayName, style: tt.headlineMedium),
         Divider(),
         for (final info in extra.extraHumanInfo)

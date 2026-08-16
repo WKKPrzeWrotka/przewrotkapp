@@ -392,6 +392,13 @@ class Protocol extends _i1.SerializationManagerServer {
           isNullable: true,
           dartType: 'Uri?',
         ),
+        _i2.ColumnDefinition(
+          name: 'archived',
+          columnType: _i2.ColumnType.boolean,
+          isNullable: false,
+          dartType: 'bool',
+          columnDefault: 'false',
+        ),
       ],
       foreignKeys: [],
       indexes: [
