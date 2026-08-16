@@ -15,8 +15,9 @@ List<GearPair> searchGear(List<GearPair> gear, GearSearchParams params) {
         // Search text check
         if (text.isNotEmpty) {
           final fullDescText =
-              (gear.fullName +
-                      g.gearExtra.extraHumanInfo.map((e) => e.value).join(" "))
+              "${gear.fullName} "
+                      "${g.gearExtra.extraHumanInfo.map((e) => e.value).join(" ")} "
+                      "${g.gear.archived ? "archiwum" : ""}"
                   .toLowerCase();
           for (final word in text.split(' ')) {
             if (!fullDescText.contains(word)) return false;
@@ -30,6 +31,13 @@ List<GearPair> searchGear(List<GearPair> gear, GearSearchParams params) {
 
 List<GearPair> sortGear(List<GearPair> gear, Iterable<int> favouritesIds) {
   return gear..sort((a, b) {
+    final archived = switch ((a.gear.archived, b.gear.archived)) {
+      (true, true) => 0,
+      (false, false) => 0,
+      (true, false) => 1,
+      (false, true) => -1,
+    };
+    if (archived != 0) return archived;
     final aFav = favouritesIds.contains(a.gear.id);
     final bFav = favouritesIds.contains(b.gear.id);
     final favCmp = switch ((aFav, bFav)) {

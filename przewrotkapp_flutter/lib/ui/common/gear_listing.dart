@@ -21,6 +21,8 @@ class GearListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = Theme.of(context);
+    final tt = t.textTheme;
     final isFavourite =
         context.watch<UserFavourites?>()?.gearIds.contains(gearPair.gear.id) ??
         false;
@@ -38,12 +40,20 @@ class GearListing extends StatelessWidget {
             child: GearThumbnail(gearPair: gearPair),
           ),
         ),
-        title: Text(gearPair.gear.displayName),
+        title: Text(
+          gearPair.gear.displayName,
+          style: gearPair.gear.archived
+              ? (t.listTileTheme.titleTextStyle ?? tt.bodyLarge)?.copyWith(
+                  decoration: TextDecoration.lineThrough,
+                )
+              : null,
+        ),
         subtitle: extraStr.isNotEmpty ? Text(extraStr) : null,
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
+              "${gearPair.gear.archived ? "🗃️ " : ""}"
               "${isFavourite ? "❤️ " : ""}${gearPair.gear.clubId}",
               style: Theme.of(context).textTheme.bodyMedium,
             ),

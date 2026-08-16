@@ -35,6 +35,11 @@ class _RentalPageState extends State<RentalPage> {
   var selectedDates = <DateTime>[];
   var params = GearSearchParams.mainDefault;
   final cart = <GearPair>[];
+  // WARNING/NOTE: Problem with this shopping cart is that objects inside
+  // it don't update when allGearCache updates...
+  // How big of a problem is it? Not tragic to be honest.
+  // Solution would probably some HashMap fuckery with rented id's instead
+  // of whole objects.
   final shoppingCart = <GearPair>{};
 
   DateTimeRange? get range => selectedDates.isNotEmpty
@@ -69,7 +74,10 @@ class _RentalPageState extends State<RentalPage> {
     );
     final favs = context.watch<UserFavourites?>()?.gearIds;
     final filteredGear = sortGear(
-      searchGear(allGear ?? [], params),
+      searchGear(
+        allGear?.where((g) => !g.gear.archived).toList() ?? [],
+        params,
+      ),
       favs ?? [],
     );
     final otherRentals = context.watch<FutureRentals?>();

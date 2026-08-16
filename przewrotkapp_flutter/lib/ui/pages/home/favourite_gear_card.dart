@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:przewrotkapp_client/przewrotkapp_client.dart';
 
 import '../../../logic/data_types.dart';
+import '../../../logic/gear_search.dart';
 import '../../common/gear_listing.dart';
 import '../../common/long_list_small_frame.dart';
 
@@ -22,7 +23,10 @@ class _FavouriteGearCardState extends State<FavouriteGearCard> {
     final gear = context.watch<AllGearCache?>();
     final favs = context.watch<UserFavourites?>();
     final favGear = (gear != null && favs != null)
-        ? gear.where((g) => favs.gearIds.contains(g.gear.id))
+        ? sortGear(
+            gear.where((g) => favs.gearIds.contains(g.gear.id)).toList(),
+            [], // not needed here since they all are
+          )
         : <GearPair>[];
     return Card(
       child: Padding(
