@@ -28,7 +28,8 @@ abstract class Gear implements _i1.SerializableModel {
     this.junctions,
     this.favouritesJunctions,
     this.comments,
-  });
+    bool? archived,
+  }) : archived = archived ?? false;
 
   factory Gear({
     int? id,
@@ -42,6 +43,7 @@ abstract class Gear implements _i1.SerializableModel {
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
     List<_i5.Comment>? comments,
+    bool? archived,
   }) = _GearImpl;
 
   factory Gear.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -68,6 +70,7 @@ abstract class Gear implements _i1.SerializableModel {
       comments: (jsonSerialization['comments'] as List?)
           ?.map((e) => _i5.Comment.fromJson((e as Map<String, dynamic>)))
           .toList(),
+      archived: jsonSerialization['archived'] as bool,
     );
   }
 
@@ -96,6 +99,9 @@ abstract class Gear implements _i1.SerializableModel {
 
   List<_i5.Comment>? comments;
 
+  /// Whether gear is no longer in the club, or available for rent in general
+  bool archived;
+
   /// Returns a shallow copy of this [Gear]
   /// with some or all fields replaced by the given arguments.
   @_i1.useResult
@@ -111,6 +117,7 @@ abstract class Gear implements _i1.SerializableModel {
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
     List<_i5.Comment>? comments,
+    bool? archived,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -131,6 +138,7 @@ abstract class Gear implements _i1.SerializableModel {
             favouritesJunctions?.toJson(valueToJson: (v) => v.toJson()),
       if (comments != null)
         'comments': comments?.toJson(valueToJson: (v) => v.toJson()),
+      'archived': archived,
     };
   }
 
@@ -155,6 +163,7 @@ class _GearImpl extends Gear {
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
     List<_i5.Comment>? comments,
+    bool? archived,
   }) : super._(
           id: id,
           clubId: clubId,
@@ -167,6 +176,7 @@ class _GearImpl extends Gear {
           junctions: junctions,
           favouritesJunctions: favouritesJunctions,
           comments: comments,
+          archived: archived,
         );
 
   /// Returns a shallow copy of this [Gear]
@@ -185,6 +195,7 @@ class _GearImpl extends Gear {
     Object? junctions = _Undefined,
     Object? favouritesJunctions = _Undefined,
     Object? comments = _Undefined,
+    bool? archived,
   }) {
     return Gear(
       id: id is int? ? id : this.id,
@@ -206,6 +217,7 @@ class _GearImpl extends Gear {
       comments: comments is List<_i5.Comment>?
           ? comments
           : this.comments?.map((e0) => e0.copyWith()).toList(),
+      archived: archived ?? this.archived,
     );
   }
 }

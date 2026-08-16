@@ -30,7 +30,8 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     this.junctions,
     this.favouritesJunctions,
     this.comments,
-  });
+    bool? archived,
+  }) : archived = archived ?? false;
 
   factory Gear({
     int? id,
@@ -44,6 +45,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
     List<_i5.Comment>? comments,
+    bool? archived,
   }) = _GearImpl;
 
   factory Gear.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -70,6 +72,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
       comments: (jsonSerialization['comments'] as List?)
           ?.map((e) => _i5.Comment.fromJson((e as Map<String, dynamic>)))
           .toList(),
+      archived: jsonSerialization['archived'] as bool,
     );
   }
 
@@ -100,6 +103,9 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
 
   List<_i5.Comment>? comments;
 
+  /// Whether gear is no longer in the club, or available for rent in general
+  bool archived;
+
   @override
   _i1.Table<int?> get table => t;
 
@@ -118,6 +124,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
     List<_i5.Comment>? comments,
+    bool? archived,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -138,6 +145,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
             favouritesJunctions?.toJson(valueToJson: (v) => v.toJson()),
       if (comments != null)
         'comments': comments?.toJson(valueToJson: (v) => v.toJson()),
+      'archived': archived,
     };
   }
 
@@ -161,6 +169,7 @@ abstract class Gear implements _i1.TableRow<int?>, _i1.ProtocolSerialization {
             valueToJson: (v) => v.toJsonForProtocol()),
       if (comments != null)
         'comments': comments?.toJson(valueToJson: (v) => v.toJsonForProtocol()),
+      'archived': archived,
     };
   }
 
@@ -217,6 +226,7 @@ class _GearImpl extends Gear {
     List<_i3.RentalJunction>? junctions,
     List<_i4.FavouritesJunction>? favouritesJunctions,
     List<_i5.Comment>? comments,
+    bool? archived,
   }) : super._(
           id: id,
           clubId: clubId,
@@ -229,6 +239,7 @@ class _GearImpl extends Gear {
           junctions: junctions,
           favouritesJunctions: favouritesJunctions,
           comments: comments,
+          archived: archived,
         );
 
   /// Returns a shallow copy of this [Gear]
@@ -247,6 +258,7 @@ class _GearImpl extends Gear {
     Object? junctions = _Undefined,
     Object? favouritesJunctions = _Undefined,
     Object? comments = _Undefined,
+    bool? archived,
   }) {
     return Gear(
       id: id is int? ? id : this.id,
@@ -268,6 +280,7 @@ class _GearImpl extends Gear {
       comments: comments is List<_i5.Comment>?
           ? comments
           : this.comments?.map((e0) => e0.copyWith()).toList(),
+      archived: archived ?? this.archived,
     );
   }
 }
@@ -303,6 +316,11 @@ class GearTable extends _i1.Table<int?> {
       'thumbnailUrl',
       this,
     );
+    archived = _i1.ColumnBool(
+      'archived',
+      this,
+      hasDefault: true,
+    );
   }
 
   late final _i1.ColumnString clubId;
@@ -330,6 +348,9 @@ class GearTable extends _i1.Table<int?> {
   _i5.CommentTable? ___comments;
 
   _i1.ManyRelation<_i5.CommentTable>? _comments;
+
+  /// Whether gear is no longer in the club, or available for rent in general
+  late final _i1.ColumnBool archived;
 
   _i3.RentalJunctionTable get __junctions {
     if (___junctions != null) return ___junctions!;
@@ -434,6 +455,7 @@ class GearTable extends _i1.Table<int?> {
         friendlyName,
         photoUrls,
         thumbnailUrl,
+        archived,
       ];
 
   @override
