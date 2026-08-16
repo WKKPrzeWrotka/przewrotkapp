@@ -56,7 +56,7 @@ class EverythingProvider extends StatelessWidget {
 class _UserDependentProvider extends StatelessWidget {
   final Widget child;
 
-  const _UserDependentProvider({super.key, required this.child});
+  const _UserDependentProvider({required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -142,6 +142,7 @@ class _UserDependentProvider extends StatelessWidget {
             // should i await dc too?
             if (rentals == null || dcEvents == null) return null;
             final dcEventsCopy = dcEvents.toList();
+
             return rentals
                 .groupListsBy(
                   (r) => DateTimeRange(
@@ -150,18 +151,18 @@ class _UserDependentProvider extends StatelessWidget {
                   ).withDefaultRentalTimes(),
                 )
                 .entries
-                .map((e) {
+                .map((rentalEvent) {
                   final dcEvent = dcEvents.firstWhereOrNull(
                     (dcEv) => DateTimeRange(
                       start: dcEv.from,
                       end: dcEv.to,
-                    ).withDefaultRentalTimes().isSameDayRange(e.key),
+                    ).withDefaultRentalTimes().isSameDayRange(rentalEvent.key),
                   );
                   dcEventsCopy.remove(dcEvent);
                   return RentalGroup(
                     name: dcEvent?.name,
-                    range: e.key,
-                    rentals: e.value,
+                    range: rentalEvent.key,
+                    rentals: rentalEvent.value,
                   );
                 })
                 .toList() // this is important because or .remove() above

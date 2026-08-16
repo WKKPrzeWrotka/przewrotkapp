@@ -14,11 +14,27 @@ class UpcomingTripsCard extends StatefulWidget {
 }
 
 class _UpcomingTripsCardState extends State<UpcomingTripsCard> {
+  final foreverRentedDays = 30 * 12;
+  final maxStartDateDifference = 3;
+
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     final tt = t.textTheme;
-    final rentGroups = context.watch<FutureRentalGroups?>();
+
+    final rentGroups = context.watch<FutureRentalGroups?>()?.where((event) {
+      final isForeverRental = event.range.duration.inDays >= foreverRentedDays;
+
+      final differenceForEvent = DateTime.now().difference(event.range.start);
+
+      final isEventJoinable =
+          differenceForEvent.isNegative || // Future event (now < eventDate)
+          differenceForEvent.inDays <
+              maxStartDateDifference; // Started less than 3 days ago
+
+      return !isForeverRental && isEventJoinable;
+    });
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(6.0),
